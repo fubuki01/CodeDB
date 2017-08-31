@@ -1,0 +1,116 @@
+{#老师或者助教发布作业#}
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html" charset="UTF-8 ">
+
+    <title>发布作业任务</title>
+    <link rel="stylesheet" type="text/css" href="/static/WorkManage/css/TeacherPublishHomeWork.css"/>
+    <script type="text/javascript" src="/static/WorkManage/js/TeacherPublishHomeWork.js"></script>
+</head>
+<script type="text/javascript">
+    //页面刚加载的时候判断作业名称是否为空值 如果不为空不让修改作业名称
+    window.onload = function () {
+        homework_name = document.getElementById('homework_name')
+
+        if (homework_name.value != '') {
+            homework_name.setAttribute('readonly', true)
+        }
+        var flag = {{judg_flag|safe}}
+        if (flag == 1){
+            alert("作业名称重复，发布失败！")
+        }
+
+    }
+</script>
+
+<body>
+
+{#欢迎进入此界面#}
+<div class="welcome">
+    <h1>{{name}}助教，欢迎发布作业</h1>
+    <a href="/WorkManage/Main" class="a_main">主页</a>
+</div>
+
+{#输入作业名称 发布作业#}
+<div class="publish_homework">
+    <form action="/WorkManage/TeacherPublishHomeWorkServer/" method="POST" id="publish_homework" name="publish_homework"
+          onsubmit="return submitclick();">
+        {% csrf_token %}
+        <label>输入作业名称：</label><input type="text" id="homework_name" name="homework_name" class="homework"
+                      value="{{ homework_name_old }}"></br>
+        <label>作业发布时间：</label><input type="datetime-local" id="homework_publish_start_time" name="homework_publish_start_time" class="homework"
+                      value="{{ homework_start_time }}"></br>
+        <label>作业截止时间：</label><input type="datetime-local" id="homework_publish_end_time" name="homework_publish_end_time" class="homework"
+                      value="{{ homework_end_time }}"></br>
+                     {#   标志位 判断是修改的还是 要发布的   #}
+                      <input type="text" style="display: none" name="flag" value="{{ flag }}">
+        <input type="submit" id="submit" value="发布" class="submit">
+
+    </form>
+</div>
+
+
+{#显示并管理每次发布的作业#}
+<div class="manage_posted_homework">
+    <div class="manage_posted_homework_head">
+        <h2>已发布的作业</h2>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>作业名称</th>
+            <th> 作业发布时间</th>
+            <th>作业截止时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for homework in list %}
+            <tr>
+                <td>{{ homework.home_work_name }}</td>
+                <td>{{ homework.start_time }}</td>
+                <td>{{ homework.end_time }}</td>
+                <td>
+
+                    <button id="rest_post" class="rest_post" name="rest_post" onclick="delect_homework(this.value);"
+                            value="{{ homework.class_name }}@{{ homework.home_work_name }}">删除
+                    </button>
+                    <button id="modify_post" class="modify_post" name="modify_post"
+                            onclick="modify_homework(this.value);"
+                            value="{{ homework.class_name }}@{{ homework.home_work_name }}">修改
+                    </button>
+                </td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+
+
+    </table>
+</div>
+
+<!--底部友情链接-->
+<div class="decoration"></div>
+<div class="footer">
+
+    	<div class="socials">
+            <a href="https://pt.hnu.edu.cn/zfca/login"  target="blank"   title="这是湖大校内个人信息门户的友情链接">
+            	<span class="btn1 btn-radius-small mainlink">H</span>
+            </a>
+            <a href="http://kczx.hnu.cn/G2S/ShowSystem/Index.aspx"  target="blank"  title="这是课程中心的友情链接">
+            	<span class="btn1 btn-radius-small mainlink">N</span>
+            </a>
+            <a href="/index/logout" title="用户登出">
+            	<span class="btn1 btn-radius-small mainlink">U</span>
+            </a>
+        </div>
+        <div class="clear"></div>
+        <p class="copyright">
+        	COPYRIGHT 2017<br>
+            HNU.LAB
+        </p>
+
+</div>
+</body>
+</html>

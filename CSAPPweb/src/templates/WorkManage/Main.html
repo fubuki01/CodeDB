@@ -1,0 +1,32 @@
+{% extends "MainPage/basepage.html" %}
+
+{% block head %}
+<title>作业管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link href="/static/WorkManage/css/style_btn.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/static/WorkManage/js/Main.js"></script>
+{% endblock head %}
+
+{% block body%}
+
+
+<div class="float-center">
+    <div class="landing-navigation float-center-child">
+        <a href="/WorkManage/TeacherPublishHomeWork/" title="这是助教发布作业模块"
+           onclick="return publish_home_work(this.name);" name="{{user_permission}}">
+            <span class="btn1 btn-radius mainlink">作业发布</span>
+        </a>
+        <a href="/WorkManage/ManageHomeWork/" title="这是助教和老师管理作业模块" onclick="return manage_home_work(this.name);" name="{{user_permission}}">
+            <span class="btn1 btn-radius mainlink">助教作业管理</span>
+        </a>
+        <a href="/WorkManage/StudentMangeHomeWork/" title="这是学生管理自己作业模块"
+           onclick="return student_manage_home_work(this.name);" name="{{user_permission}}">
+            <span class="btn1 btn-radius mainlink">学生作业管理</span>
+        </a>
+
+
+    </div>
+</div>
+
+
+{% endblock body %}

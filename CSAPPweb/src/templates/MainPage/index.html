@@ -17,9 +17,10 @@
 
 <title>首页</title>
 
-<link href="/static/MainPage/styles/style.css"     		rel="stylesheet" type="text/css">
-<link href="/static/MainPage/styles/framework.css" 		rel="stylesheet" type="text/css">
-<link href="/static/MainPage/styles/style_btn.css" rel="stylesheet" type="text/css">
+<link href="/static/MainPage/styles/style.css" 	rel="stylesheet" 	type="text/css">
+<link href="/static/MainPage/styles/framework.css" 	rel="stylesheet" 	type="text/css">
+<link href="/static/MainPage/styles/style_btn.css" 	rel="stylesheet" 	type="text/css">
+<link href="/static/ClassSchedule/style.css" 	rel="stylesheet" 	type="text/css">
 
 <script type="text/javascript" src="/static/MainPage/scripts/jquery.js"></script>
 <script type="text/javascript" src="/static/MainPage/scripts/jqueryui.js"></script>
@@ -31,7 +32,8 @@
 <script type="text/javascript" src="/static/MainPage/scripts/custom.js"></script>
 <script type="text/javascript" src="/static/MainPage/scripts/framework.js"></script>
 <script type="text/javascript" src="/static/MainPage/scripts/framework.launcher.js"></script>
-
+<script type="text/javascript" src="/static/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/static/MainPage/scripts/push.js"></script>
 
 </head>
 <body style=" xoverflow : hidden;  ">
@@ -56,7 +58,7 @@
       
 	<div class="float-center">
 	    <div class="landing-navigation float-center-child">
-	    	<a href="#" title="这是老师发布作业和检查作业，学生提交作业的模块">
+	    	<a href="/WorkManage/Main" title="这是老师发布作业和检查作业，学生提交作业的模块">
 	        	<span class="btn1 btn-radius mainlink">作业管理</span>
 	        </a>
 	    	<a href="#"title="这是助教和老师在讨论课和实验课打分的模块">
@@ -106,6 +108,12 @@
 <div style="height:28px;"></div>
 <div class="bottom-deco"></div>
 
-
+<div id="gray-canvas" class="gray-canvas"  style="display:none;"></div>
+<div id="dialog" class="dialog"  style="display:none;">
+	<div id="class-push" class="class" >
+		<h1></h1>
+		<ul></ul>
+	</div>
+</div>
 </body>
 </html>

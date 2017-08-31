@@ -1,0 +1,255 @@
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>作业管理</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="/static/WorkManage/css/ManageHomeWork.css">
+    <script type="text/javascript" src="/static/WorkManage/js/ManageHomeWork.js"></script>
+    {#  只能写在这里 分开写没有效果  #}
+    <script type="text/javascript">
+        {#  班级和班级对应作业下拉选择框 #}
+        function select_class_name(info) {
+            if (info == '3') {
+                var Dict ={{ Dict|safe }}
+                //1 获得作业的select对象
+                var class_name = document.getElementById("class_name");
+                var homework_name = document.getElementById("homework_name");
+                //2 清空作业名称下拉选的数据
+                homework_name.length = 1; //清除以前的作业名称的信息
+                //3 获得用户选择班级
+                if (!class_name.selectedIndex) {
+                    //用户选择的是提示选项=>什么也不做
+                    return;
+                }
+                var options = class_name.options;
+                //class_name.selectedIndex被选中班级的索引innerHTML获取里面班级的内容
+                var pName = options[class_name.selectedIndex].innerHTML;
+                //4 从Dict中根据班级获得班级下的市数据
+                var homework_names = Dict[pName];
+                //5 遍历作业的数组 for in循环只能遍历键
+                for (var i = 0; i < homework_names.length; i++) {
+                    var homework = homework_names[i];
+                    //创建市的option
+                    var option = document.createElement("option");
+                    option.innerHTML = homework;
+                    // 将option添加到select中
+                    homework_name.appendChild(option);
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+{#欢迎助教或老师访问#}
+<div class="welcome_head">
+    <h1 name="welcom_tilt" id="welcom_tilt">{{name}}助教/老师，欢迎管理作业！</h1>
+    <a href="/WorkManage/Main" class="a_main">主页</a>
+</div>
+
+
+{#选择对应的班级和班级对应的作业#}
+<!-- onload一进入页面就加载调用 -->
+<div class="select_class_homework">
+    <!-- onchang当选择班级的时候 显示对应的作业名称-->
+    {#{{ permisssion }}@{{ teacher_class_homework_info }}#}
+    <select id="class_name" onchange="select_class_name({{ permisssion }});">
+        <option>---请选择班级---</option>
+        {#  如果是助教  #}
+        {% if permisssion == 2 %}
+            <option>{{ class }}</option>
+        {% endif %}
+
+        {#  如果是老师  #}
+        {% if permisssion == 3 %}
+            {% for key in teacher_class_homework_info.keys %}
+                <option>{{ key }}</option>
+            {% endfor %}
+        {% endif %}
+
+    </select>
+    <select id="homework_name">
+        <option>---请选择作业---</option>
+        {% if permisssion == 2 %}
+            {% for homework in homeworks %}
+                <option>{{ homework.home_work_name }}</option>
+            {% endfor %}
+        {% endif %}
+    </select>
+    <button id="select_ok" name="select_ok" onclick="return select_class_and_homework();">确定</button>
+
+    {#  显示对应班级总人数  #}
+    <div class="class_student_total">
+        <h3 class="banji">班级:</h3>
+        <h3 class="class_select_name">{{ classname }}</h3>
+        <h3 class="total_number">总人数:</h3>
+        <h3 class="show_class_student_total">{{ number }}人</h3>
+    </div>
+</div>
+
+{#正常提交的作业#}
+<div class="posted">
+    {#  标题头设置  #}
+    <div class="posted_head">
+        <h2>已提交的作业({{ posted_number }}人)</h2>
+        {#    对应操作按钮设置    #}
+        <div class="operation_buttons_posted">
+            <button name="dowmload_posted" id="download_posted" value="{{ work_name }}" onclick="down_student_homework_posted(this.value);">下载</button>
+            <button name="withdraw_work_posted" id="withdraw_work_posted" value="{{ work_name }}@{{ classname }}" onclick="withdraw_posted(this.value);">退回重做</button>
+            <button name="writ_home_work_posted" id="writ_home_work_posted"  onclick="writscore_posted();">批改</button>
+            <button name="release_scores_posted" id="release_scores_posted" value="{{ work_name }}@{{ classname }}" onclick="release_posted_score(this.value);">发布成绩</button>
+        </div>
+    </div>
+
+    <div class="posted_body">
+        <table>
+            <thead>
+            <tr>
+                <th class="th1">
+                    <input type="checkbox" id="select_state_postde" name="select_state_postde"
+                           class="select_state_postde" onclick="posted_zhuan(this.checked)">
+                </th>
+                <th>姓名</th>
+                <th>学号</th>
+                <!--<th>班级</th>-->
+                <th>作业名称</th>
+                <th>提交日期</th>
+                <th>成绩</th>
+            </tr>
+            </thead>
+            {#  已提交作业列表体 #}
+            <tbody class="tabody">
+            {% for post in posted %}
+                <tr>
+                <td><input type="checkbox" id="{{ post.user_number }}" name="select_state_postde" class="select_state_postde"></td>
+                <td>{{ post.user_name }}</td>
+                <td>{{ post.user_number }}</td>
+                <!--<td>{{ post.user_class }}</td>-->
+                <td>{{ post.home_work_name }}</td>
+                <td>{{ post.post_time }}</td>
+                <td style="width:15%; display: none" name="writ_score_posted"><input type="text" name="posted_score" id="{{ post.user_number }}" value="{{ post.homework_score }}" class="writ_score"></td>
+                <td style="width: 15%" name="display_score_posted">{{ post.homework_score }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+{#迟交的作业#}
+<div class="delayed">
+    <div class="delayed_head">
+        <h2>迟交的作业({{ delayed_number }}人)</h2>
+        {#    对应操作按钮设置    #}
+        <div class="operation_buttons_delayed">
+            <button name="dowmload_delayed" id="download_delayed" value="{{ work_name }}" onclick="down_student_homework_delayed(this.value)">下载</button>
+            <button name="withdraw_work_delayed" id="withdraw_work_delayed" value="{{ work_name }}@{{ classname }}" onclick="withdraw_delayed(this.value);">退回重做</button>
+            <button name="writ_home_work_delayed" id="writ_home_work_delayed"  onclick="writescore_delayed();">批改</button>
+            <button name="release_scores_delayed" id="release_scores_delayed" value="{{ work_name }}@{{ classname }}" onclick="release_delayed_score(this.value);">发布成绩</button>
+        </div>
+    </div>
+
+    {#   迟交作业列表 #}
+    <div class="delayed_body">
+        <table>
+            <thead>
+            <tr>
+                <th class="th1">
+                    <input type="checkbox" id="select_state_delayed" name="select_state_delayed"
+                           class="select_state_delayed"onclick="delayedzhuang(this.checked);">
+                </th>
+                <th>姓名</th>
+                <th>学号</th>
+                <!--<th>班级</th>-->
+                <th>作业名称</th>
+                <th>提交日期</th>
+                <th>成绩</th>
+            </tr>
+            </thead>
+
+            {# 迟交作业列表体 #}
+            <tbody class="tabody">
+            {% for delay in delayed %}
+                <tr>
+                <td><input type="checkbox" id="{{ delay.user_number }}" name="select_state_delayed" class="select_state_postde"></td>
+                <td>{{ delay.user_name }}</td>
+                <td>{{ delay.user_number }}</td>
+                <!--<td>{{ delay.user_class }}</td>-->
+                <td>{{ delay.home_work_name }}</td>
+                <td>{{ delay.post_time }}</td>
+                <td style="width:15%; display: none" name="writ_score_delay"><input type="text" name="delay_score" id="{{ delay.user_number }}" value="{{ delay.homework_score }}" class="writ_score"></td>
+                <td style="width: 15%" name="display_score_delay">{{ delay.homework_score }}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{#未提交的作业#}
+<div class="unposted">
+    <div class="unposted_head">
+        <h2>未提交的作业({{ unposted_number }}人)</h2>
+    </div>
+
+    {#   未提交作业列表 #}
+    <div class="unposted_body">
+        <table>
+            <thead>
+            <tr>
+                <th>姓名</th>
+                <th>学号</th>
+                <th>班级</th>
+                <th>作业名称</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+
+            {# 未提交作业列表体 #}
+            <tbody class="tabody">
+            {% for unpost in unposted %}
+                <tr>
+                <td>{{ unpost.user_name }}</td>
+                <td>{{ unpost.user_number }}</td>
+                <td>{{ unpost.user_class }}</td>
+                <td>{{ unpost.home_work_name }}</td>
+                {% ifequal unpost.post_state "被催交" %}
+                    <td><button id="{{ unpost.user_number }}"class="urge_home_work" disabled="disabled">已催交</button></td>
+                {% else %}
+                     <td><button id="{{ unpost.user_number }}"class="urge_home_work" value="{{ work_name }}@{{ unpost.user_number }}" onclick="urge_click(this.value);">催交</button></td>
+                {% endifequal %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!--底部友情链接-->
+<div class="decoration"></div>
+<div class="footer">
+
+    	<div class="socials">
+            <a href="https://pt.hnu.edu.cn/zfca/login"  target="blank"   title="这是湖大校内个人信息门户的友情链接">
+            	<span class="btn1 btn-radius-small mainlink">H</span>
+            </a>
+            <a href="http://kczx.hnu.cn/G2S/ShowSystem/Index.aspx"  target="blank"  title="这是课程中心的友情链接">
+            	<span class="btn1 btn-radius-small mainlink">N</span>
+            </a>
+            <a href="/index/logout" title="用户登出">
+            	<span class="btn1 btn-radius-small mainlink">U</span>
+            </a>
+        </div>
+        <div class="clear"></div>
+        <p class="copyright">
+        	COPYRIGHT 2017<br>
+            HNU.LAB
+        </p>
+
+</div>
+</body>
+</html>

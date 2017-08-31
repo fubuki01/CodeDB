@@ -27,7 +27,7 @@ def ajaxQuery(request):
                 if (getter=='all'  or getter==request.session.get("student_class_name",-1)\
                     or getter==request.session.get("uid",-1) or (getter in (request.session.get("teacher_class_name",[]))))\
                         and message["is_valid"] :
-                    data[i]=message["publish_date"]+":"+message["message_content"]
+                    data[i]=message["publish_date"]+"#"+getter+"@"+message["message_content"]
                     i+=1
                     
         elif request.session.get("permission",-1)==3 :
@@ -121,6 +121,7 @@ def ajaxPublish(request):
             for tmp_class in class_collection:
                 Messages(timeStamp=currenttime, publish_date=date, publisher=uid,\
                     message_to=tmp_class, message_type=opt, message_content=content,is_valid=True).save()
+                currenttime=time.time()
                 
         elif opt_class=="all(上大班课的所有班)"  and permission==3:
             Messages(timeStamp=currenttime, publish_date=date, publisher=uid,\

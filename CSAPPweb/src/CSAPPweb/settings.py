@@ -28,7 +28,7 @@ SECRET_KEY = 'p1^n#5c47sur(t1xgv-7#9%#h0@pbrlho&!^r18r5d=0nv8nas'
 DEBUG = True
 
 #python manage.py runserver 0.0.0.0:8000
-ALLOWED_HOSTS = ["192.168.191.1","127.0.0.1"]#"127.0.0.1:8000","192.168.1.110"
+ALLOWED_HOSTS = ["10.0.0.27","127.0.0.1"]
 
 
 # Application definition
@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'MainPage',
     'ClassSchedule',
+    'WorkManage',
+    'Csapphnu',
+    'SystemManagementFun',
 ]
 
 MIDDLEWARE = [

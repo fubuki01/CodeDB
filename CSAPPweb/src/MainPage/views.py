@@ -1,8 +1,11 @@
 #coding=UTF-8
 from django.http import HttpResponse
-from .models import *
+from MainPage.models import *
+from ClassSchedule.models import *
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.http import JsonResponse
+from bson import is_valid
 
 #主页
 def index(request):
@@ -52,3 +55,26 @@ def test(request):
 def logout(request):
     request.session.clear()
     return HttpResponse(render(request, "MainPage/login.html"))
+
+#主页推送
+def ajaxPush(request):
+    data={}
+    uid=request.session.get("uid",-1)
+    classname=request.session.get('student_class_name',-1)
+    
+    messages=Messages.objects( Q(message_to=uid) & Q(message_type=0) & Q(is_valid=True) ).order_by('-timeStamp')
+    for message in messages:
+        data['homework'+str(message['timeStamp'])]='<span class="highlight">'+message['publish_date']\
+            +"@"+message['message_content']+'</span>'
+    
+    messages=Messages.objects( ( Q(message_to=classname) | Q(message_to='all')) & Q(message_type=1) & Q(is_valid=True) ).order_by('-timeStamp')
+    for message in messages:
+        data['classinfo'+str(message['timeStamp'])]=message['publish_date']+"@"+message['message_content']
+    
+    if data:
+        data["haspush"]="true"
+    else :
+        data["haspush"]="false"
+        
+    print(data)
+    return JsonResponse(data)

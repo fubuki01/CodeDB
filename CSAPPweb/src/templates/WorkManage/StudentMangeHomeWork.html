@@ -1,0 +1,111 @@
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="content-type" content="text/html" charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/static/WorkManage/css/StudentMangeHomeWork.css">
+    <script type="text/javascript" src="/static/WorkManage/js/StudentMangeHomeWork.js"></script>
+    <title>作业管理</title>
+</head>
+<body>
+<div class="welcome_head">
+    <h1 name="welcom_tilt_student" id="welcom_tilt_student">
+        {{ name }}同学，欢迎来管理您的作业！
+    </h1>
+    <a href="/WorkManage/Main" class="a_main">主页</a>
+</div>
+<div class="homework_unpost">
+    <div class="unpost_head">
+        <h2>
+            待提交作业
+        </h2>
+    </div>
+    <div class="unpost_body">
+        <table>
+            <thead>
+            <tr>
+                <th>作业名称</th>
+                <th>发布日期</th>
+                <th>结束日期</th>
+                <th>提交状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for unpost_homeworks in unpost_homeworks_list %}
+                <tr class="item">
+                    <td>{{ unpost_homeworks.home_work_name }}</td>
+                    <td>{{ unpost_homeworks.home_work_start_time }}</td>
+                    <td>{{ unpost_homeworks.home_work_end_time }}</td>
+                    <td>{{ unpost_homeworks.post_state }}</td>
+                    <td>
+                        <form action="/WorkManage/UploadHomeWorkServer/" method="POST" enctype="multipart/form-data" class="file" onsubmit="return filepost();">
+                            {% csrf_token %}
+                            <input type="hidden" name="class_and_workname"
+                                   value="{{ unpost_homeworks.user_class }}@{{ unpost_homeworks.home_work_name }}">
+                            <input type="file" name="fileField" id="fileField" class="file"/></br>
+                            <input type="submit" id="submit" name="submit" value="上传"/>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="posted">
+    <div class="posted_head">
+        <h2>已提交的作业</h2>
+    </div>
+    <div class="posted_body">
+        <table>
+            <thead>
+            <tr>
+                <th class="th1">作业名称</th>
+                <th class="th2">提交日期</th>
+                <th class="th3">作业成绩</th>
+                <th class="th4">提交状态</th>
+                <th class="th5">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for posted_homeworks in posted_homeworks_list %}
+                <tr class="item">
+                    <td>{{ posted_homeworks.home_work_name }}</td>
+                    <td>{{ posted_homeworks.post_time }}</td>
+                    <td>{{ posted_homeworks.homework_score }}</td>
+                    <td>{{ posted_homeworks.post_state }}</td>
+                    <td>
+                        <button id="withdraw" name="withdraw" class="withdraw"
+                                value="{{ posted_homeworks.home_work_name }}@{{ posted_homeworks.homework_score }}" onclick="withdraw(this.value);">撤回重传
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--底部友情链接-->
+<div class="decoration"></div>
+<div class="footer">
+
+    	<div class="socials">
+            <a href="https://pt.hnu.edu.cn/zfca/login"  target="blank"   title="这是湖大校内个人信息门户的友情链接">
+            	<span class="btn1 btn-radius-small mainlink">H</span>
+            </a>
+            <a href="http://kczx.hnu.cn/G2S/ShowSystem/Index.aspx"  target="blank"  title="这是课程中心的友情链接">
+            	<span class="btn1 btn-radius-small mainlink">N</span>
+            </a>
+            <a href="/index/logout" title="用户登出">
+            	<span class="btn1 btn-radius-small mainlink">U</span>
+            </a>
+        </div>
+        <div class="clear"></div>
+        <p class="copyright">
+        	COPYRIGHT 2017<br>
+            HNU.LAB
+        </p>
+</div>
+
+</body>
+</html>

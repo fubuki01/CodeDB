@@ -75,7 +75,7 @@ $(function(){
 			else if(data.opt=='t'){
 				$.each(data,function(key,value){
 					if(key!='opt'){
-						$('#class-info ul').append($('<li>'+key+'：</li>'));
+						$('#class-info ul').append($('<li><span class="highlight">'+key+'：</span></li>'));
 						$.each(value,function(key1,value1){
 							$('#class-info ul').append($('<li>'+value1+'</li>'));
 						});

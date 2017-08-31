@@ -9,3 +9,6 @@ encoding//src/ClassSchedule/views.py=UTF-8
 encoding//src/MainPage/models.py=UTF-8
 encoding//src/MainPage/urls.py=UTF-8
 encoding//src/MainPage/views.py=UTF-8
+encoding//src/WorkManage/models.py=UTF-8
+encoding//src/WorkManage/urls.py=UTF-8
+encoding//src/WorkManage/views.py=UTF-8

@@ -1,0 +1,486 @@
+/*界面体设置*/
+body {
+    line-height: 1;
+    background: #d8d6d8 url(../img/body-bg.png);
+    /*min-width: 320px;*/
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px
+}
+
+html, body {
+    min-height: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+/*欢迎访问字体上下居中*/
+.welcome h1 {
+    padding-top: 20px;
+}
+
+/*电脑*/
+@media screen and (max-width: 5000px) and (min-width: 1000px) {
+    /*欢迎访问背景设置*/
+    .welcome {
+        font-size: 20px;
+        width: auto;
+        height: 70px;
+        padding-left: 30px;
+        color: lawngreen;
+        background-image: url(../img/welcom_titl_backgound.jpg);
+        vertical-align: middle;
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
+    /*返回主界面*/
+    .a_main {
+        color: greenyellow;
+        background-image: url(../img/homepage.png);
+        background-size: 55px 55px;
+        height: 80px;
+        width: 80px;
+        background-repeat: no-repeat;
+        position: absolute;
+        right: 0px;
+        top: 15px;
+        padding-top: 50px;
+        padding-left: 6px;
+        text-decoration: none;
+        font-weight: bold;
+        font-family: 'Dosis', sans-serif;
+    }
+
+    /*输入框长度设置*/
+    .homework {
+        width: 66%;
+    }
+
+    .publish_homework {
+        width: 30%;
+        margin: 0 auto;
+        font-size: 18px;
+    }
+
+    /*每个input之间的距离设置*/
+    .publish_homework input {
+        margin-top: 5%;
+        text-align: center;
+        font-size: 20px;
+    }
+
+    /*发布按钮居中设置*/
+    .submit {
+        margin-left: 48%;
+        text-align: center;
+        width: 100px;
+    }
+
+    /*已发布作业的标题背景设置*/
+    .manage_posted_homework_head {
+        background: url(../img/grad-overlay-s.png) #393939;
+        border-radius: 2px;
+        height: 40px;
+    }
+
+    /*标题鼠标悬浮*/
+    .manage_posted_homework_head:hover {
+        background: url(../img/grad-overlay-s.png) #444;
+    }
+
+    /*标题已发布作业字体 及位置设置*/
+    .manage_posted_homework_head h2 {
+        padding: 6px 10px;
+        color: #ddd;
+        font-size: 28px;
+        font-weight: 600;
+        text-shadow: 0 1px 0 #222;
+    }
+
+    /*已发布作业列表的宽度*/
+    table {
+        width: 100%;
+    }
+
+    /*作业名称等标题背景*/
+    table thead tr {
+        background-image: url(../img/grad-overlay.png);
+        height: 30px;
+        text-align: center;
+    }
+
+    /*作业名称等标题*/
+    table thead th {
+        border-right: 1px solid #ccc;
+        color: #292929;
+        text-shadow: 0 1px 0 #fff;
+        font-size: 23px;
+        padding-top: 4px;
+    }
+
+    /*已发布作业列表设置*/
+    table tbody tr {
+        height: 30px;
+        text-align: center;
+        background-color: #fff;
+    }
+
+    table tbody tr:hover {
+        background-color: #ddd;
+    }
+
+    /*鼠标悬浮*/
+    table tbody tr td {
+        font-size: 20px;
+        text-align: center;
+        line-height: 40px
+    }
+
+    /*删除作业按钮设置*/
+    .rest_post {
+        font-size: 20px;
+        /*!*去掉底部下划线*!*/
+        /*text-decoration: none;*/
+        border: 1px solid red;
+        color: gray;
+    }
+
+    .rest_post:hover {
+        background-color: #d9edf7;
+    }
+
+    .modify_post {
+        font-size: 20px;
+        border: 1px solid red;
+        color: gray;
+    }
+
+    .modify_post:hover {
+        background-color: #d9edf7;
+    }
+
+    /*底部友情链接*/
+    .footer {
+        text-align: center;
+    }
+
+    .decoration {
+        margin-bottom: 50px;
+        margin-left: 20px;
+        margin-right: 20px;
+        display: block;
+        clear: both;
+
+    }
+
+    .socials {
+        width: 150px;
+        height: 45px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .btn1 {
+        float: left;
+        position: relative;
+        top: 0;
+        cursor: pointer;
+        background: white;
+        margin: 0 0 7px 12px;
+        color: #888;
+        text-align: center;
+        user-select: none;
+        transition: all 0.2s ease;
+    }
+
+    .btn-radius-small {
+        line-height: 32px;
+        width: 30px;
+        height: 30px;
+        font-size: 130%;
+        border-radius: 100%;
+        margin: 10px;
+    }
+
+    .mainlink {
+        background: #3f3f3f;
+        color: greenyellow;
+    }
+
+    .mainlink:hover {
+        background: #3f3f3f;
+        color: red;
+    }
+
+    .mainlink:active {
+        box-shadow: 0px 0px #717a33;
+        top: 4px;
+    }
+
+    .copyright {
+        margin-bottom: 20px;
+    }
+}
+
+/*手机*/
+@media screen and (max-width: 1000px) {
+    .welcome {
+        font-size: 30px;
+        width: auto;
+        height: 100px;
+        padding-left: 30px;
+        color: greenyellow;
+        background-image: url(../img/welcom_titl_backgound.jpg);
+        vertical-align: middle;
+        margin-bottom: 30px;
+    }
+
+    /*返回主界面*/
+    .a_main {
+        color: greenyellow;
+        background-image: url(../img/homepage.png);
+        background-size: 72px 72px;
+        height: 100px;
+        width: 100px;
+        background-repeat: no-repeat;
+        position: absolute;
+        right: 0px;
+        top: 15px;
+        padding-top: 75px;
+        padding-left: 10px;
+        text-decoration: none;
+        font-weight: bold;
+        font-family: 'Dosis', sans-serif;
+    }
+
+    /*输入框长度设置*/
+    .homework {
+        width: 50%;
+        height: 60px;
+
+    }
+
+    input {
+        vertical-align: middle;
+        font-size: 35px;
+        text-align: center;
+    }
+
+    label {
+        display: inline-block;
+        padding: 0 10px;
+        vertical-align: bottom;
+    }
+
+    .publish_homework {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 60px;
+        color: #1f1f1f;
+    }
+
+    /*每个input之间的距离设置*/
+    .publish_homework input {
+        margin-top: 8%;
+        text-align: center;
+    }
+
+    /*发布按钮居中设置*/
+    .submit {
+        margin-left: 40%;
+        color: #1f1f1f;
+        width: 300px;
+        height: 80px;
+        text-align: center;
+        border: solid;
+        font-size: 50px;
+        background-color: #8c8e91;
+        font-weight: 400;
+    }
+
+    .submit:hover {
+        margin-left: 40%;
+        color: red;
+        width: 300px;
+        height: 80px;
+        font-size: 50px;
+        text-align: center;
+        border: solid;
+        font-weight: 400;
+        background-color: #33c922;
+    }
+
+    /*已发布作业*/
+    .manage_posted_homework {
+        margin-top: 100px;
+    }
+
+    /*已发布作业的标题背景设置*/
+    .manage_posted_homework_head {
+        /*background: url(../img/grad-overlay-s.png) #393939;*/
+        background-color: #4cae4c;
+        border-radius: 2px;
+        height: 80px;
+
+    }
+
+    /*标题鼠标悬浮*/
+    .manage_posted_homework_head:hover {
+        /*background: url(../img/grad-overlay-s.png) #444;*/
+        background-color: #932d23;
+    }
+
+    /*标题已发布作业字体 及位置设置*/
+    .manage_posted_homework_head h2 {
+        padding: 12px 10px;
+        /*color: #ddd;*/
+        color: black;
+        font-size: 55px;
+        font-weight: 500;
+        text-shadow: 0 1px 0 #222;
+    }
+
+    /*已发布作业列表的宽度*/
+    table {
+        width: 100%;
+    }
+
+    /*作业名称等标题背景*/
+    table thead tr {
+        background-image: url(../img/grad-overlay.png);
+        height: 70px;
+        text-align: center;
+    }
+
+    /*作业名称等标题*/
+    table thead th {
+        border-right: 1px solid #ccc;
+        /*color: #999999;*/
+        /*background-color: #00ddeb;*/
+        color: #1f1f1f;
+        text-shadow: 0 1px 0 #fff;
+        font-size: 40px;
+        padding-top: 4px;
+    }
+
+    /*已发布作业列表设置*/
+    table tbody tr {
+        height: 65px;
+        text-align: center;
+        font-weight: bold;
+        /*background-color: azure;*/
+        background-color: white;
+    }
+
+    table tbody tr:hover {
+        background-color: #cacaca;
+    }
+
+    /*鼠标悬浮*/
+    table tbody tr td {
+        font-size: 30px;
+        text-align: center;
+        line-height: 60px
+    }
+
+    /*删除作业按钮设置*/
+    .rest_post {
+        font-size: 40px;
+        /*!*去掉底部下划线*!*/
+        /*text-decoration: none;*/
+        border: 1px solid red;
+        vertical-align: middle;
+        color: black;
+    }
+
+    .rest_post:hover {
+        background-color: #d9edf7;
+    }
+
+    .modify_post {
+        vertical-align: middle;
+        font-size: 40px;
+        border: 1px solid red;
+        color: black;
+    }
+
+    .modify_post:hover {
+        background-color: #d9edf7;
+    }
+
+    /*底部友情链接*/
+    .footer {
+        text-align: center;
+    }
+
+    .decoration {
+        margin-bottom: 150px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    .socials {
+        width: 250px;
+        height: 45px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .btn1 {
+        float: left;
+        position: relative;
+        top: 0;
+        cursor: pointer;
+        background: white;
+        margin: 0 0 7px 12px;
+        color: #888;
+        text-align: center;
+        user-select: none;
+        transition: all 0.2s ease;
+    }
+
+    /*.btn-radius-small {*/
+        /*line-height: 32px;*/
+        /*width: 30px;*/
+        /*height: 30px;*/
+        /*font-size: 130%;*/
+        /*border-radius: 100%;*/
+        /*margin: 10px;*/
+    /*}  */
+    .btn-radius-small {
+        line-height: 64px;
+        width: 60px;
+        height: 60px;
+        font-size: 260%;
+        border-radius: 100%;
+        margin: 10px;
+    }
+
+    .mainlink {
+        background: #3f3f3f;
+        color: greenyellow;
+    }
+
+    .mainlink:hover {
+        background: #3f3f3f;
+        color: red;
+    }
+
+    .mainlink:active {
+        box-shadow: 0px 0px #717a33;
+        top: 4px;
+    }
+
+    .copyright {
+        text-align: center;
+        font-size: 30px;
+        margin-bottom: 20px;
+        margin-top: 50px;
+    }
+}
+
+
+
+
+

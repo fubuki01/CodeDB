@@ -1,0 +1,459 @@
+{
+	"main.html": {
+		"refer": [
+			"setting.html",
+			"HTML/manage.html"
+		],
+		"resources": [
+			"js/app.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"fonts/mui.ttf",
+			"/css/mui.min.css",
+			"images/user-photo.png",
+			"images/qihoo.png"
+		]
+	},
+	"login.html": {
+		"resources": [
+			"js/app.js",
+			"js/mui.min.js",
+			"images/sinaweibo.png",
+			"css/mui.min.css",
+			"css/style.css",
+			"images/weixin.png",
+			"images/qq.png",
+			"js/mui.enterfocus.js",
+			"fonts/mui.ttf"
+		],
+		"refer": [
+			"main.html",
+			"reg.html",
+			"HTML/main/main.html",
+			"forget_password.html",
+			"unlock.html"
+		]
+	},
+	"setting.html": {
+		"resources": [
+			"libs/easymob-webim-sdk/easemob.im-1.0.5.js",
+			"fonts/mui.ttf",
+			"libs/easymob-webim-sdk/json2.js",
+			"libs/easymob-webim-sdk/jquery-1.11.1.js",
+			"js/mui.locker.js",
+			"js/feedback.js",
+			"css/feedback-page.css",
+			"js/feedback-page.js",
+			"libs/easymob-webim-sdk/strophe-custom-2.0.0.js",
+			"js/mui.view.js",
+			"js/app.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"images/iconfont-tianjia.png"
+		],
+		"refer": []
+	},
+	"HTML/manage.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"js/app.js",
+			"js/mui.min.js"
+		],
+		"refer": []
+	},
+	"HTML/main/main.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"js/app.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"css/style.css",
+			"HTML/QRcode/QRcode.html"
+		],
+		"refer": [
+			"HTML/main/manage.html",
+			"setting.html",
+			"HTML/main/repair.html",
+			"HTML/main/check.html",
+			"HTML/main/query.html",
+			"HTML/QRcode/QRcode.html"
+		]
+	},
+	"forget_password.html": {
+		"href": "forget_password.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style.css",
+			"js/mui.min.js",
+			"js/app.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"unlock.html": {
+		"href": "unlock.html",
+		"resources": [
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/mui.locker.js",
+			"js/app.js"
+		],
+		"refer": [
+			"login.html"
+		],
+		"priority": 0
+	},
+	"reg.html": {
+		"href": "reg.html",
+		"resources": [
+			"css/mui.min.css",
+			"css/style.css",
+			"js/mui.min.js",
+			"js/app.js"
+		],
+		"refer": [],
+		"priority": 0
+	},
+	"HTML/main/manage.html": {
+		"resources": [
+			"js/app.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/style.css"
+		],
+		"refer": []
+	},
+	"HTML/main/repair.html": {
+		"resources": [
+			"js/app.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"HTML/repair/asset_repair.html",
+			"HTML/repair/report.html",
+			"HTML/repair/maintain.html",
+			"HTML/query/asset_repair_query.html"
+		],
+		"refer": [
+			"HTML/repair/asset_repair.html",
+			"HTML/repair/report.html",
+			"HTML/repair/maintain.html",
+			"HTML/query/asset_repair_query.html"
+		]
+	},
+	"HTML/main/check.html": {
+		"resources": [
+			"js/app.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"HTML/check/asset_check.html",
+			"HTML/check/img.html"
+		],
+		"refer": [
+			"HTML/check/asset_check.html",
+			"HTML/check/img.html"
+		]
+	},
+	"HTML/QRcode/QRcode.html": {
+		"resources": [
+			"HTML/main/main.html",
+			"js/app.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"HTML/repair/asset_repair.html"
+		],
+		"refer": [
+			"HTML/main/main.html",
+			"HTML/repair/asset_repair.html"
+		]
+	},
+	"HTML/main/query.html": {
+		"resources": [
+			"HTML/query/inventory_query.html",
+			"js/app.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"HTML/query/storage_query.html",
+			"HTML/query/supplies_query.html",
+			"HTML/query/asset_info_query.html"
+		],
+		"refer": [
+			"HTML/query/inventory_query.html",
+			"HTML/query/storage_query.html",
+			"HTML/query/asset_query.html",
+			"HTML/query/supplies_query.html",
+			"HTML/query/asset_info_query.html",
+			"HTML/query/asset_document_query.html"
+		]
+	},
+	"HTML/query/inventory_query.html": {
+		"resources": [
+			"HTML/main/query.html",
+			"js/app.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		],
+		"refer": [
+			"HTML/main/query.html"
+		]
+	},
+	"HTML/query/storage_query.html": {
+		"resources": [
+			"HTML/main/query.html",
+			"js/app.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"HTML/query/asset_query.html"
+		],
+		"refer": [
+			"HTML/main/query.html",
+			"login.html",
+			"HTML/query/asset_query.html"
+		]
+	},
+	"HTML/query/asset_query.html": {
+		"resources": [
+			"HTML/query/storage_query.html",
+			"js/app.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"HTML/query/asset_info_query.html",
+			"HTML/query/asset_allot_query.html",
+			"HTML/query/asset_get_query.html",
+			"HTML/query/asset_recycle_query.html",
+			"HTML/query/asset_abandon_query.html",
+			"HTML/query/asset_repair_query.html",
+			"HTML/query/asset_issue_query.html"
+		],
+		"refer": [
+			"HTML/query/storage_query.html",
+			"HTML/query/asset_info_query.html",
+			"HTML/query/asset_allot_query.html",
+			"HTML/query/asset_get_query.html",
+			"HTML/query/asset_recycle_query.html",
+			"HTML/query/asset_abandon_query.html",
+			"HTML/query/asset_repair_query.html",
+			"HTML/query/asset_issue_query.html",
+			"HTML/query/asset_document_query.html"
+		]
+	},
+	"HTML/query/asset_info_query.html": {
+		"resources": [
+			"js/app.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"HTML/query/asset_query.html",
+			"js/mui.picker.min.js",
+			"css/mui.picker.min.css",
+			"js/generaltool.js",
+			"HTML/main/query.html"
+		],
+		"refer": [
+			"HTML/query/asset_query.html",
+			"HTML/main/query.html"
+		]
+	},
+	"HTML/query/asset_get_query.html": {
+		"resources": [
+			"HTML/query/asset_query.html",
+			"js/app.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"js/mui.picker.min.js",
+			"css/mui.picker.min.css",
+			"js/generaltool.js",
+			"HTML/query/asset_document_query.html"
+		],
+		"refer": [
+			"HTML/query/asset_query.html",
+			"HTML/query/asset_document_query.html"
+		]
+	},
+	"HTML/query/asset_recycle_query.html": {
+		"resources": [
+			"HTML/query/asset_query.html",
+			"js/app.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"HTML/query/asset_document_query.html",
+			"js/mui.picker.min.js",
+			"css/mui.picker.min.css",
+			"js/generaltool.js"
+		],
+		"refer": [
+			"HTML/query/asset_query.html",
+			"HTML/query/asset_document_query.html"
+		]
+	},
+	"HTML/query/asset_abandon_query.html": {
+		"resources": [
+			"HTML/query/asset_query.html",
+			"js/generaltool.js",
+			"js/app.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"js/mui.picker.min.js",
+			"css/mui.picker.min.css",
+			"HTML/query/asset_document_query.html"
+		],
+		"refer": [
+			"HTML/query/asset_query.html",
+			"HTML/query/asset_document_query.html"
+		]
+	},
+	"HTML/repair/asset_repair.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"HTML/main/repair.html",
+			"js/app.js",
+			"js/mui.min.js",
+			"HTML/QRcode/QRcode.html"
+		],
+		"refer": [
+			"HTML/main/repair.html",
+			"HTML/QRcode/QRcode.html"
+		]
+	},
+	"HTML/query/supplies_query.html": {
+		"resources": [
+			"HTML/main/query.html",
+			"js/app.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"js/generaltool.js"
+		],
+		"refer": [
+			"HTML/main/query.html"
+		]
+	},
+	"HTML/repair/report.html": {
+		"refer": [
+			"HTML/QRcode/QRcode.html",
+			"HTML/main/repair.html"
+		],
+		"resources": [
+			"HTML/main/repair.html",
+			"js/mui.picker.min.js",
+			"css/mui.picker.min.css",
+			"js/generaltool.js",
+			"js/app.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		]
+	},
+	"HTML/query/asset_repair_query.html": {
+		"resources": [
+			"HTML/query/asset_query.html",
+			"HTML/query/asset_document_query.html",
+			"HTML/main/repair.html",
+			"js/mui.picker.min.js",
+			"css/mui.picker.min.css",
+			"js/generaltool.js",
+			"js/app.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		],
+		"refer": [
+			"HTML/query/asset_query.html",
+			"HTML/query/asset_document_query.html",
+			"HTML/main/repair.html"
+		]
+	},
+	"HTML/repair/maintain.html": {
+		"resources": [
+			"js/mui.picker.min.js",
+			"css/mui.picker.min.css",
+			"js/generaltool.js",
+			"HTML/main/repair.html",
+			"js/app.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		],
+		"refer": [
+			"HTML/QRcode/QRcode.html",
+			"HTML/main/repair.html"
+		]
+	},
+	"HTML/query/asset_issue_query.html": {
+		"resources": [
+			"HTML/query/asset_query.html",
+			"js/app.js",
+			"js/mui.picker.min.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/mui.picker.min.css",
+			"js/generaltool.js",
+			"HTML/query/asset_document_query.html"
+		],
+		"refer": [
+			"HTML/query/asset_query.html",
+			"HTML/query/asset_document_query.html"
+		]
+	},
+	"HTML/query/asset_document_query.html": {
+		"resources": [
+			"HTML/query/asset_issue_query.html",
+			"HTML/query/asset_get_query.html",
+			"HTML/query/asset_recycle_query.html",
+			"HTML/query/asset_abandon_query.html",
+			"HTML/query/asset_repair_query.html",
+			"js/app.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		],
+		"refer": [
+			"HTML/query/asset_issue_query.html",
+			"HTML/query/asset_get_query.html",
+			"HTML/query/asset_recycle_query.html",
+			"HTML/query/asset_abandon_query.html",
+			"HTML/query/asset_repair_query.html"
+		]
+	},
+	"HTML/check/asset_check.html": {
+		"resources": [
+			"js/mui.picker.min.js",
+			"css/mui.picker.min.css",
+			"js/generaltool.js",
+			"js/app.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"HTML/main/check.html"
+		],
+		"refer": [
+			"HTML/main/check.html",
+			"HTML/QRcode/QRcode.html"
+		]
+	},
+	"HTML/check/img.html": {
+		"resources": [
+			"js/generaltool.js",
+			"js/app.js",
+			"js/mui.min.js",
+			"HTML/main/check.html",
+			"js/base64.js"
+		],
+		"refer": [
+			"HTML/main/check.html"
+		]
+	}
+}

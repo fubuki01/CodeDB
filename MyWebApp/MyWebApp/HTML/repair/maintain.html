@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>资产维护</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script>
+			//资产编码输入框失去焦点执行ajax验证方法
+			function losefocus(){
+				var asset_code = document.getElementById("asset_code");
+				if(asset_code.value=="")
+					return;
+					
+				var jsondata = {
+					asset_code:asset_code.value,
+					report_code:"losefocus"
+				}
+				var asset_name = document.getElementById("asset_name");
+				var asset_user = document.getElementById("asset_user");
+				
+				mui.post('http://'+app.ip+':8080/mbfw/mobile/repair/maintain',jsondata,
+					function(data){
+						if(data.result=="reload"){
+							alert("请重新登陆；");
+							app.autologout('../../login.html');
+						}
+						else{
+							if(data.result=="ok"){
+								asset_name.value = data.asset_name;
+								asset_user.value = data.asset_user;
+							}
+							else{
+								alert(data.result);
+								asset_name.value = "";
+								asset_user.value = "";
+							}
+						}
+						return;
+					},'json'
+				);
+			};
+		</script>
+		
+	</head>
+	
+	<style type="text/css">
+		.btn-border{
+			margin-top: 2.5rem;
+		}
+	</style>
+	
+	<body>
+		
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">资产维护</h1>
+			<a href="#"><span id='QRcode' class="mui-icon mui-icon-camera mui-pull-right"></span></a>
+		</header>
+		
+		<div class="mui-input-group" style="margin-top: 2.7rem;">
+			<div class="mui-input-row">
+				<label>资产编码:</label>
+				<input type="text" id="asset_code" class="mui-input-clear" placeholder="请输入资产编码" onblur="losefocus()">
+			</div>
+			<div class="mui-input-row">
+				<label>资产名称:</label>
+				<input type="text" id="asset_name" placeholder="当前资产名称" onfocus="this.blur()">
+			</div>
+			<div class="mui-input-row">
+				<label>使用人:</label>
+				<input type="text" id="asset_user" placeholder="当前使用人" onfocus="this.blur()">
+			</div>
+			<div class="mui-input-row">
+				<label>维修结果:</label>
+				<input type="text" id="maintain_result" placeholder="请输入维修结果" onfocus="this.blur()">
+			</div>
+			<div class="mui-input-row">
+				<label>维修机构:</label>
+				<input type="text" id="drep_department" class="mui-input-clear" placeholder="请输入维修机构">
+			</div>
+			<div class="mui-input-row">
+				<label>维修费用:</label>
+				<input type="text" id="cost" class="mui-input-clear" placeholder="请输入维修费用（单位：元）" onblur="judgecost()">
+			</div>
+			<div class="mui-input-row">
+				<label>维修时间:</label>
+				<input type="date" id="finishi_time" class="mui-input-clear" placeholder="请输入维修时间">
+			</div>
+			<div class="mui-input-row">
+				<label>保修时间:</label>
+				<input type="date" id="defect_time" class="mui-input-clear" placeholder="请输入保修时间">
+			</div>
+			<div class="mui-input-row">
+				<label>保修状态:</label>
+				<input type="text" id="status" class="mui-input-clear" placeholder="请输入保修状态">
+			</div>
+			<div class="mui-input-row" style="height: 7rem;">
+				<label>备注:</label>
+				<textarea type="text" id="remark" rows="4" placeholder="请输入备注"></textarea>
+			</div>
+		</div>
+		
+		<div class="mui-button-row" style="height: 100%; width: 100%;">
+			<button type="button" class="btn-border mui-btn mui-btn-primary" id="btn_repair" style="margin-right: 2rem;">报修</button>
+			<button type="button" class="btn-border mui-btn mui-btn-danger" id="btn_reset">重置</button>
+		</div>
+		
+		<div id="popover" class="mui-popover">
+		  <ul class="mui-table-view">
+		    <li id="not_maintain" class="mui-table-view-cell">未维修</li>
+		    <li id="already_maintain" class="mui-table-view-cell">已维修</li>
+		    <li id="beyond_maintain"class="mui-table-view-cell">无法维修</li>
+		  </ul>
+		</div>
+		
+	</body>
+	
+	<script>
+		(function($, doc) {
+			/**
+			 * mui初始化
+			 */
+			mui.init();
+			var QRcode = 'QRcode';
+			
+			if(mui.os.ios)
+				QRcode = 'QRcode1';
+			
+			mui.plusReady(function(){
+				var QRcodePage = $.preload({
+					"id": QRcode,
+					"url": '../QRcode/QRcode.html?id=maintain'
+				});
+				doc.getElementById('QRcode').addEventListener('tap', function(event) {
+					$.openWindow({
+						id: QRcode,
+						show: {
+							aniShow: 'pop-in'
+						},
+						styles: {
+							popGesture: 'hide'
+						},
+						waiting: {
+							autoShow: false
+						}
+					});
+					mui.fire(plus.webview.getWebviewById(QRcode),"open_QR",{id : "maintain"});
+				});
+	        });
+	        //id元素获取
+			var asset_code = document.getElementById('asset_code');
+			var asset_name = document.getElementById("asset_name");
+			var asset_user = document.getElementById("asset_user");
+			var maintain_result = document.getElementById('maintain_result');
+			var drep_department = document.getElementById('drep_department');
+			var cost = document.getElementById('cost');
+			var finishi_time = document.getElementById('finishi_time');
+			var defect_time = document.getElementById('defect_time');
+			var status = document.getElementById('status');
+			var remark = document.getElementById('remark');
+	        /**
+	         * 二维码扫描成功回传监听
+	         */
+			window.addEventListener('get_QR',function(e){
+				asset_code.value = e.detail.QRcode;
+				asset_code.focus();
+			});
+			/**
+	         * ajax提交表单
+	         */
+	        var postjson = {
+				asset_code:"",
+				maintain_result:"",
+				drep_department:"",
+				cost:"",
+				finishi_time:"",
+				defect_time:"",
+				status:"",
+				remark:"",
+				report_code:"maintain"
+			}
+	        function ajsxpost(){
+				mui.post('http://'+app.ip+':8080/mbfw/mobile/repair/maintain',postjson,
+					function(data){
+						if(data.result=="reload"){
+							alert("请重新登陆；");
+							app.autologout('../../login.html');
+						}
+						else
+							alert(data.result);
+						return;
+					},'json'
+				);
+			};
+	        /**
+	         * 按键监听
+	         */
+			//报修按键监听
+	        document.getElementById('btn_repair').addEventListener("tap",function(event){
+	        	
+	        	var f=true;   	
+	        	function safeStr(str){
+					if(f&&(str==''||str==null)){
+						alert('请填写完整信息');
+						f=false;
+					}
+					return str.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+				};
+	        	
+				postjson.asset_code = safeStr(asset_code.value);
+				postjson.maintain_result = safeStr(maintain_result.value);
+				postjson.drep_department = safeStr(drep_department.value);
+				
+				if(isNaN(cost.value)){
+					alert("维修费用请输入数字");
+					return;
+				}
+				else
+					postjson.cost = cost.value;
+				
+				postjson.finishi_time = safeStr(finishi_time.value);
+				postjson.defect_time = safeStr(defect_time.value);
+				postjson.status = safeStr(status.value);
+				postjson.remark = safeStr(remark.value);
+			
+				if(f){
+					ajsxpost();
+					asset_code.value = "";
+					asset_name.value = "";
+					asset_user.value = "";
+					maintain_result.value = "";
+					drep_department.value = "";
+					cost.value = "";
+					finishi_time.value = "";
+					defect_time.value = "";
+					status.value = "";
+					remark.value = "";
+				}
+				else
+					f=true;
+			});
+			
+			//重置按键监听
+			document.getElementById('btn_reset').addEventListener("tap",function(event){
+
+				asset_code.value = "";
+				asset_name.value = "";
+				asset_user.value = "";
+				maintain_result.value = "";
+				drep_department.value = "";
+				cost.value = "";
+				finishi_time.value = "";
+				defect_time.value = "";
+				status.value = "";
+				remark.value = "";
+				
+			});
+			
+			var mypopover = mui('.mui-popover');
+			maintain_result.addEventListener("tap",function(event){
+				mypopover.popover('show',maintain_result);
+			});
+			document.getElementById('not_maintain').addEventListener("tap",function(event){
+				maintain_result.value='未维修';
+				mypopover.popover('hide',maintain_result);
+			});
+			document.getElementById('already_maintain').addEventListener("tap",function(event){
+				maintain_result.value='已维修';
+				mypopover.popover('hide',maintain_result);
+			});
+			document.getElementById('beyond_maintain').addEventListener("tap",function(event){
+				maintain_result.value='无法维修';
+				mypopover.popover('hide',maintain_result);
+			});
+		}(mui, document));
+		
+		function judgecost(){
+			var cost = document.getElementById("cost").value;
+			if(isNaN(cost.value)){
+				alert("维修费用请输入数字");
+				return;
+			}
+			
+		}
+		
+	</script>
+</html>

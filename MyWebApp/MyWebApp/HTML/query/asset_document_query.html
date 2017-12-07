@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>单据查询</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.min.css">
+	</head>
+
+	<body>
+		
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">单据查询</h1>
+		</header>
+		
+		<div class="mui-content">
+			<ul class="mui-table-view mui-grid-view mui-grid-9">
+		        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" id="issue"><a href="asset_issue_query.html">
+		            <span class="mui-icon mui-icon-paperplane"></span>
+		            <div class="mui-media-body">下发查询</div></a></li>
+		        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="asset_get_query.html">
+		            <span class="mui-icon mui-icon-email"></span>
+		            <div class="mui-media-body">领用查询</div></a></li>
+		        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" id="recycle"><a href="asset_recycle_query.html">
+		            <span class="mui-icon mui-icon-loop"></span>
+		            <div class="mui-media-body">回收查询</div></a></li>
+		        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="asset_abandon_query.html">
+		            <span class="mui-icon mui-icon-trash"></span>
+		            <div class="mui-media-body">报废查询</div></a></li>
+		        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="asset_repair_query.html">
+		            <span class="mui-icon mui-icon-gear"></span>
+		            <div class="mui-media-body">维修查询</div></a></li>
+			</ul>
+		</div>
+		
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script>
+			(function($, doc) {
+				$.init();
+				var issue = doc.getElementById('issue');
+				var recycle = doc.getElementById('recycle');
+				var permission = app.getUser().user_permission;
+				if(permission==3){
+					issue.classList.add("mui-hidden");
+					recycle.classList.add("mui-hidden");
+				}
+				else{
+					issue.classList.remove("mui-hidden");
+					recycle.classList.remove("mui-hidden");
+				}
+				window.addEventListener('open_asset_document_query',function(e){
+					var issue = doc.getElementById('issue');
+					var recycle = doc.getElementById('recycle');
+					var permission = app.getUser().user_permission;
+					if(permission==3){
+						issue.classList.add("mui-hidden");
+						recycle.classList.add("mui-hidden");
+					}
+					else{
+						issue.classList.remove("mui-hidden");
+						recycle.classList.remove("mui-hidden");
+					}
+				});
+			}(mui, document));
+			
+			
+			
+		</script>
+	</body>
+
+</html>

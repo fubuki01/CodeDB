@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>耗材查询</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<!--App自定义的css-->
+		<!--<link rel="stylesheet" type="text/css" href="../css/app.css"/>-->
+	</head>
+
+	<style type="text/css">
+		.card-info{
+			padding-left: 2rem;
+		}
+		label{
+			font-size: 0.85rem;
+		}
+		.btn-border{
+			margin-top: 1.5rem;
+		}
+	</style>
+
+	<body>
+		
+		<!-- 侧滑导航根容器 -->
+		<div class="mui-off-canvas-wrap mui-draggable" id="rightmenu">
+			
+			<!-- 菜单容器 -->
+			<aside class="mui-off-canvas-right">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<!-- 菜单具体展示内容 -->
+						<ul class="mui-table-view"> 
+							
+							<li class="mui-table-view-cell mui-collapse mui-active">
+								<a class="mui-navigate-right" href="#">填写查询条件（可缺省）</a>
+								<div class="mui-collapse-content">
+									
+									<div class="mui-input-group">
+										<div class="mui-input-row">
+											<label>耗材编码:</label>
+											<input type="text" id="supplies_model" class="mui-input-clear" placeholder="请输入耗材编码">
+										</div>
+										<div class="mui-input-row">
+											<label>耗材名称:</label>
+											<input type="text" id="supplies_name" class="mui-input-clear" placeholder="请输入耗材名称">
+										</div>
+										<div class="mui-input-row">
+											<label>耗材类型:</label>
+											<input type="text" id="supplies_type" class="mui-input-clear" placeholder="请输入耗材类型">
+										</div>
+										<div class="mui-input-row">
+											<label>耗材用途:</label>
+											<input type="text" id="supplies_use" class="mui-input-clear" placeholder="请输入耗材用途">
+										</div>
+										<div class="mui-input-row">
+											<label>管理人员:</label>
+											<input type="text" id="administrator" class="mui-input-clear" placeholder="请输入管理人员">
+										</div>
+										<div class="mui-input-row">
+											<label>储存地点:</label>
+											<input type="text" id="storage_location" class="mui-input-clear" placeholder="请输入储存地点">
+										</div>
+										<div class="mui-input-row">
+											<label>购买日期:</label>
+											<input type="date" id="purchase_time" class="mui-input-clear">
+										</div>
+									</div>
+									
+								</div>
+							</li>
+							
+							<div class="mui-button-row" style="height: 100rem; width: 100%;">
+								<button type="button" class="btn-border mui-btn mui-btn-primary" id="btn_query" style="margin-right: 2rem;">查询</button>
+								<button type="button" class="btn-border mui-btn mui-btn-danger" id="btn_reset">重置</button>
+							</div>
+							
+						</ul>
+						
+					</div>
+				</div>
+			</aside>
+			
+			<!-- 主页面容器 -->
+			<div class="mui-inner-wrap">
+				<!-- 主页面标题 -->
+				<header class="mui-bar mui-bar-nav">
+				    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				    <h1 class="mui-title">耗材查询</h1>
+				    <span class="mui-icon mui-icon-search mui-pull-right" id="menu"></span>
+				</header>
+				
+				<div class="mui-content mui-scroll-wrapper" id="mainscroll">
+					<div class="mui-scroll">
+						<!-- 主界面具体展示内容 -->
+						<ul id="mylist" class="mui-table-view" ></ul>
+						<div id="indicator" style="width: 100%; height: 3rem;text-align: center;">
+							<div class="mui-icon mui-icon-spinner-cycle"style="padding-top: 0.7rem;"></div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script src="../../js/generaltool.js"></script>
+		<script>
+			(function($, doc) {
+				/**
+				 * mui初始化
+				 */
+				$.init({});
+				/**
+				 * 初始化滑动组件
+				 */
+				mui('#mainscroll').scroll({
+					scrollY:true, //是否竖向滚动
+					scrollX:false, //是否横向滚动
+					startX:0,
+					startY:0,
+					indicators:false, //是否显示滚动条
+					deceleration:0.0006, //阻尼系数
+					bounce:true	//是否回弹
+				});
+				/**
+				 * 判断滑块是否到底，到底则加载更多
+				 */
+				var indicator = document.getElementById("indicator");
+				document.getElementById('mainscroll').addEventListener('scrollend', function(e){
+					if(e.detail.y>=e.detail.maxScrollY){
+						indicator.classList.remove("mui-hidden");
+						pullupRefresh();
+					}
+				});
+				/**
+				 * 上拉加载，Ajax请求数据
+				 */
+				var qureyjson = {
+					offset:0,
+					num:10,
+					supplies_model:"",
+					supplies_name:"",
+					supplies_type:"",
+					supplies_use:"",
+					administrator:"",
+					storage_location:"",
+					purchase_time:""
+				}
+				function pullupRefresh(){
+					mui.post('http://'+app.ip+':8080/mbfw/mobile/query/supplies_Inquiry',qureyjson,
+						function(data){
+							indicator.classList.add("mui-hidden");
+							if(data.result=="reload"){
+								alert("请重新登陆；");
+								app.autologout('../../login.html');
+								return;
+							}
+							var list = document.body.querySelector("#mylist");
+							var jsresult = JSON.parse(data.result);
+							for(var i in jsresult){
+								qureyjson.offset++;
+								var li = document.createElement('li');
+								li.className = 'mui-table-view-cell mui-collapse';
+								var htmlstr = '<a href="#">'
+													+'<div>耗材编码：'+undefined2EmptyString(jsresult[i].supplies_model)+'</div>'
+													+'<div>耗材名称：'+undefined2EmptyString(jsresult[i].supplies_name)+'</div>'
+													+'<div>耗材类型：'+undefined2EmptyString(jsresult[i].supplies_type)+'</div>'
+												+'</a>'
+												+'<div class="mui-collapse-content">'
+													+'<div class="card-info">'
+														+'<div>耗材用途：'+undefined2EmptyString(jsresult[i].supplies_use)+'</div>'
+														+'<div>耗材商标：'+undefined2EmptyString(jsresult[i].supplies_brand)+'</div>'
+														+'<div>库存数量：'+undefined2EmptyString(jsresult[i].inventory_quantity)+'</div>'
+														+'<div>市场报价：'+undefined2EmptyString(jsresult[i].market_quotes)+'</div>'
+														+'<div>报价依据：'+undefined2EmptyString(jsresult[i].quote_basis)+'</div>'
+														+'<div>耗材总值：'+undefined2EmptyString(jsresult[i].amount_money)+'</div>'
+														+'<div>耗材年限：'+undefined2EmptyString(jsresult[i].purchase_time)+'</div>'
+														+'<div>耗材年限：'+undefined2EmptyString(jsresult[i].supplies_years)+'</div>'
+														+'<div>管理人员：'+undefined2EmptyString(jsresult[i].administrator)+'</div>'
+														+'<div>储存地点：'+undefined2EmptyString(jsresult[i].storage_location)+'</div>'
+														+'<div>备注：'+undefined2EmptyString(jsresult[i].remarks)+'</div>'
+													+'</div>'
+												+'</div>';
+								li.innerHTML = htmlstr;
+								list.appendChild(li);
+							}
+							return;
+						},'json'
+					);
+				};
+				
+				/**
+				 * 查询菜单相关监听
+				 */
+				//菜单按键监听
+				document.getElementById('menu').addEventListener("tap",function(event){
+					mui("#rightmenu").offCanvas().toggle();
+				});
+				//id元素获取
+				var supplies_model = document.getElementById('supplies_model');
+				var supplies_name = document.getElementById('supplies_name');
+				var supplies_type = document.getElementById('supplies_type');
+				var supplies_use = document.getElementById('supplies_use');
+				var administrator = document.getElementById('administrator');
+				var storage_location = document.getElementById('storage_location');
+				var purchase_time = document.getElementById('purchase_time');
+				
+				//查询按键监听
+				document.getElementById('btn_query').addEventListener("tap",function(event){
+					qureyjson.supplies_model = supplies_model.value;
+					qureyjson.supplies_name = supplies_name.value;
+					qureyjson.supplies_type = supplies_type.value;
+					qureyjson.supplies_use = supplies_use.value;
+					qureyjson.administrator = administrator.value;
+					qureyjson.storage_location = storage_location.value;
+					qureyjson.purchase_time = purchase_time.value;
+					
+					qureyjson.offset=0;
+					document.body.querySelector("#mylist").innerHTML="";
+					pullupRefresh();
+				});
+				//重置按键监听
+				document.getElementById('btn_reset').addEventListener("tap",function(event){
+
+					supplies_model.value = "";
+					supplies_name.value = "";
+					supplies_type.value = "";
+					supplies_use.value = "";
+					administrator.value = "";
+					storage_location.value = "";
+					purchase_time.value = "";
+					
+				});
+				
+				/**
+				 * 加载页面时执行一次的代码
+				 */
+				pullupRefresh();	//加载一次查询数据
+			}(mui, document));
+			
+			
+		</script>
+	</body>
+
+</html>

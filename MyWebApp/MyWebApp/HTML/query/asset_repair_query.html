@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>维修查询</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/mui.picker.min.css">
+	</head>
+
+	<style type="text/css">
+		.card-info{
+			padding-left: 2rem;
+		}
+		label{
+			font-size: 0.85rem;
+		}
+		.little-icon{
+			margin-left: 0.8rem;
+			margin-top: 0.5rem;
+		}
+		.btn-border{
+			margin-top: 4rem;
+		}
+	</style>
+
+	<body>
+		
+		<!-- 侧滑导航根容器 -->
+		<div class="mui-off-canvas-wrap mui-draggable" id="rightmenu">
+			
+			<!-- 菜单容器 -->
+			<aside class="mui-off-canvas-right">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<!-- 菜单具体展示内容 -->
+						<ul class="mui-table-view"> 
+							
+							<li class="mui-table-view-cell mui-collapse mui-active">
+								<a class="mui-navigate-right" href="#">填写查询条件（可缺省）</a>
+								<div class="mui-collapse-content">
+							
+									<div class="mui-input-group">
+										<div class="mui-input-row">
+											<label>资产编号:</label>
+											<input type="text" id="asset_code" class="mui-input-clear" placeholder="请输入资产编号">
+										</div>
+										<div class="mui-input-row">
+											<label>资产名称:</label>
+											<input type="text" id="asset_name" class="mui-input-clear" placeholder="请输入资产名称">
+										</div>
+										<div class="mui-input-row">
+											<label>报修银行:</label>
+											<input type="text" id="bank_name" placeholder="请输入报修银行" onfocus="this.blur()">
+										</div>
+										<div class="mui-input-row">
+											<label>报修部门:</label>
+											<input type="text" id="department" placeholder="请输入报修部门" onfocus="this.blur()">
+										</div>
+										<div class="mui-input-row">
+											<label>报修人:</label>
+											<input type="text" id="asset_person" class="mui-input-clear" placeholder="请输入报修人">
+										</div>
+										<div class="mui-input-row">
+											<label>报修时间:</label>
+											<input type="date" id="repair_time" class="mui-input-clear" placeholder="请输入报修时间">
+										</div>
+									</div>
+									
+								</div>
+							</li>
+							
+							<div style="padding-left: 1rem; padding-top: 0.6rem;">
+								<label>报修状态：</label>
+								<div>
+									<div id="notmaintain" class="little-icon mui-badge mui-badge-yellow">未维修</div>
+									<div id="maintain" class="little-icon mui-badge mui-badge-green">已维修</div>
+									<div id="beyondrepair" class="little-icon mui-badge mui-badge-red">无法维修</div>
+								</div>
+							</div>
+							
+							<div class="mui-button-row" style="height: 100rem; width: 100%;">
+								<button type="button" class="btn-border mui-btn mui-btn-primary" id="btn_query" style="margin-right: 2rem;">查询</button>
+								<button type="button" class="btn-border mui-btn mui-btn-danger" id="btn_reset">重置</button>
+							</div>
+							
+						</ul>
+						
+					</div>
+				</div>
+			</aside>
+			
+			<!-- 主页面容器 -->
+			<div class="mui-inner-wrap">
+				<!-- 主页面标题 -->
+				<header class="mui-bar mui-bar-nav">
+				    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				    <h1 class="mui-title">维修查询</h1>
+				    <span class="mui-icon mui-icon-search mui-pull-right" id="menu"></span>
+				</header>
+				
+				<div class="mui-content mui-scroll-wrapper" id="mainscroll">
+					<div class="mui-scroll">
+						<!-- 主界面具体展示内容 -->
+						<ul id="mylist" class="mui-table-view" ></ul>
+						<div id="indicator" style="width: 100%; height: 3rem;text-align: center;">
+							<div class="mui-icon mui-icon-spinner-cycle"style="padding-top: 0.7rem;"></div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/mui.picker.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script src="../../js/generaltool.js"></script>
+		<script>
+			(function($, doc) {
+				/**
+				 * mui初始化
+				 */
+				$.init({});
+				/**
+				 * 初始化滑动组件
+				 */
+				mui('#mainscroll').scroll({
+					scrollY:true, //是否竖向滚动
+					scrollX:false, //是否横向滚动
+					startX:0,
+					startY:0,
+					indicators:false, //是否显示滚动条
+					deceleration:0.0006, //阻尼系数
+					bounce:true	//是否回弹
+				});
+				/**
+				 * 判断滑块是否到底，到底则加载更多
+				 */
+				var indicator = document.getElementById("indicator");
+				document.getElementById('mainscroll').addEventListener('scrollend', function(e){
+					if(e.detail.y>=e.detail.maxScrollY){
+						indicator.classList.remove("mui-hidden");
+						pullupRefresh();
+					}
+				});
+				/**
+				 * 上拉加载，Ajax请求数据
+				 */
+				var qureyjson = {
+					offset:0,
+					num:10,
+					asset_code:"",
+					asset_name:"",
+					bank_name:"",
+					department:"",
+					asset_person:"",
+					repair_time:"",
+					maintain_result:111
+				}
+				
+				function ajax_callback(data){
+					indicator.classList.add("mui-hidden");
+					var list = document.body.querySelector("#mylist");
+					var jsresult = JSON.parse(data.result);
+					for(var i in jsresult){
+						qureyjson.offset++;
+						var li = document.createElement('li');
+						li.className = 'mui-table-view-cell mui-collapse';
+						var htmlstr = '<a href="#">'
+											+'<div>资产编号：'+jsresult[i].asset_code+'</div>'
+											+'<div>资产名称：'+jsresult[i].asset_name+'</div>'
+										+'</a>'
+										+'<div class="mui-collapse-content">'
+											+'<div class="card-info">'
+												+'<div>报修状态：'+jsresult[i].maintain_result+'</div>'
+												+'<div>报修银行：'+jsresult[i].bank_name+'</div>'
+												+'<div>报修部门：'+jsresult[i].department+'</div>'
+												+'<div>报修人：'+jsresult[i].asset_person+'</div>'
+												+'<div>报修时间：'+jsresult[i].repair_time+'</div>'
+												+'<div>损坏状况：'+jsresult[i].fault_phenomen+'</div>'
+												+'<div>损坏原因：'+jsresult[i].fault_reason+'</div>'
+												+'<div>修理单位：'+jsresult[i].drep_department+'</div>'
+												+'<div>修理时间：'+jsresult[i].finishi_time+'</div>'
+												+'<div>修理花费：'+jsresult[i].cost+'</div>'
+												+'<div>保修截止时间：'+jsresult[i].defect_time+'</div>'
+												+'<div>备注：'+jsresult[i].remark+'</div>'
+											+'</div>'
+										+'</div>';
+										
+						if(jsresult[i].maintain_result=="未维修")
+							htmlstr = '<span class="mui-badge mui-badge-yellow">未维修</span>'+htmlstr;
+						else if(jsresult[i].maintain_result=="已维修")
+							htmlstr = '<span class="mui-badge mui-badge-green">已维修</span>'+htmlstr;
+						else if(jsresult[i].maintain_result=="无法维修")
+							htmlstr = '<span class="mui-badge mui-badge-red">无法维修</span>'+htmlstr;
+							
+						li.innerHTML = htmlstr;
+						list.appendChild(li);
+					}
+					return;
+				};
+				
+				var tll_onload = false; //用于判断权限与二级联动装载是否完成
+				function pullupRefresh(){
+					if(tll_onload)
+						jsonpost(ajax_callback, '/mobile/query/asset_report', qureyjson);
+					else
+						jsonpost(two_level_linkage,'/mobile/general/two_level_linkage',{});
+				};
+				
+				/**
+				 * 查询菜单相关监听
+				 */
+				//菜单按键监听
+				document.getElementById('menu').addEventListener("tap",function(event){
+					mui("#rightmenu").offCanvas().toggle();
+				});
+				
+				//id元素获取
+				var asset_code = document.getElementById('asset_code');
+				var asset_name = document.getElementById('asset_name');
+				var bank_name = document.getElementById('bank_name');
+				var department = document.getElementById('department');
+				var asset_person = document.getElementById('asset_person');
+				var repair_time = document.getElementById('repair_time');
+				
+				var notmaintain = document.getElementById('notmaintain');
+				var maintain = document.getElementById('maintain');
+				var beyondrepair = document.getElementById('beyondrepair');
+				
+				//报修状态复选标签监听
+				notmaintain.addEventListener("tap",function(event){
+					if(notmaintain.classList.contains('mui-badge-yellow')){
+						notmaintain.classList.remove('mui-badge-yellow');
+						qureyjson.maintain_result-=1;
+					}
+					else{
+						notmaintain.classList.add('mui-badge-yellow');
+						qureyjson.maintain_result+=1;
+					}
+				});
+				
+				maintain.addEventListener("tap",function(event){
+					if(maintain.classList.contains('mui-badge-green')){
+						maintain.classList.remove('mui-badge-green');
+						qureyjson.maintain_result-=10;
+					}
+					else{
+						maintain.classList.add('mui-badge-green');
+						qureyjson.maintain_result+=10;
+					}
+				});
+				
+				beyondrepair.addEventListener("tap",function(event){
+					if(beyondrepair.classList.contains('mui-badge-red')){
+						beyondrepair.classList.remove('mui-badge-red');
+						qureyjson.maintain_result-=100;
+					}
+					else{
+						beyondrepair.classList.add('mui-badge-red');
+						qureyjson.maintain_result+=100;
+					}
+				});
+				
+				//查询按键监听
+				document.getElementById('btn_query').addEventListener("tap",function(event){
+					qureyjson.asset_code = asset_code.value;
+					qureyjson.asset_name = asset_name.value;
+					qureyjson.bank_name = bank_name.value;
+					qureyjson.department = department.value;
+					qureyjson.asset_person = asset_person.value;
+					qureyjson.repair_time = repair_time.value;
+					
+					qureyjson.offset=0;
+					document.body.querySelector("#mylist").innerHTML="";
+					pullupRefresh();
+				});
+				//重置按键监听
+				document.getElementById('btn_reset').addEventListener("tap",function(event){
+					
+					asset_code.value = "";
+					asset_name.value = "";
+					
+					var user = app.getUser(); //获取用户
+					if(user.user_permission=="1"){
+						bank_name.value = "";
+						department.value = "";
+						asset_person.value = "";
+					}
+					else if(user.user_permission=="2"){
+						asset_person.value = "";
+					}
+					
+					repair_time.value = "";
+					
+					if(!notmaintain.classList.contains('mui-badge-yellow')){
+						notmaintain.classList.add('mui-badge-yellow');
+						qureyjson.maintain_result+=1;
+					}
+					if(!maintain.classList.contains('mui-badge-green')){
+						maintain.classList.add('mui-badge-green');
+						qureyjson.maintain_result+=10;
+					}
+					if(!beyondrepair.classList.contains('mui-badge-red')){
+						beyondrepair.classList.add('mui-badge-red');
+						qureyjson.maintain_result+=100;
+					}
+					
+				});
+				
+				/**
+				 * 权限判断与二级联动数据获取
+				 */
+				//权限与二级联动获取回调处理函数
+				function two_level_linkage(str){
+					var data = JSON.parse(str.result);
+					var myjson = [];
+					var index = 0;
+					
+					var user = app.getUser(); //获取用户
+					if(user.user_permission=="1"){
+						for(o in data){
+							for(i in data[o]){
+								var ele = {value:i,text:i,children:[]};
+								var k = 0;
+								for(j in data[o][i]){
+									ele.children[k++] = data[o][i][j];
+								}
+								myjson[index++] = ele;
+							}
+						}
+						
+						//初始化二级联动的picker
+						var picker = new mui.PopPicker({layer: 2});
+						
+						picker.setData(myjson);
+						picker.pickers[0].setSelectedIndex(0);
+						picker.pickers[1].setSelectedIndex(0);
+						
+						function callback(SelectedItem){
+							bank_name.value = SelectedItem[0].value;
+							department.value = SelectedItem[1];
+						};
+						
+						bank_name.addEventListener("tap",function(event){
+							picker.show(callback);
+						});
+						department.addEventListener("tap",function(event){
+							picker.show(callback);
+						});
+						
+					}
+					else if(user.user_permission=="2"){
+						bank_name.value = user.superior_organization_name;
+						department.value = user.organization_name;
+						
+						qureyjson.bank_name = user.superior_organization_name;
+						qureyjson.department = user.organization_name;
+						
+					}
+					else if(user.user_permission=="3"){
+						bank_name.value = user.superior_organization_name;
+						department.value = user.organization_name;
+						asset_person.value = user.name;
+						
+						asset_person.classList.remove("mui-input-clear");
+						asset_person.onfocus = asset_person.blur;
+						
+						qureyjson.bank_name = user.superior_organization_name;
+						qureyjson.department = user.organization_name;
+						qureyjson.asset_person = user.name;
+					}
+					
+					tll_onload = true;
+					pullupRefresh();	//加载一次查询数据
+					return;
+					
+				};
+				//json post请求
+				jsonpost(two_level_linkage,'/mobile/general/two_level_linkage',{});
+			}(mui, document));
+			
+			
+		</script>
+	</body>
+
+</html>

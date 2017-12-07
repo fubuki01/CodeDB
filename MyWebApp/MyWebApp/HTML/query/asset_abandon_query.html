@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>报废查询</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/mui.picker.min.css">
+		
+	</head>
+
+	<style type="text/css">
+		.card-info{
+			padding-left: 2rem;
+		}
+		label{
+			font-size: 0.85rem;
+		}
+		.btn-border{
+			margin-top: 1.5rem;
+		}
+	</style>
+
+	<body>
+		
+		<!-- 侧滑导航根容器 -->
+		<div class="mui-off-canvas-wrap mui-draggable" id="rightmenu">
+			
+			<!-- 菜单容器 -->
+			<aside class="mui-off-canvas-right">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<!-- 菜单具体展示内容 -->
+						<ul class="mui-table-view"> 
+							
+							<li class="mui-table-view-cell mui-collapse mui-active">
+								<a class="mui-navigate-right" href="#">填写查询条件（可缺省）</a>
+								<div class="mui-collapse-content">
+									
+									<div class="mui-input-group">
+										<div class="mui-input-row">
+											<label>资产编码:</label>
+											<input type="text" id="asset_code" class="mui-input-clear" placeholder="请输入资产编码">
+										</div>
+										<div class="mui-input-row">
+											<label>资产名称:</label>
+											<input type="text" id="asset_name" class="mui-input-clear" placeholder="请输入资产名称">
+										</div>
+										<div class="mui-input-row">
+											<label>使用银行:</label>
+											<input type="text" id="asset_use_company" placeholder="请输入使用银行" onfocus="this.blur()">
+										</div>
+										<div class="mui-input-row">
+											<label>使用部门:</label>
+											<input type="text" id="asset_use_dept" placeholder="请输入使用部门" onfocus="this.blur()">
+										</div>
+										<div class="mui-input-row">
+											<label>使用人员:</label>
+											<input type="text" id="asset_user" class="mui-input-clear" placeholder="请输入使用人员">
+										</div>
+										<div class="mui-input-row">
+											<label>办理人员:</label>
+											<input type="text" id="abandon_manager" class="mui-input-clear" placeholder="请输入办理人员">
+										</div>
+										<div class="mui-input-row">
+											<label>报废日期:</label>
+											<input type="date" id="abandon_time" class="mui-input-clear">
+										</div>
+									</div>
+									
+								</div>
+							</li>
+							
+							<div class="mui-button-row" style="height: 100rem; width: 100%;">
+								<button type="button" class="btn-border mui-btn mui-btn-primary" id="btn_query" style="margin-right: 2rem;">查询</button>
+								<button type="button" class="btn-border mui-btn mui-btn-danger" id="btn_reset">重置</button>
+							</div>
+							
+						</ul>
+						
+					</div>
+				</div>
+			</aside>
+			
+			<!-- 主页面容器 -->
+			<div class="mui-inner-wrap">
+				<!-- 主页面标题 -->
+				<header class="mui-bar mui-bar-nav">
+				    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				    <h1 class="mui-title">报废查询</h1>
+				    <span class="mui-icon mui-icon-search mui-pull-right" id="menu"></span>
+				</header>
+				
+				<div class="mui-content mui-scroll-wrapper" id="mainscroll">
+					<div class="mui-scroll">
+						<!-- 主界面具体展示内容 -->
+						<ul id="mylist" class="mui-table-view" ></ul>
+						<div id="indicator" style="width: 100%; height: 3rem;text-align: center;">
+							<div class="mui-icon mui-icon-spinner-cycle"style="padding-top: 0.7rem;"></div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/mui.picker.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script src="../../js/generaltool.js"></script>
+		<script>
+			(function($, doc) {
+				/**
+				 * mui初始化
+				 */
+				$.init({});
+				/**
+				 * 初始化滑动组件
+				 */
+				mui('#mainscroll').scroll({
+					scrollY:true, //是否竖向滚动
+					scrollX:false, //是否横向滚动
+					startX:0,
+					startY:0,
+					indicators:false, //是否显示滚动条
+					deceleration:0.0006, //阻尼系数
+					bounce:true	//是否回弹
+				});
+				/**
+				 * 判断滑块是否到底，到底则加载更多
+				 */
+				var indicator = document.getElementById("indicator");
+				document.getElementById('mainscroll').addEventListener('scrollend', function(e){
+					if(e.detail.y>=e.detail.maxScrollY){
+						indicator.classList.remove("mui-hidden");
+						pullupRefresh();
+					}
+				});
+				/**
+				 * 上拉加载，Ajax请求数据
+				 */
+				var qureyjson = {
+					offset:0,
+					num:10,
+					asset_code:"",
+					asset_name:"",
+					asset_use_company:"",
+					asset_use_dept:"",
+					asset_user:"",
+					abandon_time:"",
+					abandon_manager:""
+				};
+				
+				function ajax_callback(data){
+					indicator.classList.add("mui-hidden");
+					var list = document.body.querySelector("#mylist");
+					var jsresult = JSON.parse(data.result);
+					for(var i in jsresult){
+						qureyjson.offset++;
+						var li = document.createElement('li');
+						li.className = 'mui-table-view-cell mui-collapse';
+						var htmlstr = '<a href="#">'
+											+'<div>资产编码：'+jsresult[i].asset_code+'</div>'
+											+'<div>资产名称：'+jsresult[i].asset_name+'</div>'
+											+'<div>使用人员：'+jsresult[i].asset_user+'</div>'
+										+'</a>'
+										+'<div class="mui-collapse-content">'
+											+'<div class="card-info">'
+												+'<div>使用银行：'+jsresult[i].asset_use_company+'</div>'
+												+'<div>使用部门：'+jsresult[i].asset_use_dept+'</div>'
+												+'<div>报废时间：'+jsresult[i].abandon_time+'</div>'
+												+'<div>报废原因：'+jsresult[i].abandon_reason+'</div>'
+												+'<div>报废审批：'+jsresult[i].abandon_approve+'</div>'
+												+'<div>审批状态：'+jsresult[i].approve_status+'</div>'
+												+'<div>报废处理意见：'+jsresult[i].abandon_idea+'</div>'
+												+'<div>办理人员：'+jsresult[i].abandon_manager+'</div>'
+												+'<div>备注：'+jsresult[i].abandon_remark+'</div>'
+											+'</div>'
+										+'</div>';
+						li.innerHTML = htmlstr;
+						list.appendChild(li);
+					}
+				};
+				
+				var tll_onload = false; //用于判断权限与二级联动装载是否完成
+				function pullupRefresh(){
+					if(tll_onload)
+						jsonpost(ajax_callback, '/mobile/query/asset_abandon', qureyjson);
+					else
+						jsonpost(two_level_linkage,'/mobile/general/two_level_linkage',{});
+				};
+				
+				/**
+				 * 查询菜单相关监听
+				 */
+				//菜单按键监听
+				document.getElementById('menu').addEventListener("tap",function(event){
+					mui("#rightmenu").offCanvas().toggle();
+				});
+				
+				//id元素获取
+				var asset_code = document.getElementById('asset_code');
+				var asset_name = document.getElementById('asset_name');
+				var asset_use_company = document.getElementById('asset_use_company');
+				var asset_use_dept = document.getElementById('asset_use_dept');
+				var asset_user = document.getElementById('asset_user');
+				var abandon_time = document.getElementById('abandon_time');
+				var abandon_manager = document.getElementById('abandon_manager');
+				
+				//查询按键监听
+				document.getElementById('btn_query').addEventListener("tap",function(event){
+					qureyjson.asset_code = asset_code.value;
+					qureyjson.asset_name = asset_name.value;
+					qureyjson.asset_use_company = asset_use_company.value;
+					qureyjson.asset_use_dept = asset_use_dept.value;
+					qureyjson.asset_user = asset_user.value;
+					qureyjson.abandon_time = abandon_time.value;
+					qureyjson.abandon_manager = abandon_manager.value;
+					
+					qureyjson.offset=0;
+					document.body.querySelector("#mylist").innerHTML="";
+					pullupRefresh();
+				});
+				//重置按键监听
+				document.getElementById('btn_reset').addEventListener("tap",function(event){
+
+					asset_code.value = "";
+					asset_name.value = "";
+					
+					var user = app.getUser(); //获取用户
+					if(user.user_permission=="1"){
+						asset_use_company.value = "";
+						asset_use_dept.value = "";
+						asset_user.value = "";
+					}
+					else if(user.user_permission=="2"){
+						asset_user.value = "";
+					}
+					
+					abandon_time.value = "";
+					abandon_manager.value = "";
+					
+				});
+				
+				/**
+				 * 权限判断与二级联动数据获取
+				 */
+				//权限与二级联动获取回调处理函数
+				function two_level_linkage(str){
+					var data = JSON.parse(str.result);
+					var myjson = [];
+					var index = 0;
+					var user = app.getUser(); //获取用户
+					if(user.user_permission=="1"){
+						for(o in data){
+							for(i in data[o]){
+								var ele = {value:i,text:i,children:[]};
+								var k = 0;
+								for(j in data[o][i]){
+									ele.children[k++] = data[o][i][j];
+								}
+								myjson[index++] = ele;
+							}
+						}
+						
+						//初始化二级联动的picker
+						var picker = new mui.PopPicker({layer: 2});
+						
+						picker.setData(myjson);
+						picker.pickers[0].setSelectedIndex(0);
+						picker.pickers[1].setSelectedIndex(0);
+						
+						function callback(SelectedItem){
+							asset_use_company.value = SelectedItem[0].value;
+							asset_use_dept.value = SelectedItem[1];
+						};
+						
+						asset_use_company.addEventListener("tap",function(event){
+							picker.show(callback);
+						});
+						asset_use_dept.addEventListener("tap",function(event){
+							picker.show(callback);
+						});
+						
+					}
+					else if(user.user_permission=="2"){
+						asset_use_company.value = user.superior_organization_name;
+						asset_use_dept.value = user.organization_name;
+						
+						qureyjson.asset_use_company = user.superior_organization_name;
+						qureyjson.asset_use_dept = user.organization_name;
+						
+					}
+					else if(user.user_permission=="3"){
+						asset_use_company.value = user.superior_organization_name;
+						asset_use_dept.value = user.organization_name;
+						asset_user.value = user.name;
+						
+						asset_user.classList.remove("mui-input-clear");
+						asset_user.onfocus = asset_user.blur;
+						
+						qureyjson.asset_use_company = user.superior_organization_name;
+						qureyjson.asset_use_dept = user.organization_name;
+						qureyjson.asset_user = user.name;
+					}
+					
+					tll_onload = true;
+					pullupRefresh();	//加载一次查询数据
+					return;
+				};
+				//json post请求
+				jsonpost(two_level_linkage,'/mobile/general/two_level_linkage',{});
+			}(mui, document));
+			
+			
+		</script>
+	</body>
+
+</html>

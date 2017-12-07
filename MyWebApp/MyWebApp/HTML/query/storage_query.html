@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>入库查询</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<!--App自定义的css-->
+		<!--<link rel="stylesheet" type="text/css" href="../css/app.css"/>-->
+	</head>
+
+	<style type="text/css">
+		.card-info{
+			padding-left: 2rem;
+		}
+		label{
+			font-size: 0.85rem;
+		}
+		.btn-border{
+			margin-top: 1.5rem;
+		}
+	</style>
+
+	<body>
+		
+		<!-- 侧滑导航根容器 -->
+		<div class="mui-off-canvas-wrap mui-draggable" id="rightmenu">
+			
+			<!-- 菜单容器 -->
+			<aside class="mui-off-canvas-right">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<!-- 菜单具体展示内容 -->
+						<ul class="mui-table-view"> 
+							
+							<li class="mui-table-view-cell mui-collapse mui-active">
+								<a class="mui-navigate-right" href="#">填写查询条件（可缺省）</a>
+								<div class="mui-collapse-content">
+
+									<div class="mui-input-group">
+										<div class="mui-input-row">
+											<label>入库单号:</label>
+											<input type="text" id="into_code" class="mui-input-clear" placeholder="请输入入库单号">
+										</div>
+										<div class="mui-input-row">
+											<label>采购单号:</label>
+											<input type="text" id="into_purchase_bill" class="mui-input-clear" placeholder="请输入采购单号">
+										</div>
+										<div class="mui-input-row">
+											<label>入库资产:</label>
+											<input type="text" id="into_device" class="mui-input-clear" placeholder="请输入入库资产">
+										</div>
+										<div class="mui-input-row">
+											<label>入库人员:</label>
+											<input type="text" id="into_person" class="mui-input-clear" placeholder="请输入入库人员">
+										</div>
+										<div class="mui-input-row">
+											<label>存放库位:</label>
+											<input type="text" id="into_house" class="mui-input-clear" placeholder="请输入存放库位">
+										</div>
+										<div class="mui-input-row">
+											<label>入库日期:</label>
+											<input type="date" id="into_time" class="mui-input-clear">
+										</div>
+									</div>
+									
+								</div>
+							</li>
+							
+							<li class="mui-table-view-cell">仅查询未入库的记录
+								<div id="into_status" class="mui-switch mui-switch-mini mui-switch-blue">
+									<div id="into_status_handle" class="mui-switch-handle"></div>
+								</div>
+							</li>
+							
+							<div class="mui-button-row" style="height: 100rem; width: 100%;">
+								<button type="button" class="btn-border mui-btn mui-btn-primary" id="btn_query" style="margin-right: 2rem;">查询</button>
+								<button type="button" class="btn-border mui-btn mui-btn-danger" id="btn_reset">重置</button>
+							</div>
+							
+						</ul>
+						
+					</div>
+				</div>
+			</aside>
+			
+			<!-- 主页面容器 -->
+			<div class="mui-inner-wrap">
+				<!-- 主页面标题 -->
+				<header class="mui-bar mui-bar-nav">
+				    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				    <h1 class="mui-title">入库查询</h1>
+				    <span class="mui-icon mui-icon-search mui-pull-right" id="menu"></span>
+				</header>
+				
+				<div class="mui-content mui-scroll-wrapper" id="mainscroll">
+					<div class="mui-scroll">
+						<!-- 主界面具体展示内容 -->
+						<ul id="mylist" class="mui-table-view" ></ul>
+						<div id="indicator" style="width: 100%; height: 3rem;text-align: center;">
+							<div class="mui-icon mui-icon-spinner-cycle"style="padding-top: 0.7rem;"></div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script>
+			(function($, doc) {
+				/**
+				 * mui初始化
+				 */
+				$.init({});
+				/**
+				 * 初始化滑动组件
+				 */
+				mui('#mainscroll').scroll({
+					scrollY:true, //是否竖向滚动
+					scrollX:false, //是否横向滚动
+					startX:0,
+					startY:0,
+					indicators:false, //是否显示滚动条
+					deceleration:0.0006, //阻尼系数
+					bounce:true	//是否回弹
+				});
+				/**
+				 * 判断滑块是否到底，到底则加载更多
+				 */
+				var indicator = document.getElementById("indicator");
+				document.getElementById('mainscroll').addEventListener('scrollend', function(e){
+					if(e.detail.y>=e.detail.maxScrollY){
+						indicator.classList.remove("mui-hidden");
+						pullupRefresh();
+					}
+				});
+				/**
+				 * 上拉加载，Ajax请求数据
+				 */
+				var qureyjson = {
+					offset:0,
+					num:10,
+					into_code:"",
+					into_purchase_bill:"",
+					into_device:"",
+					into_person:"",
+					into_house:"",
+					into_time:"",
+					into_status:""
+				}
+				function pullupRefresh(){
+					mui.post('http://'+app.ip+':8080/mbfw/mobile/query/storage',qureyjson,
+						function(data){
+							indicator.classList.add("mui-hidden");
+							if(data.result=="reload"){
+								alert("请重新登陆；");
+								app.autologout('../../login.html');
+								return;
+							}
+							var list = document.body.querySelector("#mylist");
+							var jsresult = JSON.parse(data.result);
+							for(var i in jsresult){
+								qureyjson.offset++;
+								var li = document.createElement('li');
+								li.className = 'mui-table-view-cell mui-collapse';
+								var htmlstr = '<a href="#">'
+													+'<div>入库单号：'+jsresult[i].into_code+'</div>'
+													+'<div>采购单号：'+jsresult[i].into_purchase_bill+'</div>'
+													+'<div>入库资产：'+jsresult[i].into_device+'</div>'
+												+'</a>'
+												+'<div class="mui-collapse-content">'
+													+'<div class="card-info">'
+														+'<div>入库状态：'+jsresult[i].into_status+'</div>'
+														+'<div>入库人员：'+jsresult[i].into_person+'</div>'
+														+'<div>入库日期：'+jsresult[i].into_time+'</div>'
+														+'<div>资产数量：'+jsresult[i].into_count+'</div>'
+														+'<div>存放库位：'+jsresult[i].into_house+'</div>'
+														+'<div>总金额：'+jsresult[i].asset_total_money+'</div>'
+														+'<div>备注：'+jsresult[i].into_note+'</div>'
+													+'</div>'
+												+'</div>';
+								if(jsresult[i].into_status=="未完成")
+									htmlstr = '<span class="mui-badge mui-badge-danger">未入库</span>'+htmlstr;
+								else
+									htmlstr = '<span class="mui-badge">已入库</span>'+htmlstr;
+								li.innerHTML = htmlstr;
+								list.appendChild(li);
+							}
+							return;
+						},'json'
+					);
+				};
+				
+				/**
+				 * 查询菜单相关监听
+				 */
+				//初始化switch组件
+				mui('.mui-switch')['switch']();
+				//菜单按键监听
+				document.getElementById('menu').addEventListener("tap",function(event){
+					mui("#rightmenu").offCanvas().toggle();
+				});
+				//id元素获取
+				var into_status = document.getElementById('into_status');
+				var into_code = document.getElementById('into_code');
+				var into_purchase_bill = document.getElementById('into_purchase_bill');
+				var into_device = document.getElementById('into_device');
+				var into_person = document.getElementById('into_person');
+				var into_house = document.getElementById('into_house');
+				var into_time = document.getElementById('into_time');
+				
+				//仅未入库记录查询监听
+				into_status.addEventListener("toggle",function(event){
+					if(event.detail.isActive){
+						qureyjson.into_status = "未完成";
+					}else{
+						qureyjson.into_status = "";
+					}
+				});
+				
+				//查询按键监听
+				document.getElementById('btn_query').addEventListener("tap",function(event){
+					qureyjson.into_code = into_code.value;
+					qureyjson.into_purchase_bill = into_purchase_bill.value;
+					qureyjson.into_device = into_device.value;
+					qureyjson.into_person = into_person.value;
+					qureyjson.into_house = into_house.value;
+					qureyjson.into_time = into_time.value;
+					
+					qureyjson.offset=0;
+					document.body.querySelector("#mylist").innerHTML="";
+					pullupRefresh();
+				});
+				//重置按键监听
+				document.getElementById('btn_reset').addEventListener("tap",function(event){
+					
+//					qureyjson.into_code = "";
+//					qureyjson.into_purchase_bill = "";
+//					qureyjson.into_device = "";
+//					qureyjson.into_person = "";
+//					qureyjson.into_house = "";
+//					qureyjson.into_time = "";
+//					qureyjson.into_status = "";
+					
+					into_code.value = "";
+					into_purchase_bill.value = "";
+					into_device.value = "";
+					into_person.value = "";
+					into_house.value = "";
+					into_time.value = "";
+					into_status.classList.add("mui-active");
+					mui("#into_status").switch().toggle();
+					
+				});
+				
+				/**
+				 * 加载页面时执行一次的代码
+				 */
+				pullupRefresh();	//加载一次查询数据
+			}(mui, document));
+			
+			
+		</script>
+	</body>
+
+</html>

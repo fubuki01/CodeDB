@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>资产盘点</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/mui.picker.min.css">
+		
+	</head>
+
+	<style type="text/css">
+		.card-info{
+			padding-left: 1rem;
+		}
+		.btn-border{
+			margin-top: 1rem;
+		}
+	</style>
+
+	<body>
+		
+		<!-- 侧滑导航根容器 -->
+		<div class="mui-off-canvas-wrap mui-draggable" id="rightmenu">
+			
+			<!-- 菜单容器 -->
+			<aside class="mui-off-canvas-right" style="background-color: whitesmoke;">
+				<div id="refresh" class="mui-table-view-cell">
+					<span id="current_check_name" class="mui-text-left">盘点表单</span>
+				</div>
+				<div class="mui-scroll-wrapper" id="mainscroll" style="margin-top: 2.7rem;">
+					<div class="mui-scroll">
+						<!-- 菜单具体展示内容 -->
+						<ul id="mylist" class="mui-table-view" style="font-size: 0.9rem;"></ul>
+					</div>
+				</div>
+			</aside>
+			
+			<!-- 主页面容器 -->
+			<div class="mui-inner-wrap">
+				<!-- 主页面标题 -->
+				<header class="mui-bar mui-bar-nav">
+				    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				    <h1 class="mui-title">资产盘点</h1>
+				    <a href="#"><span id='QRcode' class="mui-icon mui-icon-camera mui-pull-right"></span></a>
+				</header>
+				
+				<div class="mui-scroll-wrapper" id="vicescroll" style="background-color: white;">
+					<div class="mui-scroll">
+				
+						<div class="mui-input-group" style="padding-top: 2.7rem;">
+							<div class="mui-input-row">
+								<label>盘点表单:</label>
+								<input type="text" id="check_name" placeholder="请选择盘点表单" onfocus="this.blur()">
+							</div>
+							<div class="mui-input-row">
+								<label>资产编码:</label>
+								<input type="text" id="asset_code" class="mui-input-clear" placeholder="请输入资产编号" onblur="losefocus()">
+							</div>
+							
+							<div class="mui-input-row">
+								<label>资产名称:</label>
+								<input type="text" id="asset_name" placeholder="当前资产名称(点击显示图片)" onfocus="this.blur()">
+							</div>
+							<div id="img" style="text-align: center; width: 100%;">
+								<img id="imgdata" src="" style="width: 80%;"/>
+							</div>
+							
+							<div class="mui-input-row">
+								<label>资产状态:</label>
+								<input type="text" id="asset_status" placeholder="当前资产状态" onfocus="this.blur()">
+							</div>
+							<div class="mui-input-row">
+								<label>使用银行:</label>
+								<input type="text" id="asset_use_company" placeholder="当前使用银行" onfocus="this.blur()">
+							</div>
+							<div class="mui-input-row">
+								<label>使用部门:</label>
+								<input type="text" id="asset_use_dept" placeholder="当前使用部门" onfocus="this.blur()">
+							</div>
+							<div class="mui-input-row">
+								<label>使用者:</label>
+								<input type="text" id="asset_user" placeholder="当前使用者" onfocus="this.blur()">
+							</div>
+						</div>
+						
+						<div class="mui-button-row" style="width: 100%; padding-bottom: 3rem;">
+							<button type="button" class="btn-border mui-btn mui-btn-primary" id="btn_check" style="margin-right: 2rem;">盘点</button>
+							<button type="button" class="btn-border mui-btn mui-btn-danger" id="btn_reset">重置</button>
+						</div>
+						
+					</div>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/mui.picker.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script src="../../js/generaltool.js"></script>
+		<script>
+			//id元素获取
+			var check_name = document.getElementById('check_name');
+			var asset_code = document.getElementById('asset_code');
+			var asset_name = document.getElementById('asset_name');
+			var asset_status = document.getElementById('asset_status');
+			var asset_use_company = document.getElementById('asset_use_company');
+			var asset_use_dept = document.getElementById('asset_use_dept');
+			var asset_user = document.getElementById('asset_user');
+			var img = document.getElementById("imgdata");
+			
+			function losefocus(){
+				if(asset_code.value=="")
+					return;
+				var jsondata = {
+					check_name:check_name.value,
+					asset_code:asset_code.value
+				};
+				
+				function callback(data){
+					if(data.result!="ok"){
+						alert(data.result);
+						asset_code.value = "";
+						asset_name.value = "";
+						asset_use_company.value = "";
+						asset_use_dept.value = "";
+						asset_user.value = "";
+						asset_status.value = "";
+						img.src="";
+						img.classList.add("mui-hidden");
+					}
+					else{
+						asset_name.value = undefined2EmptyString(data.asset_name);
+						asset_use_company.value = undefined2EmptyString(data.asset_use_company);
+						asset_use_dept.value = undefined2EmptyString(data.asset_use_dept);
+						asset_user.value = undefined2EmptyString(data.asset_user);
+						asset_status.value = undefined2EmptyString(data.asset_status);
+						var str2img = function(data){
+							if(data.result!="noimg"){
+								img.src = "data:image/png;base64,"+data.result;
+							}
+							else{
+								img.src="";
+							}	
+						}
+						jsonpost(str2img, "/mobile/general/ajax_img", {asset_code:asset_code.value});
+					}
+				};
+				
+				jsonpost(callback, "/mobile/countAndCheck/check/get_assetinfo", jsondata);
+			};
+			
+			(function($, doc) {
+				/**
+				 * mui初始化
+				 */
+				$.init({});
+				var QRcode = 'QRcode';
+				if(mui.os.ios)
+					QRcode = 'QRcode2';
+				
+				mui.plusReady(function(){
+					var QRcodePage = $.preload({
+						"id": QRcode,
+						"url": '../QRcode/QRcode.html?id=asset_check'
+					});
+					doc.getElementById('QRcode').addEventListener('tap', function(event) {
+						$.openWindow({
+							id: QRcode,
+							show: {
+								aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+						mui.fire(plus.webview.getWebviewById(QRcode),"open_QR",{id : "asset_check"});
+					});
+				});
+		        /**
+		         * 二维码扫描成功回传监听
+		         */
+				window.addEventListener('get_QR',function(e){
+					asset_code.value = e.detail.QRcode;
+					asset_code.focus();
+				});
+				/**
+		         * 页面开启监听
+		         */
+				window.addEventListener('onOpen',function(e){
+					//页面开启获取盘点表单名称列表
+					if(picker==null)
+						jsonpost(getCheckName,'/mobile/general/check_name',{});
+				});
+				/**
+				 * 初始化滑动组件
+				 */
+				mui('#mainscroll').scroll({
+					scrollY:true, //是否竖向滚动
+					scrollX:false, //是否横向滚动
+					startX:0,
+					startY:0,
+					indicators:false, //是否显示滚动条
+					deceleration:0.0006, //阻尼系数
+					bounce:true	//是否回弹
+				});
+				mui('#vicescroll').scroll({
+					scrollY:true, //是否竖向滚动
+					scrollX:false, //是否横向滚动
+					startX:0,
+					startY:0,
+					indicators:false, //是否显示滚动条
+					deceleration:0.0006, //阻尼系数
+					bounce:false //是否回弹
+				});
+				/**
+				 * 盘点相关监听
+				 */
+				//资产图片显示监听
+				var src = img.src;
+				img.classList.toggle("mui-hidden");
+				
+				asset_name.addEventListener("tap",function(event){
+					if(img.src!=src)
+						img.classList.toggle("mui-hidden");
+					else
+						alert("没有找到该资产编码对应的图片");
+				});
+				
+				//盘点按键监听
+				document.getElementById('btn_check').addEventListener("tap",function(event){
+					
+					jsonpost(function(data){
+						alert(data.result);
+						if(data.result=="盘点成功！"){
+							document.getElementById('div_'+asset_code.value).innerText="已盘点";
+							var tmpspan = document.getElementById('span_'+asset_code.value);
+							tmpspan.innerText="已盘点";
+							tmpspan.classList.remove('mui-badge-red');
+							tmpspan.classList.add('mui-badge-black');
+							
+							asset_code.value = "";
+							asset_name.value = "";
+							asset_status.value = "";
+							asset_use_company.value = "";
+							asset_use_dept.value = "";
+							asset_user.value = "";
+							img.src="";
+							img.classList.add("mui-hidden");
+						}
+					},'/mobile/countAndCheck/check/check',{
+						check_name:check_name.value,
+						asset_code:asset_code.value
+					});
+					
+				});
+				//重置按键监听
+				document.getElementById('btn_reset').addEventListener("tap",function(event){
+
+					asset_code.value = "";
+					asset_name.value = "";
+					asset_status.value = "";
+					asset_use_company.value = "";
+					asset_use_dept.value = "";
+					asset_user.value = "";
+					
+					img.src="";
+					img.classList.add("mui-hidden");
+				});
+				
+				/**
+				 * 盘点表单获取
+				 */
+				//初始化picker为空
+				var picker = null;
+				//盘点表单名称获取
+				function getCheckName(str){
+					var myjson = JSON.parse(str.result);
+					picker = new mui.PopPicker();
+					picker.setData(myjson);
+					function callback(SelectedItem){
+						check_name.value = SelectedItem[0].value;
+						document.getElementById('current_check_name').innerText = SelectedItem[0].value;
+						jsonpost(getCheckList,'/mobile/countAndCheck/check/get_checklist',{check_name:SelectedItem[0].value});
+					};
+					check_name.addEventListener("tap",function(event){
+						picker.show(callback);
+					});
+				}
+				//盘点表单内容获取
+				function getCheckList(str){
+					var list = document.body.querySelector("#mylist");
+					list.innerHTML="";
+					var jsresult = JSON.parse(str.result);
+					for(var i in jsresult){
+						var li = document.createElement('li');
+						li.className = 'mui-table-view-cell mui-collapse';
+						var htmlstr = '<a href="#">'
+											+'<div>资产编号：'+jsresult[i].asset_code+'</div>'
+											+'<div>资产名称：'+jsresult[i].asset_name+'</div>'
+										+'</a>'
+										+'<div class="mui-collapse-content">'
+											+'<div class="card-info">'
+												+'<div id="'+'div_'+jsresult[i].asset_code+'">盘点状态：'+jsresult[i].check_status+'</div>'
+												+'<div>资产状态：'+jsresult[i].asset_status+'</div>'
+												+'<div>使用银行：'+jsresult[i].asset_use_company+'</div>'
+												+'<div>使用部门：'+jsresult[i].asset_use_dept+'</div>'
+												+'<div>使用人员：'+jsresult[i].asset_user+'</div>'
+											+'</div>'
+										+'</div>';
+										
+						if(jsresult[i].check_status=="已盘点")
+							htmlstr = '<span id="'+'span_'+jsresult[i].asset_code+'" class="mui-badge mui-badge-black">已盘点</span>'+htmlstr;
+						else if(jsresult[i].check_status=="未盘点")
+							htmlstr = '<span id="'+'span_'+jsresult[i].asset_code+'" class="mui-badge mui-badge-red">未盘点</span>'+htmlstr;
+						
+						li.innerHTML = htmlstr;
+						list.appendChild(li);
+					}
+				}
+				//刷新盘点表单内容
+				document.getElementById('refresh').addEventListener("tap",function(event){
+					jsonpost(getCheckList,'/mobile/countAndCheck/check/get_checklist',{check_name:check_name.value});
+				});
+			}(mui, document));
+			
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>query</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		
+	</head>
+
+	<body>
+		
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">查询</h1>
+		</header>
+		
+		<div class="mui-content">
+			<ul class="mui-table-view mui-grid-view mui-grid-9">
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="../query/storage_query.html">
+		            <span class="mui-icon mui-icon-download"></span>
+		            <div class="mui-media-body">入库查询</div></a></li>
+		        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="../query/asset_info_query.html">
+		            <span class="mui-icon mui-icon-home"></span>
+		            <div class="mui-media-body">资产查询</div></a></li>
+		        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" id="asset_document_query"><a href="#">
+		            <span class="mui-icon mui-icon-info"></span>
+		            <div class="mui-media-body">单据查询</div></a></li>
+		        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="../query/supplies_query.html">
+		            <span class="mui-icon mui-icon-paperclip"></span>
+		            <div class="mui-media-body">耗材查询</div></a></li>
+		        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+		            <span class="mui-icon mui-icon-list"></span>
+		            <div class="mui-media-body">日志查询</div></a></li>
+			</ul>
+		</div>
+		
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script>
+			(function($, doc) {
+				$.init();
+				$.plusReady(function() {
+					var asset_queryPage = $.preload({
+						"id": 'asset_document_query',
+						"url": '../query/asset_document_query.html'
+					});
+					doc.getElementById('asset_document_query').addEventListener('tap', function(event) {
+						$.openWindow({
+							id: 'asset_document_query',
+							show: {
+								aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+						mui.fire(plus.webview.getWebviewById('asset_document_query'),"open_asset_document_query",{});
+					});
+				});
+			}(mui, document));
+		</script>
+	</body>
+
+</html>

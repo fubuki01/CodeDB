@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>资产报修</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script>
+			//资产编码输入框失去焦点执行ajax验证方法
+			function losefocus(){
+				var asset_code = document.getElementById("asset_code");
+				if(asset_code.value=="")
+					return;
+					
+				var jsondata = {
+					asset_code:asset_code.value,
+					report_code:"losefocus"
+				}
+				var asset_name = document.getElementById("asset_name");
+				var pre_asset_status = document.getElementById("pre_asset_status");
+				var bank_name = document.getElementById("bank_name");
+				var department = document.getElementById("department");
+				var asset_person = document.getElementById("asset_person");
+				
+				mui.post('http://'+app.ip+':8080/mbfw/mobile/repair/report',jsondata,
+					function(data){
+						if(data.result=="reload"){
+							alert("请重新登陆；");
+							app.autologout('../../login.html');
+						}
+						else{
+							if(data.result!="可以报修")
+								alert(data.result);
+							if(typeof(data.asset_status)!="undefined"){
+								asset_name.value = data.asset_name;
+								pre_asset_status.value = data.asset_status;
+								bank_name.value = data.asset_use_company;
+								department.value = data.asset_use_dept;
+								asset_person.value = data.asset_user;
+							}
+							else{
+								asset_name.value = "";
+								pre_asset_status.value = "";
+								bank_name.value = "";
+								department.value = "";
+								asset_person.value = "";
+							}
+						}
+						return;
+					},'json'
+				);
+			};
+		</script>
+	</head>
+	
+	<style type="text/css">
+		.btn-border{
+			margin-top: 1rem;
+		}
+	</style>
+	
+	<body>
+		
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">资产报修</h1>
+			<a href="#"><span id='QRcode' class="mui-icon mui-icon-camera mui-pull-right"></span></a>
+		</header>
+		
+		<div class="mui-input-group" style="margin-top: 2.7rem;">
+			<div class="mui-input-row">
+				<label>资产编号:</label>
+				<input type="text" id="asset_code" class="mui-input-clear" placeholder="请输入资产编号" onblur="losefocus()">
+			</div>
+			<div class="mui-input-row">
+				<label>资产名称:</label>
+				<input type="text" id="asset_name" placeholder="当前资产名称" onfocus="this.blur()">
+			</div>
+			<div class="mui-input-row">
+				<label>资产状态:</label>
+				<input type="text" id="pre_asset_status" placeholder="当前资产状态" onfocus="this.blur()">
+			</div>
+			<div class="mui-input-row">
+				<label>使用银行:</label>
+				<input type="text" id="bank_name" placeholder="当前使用银行" onfocus="this.blur()">
+			</div>
+			<div class="mui-input-row">
+				<label>使用部门:</label>
+				<input type="text" id="department" placeholder="当前使用部门" onfocus="this.blur()">
+			</div>
+			<div class="mui-input-row">
+				<label>使用者:</label>
+				<input type="text" id="asset_person" placeholder="当前使用者" onfocus="this.blur()">
+			</div>
+			<div class="mui-input-row">
+				<label>报修时间:</label>
+				<input type="date" id="repair_time" class="mui-input-clear" placeholder="请输入报修时间">
+			</div>
+			<div class="mui-input-row" style="height: 7rem;">
+				<label>损坏状况:</label>
+				<textarea type="text" id="fault_phenomen"rows="4" placeholder="请输入损坏状况"></textarea>
+			</div>
+			<div class="mui-input-row" style="height: 7rem;">
+				<label>损坏原因:</label>
+				<textarea type="text" id="fault_reason"rows="4" placeholder="请输入损坏原因"></textarea>
+			</div>
+		</div>
+		
+		<div class="mui-button-row" style="height: 100%; width: 100%;">
+			<button type="button" class="btn-border mui-btn mui-btn-primary" id="btn_repair" style="margin-right: 2rem;">报修</button>
+			<button type="button" class="btn-border mui-btn mui-btn-danger" id="btn_reset">重置</button>
+		</div>
+		
+	</body>
+	
+	<script>
+		(function($, doc) {
+			/**
+			 * mui初始化
+			 */
+			mui.init();
+			mui.plusReady(function(){
+				var QRcodePage = $.preload({
+					"id": 'QRcode',
+					"url": '../QRcode/QRcode.html?id=report'
+				});
+				doc.getElementById('QRcode').addEventListener('tap', function(event) {
+					$.openWindow({
+						id: 'QRcode',
+						show: {
+							aniShow: 'pop-in'
+						},
+						styles: {
+							popGesture: 'hide'
+						},
+						waiting: {
+							autoShow: false
+						}
+					});
+					mui.fire(plus.webview.getWebviewById("QRcode"),"open_QR",{id : "report"});
+				});
+	        });
+	        //id元素获取
+			var asset_code = document.getElementById('asset_code');
+			var asset_name = document.getElementById("asset_name");
+			var pre_asset_status = document.getElementById('pre_asset_status');
+			var bank_name = document.getElementById('bank_name');
+			var department = document.getElementById('department');
+			var repair_time = document.getElementById('repair_time');
+			var asset_person = document.getElementById('asset_person');
+			var fault_phenomen = document.getElementById('fault_phenomen');
+			var fault_reason = document.getElementById('fault_reason');
+	        /**
+	         * 二维码扫描成功回传监听
+	         */
+			window.addEventListener('get_QR',function(e){
+				asset_code.value = e.detail.QRcode;
+				asset_code.focus();
+			});
+			/**
+	         * ajax提交表单
+	         */
+	        var postjson = {
+				asset_code:"",
+				pre_asset_status:"",
+				bank_name:"",
+				department:"",
+				repair_time:"",
+				asset_person:"",
+				fault_phenomen:"",
+				fault_reason:"",
+				maintain_result:"未维修",
+				report_code:"report"
+			}
+	        function ajsxpost(){
+				mui.post('http://'+app.ip+':8080/mbfw/mobile/repair/report',postjson,
+					function(data){
+						if(data.result=="reload"){
+							alert("请重新登陆；");
+							app.autologout('../../login.html');
+						}
+						else
+							alert(data.result);
+						return;
+					},'json'
+				);
+			};
+	        /**
+	         * 按键监听
+	         */
+	        
+			//报修按键监听
+	        document.getElementById('btn_repair').addEventListener("tap",function(event){
+	        	
+	        	var f=true;   	
+	        	function safeStr(str){
+					if(f&&(str==''||str==null)){
+						alert('请填写完整信息');
+						f=false;
+					}
+					return str.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+				};
+				
+				postjson.asset_code = safeStr(asset_code.value);
+				postjson.pre_asset_status = safeStr(pre_asset_status.value);
+				postjson.bank_name = bank_name.value;
+				postjson.department = department.value;
+				postjson.repair_time = safeStr(repair_time.value);
+				postjson.asset_person = asset_person.value;
+				postjson.fault_phenomen = safeStr(fault_phenomen.value);
+				postjson.fault_reason = safeStr(fault_reason.value);
+				
+				if(f){
+					ajsxpost();
+					asset_code.value = "";
+					asset_name.value = "";
+					pre_asset_status.value = "";
+					bank_name.value = "";
+					department.value = "";
+					repair_time.value = "";
+					asset_person.value = "";
+					fault_phenomen.value = "";
+					fault_reason.value = "";
+				}
+				else
+					f=true;
+				return;
+			});
+			
+			//重置按键监听
+			document.getElementById('btn_reset').addEventListener("tap",function(event){
+
+				asset_code.value = "";
+				asset_name.value = "";
+				pre_asset_status.value = "";
+				bank_name.value = "";
+				department.value = "";
+				repair_time.value = "";
+				asset_person.value = "";
+				fault_phenomen.value = "";
+				fault_reason.value = "";
+			});
+			
+		}(mui, document));
+	</script>
+</html>

@@ -1,0 +1,181 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        style="@style/RootFragment"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            style="@style/CommonLayout"
+            android:background="@color/bg_white"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/MarketTvTitle"
+                android:text="所属部门：" />
+
+            <TextView
+                android:id="@+id/customer_tv_suoshubumen"
+                style="@style/MarketTvContent"
+                android:text="营业部" />
+        </LinearLayout>
+
+        <View style="@style/CommonHorLine" />
+
+        <LinearLayout
+            style="@style/CommonLayout"
+            android:background="@color/bg_white"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/MarketTvTitle"
+                android:text="客户编号：" />
+
+            <TextView
+                android:id="@+id/customer_tv_kehubianhao"
+                style="@style/MarketTvContent"
+                android:text="123" />
+        </LinearLayout>
+
+        <View style="@style/CommonHorLine" />
+
+        <LinearLayout
+            style="@style/CommonLayout"
+            android:background="@color/bg_white"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/MarketTvTitle"
+                android:text="客户名称：" />
+
+            <TextView
+                android:id="@+id/customer_tv_kehumingcheng"
+                style="@style/MarketTvContent"
+                android:text="湖南大学" />
+        </LinearLayout>
+
+        <View style="@style/CommonHorLine" />
+
+        <LinearLayout
+            style="@style/CommonLayout"
+            android:background="@color/bg_white"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/MarketTvTitle"
+                android:text="联系电话：" />
+
+            <TextView
+                android:id="@+id/customer_tv_lianxidianhua"
+                style="@style/MarketTvContent"
+                android:text="12345678998" />
+        </LinearLayout>
+
+        <View style="@style/CommonHorLine" />
+
+        <LinearLayout
+            style="@style/CommonLayout"
+            android:background="@color/bg_white"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/MarketTvTitle"
+                android:text="持有产品：" />
+
+            <TextView
+                android:id="@+id/customer_tv_chanpin"
+                style="@style/MarketTvContent"
+                android:text="存款、贷款、ETC、手机银行" />
+        </LinearLayout>
+
+        <View style="@style/CommonHorLine" />
+
+        <LinearLayout
+            style="@style/CommonLayout"
+            android:background="@color/bg_white"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/MarketTvTitle"
+                android:text="地址：" />
+
+            <TextView
+                android:id="@+id/customer_tv_dizhi"
+                style="@style/MarketTvContent"
+                android:text="长沙市岳麓区麓山南路520号" />
+        </LinearLayout>
+
+        <View style="@style/CommonHorLine" />
+
+        <LinearLayout
+            style="@style/CommonLayout"
+            android:background="@color/bg_white"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/MarketTvTitle"
+                android:text="最早开户日期：" />
+
+            <TextView
+                android:id="@+id/customer_tv_zuizao"
+                style="@style/MarketTvContent"
+                android:text="2017-05-02" />
+        </LinearLayout>
+
+        <View style="@style/CommonHorLine" />
+
+        <LinearLayout
+            style="@style/CommonLayout"
+            android:background="@color/bg_white"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/MarketTvTitle"
+                android:text="法人代表：" />
+
+            <TextView
+                android:id="@+id/customer_tv_faren"
+                style="@style/MarketTvContent"
+                android:text="营业部" />
+        </LinearLayout>
+
+        <View style="@style/CommonHorLine" />
+        
+                <LinearLayout
+            style="@style/CommonLayout"
+            android:background="@color/bg_white"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/MarketTvTitle"
+                android:text="经营规模：" />
+
+            <TextView
+                android:id="@+id/customer_tv_guimo"
+                style="@style/MarketTvContent"
+                android:text="小型企业" />
+        </LinearLayout>
+
+        <View style="@style/CommonHorLine" />
+        
+                <LinearLayout
+            style="@style/CommonLayout"
+            android:background="@color/bg_white"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/MarketTvTitle"
+                android:text="经营范围：" />
+
+            <TextView
+                android:id="@+id/customer_tv_fanwei"
+                style="@style/MarketTvContent"
+                android:text="水果业" />
+        </LinearLayout>
+
+        <View style="@style/CommonHorLine" />
+    </LinearLayout>
+
+</ScrollView>

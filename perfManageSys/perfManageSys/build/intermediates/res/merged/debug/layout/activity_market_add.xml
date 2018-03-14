@@ -1,0 +1,331 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/RootFragment"
+    android:orientation="vertical" >
+
+    <include layout="@layout/layout_common_back_title" />
+
+    <include
+        layout="@layout/layout_radio_button"
+        android:padding="10dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg_white"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" >
+
+            <LinearLayout
+                android:id="@+id/market_ll_yuyue_bianhao"
+                style="@style/MarketCheckLayout"
+                android:background="@color/bg_white"
+                android:orientation="horizontal"
+                android:visibility="gone" >
+
+                <TextView
+                    style="@style/MarketTvTitle"
+                    android:text="预约编号：" />
+
+                <com.hnran.perfmanagesys.view.ImageDeleteEditText
+                    android:id="@+id/market_et_yuyuebianhao"
+                    style="@style/MarketTvContent" />
+            </LinearLayout>
+
+            <View style="@style/CommonHorLine" />
+
+            <LinearLayout
+                style="@style/MarketCheckLayout"
+                android:background="@color/bg_white"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/MarketTvTitle"
+                    android:text="机构名称：" />
+
+                <com.hnran.perfmanagesys.view.ImageDeleteEditText
+                    android:id="@+id/market_et_jigoumingcheng"
+                    style="@style/MarketTvContent"
+                    android:editable="false"
+                    android:hint="点击选择" />
+            </LinearLayout>
+
+            <View style="@style/CommonHorLine" />
+
+            <LinearLayout
+                style="@style/MarketCheckLayout"
+                android:background="@color/bg_white"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/MarketTvTitle"
+                    android:text="客户名称：" />
+
+                <com.hnran.perfmanagesys.view.ImageDeleteEditText
+                    android:id="@+id/market_et_kehumingchen"
+                    style="@style/MarketTvContent" />
+            </LinearLayout>
+
+            <View style="@style/CommonHorLine" />
+
+            <LinearLayout
+                android:id="@+id/market_ll_cun_kuan_zhonglei"
+                style="@style/MarketCheckLayout"
+                android:background="@color/bg_white"
+                android:orientation="horizontal"
+                android:visibility="visible" >
+
+                <TextView
+                    android:id="@+id/market_tv_cun_kuan_zhonglei"
+                    style="@style/MarketTvTitle"
+                    android:text="存款种类：" />
+
+                <com.hnran.perfmanagesys.view.ImageDeleteEditText
+                    android:id="@+id/market_et_cun_kuan_zhonglei"
+                    style="@style/MarketTvContent"
+                    android:visibility="gone" />
+
+                <RadioGroup
+                    android:id="@+id/market_rb_cunkuan_zhonglei"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp" >
+
+                    <RadioButton
+                        android:id="@+id/market_rb_cunkuan_zhonglei_dingqi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/radiobutton_one_background"
+                        android:paddingLeft="5dp"
+                        android:text="定期"
+                        android:textColor="@color/textcolor_radiobutton_content"
+                        android:textSize="@dimen/font_content_fir" />
+
+                    <RadioButton
+                        android:id="@+id/market_rb_cunkuan_zhonglei_huoqi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:button="@drawable/radiobutton_one_background"
+                        android:paddingLeft="5dp"
+                        android:text="活期"
+                        android:textColor="@color/textcolor_radiobutton_content"
+                        android:textSize="@dimen/font_content_fir" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/market_view_cun_kuan_zhonglei"
+                style="@style/CommonHorLine" />
+
+            <LinearLayout
+                android:id="@+id/market_ll_kehu_zhonglei"
+                style="@style/MarketCheckLayout"
+                android:background="@color/bg_white"
+                android:orientation="horizontal"
+                android:visibility="visible" >
+
+                <TextView
+                    android:id="@+id/market_tv_kehu_zhonglei"
+                    style="@style/MarketTvTitle"
+                    android:text="客户种类：" />
+
+                <com.hnran.perfmanagesys.view.ImageDeleteEditText
+                    android:id="@+id/market_et_kehu_zhonglei"
+                    style="@style/MarketTvContent"
+                    android:visibility="gone" />
+
+                <RadioGroup
+                    android:id="@+id/market_rb_kehu_zhonglei"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp" >
+
+                    <RadioButton
+                        android:id="@+id/market_rb_kehu_zhonglei_geren"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/radiobutton_one_background"
+                        android:paddingLeft="5dp"
+                        android:text="个人"
+                        android:textColor="@color/textcolor_radiobutton_content"
+                        android:textSize="@dimen/font_content_fir" />
+
+                    <RadioButton
+                        android:id="@+id/market_rb_kehu_zhonglei_duigong"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:button="@drawable/radiobutton_one_background"
+                        android:paddingLeft="5dp"
+                        android:text="企业"
+                        android:textColor="@color/textcolor_radiobutton_content"
+                        android:textSize="@dimen/font_content_fir" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/market_view_kehu_zhonglei"
+                style="@style/CommonHorLine" />
+
+            <LinearLayout
+                style="@style/MarketCheckLayout"
+                android:background="@color/bg_white"
+                android:orientation="horizontal"
+                android:visibility="gone" >
+
+                <TextView
+                    style="@style/MarketTvTitle"
+                    android:text="证件类别：" />
+
+                <com.hnran.perfmanagesys.view.ImageDeleteEditText
+                    android:id="@+id/market_et_zhengjianleixing"
+                    style="@style/MarketTvContent"
+                    android:visibility="gone" />
+
+                <RadioGroup
+                    android:id="@+id/market_rb_zhengjian_zhonglei"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp" >
+
+                    <RadioButton
+                        android:id="@+id/market_rb_zhengjian_zhonglei_qita"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="其他"
+                        android:textColor="@color/textcolor_radiobutton_content"
+                        android:textSize="@dimen/font_content_fir" />
+
+                    <RadioButton
+                        android:id="@+id/market_rb_zhengjian_zhonglei_sfz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="身份证"
+                        android:textColor="@color/textcolor_radiobutton_content"
+                        android:textSize="@dimen/font_content_fir" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/MarketCheckLayout"
+                android:background="@color/bg_white"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/MarketTvTitle"
+                    android:text="证件号码：" />
+
+                <com.hnran.perfmanagesys.view.ImageDeleteEditText
+                    android:id="@+id/market_et_zhengjainhaoma"
+                    style="@style/MarketTvContent" />
+            </LinearLayout>
+
+            <View style="@style/CommonHorLine" />
+
+            <LinearLayout
+                style="@style/MarketCheckLayout"
+                android:background="@color/bg_white"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/MarketTvTitle"
+                    android:text="联系电话：" />
+
+                <com.hnran.perfmanagesys.view.ImageDeleteEditText
+                    android:id="@+id/market_et_lianxidianhua"
+                    style="@style/MarketTvContent" />
+            </LinearLayout>
+
+            <View style="@style/CommonHorLine" />
+
+            <LinearLayout
+                style="@style/MarketCheckLayout"
+                android:background="@color/bg_white"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/MarketTvTitle"
+                    android:text="预约日期：" />
+
+                <com.hnran.perfmanagesys.view.ImageDeleteEditText
+                    android:id="@+id/market_et_yuyueriqi"
+                    style="@style/MarketTvContent"
+                    android:editable="false"
+                    android:hint="点击选择日期" />
+            </LinearLayout>
+
+            <View style="@style/CommonHorLine" />
+
+            <LinearLayout
+                style="@style/MarketCheckLayout"
+                android:background="@color/bg_white"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/MarketTvTitle"
+                    android:text="营销人工号：" />
+
+                <com.hnran.perfmanagesys.view.ImageDeleteEditText
+                    android:id="@+id/market_et_yingxiaorengonghao"
+                    style="@style/MarketTvContent"
+                    android:enabled="false" />
+            </LinearLayout>
+
+            <View style="@style/CommonHorLine" />
+
+            <LinearLayout
+                style="@style/MarketCheckLayout"
+                android:background="@color/bg_white"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/MarketTvTitle"
+                    android:text="营销比例：" />
+
+                <com.hnran.perfmanagesys.view.ImageDeleteEditText
+                    android:id="@+id/market_et_yingxiaobili"
+                    style="@style/MarketTvContent"
+                    android:text="100" />
+            </LinearLayout>
+
+            <View style="@style/CommonHorLine" />
+
+            <LinearLayout
+                android:id="@+id/market_ll_kehu_cunkuan_zhanghao"
+                style="@style/MarketCheckLayout"
+                android:background="@color/bg_white"
+                android:orientation="horizontal"
+                android:visibility="gone" >
+
+                <TextView
+                    style="@style/MarketTvTitle"
+                    android:text="客户存款账号：" />
+
+                <com.hnran.perfmanagesys.view.ImageDeleteEditText
+                    android:id="@+id/market_et_kehu_cunkuan_zhanghao"
+                    style="@style/MarketTvContent" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/market_cunkuan_btn_save"
+        style="@style/CommonButton"
+        android:gravity="center"
+        android:text="保存" />
+
+</LinearLayout>

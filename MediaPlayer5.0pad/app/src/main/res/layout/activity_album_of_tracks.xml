@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootboot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:fitsSystemWindows="true">
+
+    <!-- top_bar -->
+
+    <RelativeLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_topbar_height"
+        android:layout_alignParentTop="true">
+
+        <View
+            android:id="@+id/topbar_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/topbar_underline_height"
+            android:layout_alignParentBottom="true"
+            android:background="@color/item_underline_color"
+            android:visibility="visible" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_above="@id/topbar_line" >
+
+            <RelativeLayout
+                android:id="@+id/topbar_return_content"
+                android:layout_width="88dp"
+                android:layout_height="88dp"
+                android:layout_alignParentLeft="true"
+                android:clickable="true" >
+
+                <ImageView
+                    android:id="@+id/return_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:padding="@dimen/return_btn_padding"
+                    android:src="@drawable/return_normal_new" />
+
+                <TextView
+                    android:visibility="invisible"
+                    android:id="@+id/topbar_title_return"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/return_btn"
+                    android:layout_centerVertical="true"
+                    android:text="@string/topbar_return_text"
+                    android:textColor="@drawable/topbar_return_text_color_selector"
+                    android:textSize="@dimen/topbar_textsize" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/search_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/search_text_btn_margin_right"
+                android:clickable="true"
+                android:src="@drawable/btn_search_selector"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/album_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:singleLine="true"
+                android:maxEms="20"
+                android:textColor="@color/topbar_text_color"
+                android:textSize="@dimen/topbar_text_size"
+                android:visibility="visible" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/album_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_bar"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="66dp" >
+
+        <com.dream.mediaplayer.views.MyRoundRectImageView
+            android:id="@+id/album_cover_img"
+            android:layout_width="436dp"
+            android:layout_height="436dp"
+            android:transitionName="album_share"
+            android:background="@drawable/track_list_item_default_big_cover"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_below="@id/album_cover_img"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/albumName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxEms="15"
+                android:singleLine="false"
+                android:textColor="@color/AlbumOfTracksActivity_text_color"
+                android:textSize="20sp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/artistName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxEms="15"
+                android:singleLine="true"
+                android:textColor="@color/AlbumOfTracksActivity_text_color"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/totalDuration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:singleLine="true"
+                android:textColor="@color/AlbumOfTracksActivity_text_color"
+                android:textSize="16sp"
+                android:visibility="visible"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <fragment
+        android:id="@+id/bottom_bar"
+        android:name="com.dream.mediaplayer.fragment.BottomActionBarFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
+    <FrameLayout
+        android:id="@+id/framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_bar"
+        android:layout_above="@+id/bottom_bar"
+        android:layout_toRightOf="@+id/album_info"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="70dp">
+    </FrameLayout>
+
+</RelativeLayout>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AssetReceivedMapper">
+	<!-- 下发单接收 -->
+	<!-- 查找闲置资产以用来下发 -->
+	<select id="find_asset_for_received" parameterType="page" resultType="pd">
+		select * from asset_info where asset_status ='下发' and delete_flag=1
+		<if test="pd.user_Permission == 2">
+		and asset_into_bill in (
+			select into_code from intolibrary_apply where into_purchase_bill in (
+				select purchase_code from purchase_bill where apply_id in (
+					select apply_id from  aproject_manager where apply_company =#{pd.organization_name} 
+						or apply_dept=#{pd.organization_name} 
+				)
+			)
+		)
+		</if>
+		<if test="pd.user_Permission == 3">
+		and asset_into_bill in (
+			select into_code from intolibrary_apply where into_purchase_bill in (
+				select purchase_code from purchase_bill where apply_id in (
+					select apply_id from  aproject_manager where apply_company =#{pd.superior_organization_name} 
+						and apply_dept=#{pd.organization_name} and apply_person=#{pd.apply_person}
+				)
+			)
+		)
+		</if>
+		order by asset_purchase_time DESC
+		limit #{currentResult},#{showCount}
+	</select>
+		
+	<!-- 查询入库单总条数 -->
+	<select id="find_asset_for_received_totalnumber" parameterType="pd" resultType="Integer">
+		select count(id) from asset_info where asset_status ='下发' and delete_flag=1
+		<if test="user_Permission == 2">
+		and asset_into_bill in (
+			select into_code from intolibrary_apply where into_purchase_bill in (
+				select purchase_code from purchase_bill where apply_id in (
+					select apply_id from  aproject_manager where apply_company =#{organization_name} 
+						or apply_dept=#{organization_name} 
+				)
+			)
+		)
+		</if>
+		<if test="user_Permission == 3">
+		and asset_into_bill in (
+			select into_code from intolibrary_apply where into_purchase_bill in (
+				select purchase_code from purchase_bill where apply_id in (
+					select apply_id from  aproject_manager where apply_company =#{superior_organization_name} 
+						and apply_dept=#{organization_name} and apply_person=#{apply_person}
+				)
+			)
+		)
+		</if>
+	</select>
+	
+	<!-- 根据关键字查询入库单总数 -->
+	<select id="find_asset_for_received_bykey_totalnumber" parameterType="page" resultType="Integer">
+		select count(id) from asset_info where asset_status ='下发' and delete_flag=1
+		<if test="pd.user_Permission == 2">
+		and asset_into_bill in(
+			select into_code from intolibrary_apply where into_purchase_bill in (
+				select purchase_code from purchase_bill where apply_id in (
+					select apply_id from  aproject_manager where apply_company =#{pd.organization_name} 
+						or apply_dept=#{pd.organization_name} 
+				)
+			)
+		)
+		</if>
+		<if test="pd.user_Permission == 3">
+		and asset_into_bill in(
+			select into_code from intolibrary_apply where into_purchase_bill in (
+				select purchase_code from purchase_bill where apply_id in (
+					select apply_id from  aproject_manager where apply_company =#{pd.superior_organization_name} 
+						and apply_dept=#{pd.organization_name} and apply_person=#{pd.apply_person}
+				)
+			)
+		)
+		</if>
+		<if test="pd.retrieve_content != '' and pd.retrieve_content != null">
+			and (
+				asset_name like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_code like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_class like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_price like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_storehouse	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_provider	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_max_years	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_brand	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_into_bill	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_unit	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_sn	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_standard_model	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			)
+		</if>
+	</select>
+	
+	<!-- 根据关键字查询入库单 -->
+	<select id="find_asset_for_received_bykey" parameterType="page" resultType="pd">
+		select * from asset_info where asset_status ='下发' and delete_flag=1
+		<if test="pd.user_Permission == 2">
+		and asset_into_bill in(
+			select into_code from intolibrary_apply where into_purchase_bill in (
+				select purchase_code from purchase_bill where apply_id in (
+					select apply_id from  aproject_manager where apply_company =#{pd.organization_name} 
+						or apply_dept=#{pd.organization_name} 
+				)
+			)
+		)
+		</if>
+		<if test="pd.user_Permission == 3">
+		and asset_into_bill in(
+			select into_code from intolibrary_apply where into_purchase_bill in (
+				select purchase_code from purchase_bill where apply_id in (
+					select apply_id from  aproject_manager where apply_company =#{pd.superior_organization_name} 
+						and apply_dept=#{pd.organization_name} and apply_person=#{pd.apply_person}
+				)
+			)
+		)
+		</if>
+		<if test="pd.retrieve_content != '' and pd.retrieve_content != null">
+			and (
+				asset_name like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_code like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_class like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_price like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_storehouse	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_provider	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_max_years	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_brand	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_into_bill	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_unit	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_sn	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_standard_model	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			)
+		</if>
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 跟新下发单 -->
+	<update id="update_issue_bill_status" parameterType="pd" flushCache="false">
+	     update asset_issue
+	     	set issued_status  ='接收',
+	     		receive_branch =#{receive_branch},
+	     		receive_department =#{receive_department},
+	     		receiver  =#{receiver},
+	     		receive_time =#{receive_time},
+	     		receive_proof =#{receive_proof}
+			where 
+				asset_code =#{asset_code}
+	</update>
+	
+	<!-- 修改 资产表状态-->
+	<update id="update_asset_status" parameterType="pd" flushCache="false">
+	     update asset_info
+	     	set asset_status  ='接收',
+	     	asset_use_company =#{receive_branch},
+	     	asset_use_dept =#{receive_department}
+			where 
+				asset_code =#{asset_code}
+	</update>
+	
+	<!-- 下发单添加 的时候，添加指定要接收是部门-->
+	<insert id="save_issued_receive" parameterType="pd" flushCache="true">
+		insert into asset_receive(
+			asset_code,
+			receive_branch,
+			receive_department,
+			receiver,
+			receive_time,
+			receive_proof
+		) values(
+			#{asset_code},
+			#{receive_branch},
+			#{receive_department},
+			#{receiver},
+			#{receive_time},
+			#{receive_proof}
+		)
+	</insert>
+	<!--  当下发单处于接收状态，修改下发单状态 -->
+	<update id="update_issue_bill_receive" parameterType="pd" flushCache="true">
+	     update asset_issue
+	     	set 
+				receive_branch =#{receive_branch},
+				receive_department =#{receive_department},
+				receiver =#{receiver},
+				receive_proof =#{receive_proof}
+			where 
+				id =#{id}
+	</update>
+</mapper>

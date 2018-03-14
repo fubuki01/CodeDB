@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="266dp"
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_alignParentTop="true"
+            android:background="#0090ff"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:layout_marginTop="70dp"
+            android:background="@drawable/rankdialogimg"/>
+
+        <com.readboy.HandWrite.MyCircleimgView
+            android:id="@+id/rankdialog_headimg"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="26dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/test"
+            app:border_width="2dp"
+            app:border_color="#ffffff"/>
+
+        <TextView
+            android:id="@+id/rankdialog_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="18dp"
+            android:layout_below="@+id/rankdialog_headimg"
+            android:text="滑稽"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            android:textStyle="normal"/>
+
+        <TextView
+            android:id="@+id/rankdialog_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            android:layout_below="@+id/rankdialog_name"
+            android:text="湖南大学幼儿园"
+            android:textColor="#A8A8A8"
+            android:textSize="13sp"
+            android:textStyle="normal"/>
+
+        <TextView
+            android:id="@+id/rankdialog_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="33dp"
+            android:layout_below="@+id/rankdialog_address"
+            android:background="#e6e6e6"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_below="@+id/rankdialog_line"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/rankdialog_grade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="16sp"
+                    android:textColor="#0090ff"
+                    android:textStyle="bold"
+                    android:text="233分"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rankdialog_grade"
+                    android:layout_marginTop="7dp"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="13sp"
+                    android:textColor="#A8A8A8"
+                    android:textStyle="normal"
+                    android:text="得分"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="2dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center_vertical"
+                android:background="#e6e6e6"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/rankdialog_rank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="16sp"
+                    android:textColor="#0090ff"
+                    android:textStyle="bold"
+                    android:text="666名"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rankdialog_rank"
+                    android:layout_marginTop="7dp"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="13sp"
+                    android:textColor="#A8A8A8"
+                    android:textStyle="normal"
+                    android:text="排名"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="2dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center_vertical"
+                android:background="#e6e6e6"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/rankdialog_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="16sp"
+                    android:textColor="#0090ff"
+                    android:textStyle="bold"
+                    android:text="3天4小时"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rankdialog_time"
+                    android:layout_marginTop="7dp"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="13sp"
+                    android:textColor="#A8A8A8"
+                    android:textStyle="normal"
+                    android:text="本周还剩"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e6e6e6"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/ranklist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

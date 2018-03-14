@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AssetPurchaseBillMapper">
+	
+	<!-- 增加采购单 -->
+	<insert id="save_purchase_bill" parameterType="pd" flushCache="true">
+		insert into purchase_bill (
+					apply_id,
+					purchase_code,
+					project_name,
+					purchase_asset_name,
+					purchase_asset_class,
+					purchase_asset_count,
+					provider_name,
+					provider_code,
+					purchase_price,
+					purchase_person,
+					check_person,
+					purchase_way,
+					delivery_date,
+					dispatch_way,
+					money_from,
+					puchase_payway,
+					purchase_upload,
+					device_code
+		) values (
+			#{apply_id},
+			#{purchase_code},
+			#{project_name},
+			#{purchase_asset_name },
+			#{purchase_asset_class},
+			#{purchase_asset_count},
+			#{provider_name},
+			#{provider_code},
+			#{purchase_price},
+			#{purchase_person},
+			#{check_person},
+			#{purchase_way},
+			#{delivery_date},
+			#{dispatch_way},
+			#{money_from},
+			#{puchase_payway},
+			#{purchase_upload},
+			#{device_code}
+		)
+	</insert>
+	
+	<!-- 查询全部采购单 -->
+	<select id="find_puchase_bill"  parameterType="com.mbfw.entity.assets.PageOption" resultType="pd" flushCache="true">
+		select * from purchase_bill where 1=1
+		<if test="pd.user_Permission == 2">
+		and apply_id in (
+			select apply_id from  aproject_manager where apply_company =#{pd.organization_name} 
+			or apply_dept=#{pd.organization_name} 
+		)
+		</if>
+		<if test="pd.user_Permission == 3">
+		and apply_id in (
+			select apply_id from  aproject_manager where apply_company =#{pd.superior_organization_name} 
+			and apply_dept=#{pd.organization_name} and apply_person=#{pd.apply_person}
+		)
+		</if>
+		order by purchase_bill.id DESC
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 通过id查询采购单 -->
+	<select id="find_puchase_bill_byid" parameterType="pd" resultType="pd">
+		select * from purchase_bill where id=#{id}
+	</select>
+	<!-- 查询总条数 -->
+	<select id="find_puchase_bill_totalnumber" parameterType="pd" resultType="Integer">
+		select count(id) from purchase_bill where 1=1
+		<if test="pd.user_Permission == 2">
+		and apply_id in (
+			select apply_id from  aproject_manager where apply_company =#{pd.organization_name} 
+			or apply_dept=#{pd.organization_name} 
+		)
+		</if>
+		<if test="pd.user_Permission == 3">
+		and apply_id in (
+			select apply_id from  aproject_manager where apply_company =#{pd.superior_organization_name} 
+			and apply_dept=#{pd.organization_name} and apply_person=#{pd.apply_person}
+		)
+		</if>
+	</select>
+	
+	<!--  根据关键字查找总条数 -->
+	<select id="find_puchase_bill_bykey_totalnumber" parameterType="page" resultType="Integer">
+		select count(id) from purchase_bill 
+		<if test="pd.user_Permission == 2">
+			where apply_id in (
+				select apply_id from  aproject_manager where apply_company =#{pd.organization_name} 
+			or apply_dept=#{pd.organization_name} 
+			)
+		</if>
+		<if test="pd.user_Permission == 3">
+			where apply_id in (
+			select apply_id from  aproject_manager where apply_company =#{pd.superior_organization_name} 
+			and apply_dept=#{pd.organization_name} and apply_person=#{pd.apply_person}
+			)
+		</if>
+			
+		<if test="pd.user_Permission == 1">
+			where 1=1
+		</if>
+		<if test="pd.retrieve_content != '' and pd.retrieve_content != null">
+			and (
+					purchase_code like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					purchase_bill_status like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					project_name like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					purchase_asset_name like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					purchase_asset_class like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					purchase_asset_count like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					provider_name like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					provider_code like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					purchase_price like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					purchase_person like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					check_person like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					purchase_way like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					dispatch_way like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					money_from like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					puchase_payway like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					purchase_upload like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			)
+			</if>
+	</select>
+	
+	<!--  根据关键字查找 -->
+	<select id="find_puchase_bill_bykey" parameterType="page" resultType="pd">
+		select * from purchase_bill 
+		<if test="pd.user_Permission == 2">
+			where apply_id in (
+				select apply_id from  aproject_manager where apply_company =#{pd.organization_name} 
+			or apply_dept=#{pd.organization_name} 
+			)
+		</if>
+		<if test="pd.user_Permission == 3">
+			where apply_id in (
+			select apply_id from  aproject_manager where apply_company =#{pd.superior_organization_name} 
+			and apply_dept=#{pd.organization_name} and apply_person=#{pd.apply_person}
+			)
+		</if>
+		
+		<if test="pd.user_Permission == 1">
+			where 1=1
+		</if>
+		
+		<if test="pd.retrieve_content != '' and pd.retrieve_content != null">
+			and (
+					purchase_code like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					purchase_bill_status like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					project_name like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					purchase_asset_name like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					purchase_asset_class like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					purchase_asset_count like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					provider_name like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					provider_code like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					purchase_price like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					purchase_person like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					check_person like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					purchase_way like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					dispatch_way like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					money_from like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					puchase_payway like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					purchase_upload like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			)
+			</if>
+			order by purchase_bill.id DESC
+			limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 修改采购单 -->
+	<update id="edit_purchase_bill" parameterType="pd" flushCache="true">
+		update purchase_bill
+			set 
+				project_name           =#{project_name},
+				purchase_asset_name    =#{purchase_asset_name},
+				purchase_asset_class   =#{purchase_asset_class},
+				purchase_asset_count   =#{purchase_asset_count},
+				provider_name          =#{provider_name},
+				provider_code          =#{provider_code},
+				purchase_price         =#{purchase_price},
+				purchase_person        =#{purchase_person},
+				check_person           =#{check_person},
+				purchase_way           =#{purchase_way},
+				delivery_date          =#{delivery_date},
+				dispatch_way           =#{dispatch_way},
+				money_from             =#{money_from},
+				puchase_payway         =#{puchase_payway},
+				purchase_upload        =#{purchase_upload}
+			where 
+				id=#{id}
+	</update>
+	
+	<!-- 删除单个供应商 -->
+	
+	<delete id="delete_purchase_bill" parameterType="pd">
+		delete from purchase_bill where id=#{id}
+	</delete>
+	
+	<!-- 批量删除供应商 -->
+	<delete id="delete_all_purchase_bill" parameterType="String" flushCache="false">
+		delete from purchase_bill
+		where 
+			id in
+  			 <foreach item="id" index="index" collection="array" open="(" separator="," close=")">
+                  #{id}
+             </foreach>
+	</delete>
+	<!-- 填写入库单状态 -->
+	<select id="find_finish_purchase_bill" parameterType="pd" resultType="pd">
+		select * from purchase_bill where  purchase_bill_status='未采购'
+		<if test="user_Permission == 2">
+		and purchase_bill.apply_id in (
+			select apply_id from  aproject_manager where apply_company =#{organization_name} 
+			or apply_dept=#{organization_name} 
+		)
+		</if>
+		<if test="user_Permission == 3">
+		and purchase_bill.apply_id in (
+			select apply_id from  aproject_manager where apply_company =#{superior_organization_name} 
+			and apply_dept=#{organization_name} and apply_person=#{apply_person}
+		)
+		</if>
+	</select>
+	
+	<!-- 填写入库单，修改采购单状态 -->
+	<update id="update_finish_purchase_bill" parameterType="String">
+		update purchase_bill
+		set purchase_bill_status='入库中'
+		where purchase_code=#{purchase_code}
+	</update>
+	
+	<!-- 登记资产，修改采购单状态 完成-->
+	<update id="update_finish_purchase_bill_after_registerasset" parameterType="String">
+		update purchase_bill
+		set purchase_bill_status='已采购'
+		where purchase_code=(select into_purchase_bill from intolibrary_apply where into_code=#{into_code})
+	</update>
+	<!-- 登记资产，修改采购单状态 采购中-->
+	<update id="updating_finish_purchase_bill_after_registerasset" parameterType="String">
+		update purchase_bill
+		set purchase_bill_status='采购中'
+		where purchase_code=(select into_purchase_bill from intolibrary_apply where into_code=#{into_code})
+	</update>
+</mapper>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/random_playrow_RL"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:gravity="center_vertical">
+
+    <RelativeLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        >
+
+        <TextView
+            android:id="@+id/song_count_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:ellipsize="end"
+            android:focusable="true"
+            android:shadowColor="#ff000000"
+            android:shadowDx="0.3"
+            android:shadowDy="0.3"
+            android:shadowRadius="0.3"
+            android:singleLine="true"
+            android:text="@string/tracks_list_header_title_text"
+            android:textColor="@color/tracks_list_header_text_color"
+            android:textSize="@dimen/tracks_list_header_textsize" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="36dp"
+            android:src="@drawable/random_play_selector" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tracks_list_viewline_height"
+        android:layout_below="@id/content"
+        android:background="@color/item_underline_color"/>
+</RelativeLayout>

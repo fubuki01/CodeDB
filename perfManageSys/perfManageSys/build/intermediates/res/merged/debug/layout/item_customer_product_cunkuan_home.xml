@@ -1,0 +1,63 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Root"
+    android:orientation="vertical" >
+
+    <!-- 存款产品信息 -->
+
+    <include layout="@layout/item_customer_product_cunkuan"/>
+
+    
+    <!-- 存款产品管户人信息 -->
+
+    <LinearLayout
+        android:id="@+id/customer_product_cunkuan_user_ll_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <View style="@style/CommonHorLine" />
+
+        <LinearLayout
+            style="@style/CommonLayout"
+            android:background="@color/bg_them_10"
+            android:orientation="horizontal" >
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                style="@style/CustRelationTitle"
+                android:layout_weight="0.8"
+                android:text="管户人姓名" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                style="@style/CustRelationTitle"
+                android:layout_weight="0.8"
+                android:text="管户比例（%）" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                style="@style/CustRelationTitle"
+                android:text="开始时间" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                style="@style/CustRelationTitle"
+                android:text="结束时间" />
+
+            <View style="@style/CommonVerLine" />
+        </LinearLayout>
+
+        <View style="@style/CommonHorLine" />
+        
+        <!--  
+        <include layout="@layout/item_customer_product_cunkuan_user"/>
+        
+        <include layout="@layout/item_customer_product_cunkuan_user"/>-->
+        
+    </LinearLayout>
+
+</LinearLayout>

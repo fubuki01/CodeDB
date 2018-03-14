@@ -1,0 +1,107 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="259dp"
+    android:layout_height="170dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="@drawable/alertaddlist"
+    >
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:textColor="#2ae8ff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/playlist_title"
+        android:paddingTop="21dp"/>
+
+    <TextView
+        android:id="@+id/tv_message"
+        android:textSize="13sp"
+        android:textColor="#2ae8ff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/playlist_pmp"
+        android:paddingTop="7dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="19dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        >
+        <EditText
+            android:id="@+id/et_add"
+            android:layout_width="228dp"
+            android:layout_height="24dp"
+            android:hint="@string/playlist_hint"
+            android:textSize="13sp"
+            android:textColor="#000000"
+            android:background="@drawable/editextshape"
+            android:textCursorDrawable="@drawable/newplaylist_editext"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="12dp"
+        android:orientation="vertical"
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#BEBEC2"
+            android:alpha="0.3"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+
+        >
+        <LinearLayout
+            android:layout_width="129dp"
+            android:layout_height="match_parent">
+            <Button
+                android:id="@+id/btn_quxiao"
+                android:layout_width="match_parent"
+                android:textColor="#2ae8ff"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_newplaylist_quxiao_selector"
+                android:textSize="17sp"
+                android:text="@string/playlist_cancel"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="51dp"
+            android:background="#000000"
+            android:alpha="0.1"/>
+
+        <LinearLayout
+            android:layout_width="129dp"
+            android:layout_height="match_parent"
+            >
+            <Button
+                android:id="@+id/btn_queding"
+                android:layout_width="match_parent"
+                android:textColor="#2ae8ff"
+                android:layout_height="match_parent"
+                android:enabled="false"
+                android:background="@drawable/btn_newplaylist"
+                android:textSize="17sp"
+                android:text="@string/playlist_save"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

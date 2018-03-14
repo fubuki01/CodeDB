@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/RootLayout"
+    android:orientation="vertical" >
+
+    <include layout="@layout/layout_common_back_title"/>
+
+    <TextView
+        android:id="@+id/perf_common_tv_date"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_menu_height"
+        android:background="@color/bg_white"
+        android:gravity="center"
+        android:text="2017-05-10"
+        android:textColor="@color/font_black_2"
+        android:textSize="@dimen/font_content_fir" />
+
+    <View style="@style/CommonHorLine" />
+
+    <include layout="@layout/table_top_perf_common_activity" />
+
+    <View style="@style/CommonHorLine" />
+
+    <ListView
+        android:id="@+id/perf_common_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_white"
+        android:divider="@color/bg_line"
+        android:dividerHeight="@dimen/line_height"
+        android:scrollbarSize="4dp"
+        android:scrollbarThumbVertical="@drawable/listview_scrollbar_style"
+        android:scrollbars="vertical"
+        android:visibility="visible" >
+    </ListView>
+
+    <View style="@style/CommonHorLine" />
+
+    <TextView
+        android:id="@+id/perf_common_tv_total"
+        style="@style/PerfTv"
+        android:background="@color/bg_them_10"
+        android:gravity="right|center_vertical"
+        android:paddingRight="@dimen/padding_listview_item_hor"
+        android:text="利润合计：534元" />
+
+    <View style="@style/CommonHorLine" />
+
+</LinearLayout>

@@ -1,0 +1,68 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/RootLayout"
+    android:orientation="vertical" >
+
+    <include layout="@layout/layout_common_back_title" />
+
+    <FrameLayout
+        android:id="@+id/customer_info_root"
+        style="@style/RootLayout" >
+
+        <com.hnran.perfmanagesys.view.FadingScrollView
+            android:id="@+id/customer_info_sv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbarSize="5dp"
+            android:scrollbarThumbVertical="@drawable/listview_scrollbar_style"
+            android:visibility="gone" >
+
+            <LinearLayout
+                style="@style/Root"
+                android:orientation="vertical" >
+
+                <include
+                    android:id="@+id/customer_info_base"
+                    layout="@layout/layout_customer_base_info" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <include
+                    android:id="@+id/customer_info_relation"
+                    layout="@layout/layout_customer_relation_user" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <include
+                    android:id="@+id/customer_info_product"
+                    layout="@layout/layout_customer_product" />
+            </LinearLayout>
+        </com.hnran.perfmanagesys.view.FadingScrollView>
+
+        <com.hnran.perfmanagesys.view.ScrollerLayout
+            android:id="@+id/customer_info_scrollerlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" >
+
+            <com.hnran.perfmanagesys.view.ScrollSlidingTabStrip
+                android:id="@+id/customer_info_tabs"
+                style="@style/TabCommon"
+                android:layout_gravity="top"
+                android:layout_marginBottom="0dp"
+                android:layout_marginTop="0dp"
+                app:pstsTabPaddingLeftRight="2dp" />
+        </com.hnran.perfmanagesys.view.ScrollerLayout>
+
+        <ProgressBar
+            android:id="@+id/customer_info_progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
+</LinearLayout>

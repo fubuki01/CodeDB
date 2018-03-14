@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- <selector
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_window_focused="false" android:state_enabled="true" android:drawable="@drawable/play_play_normal" />
+    <item android:state_pressed="true" android:drawable="@drawable/play_play_press" />
+    <item android:state_focused="true" android:state_pressed="true" android:drawable="@drawable/play_play_press" />
+    <item android:state_focused="true" android:drawable="@drawable/play_play_press" />
+    <item android:state_enabled="true" android:drawable="@drawable/play_play_normal" />
+</selector> -->
+
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/material_btn_color">
+    <item android:drawable="@drawable/widget_play_play_normal_4_2" />
+</ripple>

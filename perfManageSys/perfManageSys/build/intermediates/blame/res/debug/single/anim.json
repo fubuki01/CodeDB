@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\anim\\transition_out_left.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\anim\\transition_out_left.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\anim\\transition_in_left.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\anim\\transition_in_left.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\anim\\slide_out_to_bottom.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\exploded-aar\\perfManageSys\\pullToRefresh\\unspecified\\res\\anim\\slide_out_to_bottom.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\anim\\slide_in_from_top.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\exploded-aar\\perfManageSys\\pullToRefresh\\unspecified\\res\\anim\\slide_in_from_top.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\anim\\transition_out_right.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\anim\\transition_out_right.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\anim\\transition_in_right.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\anim\\transition_in_right.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\anim\\slide_in_from_bottom.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\exploded-aar\\perfManageSys\\pullToRefresh\\unspecified\\res\\anim\\slide_in_from_bottom.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\anim\\slide_out_to_top.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\exploded-aar\\perfManageSys\\pullToRefresh\\unspecified\\res\\anim\\slide_out_to_top.xml"
+    }
+]

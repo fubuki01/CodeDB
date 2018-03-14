@@ -1,0 +1,87 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/RootLayout"
+    android:orientation="vertical" >
+
+    <include layout="@layout/layout_common_back_title" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/time_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:paddingTop="10dp"
+                android:textColor="@color/font_black_1"
+                android:textSize="@dimen/font_content_fir" />
+
+            <TextView
+                android:id="@+id/location_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:paddingTop="10dp"
+                android:textColor="@color/font_black_1"
+                android:textSize="@dimen/font_content_fir" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/visit_main_progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:padding="10dp" >
+
+        <ImageView
+            android:id="@+id/show_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible" />
+
+        <VideoView
+            android:id="@+id/video_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:visibility="invisible" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <Button
+            android:id="@+id/take_photo"
+            style="@style/InfoButton"
+            android:layout_marginRight="5dp"
+            android:text="照相"
+            android:enabled="false" />
+
+        <Button
+            android:id="@+id/take_video"
+            style="@style/InfoButton"
+            android:layout_marginLeft="5dp"
+            android:text="视频"
+            android:enabled="false" />
+    </LinearLayout>
+
+</LinearLayout>

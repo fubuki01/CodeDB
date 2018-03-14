@@ -1,0 +1,378 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        style="@style/RootFragment"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/perf_tv_date"
+            style="@style/PerfTv"
+            android:text="工资日期：2017-05-10(下拉选择)" />
+
+        <View style="@style/CommonHorLine" />
+
+        <LinearLayout
+            style="@style/CommonLayout"
+            android:background="@color/bg_white"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/perf_cunkuan_tv_nc"
+                style="@style/PerfTableTv2"
+                android:text="指标名称" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_jg"
+                style="@style/PerfTableTv1.2"
+                android:text="指标结果" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_dj"
+                style="@style/PerfTableTv1"
+                android:text="指标单价" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_gz"
+                style="@style/PerfTableTv1"
+                android:text="指标工资" />
+
+            <View style="@style/CommonVerLine" />
+        </LinearLayout>
+
+        <View style="@style/CommonHorLine" />
+
+        <LinearLayout
+            style="@style/CommonLayout"
+            android:background="@color/bg_white"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/perf_cunkuan_tv_nc_1"
+                style="@style/PerfTableTv2"
+                android:text="存量自然增长模拟利润" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_jg_1"
+                style="@style/PerfTableTv1.2"
+                android:text="1000" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_dj_1"
+                style="@style/PerfTableTv1"
+                android:text="0.05" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_gz_1"
+                style="@style/PerfTableTv1"
+                android:text="50" />
+
+            <View style="@style/CommonVerLine" />
+        </LinearLayout>
+
+        <View style="@style/CommonHorLine" />
+
+        <LinearLayout
+            style="@style/CommonLayout"
+            android:background="@color/bg_white"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/perf_cunkuan_tv_nc_2"
+                style="@style/PerfTableTv2"
+                android:text="存量主动揽储模拟利润" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_jg_2"
+                style="@style/PerfTableTv1.2"
+                android:text="0" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_dj_2"
+                style="@style/PerfTableTv1"
+                android:text="0.05" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_gz_2"
+                style="@style/PerfTableTv1"
+                android:text="50" />
+
+            <View style="@style/CommonVerLine" />
+        </LinearLayout>
+
+        <View style="@style/CommonHorLine" />
+
+        <LinearLayout
+            style="@style/CommonLayout"
+            android:background="@color/bg_white"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/perf_cunkuan_tv_nc_3"
+                style="@style/PerfTableTv2"
+                android:text="期末自然增长模拟利润" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_jg_3"
+                style="@style/PerfTableTv1.2"
+                android:text="2000" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_dj_3"
+                style="@style/PerfTableTv1"
+                android:text="0.05" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_gz_3"
+                style="@style/PerfTableTv1"
+                android:text="50" />
+
+            <View style="@style/CommonVerLine" />
+        </LinearLayout>
+
+        <View style="@style/CommonHorLine" />
+
+        <LinearLayout
+            style="@style/CommonLayout"
+            android:background="@color/bg_white"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/perf_cunkuan_tv_nc_4"
+                style="@style/PerfTableTv2"
+                android:text="期末主动增长模拟利润" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_jg_4"
+                style="@style/PerfTableTv1.2"
+                android:text="1000" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_dj_4"
+                style="@style/PerfTableTv1"
+                android:text="0.05" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_gz_4"
+                style="@style/PerfTableTv1"
+                android:text="50" />
+
+            <View style="@style/CommonVerLine" />
+        </LinearLayout>
+
+        <View style="@style/CommonHorLine" />
+
+        <LinearLayout
+            style="@style/CommonLayout"
+            android:background="@color/bg_white"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/perf_cunkuan_tv_nc_5"
+                style="@style/PerfTableTv2"
+                android:text="增量自然增长模拟利润" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_jg_5"
+                style="@style/PerfTableTv1.2"
+                android:text="1000" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_dj_5"
+                style="@style/PerfTableTv1"
+                android:text="0.05" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_gz_5"
+                style="@style/PerfTableTv1"
+                android:text="50" />
+
+            <View style="@style/CommonVerLine" />
+        </LinearLayout>
+
+        <View style="@style/CommonHorLine" />
+
+        <LinearLayout
+            style="@style/CommonLayout"
+            android:background="@color/bg_white"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/perf_cunkuan_tv_nc_6"
+                style="@style/PerfTableTv2"
+                android:text="增量主动增长模拟利润" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_jg_6"
+                style="@style/PerfTableTv1.2"
+                android:text="1000" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_dj_6"
+                style="@style/PerfTableTv1"
+                android:text="0.05" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_gz_6"
+                style="@style/PerfTableTv1"
+                android:text="50" />
+
+            <View style="@style/CommonVerLine" />
+        </LinearLayout>
+
+        <View style="@style/CommonHorLine" />
+
+        <LinearLayout
+            style="@style/CommonLayout"
+            android:background="@color/bg_white"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/perf_cunkuan_tv_nc_7"
+                style="@style/PerfTableTv2"
+                android:text="存量自然增长模拟利润" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_jg_7"
+                style="@style/PerfTableTv1.2"
+                android:text="1000" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_dj_7"
+                style="@style/PerfTableTv1"
+                android:text="0.05" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_gz_7"
+                style="@style/PerfTableTv1"
+                android:text="50" />
+
+            <View style="@style/CommonVerLine" />
+        </LinearLayout>
+
+        <View style="@style/CommonHorLine" />
+
+        <LinearLayout
+            style="@style/CommonLayout"
+            android:background="@color/bg_white"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/perf_cunkuan_tv_nc_8"
+                style="@style/PerfTableTv2"
+                android:text="存量自然增长模拟利润" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_jg_8"
+                style="@style/PerfTableTv1.2"
+                android:text="1000" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_dj_8"
+                style="@style/PerfTableTv1"
+                android:text="0.05" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_gz_8"
+                style="@style/PerfTableTv1"
+                android:text="50" />
+
+            <View style="@style/CommonVerLine" />
+        </LinearLayout>
+
+        <View style="@style/CommonHorLine" />
+
+        <LinearLayout
+            style="@style/CommonLayout"
+            android:background="@color/bg_white"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/perf_cunkuan_tv_nc_9"
+                style="@style/PerfTableTv2"
+                android:text="存量自然增长模拟利润" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_jg_9"
+                style="@style/PerfTableTv1.2"
+                android:text="1000" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_dj_9"
+                style="@style/PerfTableTv1"
+                android:text="0.05" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/perf_tv_gz_9"
+                style="@style/PerfTableTv1"
+                android:text="50" />
+
+            <View style="@style/CommonVerLine" />
+        </LinearLayout>
+
+        <View style="@style/CommonHorLine" />
+    </LinearLayout>
+
+</ScrollView>

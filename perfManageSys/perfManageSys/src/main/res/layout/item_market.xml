@@ -1,0 +1,103 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        style="@style/RootFragment"
+        android:background="@color/bg_root"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp" >
+
+        <LinearLayout
+            style="@style/RootFragment"
+            android:background="@drawable/selector_home_tips"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_listview_item_hor" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tv_market_id"
+                    style="@style/CustTvItemTitle"
+                    android:text="@string/yuyuebianhao" />
+
+                <TextView
+                    android:id="@+id/tv_market_id_content"
+                    style="@style/CustTvItemContent"
+                    android:text="123" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tv_market_type"
+                    style="@style/CustTvItemTitle"
+                    android:text="@string/jigoumingchen" />
+
+                <TextView
+                    android:id="@+id/tv_market_type_content"
+                    style="@style/CustTvItemContent"
+                    android:text="营业部" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tv_market_name"
+                    style="@style/CustTvItemTitle"
+                    android:text="@string/kehuxingming" />
+
+                <TextView
+                    android:id="@+id/tv_market_name_content"
+                    style="@style/CustTvItemContent"
+                    android:text="张三" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tv_market_tele"
+                    style="@style/CustTvItemTitle"
+                    android:text="@string/lianxidianhua" />
+
+                <TextView
+                    android:id="@+id/tv_market_tele_content"
+                    style="@style/CustTvItemContent"
+                    android:text="187555555543" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/CustTvItemTitle"
+                    android:text="@string/yuyueriqi" />
+
+                <TextView
+                    android:id="@+id/tv_market_address"
+                    style="@style/CustTvItemContent"
+                    android:text="2017-05-17" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <include layout="@layout/common_item_lable" />
+
+</FrameLayout>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.readboy.mentalcalculation"
+    android:versionCode="170421100"
+    android:versionName="1.06">
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="15" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:theme="@style/MyThemeStyle">
+        <activity
+            android:name=".StartChallengActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="sensorLandscape">
+            <intent-filter>
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+                <!--<action android:name="android.intent.action.View" />-->
+                 <action android:name="android.intent.action.View" />
+                 <action android:name="android.readboy.APPLICATION.FLAG" />
+                 <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.readboy.game.draftActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape"></activity>
+        <!-- <activity -->
+        <!-- android:name="com.readboy.game.GameActivity" -->
+        <!-- android:screenOrientation="sensor" -->
+        <!-- android:label="@string/app_name" > -->
+        <!-- </activity> -->
+        <activity
+            android:name="com.readboy.game.draftActivity_w"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+        <activity
+            android:name="com.readboy.game.Grade_1.Grade_1_top"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape"></activity>
+        <activity
+            android:name="com.readboy.game.Grade_1.Grade_1_down"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape"></activity>
+        <activity
+            android:name="com.readboy.game.Grade_2.Grade_2_top"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape"></activity>
+        <activity
+            android:name="com.readboy.game.Grade_2.Grade_2_down"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape"></activity>
+        <activity
+            android:name="com.readboy.game.Grade_2.Grade_2_down_yu"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape"></activity>
+        <activity
+            android:name="com.readboy.game.Grade_3.Grade_3_top"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="sensorLandscape"></activity>
+        <activity
+            android:name="com.readboy.game.Grade_3.Grade_3_top_fen"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape"></activity>
+        <activity
+            android:name="com.readboy.game.Grade_3.Grade_3_down"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape"></activity>
+        <activity
+            android:name="com.readboy.game.Grade_3.Grade_3_down_yu"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape"></activity>
+        <activity
+            android:name="com.readboy.game.Grade_4.Grade_4_top"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape"></activity>
+        <activity
+            android:name="com.readboy.game.Grade_4.Grade_4_down"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape"></activity>
+        <activity
+            android:name="com.readboy.game.Grade_4.Grade_4_down_xiao"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape"></activity>
+        <activity
+            android:name="com.readboy.game.Grade_5.Grade_5_top"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape"></activity>
+        <activity
+            android:name="com.readboy.game.Grade_5.Grade_5_down"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape"></activity>
+        <activity
+            android:name="com.readboy.game.Grade_5.Grade_5_down_fen"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape"></activity>
+        <activity
+            android:name="com.readboy.game.Grade_5.Grade_5_down_fen_xiao"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape"></activity>
+        <activity
+            android:name="com.readboy.game.Grade_6.Grade_6_top"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape"></activity>
+        <activity
+            android:name="com.readboy.game.Grade_6.Grade_6_top_fen"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape"></activity>
+        <activity
+            android:name="com.readboy.game.Grade_6.Grade_6_down"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape"></activity>
+        <activity
+            android:name="com.readboy.game.Grade_6.Grade_6_down_fen"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape"></activity>
+        <activity
+            android:name="com.readboy.game.Grade_6.Grade_6_down3"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape"></activity>
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
+        <!--<meta-data-->
+            <!--android:name="com.google.android.gms.version"-->
+            <!--android:value="@integer/google_play_services_version" />-->
+
+        <activity
+            android:name="com.readboy.game.waitdialogActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/MyDialogStyle" />
+        <activity
+            android:name="com.readboy.game.BaseGameActivity"
+            android:launchMode="singleTask"
+            android:label="@string/title_activity_base_game">
+
+        </activity>
+    </application>
+
+</manifest>

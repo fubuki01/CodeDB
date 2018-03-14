@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+    android:id="@+id/RelativeLayout_alertdialog_repeatplay" 
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout 
+        android:id="@+id/relativeLayout2" 
+        android:paddingBottom="@dimen/alertdialog_padding_bottom" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content">
+        <LinearLayout 
+            android:orientation="vertical" 
+            android:id="@+id/LinearLayout_dialog_repeatply_Row123" 
+            android:layout_width="fill_parent" 
+            android:layout_height="wrap_content" >
+            <RelativeLayout 
+                android:gravity="center_horizontal" 
+                android:id="@+id/tableRow0" 
+                android:background="@drawable/alertdialog_top_row_selector" 
+                android:clickable="true" 
+                android:layout_width="fill_parent" 
+                android:layout_height="wrap_content">
+                <TextView 
+                    android:id="@+id/textView0" 
+                    style="@style/alertdialog_tablerow_text"
+                    android:text="@string/topbar_page_title_0" />
+                
+                <ImageView 
+                    android:id="@+id/select_icon_0"
+                    style="@style/alertdialog_tablerow_icon"/>
+            </RelativeLayout>
+            <View 
+                style="@style/alertdialog_underline" />
+            
+            <RelativeLayout 
+                android:gravity="center_horizontal" 
+                android:id="@+id/tableRow1" 
+                android:background="@drawable/alertdialog_center_row_selector" 
+                android:clickable="true" 
+                android:layout_width="fill_parent" 
+                android:layout_height="wrap_content">
+                <TextView 
+                    android:id="@+id/textView1" 
+                    style="@style/alertdialog_tablerow_text"
+                    android:text="@string/topbar_page_title_1" />
+                
+                <ImageView 
+                    android:id="@+id/select_icon_1"
+                    style="@style/alertdialog_tablerow_icon"/>
+            </RelativeLayout>
+            <View 
+                style="@style/alertdialog_underline" />
+            
+            <RelativeLayout 
+                android:gravity="center_horizontal" 
+                android:id="@+id/tableRow2" 
+                android:background="@drawable/alertdialog_center_row_selector" 
+                android:clickable="true" 
+                android:layout_width="fill_parent" 
+                android:layout_height="wrap_content">
+                <TextView 
+                    android:id="@+id/textView2" 
+                    style="@style/alertdialog_tablerow_text"
+                    android:text="@string/topbar_page_title_2" />
+                
+                <ImageView 
+                    android:id="@+id/select_icon_2"
+                    style="@style/alertdialog_tablerow_icon"/>
+            </RelativeLayout>
+            <View 
+                style="@style/alertdialog_underline" />
+            
+            <RelativeLayout 
+                android:gravity="center_horizontal" 
+                android:id="@+id/tableRow3" 
+                android:background="@drawable/alertdialog_bottom_row_selector" 
+                android:clickable="true" 
+                android:layout_width="fill_parent" 
+                android:layout_height="wrap_content">
+                <TextView 
+                    android:id="@+id/textView3" 
+                    style="@style/alertdialog_tablerow_text"
+                    android:text="@string/topbar_page_title_3" />
+                
+                <ImageView 
+                    android:id="@+id/select_icon_3"
+                    style="@style/alertdialog_tablerow_icon"/>
+            </RelativeLayout>
+        </LinearLayout>
+        
+        <LinearLayout 
+            android:orientation="vertical" 
+            android:id="@+id/LinearLayout_dialog_repeatplay_Row4" 
+            android:layout_width="fill_parent" 
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="@dimen/alertdialog_margin_top" 
+            android:layout_below="@id/LinearLayout_dialog_repeatply_Row123">
+            <RelativeLayout 
+                android:gravity="center_horizontal" 
+                android:id="@+id/tableRow4" 
+                android:background="@drawable/alertdialog_default_selector" 
+                android:clickable="true" 
+                android:layout_width="fill_parent" 
+                android:layout_height="wrap_content">
+                <TextView 
+                    android:id="@+id/textView4" 
+                    android:layout_width="wrap_content" 
+                    android:layout_height="wrap_content" 
+                    android:padding="10.0dip"
+                    android:textSize="@dimen/alertdialog_textsize"
+                    android:textColor="@color/alertdialog_cancel_text_color" 
+                    android:layout_gravity="center_horizontal" 
+                    android:text="@string/cancel" />
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

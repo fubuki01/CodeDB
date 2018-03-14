@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/addmusic_fragment"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+	>
+	<!--20dp-->
+    
+    <RelativeLayout 
+        android:id="@+id/relative_add_item"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:background="@drawable/material_selector">
+        
+        <TextView
+			android:id="@+id/add_tracks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/tracks_list_content_marginleft"
+            android:text="@string/add_song_to_queue_list"
+            android:textColor="#2CE9FF"
+            android:textSize="20sp"
+			android:textStyle="bold"
+			android:fontFamily="sans-serif"/>
+
+		<TextView
+			android:id="@+id/currentText"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerVertical="true"
+			android:textColor="#8d8d8d"
+			android:textSize="18sp"
+			android:visibility="visible"
+			android:layout_toLeftOf="@+id/addmusicinlist"
+			android:layout_marginRight="15dp"
+			/>
+
+        <ImageView
+			android:id="@+id/addmusicinlist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/draglist_add_icon"/>
+        
+        <View
+	        android:id="@+id/view_line"
+	        android:layout_width="match_parent"
+	        android:layout_height="@dimen/tracks_list_viewline_height"
+	        android:layout_alignParentBottom="true"
+			android:layout_marginLeft="7dp"
+			android:layout_marginRight="7dp"
+	        android:background="#C4C3C3" />
+    </RelativeLayout>
+    
+	<com.dream.mediaplayer.views.TouchInterceptor
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="15sp"
+        android:cacheColorHint="@color/transparent"
+        android:overScrollMode="never"
+        android:drawSelectorOnTop="false"
+        android:fastScrollEnabled="false" />
+</LinearLayout>

@@ -1,0 +1,194 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/CostomerInfoRootLayout"
+    android:tag="BaseInfoNoStiChild" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            style="@style/CustInfoTitle"
+            android:text="基本信息" />
+
+        <View style="@style/CustInfoLine" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/CostomerInfoRootLayout"
+        android:paddingTop="2dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_customer_type"
+                style="@style/CustTvItemTitle"
+                android:text="所属部门：" />
+
+            <TextView
+                android:id="@+id/tv_customer_type_content"
+                style="@style/CustTvItemContent"
+                android:text="营业部" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_customer_id"
+                style="@style/CustTvItemTitle"
+                android:text="@string/kehubianhao" />
+
+            <TextView
+                android:id="@+id/tv_customer_id_content"
+                style="@style/CustTvItemContent"
+                android:text="123" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_customer_name"
+                style="@style/CustTvItemTitle"
+                android:text="@string/kehuxingming" />
+
+            <TextView
+                android:id="@+id/tv_customer_name_content"
+                style="@style/CustTvItemContent"
+                android:text="张三" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_customer_tele"
+                style="@style/CustTvItemTitle"
+                android:text="@string/lianxidianhua" />
+
+            <TextView
+                android:id="@+id/tv_customer_tele_content"
+                style="@style/CustTvItemContent"
+                android:text="187555555543" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/CustTvItemTitle"
+                android:layout_width="wrap_content"
+                android:text="持有产品：" />
+
+            <TextView
+                android:id="@+id/tv_customer_chiyou_chanpin_content"
+                style="@style/CustTvItemContent"
+                android:text="存款、贷款、手机银行、ETC" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/CustTvItemTitle"
+                android:layout_width="wrap_content"
+                android:text="地址：" />
+
+            <TextView
+                android:id="@+id/tv_customer_address"
+                style="@style/CustTvItemContent"
+                android:text="长沙市岳麓区湖南大学" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <TextView
+                style="@style/CustTvItemTitle"
+                android:layout_width="wrap_content"
+                android:text="最早开户日期：" />
+
+            <TextView
+                android:id="@+id/tv_customer_kaihu_riqi_content"
+                style="@style/CustTvItemContent"
+                android:text="2017-05-01" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/CustTvItemTitle"
+                    android:text="法人代表：" />
+
+                <TextView
+                    android:id="@+id/tv_customer_faren_daibiao_content"
+                    style="@style/CustTvItemContent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/CustTvItemTitle"
+                    android:text="企业规模：" />
+
+                <TextView
+                    android:id="@+id/tv_customer_jinying_guimo_content"
+                    style="@style/CustTvItemContent" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/CustTvItemTitle"
+                    android:text="经营范围：" />
+
+                <TextView
+                    android:id="@+id/tv_customer_faren_jinyingfanwei_content"
+                    style="@style/CustTvItemContent" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AssetRegisterMapper">
+	
+    <resultMap type="AssetInfo" id="AssetInfo">
+    	<id column="id" property="id"/>
+    	<result column="asset_name" property="asset_name"/>
+    	<result column="asset_code" property="asset_code"/>    	
+    	<result  column="asset_class" property="asset_class"/>
+    	<result  column="asset_standard_model" property="asset_standard_model"/>
+    	<result  column="asset_image" property="asset_image"/>
+    	<result  column="asset_sn" property="asset_sn"/>
+    	<result  column="asset_detail_config" property="asset_detail_config"/>
+    	<result  column="asset_unit" property="asset_unit"/>
+    	<result  column="asset_price" property="asset_price"/>
+    	<result  column="asset_usecompany_code" property="asset_usecompany_code"/>
+    	<result  column="asset_use_company" property="asset_use_company"/>
+    	<result column="asset_use_dept" property="asset_use_dept"/>
+    	<result column="asset_usedept_code" property="asset_usedept_code"/>
+    	<result  column="asset_user" property="asset_user"/>
+    	<result  column="asset_storehouse" property="asset_storehouse"/>
+    	<result  column="asset_manager" property="asset_manager"/>
+    	<result  column="asset_purchase_time" property="asset_purchase_time"/>
+    	<result  column="asset_provider" property="asset_provider"/>
+    	<result  column="asset_max_years" property="asset_max_years"/>
+    	<result  column="asset_qr_code" property="asset_qr_code"/>
+    	<result  column="asset_brand" property="asset_brand"/>
+    	<result  column="asset_status" property="asset_status"/>
+    	<result  column="asset_into_bill" property="asset_into_bill"/>
+    	<result  column="asset_nod" property="asset_nod"/>
+
+    </resultMap>
+    
+
+<!-- 资产统计：根据复杂条件查询资产 -->
+	
+	<select id="findAssetInfoByCond" parameterType="pd" resultType="AssetInfo">
+		select * from asset_info
+		<where>
+			asset_use_dept in
+    		<foreach collection="asset_use_dept" item="item" index="index" open="(" close=")" separator=",">  
+           	 	#{item}
+        	</foreach>
+        	and asset_class in
+        	<foreach collection="asset_class" item="item" index="index" open="(" close=")" separator=",">  
+           	 	#{item}
+        	</foreach>
+        	and asset_status in
+        	<foreach collection="asset_status" item="item" index="index" open="(" close=")" separator=",">  
+           	 	#{item}
+        	</foreach>
+    	</where>
+	</select>
+	
+	<select id="findTotalPriceByCond" parameterType="pd" resultType="BigDecimal">
+		select sum(asset_price) from asset_info
+		where
+		asset_use_dept = #{asset_use_dept} and asset_class = #{asset_class}
+		<if test="ksrq !='' and ksrq != null and jsrq !='' and jsrq != null">
+			and asset_purchase_time between #{ksrq} and #{jsrq}
+		</if>
+	</select>	
+	<insert id="save_used" parameterType="pd" flushCache="true">
+		insert into asset_info (
+			asset_name,
+			asset_code,
+			asset_class,
+			register_flag,
+			asset_image,
+			asset_price,
+			asset_unit,
+			asset_provider,
+			asset_qr_code,
+			asset_max_years,
+			asset_brand,
+			asset_standard_model,
+			asset_storehouse,
+			asset_purchase_time,
+			asset_status,
+			asset_sn,
+			asset_usecompany_code,
+			asset_use_company,
+			asset_use_dept,
+			asset_usedept_code,
+			asset_user,
+			asset_manager,
+			asset_detail_config,
+			asset_use,
+			asset_nod
+		) values (
+			#{asset_name},
+			#{asset_code},
+			#{asset_class},
+			1,
+			#{asset_image},
+			#{asset_price},
+			#{asset_unit},
+			#{asset_provider},
+			#{asset_qr_code},
+			#{asset_max_years},
+			#{asset_brand},	
+			#{asset_standard_model},
+			#{asset_storehouse},
+			#{asset_purchase_time},
+			#{asset_status},
+			#{asset_sn},
+			#{asset_usecompany_code},
+			#{asset_use_company},
+			#{asset_use_dept},
+			#{asset_usedept_code},
+			#{asset_user},
+			#{asset_manager},
+			#{asset_detail_config},
+			#{asset_use},
+			#{asset_nod}
+		)
+	</insert>
+	
+	<!-- 查询全部产品信息  分页显示-->
+	<select id="list_used" parameterType="page" resultType="pd" flushCache="true">
+		select * from asset_info where register_flag = 1 and delete_flag = 1 and asset_status ='领用'
+		<if test="pd.user_Permission == 2">
+		and (asset_use_company =#{pd.organization_name} or asset_use_dept=#{pd.organization_name} )
+		</if>
+		<if test="pd.user_Permission == 3">
+		and asset_use_company =#{pd.superior_organization_name} and asset_use_dept=#{pd.organization_name} and asset_user =#{pd.apply_person}
+		</if>
+		order by asset_info.id DESC
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 统计产品条数  -->
+	 <select id="find_register_asset_totalnumber" parameterType="pd" resultType="Integer">
+		select count(id) from asset_info where register_flag = 1 and delete_flag = 1 and asset_status ='领用'
+		<if test="user_Permission == 2">
+		and (asset_use_company =#{organization_name} or asset_use_dept=#{organization_name} )
+		</if>
+		<if test="user_Permission == 3">
+		and asset_use_company =#{superior_organization_name} and asset_use_dept=#{organization_name} and asset_user =#{apply_person}
+		</if>
+	</select> 
+	
+	<delete id="deleteData" parameterType="pd" flushCache="true">
+		update asset_info
+		set  delete_flag = 0
+		where 
+		id=#{id} 
+	</delete>	
+	
+	<!-- 批量删除 ,实际上不删除-->
+	<delete id="deleteAlldata" parameterType="String" flushCache="true">
+		update asset_info 
+		set
+			delete_flag = 0
+		where 
+			asset_info.id in
+  			 <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                  #{item}
+             </foreach>
+	</delete>
+	
+	<!--  根据关键字查找总条数  lss-->
+	<select id="find_register_asset_bykey_totalnumber" parameterType="pd" resultType="Integer">
+		select count(id) from asset_info where register_flag = 1 and delete_flag = 1 and asset_status ='领用'
+		<if test="pd.user_Permission == 2">
+		and (asset_use_company =#{pd.organization_name} or asset_use_dept=#{pd.organization_name} )
+		</if>
+		<if test="pd.user_Permission == 3">
+		and asset_use_company =#{pd.superior_organization_name} and asset_use_dept=#{pd.organization_name} and asset_user =#{pd.apply_person}
+		</if>
+		<if test="pd.retrieve_content != '' and pd.retrieve_content != null">
+			and (
+					asset_name like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_code like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_class like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_status like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_price like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_use_company like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_use_dept like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_user like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_manager like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_storehouse like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_provider like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_max_years like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_brand like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_standard_model like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_sn like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			)
+		</if>
+	</select>
+	
+	<!--  根据关键字查找 -->
+	<select id="find_register_asset_bykey" parameterType="pd" resultType="pd">
+		select * from asset_info where register_flag = 1 and delete_flag = 1  and asset_status ='领用'
+		<if test="pd.user_Permission == 2">
+		and (asset_use_company =#{pd.organization_name} or asset_use_dept=#{pd.organization_name} )
+		</if>
+		<if test="pd.user_Permission == 3">
+		and asset_use_company =#{pd.superior_organization_name} and asset_use_dept=#{pd.organization_name} and asset_user =#{pd.apply_person}
+		</if>
+		<if test="pd.retrieve_content != '' and pd.retrieve_content != null">
+			and (
+					asset_name like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_code like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_class like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_status like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_price like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_use_company like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_use_dept like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_user like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_manager like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_storehouse like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_provider like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_max_years like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_brand like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_standard_model like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					asset_sn like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			)
+		</if>
+		order by asset_purchase_time DESC
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 根据id查询 -->
+	<select id="findObjectById" resultMap="AssetInfo">
+		select * from asset_info where id = #{id}
+	</select>
+	
+		<!-- 编辑角色 -->
+	<update id="edit" parameterType="pd" flushCache="true">
+		update asset_info 
+		set 
+			asset_provider  =#{asset_provider},
+			asset_max_years =#{asset_max_years},
+			asset_brand     =#{asset_brand},
+			asset_standard_model   =#{asset_standard_model},
+			asset_storehouse       =#{asset_storehouse},
+			asset_sn      =#{asset_sn},
+			asset_use_company      =#{asset_use_company},
+			asset_use_dept      =#{asset_use_dept},
+			asset_user      =#{asset_user},
+			asset_detail_config      =#{asset_detail_config},
+			asset_image =#{asset_image},
+			asset_nod      =#{asset_nod}
+		where id = #{id}
+	</update>
+	
+	<!-- 移动端资产信息缺省查找 -->
+	<select id="findByDefault"  parameterType="pd"  resultMap="AssetInfo">
+		select *
+		from asset_info
+		where
+			(#{asset_code} = "" or asset_code=#{asset_code})
+			and
+			(#{asset_name} = "" or asset_name=#{asset_name})
+			and
+			(#{asset_class} = "" or asset_class=#{asset_class})
+			and
+			(#{asset_use_company} = "" or asset_use_company=#{asset_use_company})
+			and
+			(#{asset_use_dept} = "" or asset_use_dept=#{asset_use_dept})
+			and
+			(#{asset_user} = "" or asset_user=#{asset_user})
+			and
+			(#{asset_manager} = "" or asset_manager=#{asset_manager})
+			and
+			(#{asset_purchase_time} = "" or asset_purchase_time=#{asset_purchase_time})
+			and
+			(asset_status=#{asset_status_0}
+			or asset_status=#{asset_status_1}
+			or asset_status=#{asset_status_2}
+			or asset_status=#{asset_status_3}
+			or asset_status=#{asset_status_4}
+			or asset_status=#{asset_status_5}
+			or asset_status=#{asset_status_6})
+		limit
+			#{offset},#{num};
+	</select>
+	
+	<!-- 移动端资产编码查找 -->
+	<select id="findByAssetCode"  parameterType="pd"  resultType="AssetInfo">
+		select *
+		from asset_info
+		where
+			asset_code=#{asset_code}
+	</select>
+	
+	<!-- 移动端资产状态修改 -->
+	<update id="editAssetStatus" parameterType="pd" flushCache="true">
+		update
+			asset_info 
+		set
+			asset_status=#{asset_status}
+		where
+			asset_code=#{asset_code}
+	</update>
+	
+	<!-- 资产编码查找(jieyin专用,误删) -->
+	<select id="findAssetCode"  parameterType="pd"  resultType="String">
+		select asset_code
+		from asset_info
+		where
+			asset_code=#{asset_code}
+	</select>
+
+	
+	<!-- 使用人查找(jieyin专用,误删) -->
+	<select id="findAssetUser"  parameterType="pd"  resultType="String">
+		select asset_user
+		from asset_info
+		where
+			asset_code=#{asset_code}
+	</select>
+
+	
+	<!-- 资产登记显示 -->
+	<select id="find_asset_index" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd">
+		select * from asset_info where register_flag=0 and delete_flag =1 and asset_status='闲置'
+		<if test="pd.user_Permission == 2">
+		and asset_into_bill in (
+			select into_code from intolibrary_apply where into_purchase_bill in (
+				select purchase_code from purchase_bill where apply_id in (
+					select apply_id from  aproject_manager where apply_company =#{pd.organization_name} 
+						or apply_dept=#{pd.organization_name} 
+				)
+			)
+		)
+		</if>
+		<if test="pd.user_Permission == 3">
+		and asset_into_bill in (
+			select into_code from intolibrary_apply where into_purchase_bill in (
+				select purchase_code from purchase_bill where apply_id in (
+					select apply_id from  aproject_manager where apply_company =#{pd.superior_organization_name} 
+						and apply_dept=#{pd.organization_name} and apply_person=#{pd.apply_person}
+				)
+			)
+		)
+		</if>
+		order by asset_info.id DESC
+		limit #{currentResult},#{showCount}
+	</select>
+	<!-- 统计资产登记条数 -->
+	<select id="find_asset_index_totalnumber" parameterType="com.mbfw.entity.assets.PageOption" resultType="Integer">
+		select count(id) from asset_info where register_flag=0 and delete_flag =1 and asset_status='闲置'
+		<if test="pd.user_Permission == 2">
+		and asset_into_bill in(
+			select into_code from intolibrary_apply where into_purchase_bill in (
+				select purchase_code from purchase_bill where apply_id in (
+					select apply_id from  aproject_manager where apply_company =#{pd.organization_name} 
+						or apply_dept=#{pd.organization_name} 
+				)
+			)
+		)
+		</if>
+		<if test="pd.user_Permission == 3">
+		and asset_into_bill in(
+			select into_code from intolibrary_apply where into_purchase_bill in (
+				select purchase_code from purchase_bill where apply_id in (
+					select apply_id from  aproject_manager where apply_company =#{pd.superior_organization_name} 
+						and apply_dept=#{pd.organization_name} and apply_person=#{pd.apply_person}
+				)
+			)
+		)
+		</if>
+	</select>
+	
+	<!-- 按关键字查询 -->
+	<select id="find_asset_index_bykey_totalnumber" parameterType="pd" resultType="Integer">
+		select count(id) from asset_info where register_flag=0 and delete_flag =1 and asset_status='闲置'
+		<if test="pd.user_Permission == 2">
+		and asset_into_bill in(
+			select into_code from intolibrary_apply where into_purchase_bill in (
+				select purchase_code from purchase_bill where apply_id in (
+					select apply_id from  aproject_manager where apply_company =#{pd.organization_name} 
+						or apply_dept=#{pd.organization_name} 
+				)
+			)
+		)
+		</if>
+		<if test="pd.user_Permission == 3">
+		and asset_into_bill in(
+			select into_code from intolibrary_apply where into_purchase_bill in (
+				select purchase_code from purchase_bill where apply_id in (
+					select apply_id from  aproject_manager where apply_company =#{pd.superior_organization_name} 
+						and apply_dept=#{pd.organization_name} and apply_person=#{pd.apply_person}
+				)
+			)
+		)
+		</if>
+		<if test="pd.retrieve_content != '' and pd.retrieve_content != null">
+		and (
+			asset_name like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			asset_code like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			asset_class like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			asset_status like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			asset_price like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			asset_storehouse like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			asset_provider like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			asset_max_years like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			asset_brand like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			asset_standard_model like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			asset_sn like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			)
+		</if>
+	</select>
+	
+	<!-- 按关键字查询 -->
+	<select id="find_asset_index_bykey" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd">
+		select * from asset_info where register_flag=0 and delete_flag =1 and asset_status='闲置'
+		<if test="pd.user_Permission == 2">
+		and asset_into_bill in(
+			select into_code from intolibrary_apply where into_purchase_bill in (
+				select purchase_code from purchase_bill where apply_id in (
+					select apply_id from  aproject_manager where apply_company =#{pd.organization_name} 
+						or apply_dept=#{pd.organization_name} 
+				)
+			)
+		)
+		</if>
+		<if test="pd.user_Permission == 3">
+		and asset_into_bill in(
+			select into_code from intolibrary_apply where into_purchase_bill in (
+				select purchase_code from purchase_bill where apply_id in (
+					select apply_id from  aproject_manager where apply_company =#{pd.superior_organization_name} 
+						and apply_dept=#{pd.organization_name} and apply_person=#{pd.apply_person}
+				)
+			)
+		)
+		</if>
+		<if test="pd.retrieve_content != '' and pd.retrieve_content != null">
+		and (
+			asset_name like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			asset_code like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			asset_class like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			asset_status like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			asset_price like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			asset_storehouse like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			asset_provider like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			asset_max_years like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			asset_brand like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			asset_standard_model like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			asset_sn like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			)
+		</if>
+		order by asset_info.id DESC
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 修改资产入库 -->
+	<update id="update_asset_register" parameterType="pd">
+	update asset_info 
+	set 
+		asset_max_years =#{asset_max_years},
+		asset_brand =#{asset_brand},
+		asset_standard_model  =#{asset_standard_model},
+		asset_storehouse =#{asset_storehouse},
+		asset_sn =#{asset_sn},
+		asset_detail_config =#{asset_detail_config},
+		asset_image =#{asset_image},
+		asset_nod =#{asset_nod}
+	where
+		id=#{id}
+	</update>
+	
+	<!-- 资产名称查找(jieyin专用,误删) -->
+	<select id="findAssetName"  parameterType="pd"  resultType="String">
+		select asset_name
+		from asset_info
+		where
+			asset_code=#{asset_code}
+	</select>
+	
+	<!-- 公司名称查找(jieyin专用,误删) -->
+	<select id="findAssetGongsi"  parameterType="pd"  resultType="String">
+		select asset_use_company
+		from asset_info
+		where
+			asset_code=#{asset_code}
+	</select>
+	
+	<!-- 部门名称查找(jieyin专用,误删) -->
+	<select id="findAssetDept"  parameterType="pd"  resultType="String">
+		select asset_use_dept
+		from asset_info
+		where
+			asset_code=#{asset_code}
+	</select>
+	
+	
+	<!-- 移动端资产状态修改 (jieyin专用,误删)-->
+	<update id="editAssetStatus2" parameterType="pd" flushCache="true">
+		update
+			asset_info 
+		set
+			asset_status=#{asset_status}
+		where
+			asset_code=#{asset_code}
+	</update>
+	
+	<!-- 按资产编码查找图片(包括实物图片和二维码图片) -->
+	<select id="findImg"  parameterType="pd"  resultType="pd">
+		select
+			asset_image, asset_qr_code
+		from
+			asset_info
+		where
+			asset_code = #{asset_code}
+	</select>
+	
+	<!-- 查找导入的数据是否有重复 -->
+	<select id="find_asset_ishas_repeat" parameterType="pd" resultType="pd">
+		select * from asset_info where
+			asset_nod =#{asset_nod} and
+			asset_price =#{asset_price} and
+			asset_unit =#{asset_unit} and
+			asset_provider =#{asset_provider} and
+			asset_max_years =#{asset_max_years} and
+			asset_brand =#{asset_brand} and
+			asset_standard_model =#{asset_standard_model} and
+			asset_storehouse =#{asset_storehouse} and
+			asset_status =#{asset_status} and
+			asset_sn =#{asset_sn} and
+			asset_detail_config =#{asset_detail_config} and
+			asset_use =#{asset_use} and
+			asset_use_company =#{asset_use_company} and
+			asset_use_dept =#{asset_use_dept} and
+			asset_user =#{asset_user} and
+			asset_name =#{asset_name} and
+			asset_class =#{asset_class} 
+	</select>
+	
+	<!-- 保存导入数据 -->
+		<insert id="save_import_data" parameterType="pd" flushCache="true">
+		insert into asset_info (
+			asset_name,
+			asset_code,
+			asset_class,
+			register_flag,
+			asset_image,
+			asset_price,
+			asset_unit,
+			asset_provider,
+			asset_qr_code,
+			asset_max_years,
+			asset_brand,
+			asset_standard_model,
+			asset_storehouse,
+			asset_purchase_time,
+			asset_status,
+			asset_sn,
+			asset_use_company,
+			asset_use_dept,
+			asset_user,
+			asset_manager,
+			asset_detail_config,
+			asset_use,
+			asset_nod
+		) values (
+			#{asset_name},
+			#{asset_code},
+			#{asset_class},
+			1,
+			#{asset_image},
+			#{asset_price},
+			#{asset_unit},
+			#{asset_provider},
+			#{asset_qr_code},
+			#{asset_max_years},
+			#{asset_brand},	
+			#{asset_standard_model},
+			#{asset_storehouse},
+			#{asset_purchase_time},
+			#{asset_status},
+			#{asset_sn},
+			#{asset_use_company},
+			#{asset_use_dept},
+			#{asset_user},
+			#{asset_manager},
+			#{asset_detail_config},
+			#{asset_use},
+			#{asset_nod}
+		)
+	</insert>
+	
+	<select id="find_bySN" parameterType="pd" resultType="pd">
+	select * from asset_info where asset_sn =#{asset_sn}
+	</select>
+</mapper>

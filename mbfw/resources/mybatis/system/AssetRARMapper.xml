@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AssetRARMapper">
+	
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>  
+    <resultMap type="AssetReportAndRepair" id="AssetRARMap">
+    	<id column="id" property="id"/>
+    	<result column="asset_code" property="asset_code"/>
+    	<result column="bank_name" property="bank_name"/>
+    	<result  column="rep_department" property="rep_department"/>
+    	<result  column="drep_department" property="drep_department"/>
+    	<result  column="repair_time" property="repair_time"/>
+    	<result  column="fault_phenomen" property="fault_phenomen"/>
+    	<result  column="fault_reason" property="fault_reason"/>
+    	<result  column="asset_person" property="asset_person"/>
+    	<result  column="defect_period" property="defect_period"/>
+    	<result  column="maintain_result" property="maintain_result"/>
+    	<result  column="maintain_cost" property="maintain_cost"/>
+    	<result  column="comment" property="comment"/>
+    
+    </resultMap>
+	
+	<select id="listAllAssetRAR" resultMap="AssetRARMap">
+		select * from asset ;
+	</select>
+</mapper>

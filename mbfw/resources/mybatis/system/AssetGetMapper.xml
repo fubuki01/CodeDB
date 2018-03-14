@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AssetGetMapper">
+
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>  
+    <resultMap type="AssetGetManage" id="assetMap">
+    	<id column="id" property="id"/>
+    	<result column="asset_code" property="asset_code"/>
+    	<result column="asset_name" property="asset_name"/>
+    	<result  column="asset_use_company" property="asset_use_company"/>
+    	<result  column="asset_use_dept" property="asset_use_dept"/>
+    	<result  column="asset_user" property="asset_user"/>
+    	<result  column="orig_status" property="orig_status"/>
+    	<result  column="get_time" property="get_time"/>
+    	<result  column="asset_use" property="asset_use"/>
+    	<result  column="asset_detail_config" property="asset_detail_config"/>
+    	<result  column="asset_standard_model" property="asset_standard_model"/>
+    	<result  column="get_manager" property="get_manager"/>
+    	<result  column="get_remark" property="get_remark"/>
+    	<result  column="is_valid" property="is_valid"/>
+    </resultMap>
+	
+	<select id="asset_get" resultMap="assetMap">
+		select * from asset_get 
+	</select>
+	
+	<!-- 获取页面条数 -->
+	<select id="findTotalGetNumber" resultType="Integer" parameterType="pd">
+		select count(*)
+		from
+			asset_get
+		where 
+			is_valid = "true"
+		<if test="pd.permission == 1"> <!-- 总行管理员 -->
+
+ 		</if>
+ 		<if test="pd.permission == 2"> <!-- 支行管理员 -->
+ 			and asset_get.asset_use_dept = #{pd.organization_name}
+ 		</if>
+ 		<if test="pd.permission == 3"> <!-- 员工 -->
+ 			and asset_get.asset_user = #{pd.username}
+ 		</if>
+	</select>
+	
+	<select id="approverGetListPage"  parameterType="com.mbfw.entity.assets.PageOption"  resultType="pd" useCache="false">
+ 		select 
+ 			asset_get.*, asset_info.asset_name, asset_info.asset_detail_config, asset_info.asset_standard_model
+ 		from 
+ 			asset_get, asset_info
+ 		where
+ 			asset_get.asset_code = asset_info.asset_code
+ 		and
+			asset_info.asset_status = '领用'
+ 		and
+ 			asset_get.is_valid = "true"
+ 		<if test="pd.permission == 1"> <!-- 总行管理员 -->
+
+ 		</if>
+ 		<if test="pd.permission == 2"> <!-- 支行管理员 -->
+ 			and asset_get.asset_use_dept = #{pd.organization_name}
+ 		</if>
+ 		<if test="pd.permission == 3"> <!-- 员工 -->
+ 			and asset_get.asset_user = #{pd.username}
+ 		</if>
+ 		limit #{currentResult},#{showCount}
+ 	</select>
+	
+	<!-- 查询 -->
+	<select id="get_edit" resultMap="assetMap">
+		select  
+			asset_get.*, asset_info.asset_name, asset_info.asset_detail_config, asset_info.asset_standard_model
+		 from 
+		 	asset_get, asset_info
+		 where
+		 	asset_get.asset_code =  asset_info.asset_code
+		 and
+		 	asset_get.id= #{id}
+	</select>
+	
+	<!-- 查询原资产状态 -->
+	<select id="searchStatusInfo" parameterType="Integer" resultType="pd">
+		select orig_status,asset_code
+		from 
+		 	asset_get 
+		 where id = #{s}
+	</select>
+	
+	<!-- 新增项目 -->
+	<insert id="saveGet" parameterType="pd" flushCache="true">
+		insert into asset_get (
+			asset_code,
+			asset_use_company,
+			asset_use_dept,
+			asset_user,
+			orig_status,
+			get_time,
+			asset_use,
+			get_manager,
+			get_remark,
+			is_valid
+		) values (
+			#{asset_code},
+			#{asset_use_company},
+			#{asset_use_dept},
+			#{asset_user},
+			#{orig_status},
+			#{get_time},
+			#{asset_use},
+			#{get_manager},
+			#{get_remark},
+			"true"
+		)
+	</insert> 
+	
+	
+	<!-- 领用时，插入部门等信息到资产表 -->
+	<update id="saveToAssetInfo" parameterType="pd" flushCache="true">
+		update asset_info
+			set 
+				asset_use_company 		= #{asset_use_company},
+				asset_use_dept 			= #{asset_use_dept},
+				asset_user				= #{asset_user},
+				asset_use 				= #{asset_use}
+			where 
+				asset_code = #{asset_code}
+	</update>
+	
+	<!-- 更改isValid的值 -->
+	<update id="changeValid" parameterType="pd" flushCache="true">
+		update asset_recycle
+			set 
+				is_valid		= "false"
+			where 
+				asset_code = #{asset_code}
+	</update>
+	
+	<!-- 还原isValid的值 -->
+	<update id="returnValid" parameterType="pd" flushCache="true">
+		update asset_recycle
+			set 
+				is_valid		= "true"
+			where 
+				asset_code = #{asset_code}
+	</update>
+	
+	<!-- 更改下发单的值 -->
+	<update id="changeIssueValue" parameterType="pd" flushCache="true">
+		update asset_issue
+			set 
+				issued_status	= "领用"
+			where 
+				asset_code = #{asset_code}
+	</update>
+	
+	<!-- 删除操作后，改回到原来的状态 -->
+	<update id="returnIssueStatus" parameterType="pd" flushCache="true">
+		update asset_info
+			set 
+				asset_status	= "接收"
+			where 
+				asset_code = #{asset_code}
+	</update>
+	<!-- 删除操作后，改回到原来的状态 -->
+	<update id="returnRecycleStatus" parameterType="pd" flushCache="true">
+		update asset_info 
+			set 
+				asset_status	= "回收"
+			where 
+				asset_code = #{asset_code}
+	</update>
+	
+	
+	<!-- 根据ID来显示对应的信息 -->
+	<select id="findById" parameterType="pd" resultType="pd" useCache="true">
+		select *
+		from asset_get
+		where
+			id = #{id}
+	</select> 
+	
+	<!-- 修改 -->
+	<update id="editGetApprover" parameterType="pd" flushCache="true">
+		update asset_get
+			set 
+				asset_use_company 		= #{asset_use_company},
+				asset_use_dept 			= #{asset_use_dept},
+				asset_user				= #{asset_user},
+				get_time 				= #{get_time},
+				asset_use 				= #{asset_use},
+				get_manager				= #{get_manager},
+				get_remark				= #{get_remark}
+			where 
+				id = #{id}
+	</update>
+	
+	<!-- 更新资产表的信息 -->
+	<update id="editToAssetInfo" parameterType="pd" flushCache="true">
+		update asset_info
+			set 
+				asset_use_company 		= #{asset_use_company},
+				asset_use_dept 			= #{asset_use_dept},
+				asset_user				= #{asset_user},
+				asset_use 				= #{asset_use}
+			where 
+				asset_code = #{asset_code}
+	</update>
+
+	
+	<!-- 删除项目 -->
+	<delete id="deleteGet" parameterType="pd" flushCache="true">
+		delete from asset_get 
+		where 
+			id = #{id}
+	</delete>	
+	
+	<!-- 删除时，让资产表对应的信息为空 -->
+	<update id="deleteToAssetInfo" parameterType="pd" flushCache="true">
+		update asset_info
+			set 
+				asset_use_company 		= "",
+				asset_use_dept 			= "",
+				asset_user				= "",
+				asset_use 				= "" 
+			where 
+				asset_code = #{asset_code}
+	</update>
+	
+	<!-- 批量删除 -->
+	<delete id="deletealldata" parameterType="String" flushCache="true">
+		delete from asset_get
+		where 
+			asset_get.id in
+  			 <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                  #{item}
+             </foreach>
+	</delete>
+	
+	<!-- 根据检索内容，获取对应的数据条数 -->
+	<select id="findGetSearchNameNumber" parameterType="com.mbfw.entity.assets.PageOption" resultType="Integer">
+		select count(*)
+		from 
+			asset_get,asset_info
+		where
+			asset_get.asset_code = asset_info.asset_code
+		and  
+			asset_get.is_valid = "true"
+		and
+			asset_info.asset_status = "领用"
+		and
+			(<if test="pd.retrieve_content != null and pd.retrieve_content != ''">		
+			asset_get.asset_code LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产编码进行检索 -->
+			or
+			asset_info.asset_name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产名称进行检索 -->
+			or
+			asset_get.asset_use_company LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用公司进行检索 -->
+			or
+			asset_get.asset_use_dept LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			asset_get.asset_user LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用人进行检索 -->
+			or
+			asset_get.get_time LIKE binary  CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用时间进行检索 -->
+			or
+			asset_get.get_manager LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->	
+			</if>)
+		<if test="pd.permission == 1"> <!-- 总行管理员 -->
+
+ 		</if>
+ 		<if test="pd.permission == 2"> <!-- 支行管理员 -->
+ 			and asset_get.asset_use_dept = #{pd.organization_name}
+ 		</if>
+ 		<if test="pd.permission == 3"> <!-- 员工 -->
+ 			and asset_get.asset_user = #{pd.username}
+ 		</if>
+	</select>
+	
+	<!-- 根据检索姓名，获取对应的数据 -->
+	<select id="findGetTotalSearchInfo" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd">
+		select asset_get.*,asset_info.asset_name,asset_info.asset_status
+		from 
+			asset_get,asset_info
+		where
+			asset_get.asset_code = asset_info.asset_code
+		and  
+			asset_get.is_valid = "true"
+		and
+			asset_info.asset_status = "领用"
+		and	
+			(<if test="pd.retrieve_content != null and pd.retrieve_content != ''">
+			asset_get.asset_code LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产编码进行检索 -->
+			or
+			asset_info.asset_name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产名称进行检索 -->
+			or
+			asset_get.asset_use_company LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用公司进行检索 -->
+			or
+			asset_get.asset_use_dept LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			asset_get.asset_user LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用人进行检索 -->
+			or
+			asset_get.get_time LIKE binary CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用时间进行检索 -->
+			or
+			asset_get.get_manager LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->		
+			</if>)
+		<if test="pd.permission == 1"> <!-- 总行管理员 -->
+
+ 		</if>
+ 		<if test="pd.permission == 2"> <!-- 支行管理员 -->
+ 			and asset_get.asset_use_dept = #{pd.organization_name}
+ 		</if>
+ 		<if test="pd.permission == 3"> <!-- 员工 -->
+ 			and asset_get.asset_user = #{pd.username}
+ 		</if>				
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 移动端缺省查询 -->
+	<select id="findByDefault" parameterType="pd" resultMap="assetMap">
+		select asset_get.*, asset_info.asset_name
+		from asset_get, asset_info
+		where
+			asset_get.asset_code = asset_info.asset_code
+			and
+			is_valid = "true"
+			and
+			(#{asset_code} = "" or asset_get.asset_code=#{asset_code})
+			and
+			(#{asset_name} = "" or asset_info.asset_name=#{asset_name})
+			and
+			(#{get_company} = "" or asset_get.asset_use_company=#{get_company})
+			and
+			(#{get_department} = "" or asset_get.asset_use_dept=#{get_department})
+			and
+			(#{get_user} = "" or asset_get.asset_user=#{get_user})
+			and
+			(#{get_manager} = "" or get_manager=#{get_manager})
+			and
+			(#{get_time} = "" or get_time=#{get_time})
+		limit
+			#{offset},#{num};
+	</select>
+	
+	<!-- 获取资产数量 -->
+ 	<select id="checkAssetCount" resultType="Integer" parameterType="pd">
+		select count(*)
+		from
+			asset_info
+		where 			
+			asset_status in ('闲置','下发','接收','回收')
+		<if test="permission == 1"> <!-- 总行管理员 -->
+
+ 		</if>
+ 		<if test="permission == 2"> <!-- 支行管理员 -->
+ 			and asset_use_dept = #{organization_name}
+ 		</if>
+	</select>
+	
+	<!-- 根据使用部门名称查询部门的有效总资产,或查询年度新增的资产 -->
+	
+</mapper>

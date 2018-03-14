@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SuppliesUseMapper"  >
+	<resultMap type="SuppliesUse" id="SuppliesUseMap">
+</resultMap>
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>  
+
+	
+	<select id="listAllSuppliesUse" parameterType="pd" resultType="pd"  useCache="false">
+		select * from supplies_use
+		
+	</select>
+
+	<!-- 根据user_id来删除用户，在审核人表中 -->
+	<delete id="deletely" parameterType="pd" flushCache="true" >
+		delete 
+		from supplies_use
+		where 
+			id = #{id}
+	</delete>
+	
+	
+	
+	<!-- 批量删除 -->
+	<delete id="delLy" parameterType="Integer" flushCache="true">
+		delete from supplies_use
+		where
+		supplies_use.id in
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	
+	
+	
+	
+	<!-- 批量删除 -->
+<!-- 	<delete id="delLy" parameterType="Integer" flushCache="true"> -->
+<!-- 		delete  -->
+<!-- 		from  -->
+<!-- 		supplies_use -->
+<!-- 		where -->
+<!-- 		supplies_use.id in -->
+<!-- 		<foreach item="ids" index="index" collection="array" open="(" -->
+<!-- 			separator="," close=")"> -->
+<!-- 			#{ids} -->
+<!-- 		</foreach> -->
+<!-- 	</delete> -->
+	
+<!-- 		新增耗材领用表  -->
+	<insert id="addly" parameterType="pd" flushCache="true">
+		insert into supplies_use (
+		    id,
+			supplies_model,
+			supplies_name,
+			department,
+			quantity,
+			leader,
+			release_people,
+			company,
+			time,
+			remarks
+		) values (
+		    #{id},
+			#{supplies_model},
+			#{supplies_name},
+			#{department},
+			#{quantity},
+			#{leader},
+			#{release_people},
+			#{company},
+			#{time},
+			#{remarks}
+		)
+	</insert>
+	
+	
+	<!-- 根据耗材编码查询数量 -->
+	<select id="searchly" resultType="pd">
+		select *
+		from supplies
+		where supplies_model= #{supplies_model}
+	</select>
+	
+	<!-- 如果耗材表中存在了就更新对应的耗材 -->
+	<update id="updateLY" parameterType="pd" flushCache="true">
+		update supplies 
+		set inventory_quantity = #{quantity}
+		where supplies_model= #{supplies_model}
+	</update>
+	
+	
+	<!-- 查询出来编辑 -->
+	<select id="editLy" parameterType="pd" resultType="pd">
+		select id,
+		supplies_model,
+		supplies_name,
+		department,
+		quantity,
+		leader,
+		release_people,
+		company,
+		time,
+		remarks
+		from supplies_use
+		where id= #{id}
+	</select>
+
+	<!-- 更新 -->
+	<update id="updateLy" parameterType="pd" flushCache="true">
+		update supplies_use
+		set
+		supplies_model                 = #{supplies_model},
+		supplies_name                 = #{supplies_name},
+		department                 = #{department},
+		quantity                 = #{quantity},
+		leader                           = #{leader},
+		release_people                       = #{release_people},
+		company                      = #{company},
+		remarks                       = #{remarks},
+		time                            = #{time}
+		where
+		     id = #{id}
+	</update>
+	
+	<!--显示所有的审核人员  -->
+ 	<select id="LyListPage"  parameterType="com.mbfw.entity.assets.PageOption"  resultType="pd" useCache="false">
+ 		select *
+ 		from supplies_use
+ 		<choose>
+ 		<when test="pd.permission == 1">  <!-- 总行管理员 -->
+ 		</when>
+ 		<otherwise>
+ 		where
+ 		<if test="pd.permission == 2"> <!-- 支行管理员 -->
+ 			 department = #{pd.organization_name}
+ 		</if>
+ 		<if test="pd.permission == 3"> <!-- 员工 -->
+ 			 supplies_use.leader = #{pd.username}
+ 		</if>
+ 		</otherwise>
+ 		</choose>
+ 		limit #{currentResult},#{showCount}
+ 	</select>
+
+<!-- 获取审核人员的条数 -->
+	<select id="findLyTotalNumber" resultType="Integer">
+		select count(*)
+		from
+		supplies_use
+	</select>
+	
+	<!-- 根据检索内容，获取对应的数据条数 -->
+	<select id="findLySearchNameNumber" parameterType="com.mbfw.entity.assets.PageOption" resultType="Integer">
+		select count(*)
+		from 
+		supplies_use
+		where
+			<if test="pd.retrieve_content != null and pd.retrieve_contentE != ''">
+			supplies_model LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产编码进行检索 -->
+			or
+			supplies_name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			department LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用人进行检索 -->
+			or
+			quantity LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用时间进行检索 -->
+			or
+			leader LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产用途进行检索 -->
+			or
+			release_people LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产状态进行检索 -->
+			or
+			company LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对规格进行检索 -->
+			or
+			remarks LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			time LIKE binary CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			</if>
+	</select>
+
+
+<!-- 根据检索姓名，获取对应的数据 -->
+	<select id="findLyTotalSearchInfo" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd">
+		select *
+		from
+		supplies_use
+		where 
+		<if test="pd.retrieve_content != null and pd.retrieve_contentE != ''">
+			supplies_model LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产编码进行检索 -->
+			or
+			supplies_name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			department LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用人进行检索 -->
+			or
+			quantity LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用时间进行检索 -->
+			or
+			leader LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产用途进行检索 -->
+			or
+			release_people LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产状态进行检索 -->
+			or
+			company LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对规格进行检索 -->
+			or
+			remarks LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			time LIKE binary CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+		</if>
+		limit #{currentResult},#{showCount}
+	</select>
+	<!--    显示耗材编码   -->
+	<select id="find_suppliesUse"  parameterType="pd" resultType="pd">
+		select * from supplies 
+<!-- 		products_info where product_flag=1 -->
+	</select>
+<!-- 通过ID查询产品信息  -->
+	<select id="find_product_to_add_supplies" parameterType="String" resultType="pd" flushCache="true">
+		select * from supplies where supplies_model = #{product_code}
+	</select>
+	
+</mapper>

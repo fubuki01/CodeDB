@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AssetAbandonMapper">
+	
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>  
+    <resultMap type="AssetAbandonManage" id="assetMap">
+    	<id column="id" property="id"/>
+    	<result column="asset_code" property="asset_code"/>
+    	<result column="asset_name" property="asset_name"/>
+    	<result  column="asset_use_company" property="asset_use_company"/>
+    	<result  column="asset_use_dept" property="asset_use_dept"/>
+    	<result  column="asset_user" property="asset_user"/>
+    	<result  column="asset_detail_config" property="asset_detail_config"/>    	
+    	<result  column="asset_use" property="asset_use"/>
+    	<result  column="orig_status" property="orig_status"/>
+    	<result  column="abandon_reason" property="abandon_reason"/>
+    	<result  column="abandon_time" property="abandon_time"/>
+    	<result  column="asset_status" property="asset_status"/>
+    	<result  column="abandon_idea" property="abandon_idea"/>
+    	<result  column="decision" property="decision"/>
+    	<result  column="approve_idea" property="approve_idea"/>
+    	<result  column="abandon_manager" property="abandon_manager"/>
+    	<result  column="abandon_remark" property="abandon_remark"/>
+    </resultMap>
+	
+	<select id="findGetInfoData" resultMap="assetMap">
+		select * from asset_abandon 
+		where id = #{id}
+	</select>
+	
+	<!-- 获取数据总条数 -->
+	<select id="findTotalAbandonNumber" resultType="Integer" parameterType="pd">
+		select count(*)
+		from
+			asset_abandon
+		where 
+			is_valid = "true"
+		<if test="pd.permission == 1"> <!-- 总行管理员 -->
+
+ 		</if>
+ 		<if test="pd.permission == 2"> <!-- 支行管理员 -->
+ 			and asset_abandon.asset_use_dept = #{pd.organization_name}
+ 		</if>
+ 		<if test="pd.permission == 3"> <!-- 员工 -->
+ 			and asset_abandon.asset_user = #{pd.username}
+ 		</if>
+	</select>
+	
+	<!--显示当前页面的数据记录信息  -->
+ 	<select id="approverAbandonListPage"  parameterType="com.mbfw.entity.assets.PageOption"  resultType="pd" useCache="false">
+ 		select asset_abandon.*, asset_info.asset_name, asset_info.asset_status
+ 		from 
+ 			asset_abandon, asset_info
+ 		where 
+ 			asset_abandon.asset_code = asset_info.asset_code
+ 		and
+ 			is_valid = "true"
+ 		<if test="pd.permission == 1"> <!-- 总行管理员 -->
+
+ 		</if>
+ 		<if test="pd.permission == 2"> <!-- 支行管理员 -->
+ 			and asset_abandon.asset_use_dept = #{pd.organization_name}
+ 		</if>
+ 		<if test="pd.permission == 3"> <!-- 员工 -->
+ 			and asset_abandon.asset_user = #{pd.username}
+ 		</if>
+ 		limit #{currentResult},#{showCount}
+ 	</select>
+	
+	<select id="abandon_edit" resultMap="assetMap">
+		select asset_abandon.*,asset_info.asset_name
+		from 
+			asset_abandon, asset_info
+		where 
+			asset_abandon.asset_code = asset_info.asset_code
+		and
+			asset_abandon.id = #{id}
+	</select>
+		
+	<!-- 查询原资产状态 -->
+	<select id="searchStatusInfo" parameterType="Integer" resultType="pd">
+		select orig_status,asset_code
+		from 
+		 	asset_abandon 
+		 where id = #{s}
+	</select>
+	
+	<!-- 保存新的资产报废表 -->
+	<insert id="saveAbandonData" parameterType="pd" useGeneratedKeys="true" keyProperty="id">
+		insert into
+			asset_abandon(
+			asset_code,
+			asset_use_company,
+			asset_use_dept,
+			asset_user,
+			asset_use,
+			orig_status,
+			abandon_reason,
+			abandon_time,
+			abandon_idea,
+			abandon_approve,
+			abandon_manager,
+			abandon_remark,
+			approve_status,
+			is_valid
+			)
+		values(
+			#{asset_code},
+			#{asset_use_company},
+			#{asset_use_dept},
+			#{asset_user},
+			#{asset_use},
+			#{orig_status},
+			#{abandon_reason},
+			#{abandon_time},
+			#{abandon_idea},
+			#{abandon_approve},
+			#{abandon_manager},
+			#{abandon_remark},
+			"已提交",
+			"true"
+		)
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="editAbandonApprover" parameterType="pd" flushCache="true">
+		update asset_abandon
+			set 
+				asset_use_company 		= #{asset_use_company},
+				asset_use_dept 			= #{asset_use_dept},
+				asset_user				= #{asset_user},
+				asset_use 				= #{asset_use},
+				abandon_reason 			= #{abandon_reason},
+				abandon_time 			= #{abandon_time},	
+				abandon_idea 			= #{abandon_idea},
+				abandon_manager			= #{abandon_manager},
+				abandon_remark			= #{abandon_remark}
+			where 
+				id = #{id}
+	</update>	
+	
+	<!-- 更改isValued的值 -->
+	<update id="changeGetValue" parameterType="pd" flushCache="true">
+		update asset_get
+			set 
+				is_valid		= "false"
+			where 
+				asset_code = #{asset_code}
+	</update>
+	<!-- 更改isValued的值 -->
+	<update id="changeRecycleValue" parameterType="pd" flushCache="true">
+		update asset_recycle
+			set 
+				is_valid		= "false"
+			where 
+				asset_code = #{asset_code}
+	</update>
+
+	<!-- 还原isValid的值 -->
+	<update id="returnGetValid" parameterType="pd" flushCache="true">
+		update asset_get
+			set 
+				is_valid		= "true"
+			where 
+				asset_code = #{asset_code}
+	</update>
+	<!-- 还原isValid的值 -->
+	<update id="returnRecycleValid" parameterType="pd" flushCache="true">
+		update asset_recycle
+			set 
+				is_valid		= "true"
+			where 
+				asset_code = #{asset_code}
+	</update>
+
+	
+	<!-- 删除操作后，改回到原来的状态 -->
+	<update id="returnGetStatus" parameterType="pd" flushCache="true">
+		update asset_info
+			set 
+				asset_status	= "领用"
+			where 
+				asset_code = #{asset_code}
+	</update>
+	<!-- 删除操作后，改回到原来的状态 -->
+	<update id="returnRecycleStatus" parameterType="pd" flushCache="true">
+		update asset_info 
+			set 
+				asset_status	= "回收"
+			where 
+				asset_code = #{asset_code}
+	</update>
+	
+	<!-- 删除对应的审批流程数据 -->
+	<delete id="deleteApproveProcess" parameterType="pd" flushCache="true">
+		delete from aproject_process 
+		where 
+			project_Id = #{id}
+		and	
+			process_Type = "报废申请"
+	</delete>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteallabandondata" parameterType="String" flushCache="true">
+		delete from asset_abandon
+		where 
+			asset_abandon.id in
+  			 <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                  #{item}
+             </foreach>
+	</delete>
+	
+	<!-- 根据检索内容，获取对应的数据条数 -->
+	<select id="findAbandonSearchNameNumber" parameterType="com.mbfw.entity.assets.PageOption" resultType="Integer">
+		select count(all asset_info.asset_status)
+		from 
+			asset_abandon,asset_info,asset_get
+		where
+			asset_abandon.asset_code = asset_info.asset_code
+		and
+			asset_get.asset_code = asset_info.asset_code
+		and  
+			asset_abandon.is_valid = 'true'
+		and
+			asset_info.asset_status = '回收'
+		<if test="pd.permission == 1"> <!-- 总行管理员 -->	
+	 	</if>
+	 	<if test="pd.permission == 2"> <!-- 支行管理员 -->
+	 		and asset_abandon.asset_use_dept = #{pd.organization_name}
+	 	</if>
+	 	<if test="pd.permission == 3"> <!-- 员工 -->
+	 		and asset_abandon.asset_user = #{pd.username}
+	 	</if>
+	 	and
+			(<if test="pd.retrieve_content != null and pd.retrieve_content != ''">
+			asset_abandon.asset_code LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产编码进行检索 -->
+			or
+			asset_info.asset_name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产名称进行检索 -->
+			or
+			asset_get.asset_use_company LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用公司进行检索 -->
+			or
+			asset_get.asset_use_dept LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			asset_get.asset_user LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用人进行检索 -->
+			or
+			asset_abandon.abandon_time LIKE binary CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对报废时间进行检索 -->
+			or
+			asset_abandon.abandon_reason LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对报废原因进行检索 -->
+			or
+			asset_abandon.abandon_idea LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对报废处理意见进行检索 -->
+			or
+			asset_abandon.abandon_manager LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->			
+			</if>)
+		<if test="pd.permission == 1"> <!-- 总行管理员 -->
+
+ 		</if>
+ 		<if test="pd.permission == 2"> <!-- 支行管理员 -->
+ 			and asset_abandon.asset_use_dept = #{pd.organization_name}
+ 		</if>
+ 		<if test="pd.permission == 3"> <!-- 员工 -->
+ 			and asset_abandon.asset_user = #{pd.username}
+ 		</if>
+	</select>
+	
+	<!-- 根据检索姓名，获取对应的数据 -->
+	<select id="findAbandonTotalSearchInfo" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd">
+		select asset_abandon.*,asset_info.asset_name,asset_info.asset_status
+		from
+			asset_abandon,asset_info,asset_get
+		where  
+			asset_abandon.asset_code = asset_info.asset_code
+		and  
+			asset_get.asset_code = asset_info.asset_code
+		and 
+			asset_abandon.is_valid = 'true'
+		and
+			asset_info.asset_status = '回收'
+		<if test="pd.permission == 1"> <!-- 总行管理员 -->	
+	 	</if>
+	 	<if test="pd.permission == 2"> <!-- 支行管理员 -->
+	 		and asset_abandon.asset_use_dept = #{pd.organization_name}
+	 	</if>
+	 	<if test="pd.permission == 3"> <!-- 员工 -->
+	 		and asset_abandon.asset_user = #{pd.username}
+	 	</if>
+	 	and
+		(<if test="pd.retrieve_content != null and pd.retrieve_content != ''">
+			asset_abandon.asset_code LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产编码进行检索 -->
+			or			
+			asset_info.asset_name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产名称进行检索 -->
+			or
+			asset_get.asset_use_company LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用公司进行检索 -->
+			or
+			asset_get.asset_use_dept LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			asset_get.asset_user LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用人进行检索 -->
+			or
+			asset_abandon.abandon_time LIKE binary CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对报废时间进行检索 -->
+			or
+			asset_abandon.abandon_reason LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对报废原因进行检索 -->
+			or
+			asset_abandon.abandon_idea LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对报废处理意见进行检索 -->
+			or
+			asset_abandon.abandon_manager LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+		</if>)
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 移动端缺省查询 -->
+	<select id="findByDefault" parameterType="pd" resultMap="assetMap">
+		select asset_abandon.*, asset_info.asset_name
+		from asset_abandon, asset_info
+		where
+			asset_abandon.asset_code = asset_info.asset_code
+			and
+			is_valid = "true"
+			and
+			(#{asset_code} = "" or asset_abandon.asset_code=#{asset_code})
+			and
+			(#{asset_name} = "" or asset_info.asset_name=#{asset_name})
+			and
+			(#{asset_use_company} = "" or asset_abandon.asset_use_company=#{asset_use_company})
+			and
+			(#{asset_use_dept} = "" or asset_abandon.asset_use_dept=#{asset_use_dept})
+			and
+			(#{asset_user} = "" or asset_abandon.asset_user=#{asset_user})
+			and
+			(#{abandon_manager} = "" or abandon_manager=#{abandon_manager})
+			and
+			(#{abandon_time} = "" or abandon_time=#{abandon_time})
+		limit
+			#{offset},#{num};
+	</select>
+	
+	<!-- 获取资产数量 -->
+	<select id="checkAssetCount" resultType="Integer" parameterType="pd">
+		select count(*)
+		from
+			asset_info, asset_abandon
+		where 			
+			asset_status in ('闲置','下发','接收','回收')
+		<if test="permission == 1"> <!-- 总行管理员 -->	
+	 	</if>
+	 	<if test="permission == 2"> <!-- 支行管理员 -->
+	 		and aasset_use_dept = #{organization_name}
+	 	</if>	
+	</select>
+	
+</mapper>

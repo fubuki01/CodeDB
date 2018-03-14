@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_version">1.0.0</string>
+    
+    <string name="app_name">数据应用平台</string>
+    <string name="gs_name">湖南融安信息技术有限公司</string>
+    
+    <!-- 菜单标题 -->
+    <string name="zhujiemian">主界面</string>
+    <string name="kehubaifang">客户拜访</string>
+    <string name="kehuguanli">客户管理</string>
+    <string name="yingxiaodengji">营销登记</string>
+    <string name="jixiaogongzi">绩效工资</string>
+    <string name="baifangkehu">拜访客户</string>
+
+    <string name="wodekehu">我的客户</string>
+    <string name="yingxiaoshenbao">营销申报</string>
+    <string name="jiankongyujing">监控预警</string>
+    
+    <!-- 二级菜单标题 -->
+    <string name="gerenkehu">个人客户</string>
+    <string name="duigongkehu">对公客户</string>
+    <string name="jibenxinxi">基本信息</string>
+    <string name="cundaizonglan">存贷总揽</string>
+    <string name="guanlianrenxinxi">关联人信息</string>
+    
+    <!-- 客户管理 -->
+    <string name="kehubianhao">客户编号：</string>
+    <string name="kehuxingming">客户名称：</string>
+    <string name="lianxidianhua">联系电话：</string>
+    <string name="zhanghuleiing">账户类型：</string>
+    <string name="dizhi">地址：</string>
+    
+    <string name="chiyouchanpin">持有产品：</string>
+    
+   <string name="hint">输入</string>
+
+    
+    <!-- 业绩工资 -->
+    <string name="yejigongzi">业绩工资 </string>
+    <string name="cunkuanyeji">存款业绩 </string>
+    <string name="daikuanyeji">贷款业绩 </string>
+    <string name="dianziyinhangyeji">电子银行业绩 </string>
+    <string name="yewuliang">业务量 </string>
+    <string name="guanlijixiao">管理绩效 </string>
+    <string name="diqubucha">地区补差</string> 
+    
+    <!-- 营销申报 -->
+    <string name="cunkuanyingxiao">存款营销 </string>
+    <string name="daikuanyingxiao">贷款营销 </string>
+    <string name="shoujiyinhangyingxiao">手机银行营销</string>
+    <string name="etcyingxiao">ETC营销</string>
+    <string name="posjiyingxiao">POS机营销</string>
+    
+    <string name="yuyuebianhao">预约编号：</string>
+    <string name="yuyueriqi">预约日期：</string>
+    <string name="jigoumingchen">机构名称：</string>
+
+    <!--拜访客户菜单-->
+    <string name="basicinformation">基本信息</string>
+    <string name="familyinformation">家庭信息</string>
+    <string name="contactinformation">联系方式</string>
+    <string name="otherinformation">其他</string>
+
+    <!--拜访客户联系方式-->
+    <string name="jiatingchengyuan">家庭成员：</string>
+
+</resources>

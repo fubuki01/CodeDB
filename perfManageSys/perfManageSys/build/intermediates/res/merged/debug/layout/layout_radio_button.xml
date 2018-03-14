@@ -1,0 +1,36 @@
+<com.hnran.perfmanagesys.view.RadioGroupEx
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/radio_group"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:padding="10dp"
+    android:orientation="horizontal" >
+
+    <RadioButton
+        android:id="@+id/btn1"
+        style="@style/RadioButtonCommon"
+        android:text="@string/cunkuanyingxiao" />
+
+    <!--  
+    <RadioButton
+        android:id="@+id/btn2"
+        style="@style/RadioButtonCommon"
+        android:text="@string/daikuanyingxiao" />-->
+
+    <RadioButton
+        android:id="@+id/btn3"
+        style="@style/RadioButtonCommon"
+        android:text="@string/shoujiyinhangyingxiao" />
+    
+    <RadioButton
+        android:id="@+id/btn4"
+        style="@style/RadioButtonCommon"
+        android:text="@string/etcyingxiao" />
+    
+    <RadioButton
+        android:id="@+id/btn5"
+        style="@style/RadioButtonCommon"
+        android:text="@string/posjiyingxiao" />
+
+</com.hnran.perfmanagesys.view.RadioGroupEx>

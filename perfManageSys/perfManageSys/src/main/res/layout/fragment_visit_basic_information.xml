@@ -1,0 +1,125 @@
+<!--<ScrollView-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent" >-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <LinearLayout
+            style="@style/CommonLayout"
+            android:id="@+id/bar_visit_type"
+            android:gravity="center_vertical"
+            android:background="@color/bg_white"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/lines_top_bottom_margin">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/lines_left_right_margin"
+                    android:text="拜访类型："
+                    android:textColor="@color/font_black_1"/>
+
+                <TextView
+                    android:id="@+id/tv_visit_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="上门"
+                    android:textColor="@color/font_black_1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2">
+                <ImageView
+                    android:id="@+id/bt_arrow"
+                    android:background="@color/bg_white"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="@dimen/lines_left_right_margin"
+                    android:src="@drawable/ic_arrow"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            style="@style/VisitTextLine"
+            android:text="赠送礼品信息："/>
+
+        <EditText
+            style="@style/VisitEditLine"
+            android:id="@+id/et_gift_info"
+            android:layout_height="70dp"
+            android:hint="请填写，100字以内"
+            android:lines="5"/>
+
+        <TextView
+            style="@style/VisitTextLine"
+            android:text="个人总结："/>
+
+        <EditText
+            style="@style/VisitEditLine"
+            android:id="@+id/et_person_summary"
+            android:layout_height="100dp"
+            android:hint="请填写，500字以内"
+            android:lines="7"/>
+
+        <TextView
+            style="@style/VisitTextLine"
+            android:text="走访地址："/>
+
+        <LinearLayout
+            style="@style/CommonLayout"
+            android:gravity="center_vertical"
+            android:background="@color/bg_white"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/lines_top_bottom_margin">
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/lines_left_right_margin"
+                android:textColor="@color/font_black_2"
+                android:layout_weight="9"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <ImageView
+                    android:id="@+id/bt_location"
+                    android:background="@color/bg_white"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="@dimen/lines_left_right_margin"
+                    android:src="@drawable/selector_location"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            style="@style/VisitTextLine"
+            android:text="拜访记录："/>
+
+        <ListView
+            android:id="@+id/lv_visit_log"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="25dp"
+            android:layout_marginTop="@dimen/lines_top_bottom_margin"/>
+
+<!--</ScrollView>-->
+
+</LinearLayout>

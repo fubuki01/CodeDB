@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AssetCheckMapper">
+
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>  
+    <resultMap type="AssetCheckManage" id="assetMap">
+    	<id column="id" property="id"/>
+    	<result column="id" property="id"/>
+    	<result column="asset_code" property="asset_code"/>
+    	<result column="asset_name" property="asset_name"/>
+    	<result column="check_name" property="check_name"/>
+    	<result  column="asset_use_company" property="asset_use_company"/>
+    	<result  column="asset_use_dept" property="asset_use_dept"/>
+    	<result  column="asset_user" property="asset_user"/>
+    	<result  column="asset_use" property="asset_use"/>
+    	<result  column="asset_standard_model" property="asset_standard_model"/>
+    	<result  column="asset_detail_config" property="asset_detail_config"/>
+    	<result  column="asset_status" property="asset_status"/>
+    </resultMap>
+	
+	<!-- 获取盘点总页页面的条数 -->
+	<select id="findTotalOrigCheckCount" resultType="Integer" parameterType="pd">
+		select count(*)
+		from
+			asset_check_list
+		<choose>
+	 		<when test="pd.permission == 1"> 
+	 		</when>	 		
+	 		<otherwise>
+	        	where
+		 		<if test="pd.permission == 2"> 
+		 			asset_use_dept = #{pd.organization_name}
+		 		</if>
+		 		<if test="pd.permission == 3"> 
+		 			build_name = #{pd.username}
+		 		</if>
+	 		</otherwise>
+ 		</choose>
+	</select>
+	
+	<select id="listOrigCheckPageShow"  parameterType="com.mbfw.entity.assets.PageOption"  resultType="pd" useCache="false">
+ 		select *
+ 		from 
+ 			asset_check_list
+ 		<choose>
+	 		<when test="pd.permission == 1"> 
+	 		</when>	 		
+	 		<otherwise>
+	        	where
+		 		<if test="pd.permission == 2"> 
+		 			asset_use_dept = #{pd.organization_name}
+		 		</if>
+		 		<if test="pd.permission == 3"> 
+		 			build_name = #{pd.username}
+		 		</if>
+	 		</otherwise>
+ 		</choose>
+ 	</select>
+ 	
+ 	<!-- 根据检索内容，获取对应的数据条数 -->
+	<select id="findOrigNumberCheckBySearchName" parameterType="com.mbfw.entity.assets.PageOption" resultType="Integer">
+		select count(*)
+		from 
+			asset_check_list
+		where
+			(<if test="pd.retrieve_content != null and pd.retrieve_content != ''">		
+			check_name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对盘点名称进行检索 -->
+			or
+			build_name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对创建人进行检索 -->
+			or
+			build_time LIKE binary CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对创建时间进行检索 -->
+			</if>)
+		<if test="pd.permission == 1"> 
+ 		</if>
+ 		<if test="pd.permission == 2"> 
+ 			and asset_use_dept = #{pd.organization_name}
+ 		</if>
+ 		<if test="pd.permission == 3"> 
+ 			and build_name = #{pd.username}
+ 		</if>
+	</select>
+	
+	<!-- 根据检索姓名，获取对应的数据 -->
+	<select id="listChecktOrigSearchNameShow" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd">
+		select *
+		from 
+			asset_check_list
+		where
+			(<if test="pd.retrieve_content != null and pd.retrieve_content != ''">		
+			check_name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对盘点名称进行检索 -->
+			or
+			build_name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对创建人进行检索 -->
+			or
+			build_time LIKE binary CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对创建时间进行检索 -->
+			</if>)
+		<if test="pd.permission == 1"> 
+ 		</if>
+ 		<if test="pd.permission == 2"> 
+ 			and asset_use_dept = #{pd.organization_name}
+ 		</if>
+ 		<if test="pd.permission == 3"> 
+ 			and build_name = #{pd.username}
+ 		</if>
+		limit #{currentResult},#{showCount}
+	</select>
+
+
+	
+	<!-- 获取页面条数 -->
+	<select id="findTotalCheckDataNumber" resultType="Integer" parameterType="pd">
+		select count(*)
+		from
+			asset_check
+		where 
+			check_name = #{check_name}
+	</select>
+	
+	<select id="listPdCheckPageApprover"  parameterType="com.mbfw.entity.assets.PageOption"  resultType="pd" useCache="false">
+		select asset_check.*, asset_check_list.id as listid
+ 		from 
+ 			asset_check,asset_check_list
+ 		where
+ 			asset_check.check_name = asset_check_list.check_name
+ 		and
+ 			asset_check.check_name = #{pd.check_name}
+ 	</select>
+ 	
+ 	<!-- 根据检索内容，获取对应的数据条数 -->
+	<select id="findNumberCheckBySearchName" parameterType="com.mbfw.entity.assets.PageOption" resultType="Integer">
+		select count(*)
+		from 
+			asset_check	
+		where 			
+			(<if test="pd.retrieve_content != null and pd.retrieve_content != ''">	
+			asset_code LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产编码进行检索 -->
+			or				
+			asset_name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产名称进行检索 -->
+			or
+			asset_use_company LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用公司进行检索 -->
+			or
+			asset_use_dept LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			asset_user LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用人进行检索 -->
+			or
+			asset_standard_model LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')
+			or
+			asset_detail_config LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')
+			</if>)
+	</select>
+	
+	<!-- 根据检索姓名，获取对应的数据 -->
+	<select id="listChecktSearchNameApprover" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd">
+		select asset_check.*, asset_check_list.id as listid
+ 		from 
+ 			asset_check,asset_check_list
+ 		where
+ 			asset_check.check_name = asset_check_list.check_name
+ 		and
+ 			asset_check.check_name = #{pd.check_name}
+ 		and
+			(<if test="pd.retrieve_content != null and pd.retrieve_content != ''">
+			asset_check.asset_code LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产编码进行检索 -->
+			or
+			asset_check.asset_name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产名称进行检索 -->
+			or
+			asset_check.asset_use_company LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用公司进行检索 -->
+			or
+			asset_check.asset_use_dept LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			asset_check.asset_user LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用人进行检索 -->
+			or
+			asset_check.asset_standard_model LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')
+			or
+			asset_check.asset_detail_config LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')
+			</if>)		
+		limit #{currentResult},#{showCount}
+	</select>
+
+
+	<!-- 查询单表所有的数量 -->
+	<select id="findCheckDataNumber" resultType="Integer" parameterType="pd">
+		select count(*)
+		from
+			asset_check
+		where 
+			check_name = #{check_name}
+	</select>
+	<!-- 查询已盘点的数量 -->
+	<select id="findCheckedDataNumber" resultType="Integer" parameterType="pd">
+		select count(*)
+		from
+			asset_check
+		where 
+			check_name = #{check_name}
+		and
+			check_status = "已盘点"
+	</select>
+
+
+
+ 
+ 	<!-- 多条件多选择查询 -->
+	<select id="findMultipleSelectResult"  parameterType="pd" resultType="pd"  >
+		select 
+			asset_code,asset_name,asset_use_company,asset_use_dept,asset_use,asset_user,asset_status,asset_detail_config,asset_standard_model,asset_purchase_time
+		from 
+			asset_info
+		<where>			
+			<if test="asset_name != '' and asset_name != null">
+				and asset_name in
+				<foreach collection="asset_name" open="(" separator="," close=")" item="item"> 
+					#{item}
+				</foreach>
+			</if>
+			<if test="asset_class != '' and asset_class != null">
+				and asset_class in 
+				<foreach collection="asset_class" open="(" separator="," close=")" item="item"> 
+					#{item}
+				</foreach>
+			</if>
+			<if test="asset_use_company != '' and asset_use_company != null">
+				and asset_use_company = #{asset_use_company}
+			</if>
+			<if test="asset_use_dept != '' and asset_use_dept != null">
+				and asset_use_dept in 
+				<foreach collection="asset_use_dept" open="(" separator="," close=")" item="item"> 
+					#{item}
+				</foreach>
+			</if> 
+			<if test="asset_standard_model != '' and asset_standard_model != null">
+				and asset_standard_model in 
+				<foreach collection="asset_standard_model" open="(" separator="," close=")" item="item"> 
+					#{item}
+				</foreach>
+			</if>
+			<if test="asset_status !='' and asset_status != null">
+				and asset_status in
+				<foreach collection="asset_status" open="(" separator="," close=")" item="item"> 
+					#{item}
+				</foreach>
+			</if>
+			<if test="start_purchase_time!=null and start_purchase_time!=''">
+				and asset_purchase_time &gt;= #{start_purchase_time} 
+			</if>
+			<if test="end_purchase_time!=null and end_purchase_time!=''">
+				and	asset_purchase_time &lt;= #{end_purchase_time}
+			</if>
+		</where>
+ 
+	</select>
+	
+	<!-- 插入数据到盘点表单 -->
+	<insert id="saveCheckList" parameterType="pd" flushCache="true">
+		insert into asset_check_list(
+			check_name,
+			build_name,
+			build_time,
+			asset_use_company,
+			asset_use_dept
+		) values (
+			#{check_name},
+			#{build_name},
+			#{build_time},
+			#{asset_use_company},
+			#{asset_use_dept}
+		)
+	</insert>
+	
+ 	<!-- 插入数据到单表 -->
+	<insert id="saveCheckData" parameterType="pd" flushCache="true">
+		insert into asset_check(
+			check_name,
+			asset_code,
+			asset_name,
+			asset_user,
+			asset_use,
+			asset_use_company,
+			asset_use_dept,
+			asset_detail_config,
+			asset_standard_model,
+			asset_status,
+			check_status
+		) values (
+			#{check_name},
+			#{asset_code},
+			#{asset_name},
+			#{asset_user},
+			#{asset_use},
+			#{asset_use_company},
+			#{asset_use_dept},
+			#{asset_detail_config},
+			#{asset_standard_model},
+			#{asset_status},
+			"未盘点"
+		)
+	</insert>
+ 	
+ 	<!-- 删除总表数据 -->
+	<delete id="deletechecklistdata" parameterType="String" flushCache="true">
+		delete from asset_check_list
+		where 
+			asset_check_list.id in
+  			 <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                  #{item}
+             </foreach>
+	</delete>
+ 	
+ 	<!-- 删除总表对应的单表的数据 -->
+	<delete id="deletecheckthislistdata" parameterType="String" flushCache="true">
+		delete from 
+			asset_check
+		where 			
+			asset_check.check_name in
+			( select asset_check_list.check_name
+				from  
+					asset_check_list
+				where 
+					asset_check.check_name = asset_check_list.check_name
+ 	            and
+					asset_check_list.id in 
+  			  <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                  #{item}
+             </foreach> )
+	</delete>
+ 	
+ 	<!-- 删除单表数据 -->
+	<delete id="deletecheckdata" parameterType="String" flushCache="true">
+		delete from asset_check
+		where 
+			asset_check.id in
+  			 <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                  #{item}
+             </foreach>
+	</delete>
+ 	
+ 	<!-- 移动端获取盘点表单 -->
+	<select id="mobile_getCheckName"  parameterType="pd"  resultType="String" >
+		select check_name
+		from
+			asset_check_list
+		where
+			asset_use_dept = #{organization_name}
+		or
+			#{organization_name} = ""
+	</select>
+	
+	<!-- 移动端获取资产信息 -->
+	<select id="mobile_getAssetinfo"  parameterType="pd"  resultType="pd" >
+		select *
+		from
+			asset_check
+		where
+			check_name = #{check_name}
+		and
+			asset_code = #{asset_code}
+	</select>
+	
+	<!-- 移动端获取盘点表单内容 -->
+	<select id="mobile_getChecklist"  parameterType="pd"  resultType="pd">
+		select *
+		from
+			asset_check
+		where
+			check_name = #{check_name}
+		order by check_status desc
+	</select>
+	
+	<!-- 移动端盘点 -->
+	<update id="mobile_check"  parameterType="pd" >
+		update
+			asset_check
+		set
+			check_status = '已盘点'
+		where
+			check_name = #{check_name}
+		and
+			asset_code = #{asset_code}
+	</update>
+ 	
+</mapper>

@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\default_ptr_rotate.png",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\exploded-aar\\perfManageSys\\pullToRefresh\\unspecified\\res\\drawable-mdpi-v4\\default_ptr_rotate.png"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\default_ptr_flip.png",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\exploded-aar\\perfManageSys\\pullToRefresh\\unspecified\\res\\drawable-mdpi-v4\\default_ptr_flip.png"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\indicator_arrow.png",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\exploded-aar\\perfManageSys\\pullToRefresh\\unspecified\\res\\drawable-mdpi-v4\\indicator_arrow.png"
+    }
+]

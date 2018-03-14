@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="InstitutionInfoMapper">
+<resultMap type="InstitutionalInfo" id="InstitutionalInfoResultMap">
+		<id column="organizational_identification" property="organizational_identification"/>
+		<result column="business_organization_code" property="business_organization_code"/>
+		<result column="organization_name" property="organization_name"/>
+		<result column="organization_abbreviation" property="organization_abbreviation"/>
+		<result column="superior_organizational_identification" property="superior_organizational_identification"/>
+		<result column="superior_organization_name" property="superior_organization_name"/>
+		<result column="business_organization_nature" property="business_organization_nature"/>
+		<result column="organization_class" property="organization_class"/>
+		<result column="organizational_level" property="organizational_level"/>
+		<result column="enable_identification" property="enable_identification"/>
+		<result column="report_authority_organization_code" property="report_authority_organization_code"/>
+		<result column="business_organization_identifier" property="business_organization_identifier"/>
+		<result column="business_organization_type" property="business_organization_type"/>
+		<result column="sort_ordinal" property="sort_ordinal"/>
+		<result column="location" property="location"/>
+	</resultMap> 
+	
+	<!-- 获取机构的总数量 -->
+	<select id="findTotaInstitutionNumber" resultType="Integer">
+		select count(*)
+		from
+		institutional_information
+	</select>
+	
+	
+	<!-- 查询数据库，返回每页节点信息数据 -->
+	<select id="listAllInstitution" parameterType="com.mbfw.entity.assets.PageOption"   resultType="pd" >
+		select *
+		from
+		institutional_information
+		<!-- 先写order by再写limit -->
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 查询数据库，返回权限为2对应部门的信息数据 分页处理-->
+	<select id="listPermission2Institution" parameterType="com.mbfw.entity.assets.PageOption"   resultType="pd" >
+		select *
+		from
+		institutional_information
+		where organization_abbreviation = #{pd.organization_abbreviation}
+		or superior_organization_name = #{pd.organization_abbreviation}
+		<!-- 先写order by再写limit -->
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 查询数据库，返回权限为2对应部门的信息数据总条数-->
+	<select id="listPermission2InstitutionTotal" parameterType="com.mbfw.entity.assets.PageOption"   resultType="Integer" >
+		select count(*)
+		from
+		institutional_information
+		where organization_abbreviation = #{pd.organization_abbreviation}
+		or superior_organization_name = #{pd.organization_abbreviation}
+	</select>
+	
+	<!-- 查询数据库，返回所有信息-->
+	<select id="listAllInfo" parameterType="pd"   resultType="pd" >
+		select *
+		from
+		institutional_information
+	</select>
+	
+	<!-- 查询所有组织简称 -->
+	<select id="findOrgAbbr"  resultType="java.lang.String" >
+		select organization_abbreviation
+		from
+		institutional_information
+		where superior_organizational_identification != 0
+	</select>
+	
+	<!-- 根据type查询部门和总行网点 -->
+	<select id="findOrgByType" parameterType="pd"  resultType="java.lang.String" >
+		select organization_abbreviation
+		from
+		institutional_information
+		<where>
+			superior_organizational_identification = 1
+			<if test="type == 'bm'">
+				and (business_organization_code='' or business_organization_code is null)
+			</if>
+			<if test="type == 'zhwd'">
+				and business_organization_code is not null and business_organization_code != ''
+			</if>
+		</where>
+		
+	</select>
+		
+	<!-- 查询下级组织 -->
+	<select id="findBranch"  resultType="java.lang.String" >
+		select organization_abbreviation
+		from
+		institutional_information
+		where superior_organization_name = #{orgName}
+		and superior_organizational_identification = 1
+		<if test="type == 'bm'">
+			and (business_organization_code='' or business_organization_code is null)
+		</if>
+		<if test="type == 'zhwd'">
+			and business_organization_code is not null
+		</if>
+	</select>
+	
+	<!-- 新增项目立项 -->
+	<insert id="addInstitution" parameterType="InstitutionalInfo" flushCache="false">
+		insert into institutional_information (
+			business_organization_code,
+			organization_name,
+			organization_abbreviation,
+			superior_organizational_identification,
+			superior_organization_name,
+			business_organization_nature,
+			organization_class,
+			organizational_level,
+			enable_identification,
+			report_authority_organization_code,
+			business_organization_identifier,
+			business_organization_type,
+			location			
+			)values(
+			#{business_organization_code},
+			#{organization_name},
+			#{organization_abbreviation},
+			#{superior_organizational_identification},
+			#{superior_organization_name},
+			#{business_organization_nature},
+			#{organization_class},
+			#{organizational_level},
+			#{enable_identification},
+			#{business_organization_code},
+			#{business_organization_identifier},
+			#{business_organization_type},
+			#{location}
+		)	
+	</insert>
+	
+	<!-- 查询选中的一个条目 -->
+	<select id="searchInstitution" parameterType="Integer" resultType="pd" useCache="false">
+		select  *
+		from institutional_information 
+		where organizational_identification  = #{s}
+	</select>
+	
+	<!-- 更新修改的项目 -->
+	<update id="updateInstitution" parameterType="InstitutionalInfo" flushCache="false">
+		update institutional_information 
+		set 	organizational_identification				= #{organizational_identification},
+				business_organization_code 					= #{business_organization_code},
+				organization_name 							= #{organization_name},
+				organization_abbreviation					= #{organization_abbreviation},
+				superior_organizational_identification		= #{superior_organizational_identification},
+				superior_organization_name					= #{superior_organization_name},
+				business_organization_nature				= #{business_organization_nature},
+				organization_class 							= #{organization_class},
+				organizational_level 						= #{organizational_level},
+				enable_identification						= #{enable_identification},
+				report_authority_organization_code			= #{business_organization_code},
+				business_organization_identifier			= #{business_organization_identifier},
+				business_organization_type					= #{business_organization_type},
+				sort_ordinal 								= #{sort_ordinal},
+				location									= #{location}
+			where 
+				organizational_identification = #{organizational_identification}
+	</update>
+	
+	<!-- 查询选中的多个条目 要删除条目 是否有下级机构-->
+	<select id="searchDelectInstitution" parameterType="Integer" resultType="pd" useCache="false">
+		select  organizational_identification
+		from institutional_information 
+		where organizational_identification in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                  #{item}
+        </foreach>
+	</select>
+	
+	
+	<!-- 删除选中的条目 -->
+	<delete id="deleteInstitution" parameterType="Integer" flushCache="false">
+		delete from institutional_information
+		where organizational_identification in
+  			 <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                  #{item}
+             </foreach>
+	</delete>
+	
+	<!-- 关键字查询对应的条数 -->
+	<select id="keySearchIntitutionNumber" parameterType="String" resultType="Integer" >
+		select count(*) FROM institutional_information
+			where business_organization_code LIKE concat(concat('%',#{str}),'%')
+			or organization_name LIKE concat(concat('%',#{str}),'%')
+			or organization_abbreviation LIKE concat(concat('%',#{str}),'%')
+			or superior_organization_name LIKE concat(concat('%',#{str}),'%')
+	
+	</select>
+	
+	<!-- 关键字查询 
+	or organization_name LIKE concat(concat('%',#{pd.key}),'%')
+	-->
+	<select id="keySearchIntitution" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd" flushCache="false">
+		select * FROM institutional_information
+			where business_organization_code LIKE concat(concat('%',#{pd.key}),'%')
+			or organization_abbreviation LIKE concat(concat('%',#{pd.key}),'%')
+			or organization_class LIKE concat(concat('%',#{pd.key}),'%')
+			limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 关键字查询权限为2 -->
+	<select id="keySearchPermission2Institution" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd" flushCache="false">
+		select * FROM institutional_information
+			where (organization_abbreviation = #{pd.organization_abbreviation}
+			or superior_organization_name = #{pd.organization_abbreviation})
+			and(
+				business_organization_code LIKE concat(concat('%',#{pd.key}),'%')
+				or organization_name LIKE concat(concat('%',#{pd.key}),'%')
+				or organization_abbreviation LIKE concat(concat('%',#{pd.key}),'%')
+				or superior_organization_name LIKE concat(concat('%',#{pd.key}),'%')	
+			)
+			limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 关键字查询权限为2 总条数-->
+	<select id="keySearchPermission2InstitutionTotal" parameterType="com.mbfw.entity.assets.PageOption" resultType="Integer" >
+		select count(*) FROM institutional_information
+			where (organization_abbreviation = #{pd.organization_abbreviation}
+			or superior_organization_name = #{pd.organization_abbreviation})
+			and(
+				business_organization_code LIKE concat(concat('%',#{pd.key}),'%')
+				or organization_name LIKE concat(concat('%',#{pd.key}),'%')
+				or organization_abbreviation LIKE concat(concat('%',#{pd.key}),'%')
+				or superior_organization_name LIKE concat(concat('%',#{pd.key}),'%')	
+			)
+	</select>
+	
+	
+	<!-- 根据父的名字查询其编号 -->
+	<select id="searchInstitutionCode" parameterType="String" resultType="pd" >
+		select * FROM institutional_information
+			where organization_abbreviation = #{s}
+	</select>
+	
+	<!-- 查询机构信息是否正在被使用 暂时没有添加此功能 -->
+	<!-- 分表查询 -->
+	<!-- 用户表 -->
+	<select id="judge_sys_user" parameterType="pd" resultType="Integer">
+		select count(*) from sys_user
+		where 
+			sys_user.superior_organization_name = #{superior_organization_name}
+			and sys_user.organization_name  =#{organization_abbreviation}
+	</select>
+	<!-- 项目立项表 -->
+	<select id="judge_aproject_manager" parameterType="pd" resultType="Integer">
+		select count(*) from aproject_manager
+		where 
+			aproject_manager.apply_company = #{superior_organization_name}
+			and aproject_manager.apply_dept  =#{organization_abbreviation}
+	</select>
+	<!-- 资产表 -->
+	<select id="judge_asset_info" parameterType="pd" resultType="Integer">
+		select count(*) from asset_info
+		where 
+			asset_info.asset_use_company = #{superior_organization_name}
+			and asset_info.asset_use_dept  =#{organization_abbreviation}
+	</select>
+	
+	<select id="judge_asset_issue" parameterType="pd" resultType="Integer">
+		select count(*) from asset_issue
+		where 
+			(asset_issue.receive_branch = #{superior_organization_name}
+			and asset_issue.receive_department  =#{organization_abbreviation})
+			or (asset_issue.issued_branch = #{superior_organization_name}
+			and asset_issue.issued_department =#{organization_abbreviation})
+			
+	</select>
+	
+	<select id="judge_asset_abandon" parameterType="pd" resultType="Integer">
+		select count(*) from asset_abandon
+		where 
+			asset_abandon.asset_use_company = #{superior_organization_name}
+			and asset_abandon.asset_use_dept  =#{organization_abbreviation}
+	</select>
+	
+	<select id="judge_asset_get" parameterType="pd" resultType="Integer">
+		select count(*) from asset_get
+		where 
+			asset_get.asset_use_company = #{superior_organization_name}
+			and asset_get.asset_use_dept  =#{organization_abbreviation}
+	</select>
+	
+	<select id="judge_asset_alter" parameterType="pd" resultType="Integer">
+		select count(*) from asset_alter
+		where 
+			asset_alter.company_apply = #{superior_organization_name}
+			and asset_alter.applicant_sector  =#{organization_abbreviation}
+	</select>
+	
+	<select id="judge_asset_allot" parameterType="pd" resultType="Integer">
+		select count(*) from asset_allot
+		where 
+			asset_allot.it_department = #{superior_organization_name}
+			and asset_allot.ot_department  =#{organization_abbreviation}
+	</select>
+	
+	<select id="judge_report_repair" parameterType="pd" resultType="Integer">
+		select count(*) from report_repair
+		where 
+			report_repair.bank_name = #{superior_organization_name}
+			and report_repair.department  =#{organization_abbreviation}
+	</select>
+	
+	<select id="judge_supplies_application" parameterType="pd" resultType="Integer">
+		select count(*) from supplies_application
+		where 
+			supplies_application.company_apply = #{superior_organization_name}
+			and supplies_application.applicant_sector  =#{organization_abbreviation}
+	</select>
+	
+	<select id="judge_supplies_stored" parameterType="pd" resultType="Integer">
+		select count(*) from supplies_stored
+		where 
+			supplies_stored.company_apply = #{superior_organization_name}
+			and supplies_stored.applicant_sector  =#{organization_abbreviation}
+	</select>
+	
+	<select id="judge_supplies_use" parameterType="pd" resultType="Integer">
+		select count(*) from supplies_use
+		where 
+			supplies_use.company = #{superior_organization_name}
+			and supplies_use.department  =#{organization_abbreviation}
+	</select>
+	<!-- 查询机构信息是否正在被使用结束 -->
+</mapper>

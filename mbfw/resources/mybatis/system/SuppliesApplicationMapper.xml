@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SuppliesApplicationMapper">
+<resultMap type="SuppliesApplication" id="SuppliesApplicationMap">
+</resultMap>
+	<!--显示所有的审核人员 -->
+	<select id="listAllSuppliesApplication" parameterType="page"
+		resultType="pd" useCache="false">
+		select *
+		from supplies_application
+	</select>
+	<!-- 新增项目 -->
+	<insert id="addSq" parameterType="pd" flushCache="true" useGeneratedKeys="true" keyProperty="id">
+		insert into
+		supplies_application (supplies_model,
+		supplies_name,
+		quantity,
+		brand,
+		supplies_type,
+		quote_basis,
+		sour_of_funds,
+		applicant,
+		applicant_sector,
+		company_apply,
+		remarks,
+		apply_procedure,
+		manager,
+		supplier,
+		supplies_use,
+		time_apply,
+		Market_quotes
+		) values (
+		#{supplies_model},
+		#{supplies_name},
+		#{quantity},
+		#{brand},
+		#{supplies_type},
+		#{quote_basis},
+		#{sour_of_funds},
+		#{applicant},
+		#{applicant_sector},
+		#{company_apply},
+		#{remarks},
+		#{apply_procedure},
+		#{manager},
+		#{supplier},
+		#{supplies_use},
+		#{time_apply},
+		#{Market_quotes}
+		)
+	</insert>
+
+	<!-- 批量删除 -->
+	<delete id="deleteSq" parameterType="Integer" flushCache="true">
+		delete from supplies_application
+		where
+		supplies_application.id in
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<!-- 查询出来编辑 -->
+	<select id="editSq" parameterType="pd" resultType="pd">
+		select *
+		from supplies_application
+		where id= #{id}
+	</select>
+
+	<!-- 更新 -->
+	<update id="updateSq" parameterType="pd" flushCache="true">
+		update supplies_application
+		set
+		supplies_model                             = #{supplies_model},
+		supplies_name                              = #{supplies_name},
+		quantity                                   = #{quantity},
+		brand                                      = #{brand},
+		supplies_type                              = #{supplies_type},
+		quote_basis                                = #{quote_basis},
+		sour_of_funds                              = #{sour_of_funds},
+		applicant                                  = #{applicant},
+		applicant_sector                           = #{applicant_sector},
+		company_apply                              = #{company_apply},
+		remarks                                    = #{remarks},
+		apply_procedure                                   = #{apply_procedure},
+		manager                                    = #{manager},
+		supplier                                   = #{supplier},
+		supplies_use                               = #{supplies_use},
+		time_apply                                 = #{time_apply},
+		Market_quotes                              = #{Market_quotes}
+		where
+		     id = #{id}
+	</update>
+   
+   <!-- 根据user_id来删除用户，在审核人表中 -->
+	<delete id="delSq" parameterType="pd" flushCache="true">
+		delete 
+		from supplies_application
+		where 
+			id = #{id}
+	</delete>
+
+<!--显示所有的审核人员  -->
+ 	<select id="SqListPage"  parameterType="com.mbfw.entity.assets.PageOption"  resultType="pd" useCache="false">
+ 		select *
+ 		from supplies_application
+ 		<choose>
+ 		<when test="pd.permission == 1">
+ 		</when>
+ 		<otherwise>
+ 		where
+ 		<if test="pd.permission == 2"> <!-- 总行管理员 -->
+ 		applicant_sector = #{pd.organization_name}
+ 		</if>
+ 		<if test="pd.permission == 3"> <!-- 支行管理员 -->
+ 			 supplies_application.applicant = #{pd.organization_name}
+ 		</if>
+ 		</otherwise>
+ 		</choose>
+ 		limit #{currentResult},#{showCount}
+ 	</select>
+
+<!-- 获取审核人员的条数 -->
+	<select id="findSqTotalNumber" resultType="Integer">
+		select count(*)
+		from
+		supplies_application
+	</select>
+  
+  <!-- 根据检索内容，获取对应的数据条数 -->
+	<select id="findSqSearchNameNumber" parameterType="com.mbfw.entity.assets.PageOption" resultType="Integer">
+		select count(*)
+		from 
+		supplies_application
+		where
+			<if test="pd.retrieve_content != null and pd.retrieve_contentE != ''">
+			supplies_model LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产编码进行检索 -->
+			or
+			supplies_name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			brand LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用人进行检索 -->
+			or
+			quantity LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用时间进行检索 -->
+			or
+			supplies_type LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产用途进行检索 -->
+			or
+			quote_basis LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产状态进行检索 -->
+			or
+			sour_of_funds LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对规格进行检索 -->
+			or
+			remarks LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			time_apply LIKE binary CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			apply_procedure LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			manager LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			supplier LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			supplies_use LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			applicant LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			applicant_sector LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			company_apply LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			Market_quotes LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			</if>
+	</select>
+
+
+<!-- 根据检索姓名，获取对应的数据 -->
+	<select id="findSqTotalSearchInfo" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd">
+		select *
+		from
+		supplies_application
+		where 
+		<if test="pd.retrieve_content != null and pd.retrieve_contentE != ''">
+			supplies_model LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产编码进行检索 -->
+			or
+			supplies_name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			brand LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用人进行检索 -->
+			or
+			quantity LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用时间进行检索 -->
+			or
+			supplies_type LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产用途进行检索 -->
+			or
+			quote_basis LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产状态进行检索 -->
+			or
+			sour_of_funds LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对规格进行检索 -->
+			or
+			remarks LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			time_apply LIKE binary CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			apply_procedure LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			manager LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			supplier LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			supplies_use LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			applicant LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			applicant_sector LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			company_apply LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			Market_quotes LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+		</if>
+		limit #{currentResult},#{showCount}
+	</select>
+
+
+<!--    耗材编码   -->
+	<select id="find_SuppliesApplication"  parameterType="pd" resultType="pd">
+		select * from products_info where product_flag="耗材资产"
+	</select>
+<!-- 通过ID查询产品信息  -->
+	<select id="find_product_to_add_supplies" parameterType="String" resultType="pd" flushCache="true">
+		select * from products_info where product_code = #{product_code}
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

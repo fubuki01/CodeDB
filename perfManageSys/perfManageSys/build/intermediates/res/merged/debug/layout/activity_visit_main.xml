@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/RootLayout"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_common_visit_title" />
+
+    <LinearLayout
+        android:id="@+id/visit_ll_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/bg_tab_visit"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/visit_ll_basic"
+            style="@style/VisitTabLayout"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/visit_iv_basic"
+                style="@style/VisitTabImageView"
+                android:src="@drawable/basicinformation" />
+
+            <TextView
+                android:id="@+id/visit_tv_basic"
+                style="@style/VisitTvCommon"
+                android:text="@string/basicinformation" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/visit_ll_family"
+            style="@style/VisitTabLayout"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/visit_iv_family"
+                style="@style/VisitTabImageView"
+                android:src="@drawable/familyinformation" />
+
+            <TextView
+                android:id="@+id/visit_tv_family"
+                style="@style/VisitTvCommon"
+                android:text="@string/familyinformation" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/visit_ll_contact"
+            style="@style/VisitTabLayout"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/visit_iv_contact"
+                style="@style/VisitTabImageView"
+                android:src="@drawable/contactinformation" />
+
+            <TextView
+                android:id="@+id/visit_tv_contact"
+                style="@style/VisitTvCommon"
+                android:text="@string/contactinformation" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/VisitTabLayout"
+            android:id="@+id/visit_ll_other"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/visit_iv_other"
+                style="@style/VisitTabImageView"
+                android:src="@drawable/otherinformation" />
+
+            <TextView
+                android:id="@+id/visit_tv_other"
+                style="@style/VisitTvCommon"
+                android:text="@string/otherinformation" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.hnran.perfmanagesys.view.NoScrollViewPager
+        android:id="@+id/visit_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center" />
+
+</LinearLayout>

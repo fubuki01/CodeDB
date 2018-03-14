@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/RootLayout"
+    android:orientation="vertical" >
+
+    <include layout="@layout/layout_common_back_title" />
+
+    <!--  
+    <TextView
+        android:id="@+id/perf_common_tv_date"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_menu_height"
+        android:gravity="center"
+        android:textColor="@color/font_black_2"
+        android:textSize="@dimen/font_content_fir"
+        android:text="2017-05-10"
+        android:background="@color/bg_white" />
+
+    <View style="@style/CommonHorLine" />-->
+
+    <com.hnran.perfmanagesys.view.PagerSlidingTabStrip
+        android:id="@+id/perf_tabs"
+        style="@style/TabCommon" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/perf_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1" />
+
+</LinearLayout>

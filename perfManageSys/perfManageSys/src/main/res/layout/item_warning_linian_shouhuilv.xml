@@ -1,0 +1,84 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_root"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_white"
+            android:paddingBottom="6dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="6dp" >
+
+            <!-- 第一行 -->
+
+            <TextView
+                android:id="@+id/item_warning_lnshl_niandu_title"
+                style="@style/ItemTvTitle"
+                android:layout_alignParentLeft="true"
+                android:text="年度：" />
+
+            <TextView
+                android:id="@+id/item_warning_lnshl_niandu"
+                style="@style/ItemTvContent"
+                android:layout_toRightOf="@+id/item_warning_lnshl_niandu_title"
+                android:text="2017" />
+
+            <TextView
+                android:id="@+id/item_warning_lnshl_huishoulv_title"
+                style="@style/ItemTvTitle"
+                android:layout_toLeftOf="@+id/item_warning_lnshl_huishoulv"
+                android:text="回收率：" />
+
+            <TextView
+                android:id="@+id/item_warning_lnshl_huishoulv"
+                style="@style/ItemTvContent"
+                android:layout_alignParentRight="true"
+                android:text="98" />
+
+            <!-- 第二行 -->
+
+            <TextView
+                android:id="@+id/item_warning_lnshl_daoqi_title"
+                style="@style/ItemTvTitle"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/item_warning_lnshl_niandu_title"
+                android:text="到期金额：" />
+
+            <TextView
+                android:id="@+id/item_warning_lnshl_daoqi"
+                style="@style/ItemTvContent"
+                android:layout_below="@id/item_warning_lnshl_niandu_title"
+                android:layout_toRightOf="@+id/item_warning_lnshl_daoqi_title"
+                android:text="1231" />
+
+            <TextView
+                android:id="@+id/item_warning_lnshl_qimo_title"
+                style="@style/ItemTvTitle"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/item_warning_lnshl_daoqi_title"
+                android:text="期末余额：" />
+
+            <TextView
+                android:id="@+id/item_warning_lnshl_qimo"
+                style="@style/ItemTvContent"
+                android:layout_below="@id/item_warning_lnshl_daoqi_title"
+                android:layout_toRightOf="@id/item_warning_lnshl_qimo_title"
+                android:text="2000" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <include layout="@layout/common_item_lable" />
+
+</FrameLayout>

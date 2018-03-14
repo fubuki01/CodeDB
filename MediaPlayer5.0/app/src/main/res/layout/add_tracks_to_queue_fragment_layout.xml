@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootboot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical">
+    
+    <!-- top_bar 	android:background="@drawable/background"-->
+    <RelativeLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_topbar_height"
+        android:layout_alignParentTop="true"
+        >
+        
+        <View
+            android:id="@+id/topbar_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/topbar_underline_height"
+            android:layout_alignParentBottom="true"
+            android:background="@color/item_underline_color" />
+        
+        <RelativeLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_above="@id/topbar_line">
+            
+            <TextView 
+			    android:id="@+id/text"
+			    android:layout_width="wrap_content"
+			    android:layout_height="match_parent"
+			    android:gravity="center_vertical|left"
+			    android:paddingLeft="@dimen/tracks_list_content_marginleft"
+			    android:singleLine="true"
+			    android:text="@string/topbar_page_title_0"
+			    android:textColor="@drawable/topbar_return_text_color_selector"
+			    android:textSize="@dimen/topbar_text_size"/>
+            
+            <TextView
+	            android:id="@+id/finish_textview"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentRight="true"
+	            android:layout_centerVertical="true"
+	            android:layout_marginRight="@dimen/search_text_btn_margin_right"
+	            android:clickable="true"
+	            android:padding="4dp"
+	            android:text="@string/add_tracks_to_queue_finish_textview_text"
+				android:textColor="@drawable/wancheng_background_click"
+				android:textSize="@dimen/topbar_text_size"
+	            android:visibility="invisible" />
+            
+        </RelativeLayout>
+    </RelativeLayout>
+    
+    <RelativeLayout 
+        android:id="@+id/header_bar"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:layout_below="@id/top_bar" >
+        
+        <LinearLayout 
+            android:id="@+id/select_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/tracks_list_content_marginleft"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:orientation="horizontal">
+            
+            <ImageView 
+                android:id="@+id/checkbox_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/select_image_unselect"
+                android:clickable="true"/>
+			<TextView
+				android:id="@+id/header_textview"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_toRightOf="@id/select_all"
+				android:layout_marginLeft="@dimen/tracks_list_content_marginleft"
+				android:layout_centerVertical="true"
+				android:text="@string/add_tracks_to_queue_select_tracks_textview_text"
+				android:textColor="@color/holo_dark"
+				android:textSize="@dimen/tracks_list_songname_textsize"
+				/>
+
+        </LinearLayout>
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:text="@string/add_tracks_to_queue_select_all_textview_text"
+			android:textColor="@color/holo_dark"
+			android:textSize="12sp"
+			android:layout_below="@+id/select_all"
+			android:layout_marginLeft="13dp"
+			/>
+
+    </RelativeLayout>
+
+    <se.emilsjolander.stickylistheaders.SideBarView
+        android:id="@+id/sidebar"
+        style="@style/sidebar_view_style"
+        android:layout_below="@id/top_bar"
+        android:layout_alignParentRight="true"/>
+    
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/header_bar"
+        android:layout_toLeftOf="@id/sidebar"
+        android:cacheColorHint="@color/transparent"
+        android:drawSelectorOnTop="false"
+        android:scrollbars="none"
+        android:fastScrollEnabled="false"
+        android:overScrollMode="never"
+        android:divider="#00ffffff"
+		android:dividerHeight="0.1dp"
+ 	/>
+    
+</RelativeLayout>

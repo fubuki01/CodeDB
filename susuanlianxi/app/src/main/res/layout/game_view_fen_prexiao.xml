@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relative"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+
+    <RelativeLayout
+        android:id="@+id/liner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/backgrond_below"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/back_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="36dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/close_button" />
+
+        <ImageView
+            android:id="@+id/draft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/draft_button" />
+
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="90dp"
+            android:layout_marginTop="26dp"
+            android:background="@drawable/badkground_top"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/type_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/pro_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="190dp"
+                android:layout_marginTop="130dp"
+                android:background="@drawable/pro_number">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/number_of_game"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="123dp"
+                android:layout_toRightOf="@+id/pro_number"
+                android:paddingLeft="8dp"
+                android:text="题数：第1题"
+                android:textSize="30sp">
+
+            </TextView>
+
+
+            <TextView
+                android:id="@+id/scores"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="229dp"
+                android:layout_marginTop="130dp"
+                android:layout_toRightOf="@+id/pro_number"
+                android:background="@drawable/scores">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/grade_of_game"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="123dp"
+                android:layout_toRightOf="@+id/scores"
+                android:paddingLeft="8dp"
+                android:text="得分：0分"
+                android:textSize="30sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="236dp"
+                android:layout_marginTop="130dp"
+                android:layout_toRightOf="@id/scores"
+                android:background="@drawable/times">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/time_of_game"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="123dp"
+                android:layout_toRightOf="@+id/time"
+                android:paddingLeft="8dp"
+                android:text="时间：180s"
+                android:textSize="30sp">
+            </TextView>
+            <TextView
+                android:id="@+id/time_of_game2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="123dp"
+                android:layout_toRightOf="@+id/time_of_game"
+                android:textColor="#ff0000"
+                android:textSize="30sp">
+
+            </TextView>
+
+            <ImageView
+                android:id="@+id/imageview_animation_list_score"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="580dp"
+                android:layout_marginTop="180dp"
+                android:visibility="invisible" />
+
+
+            <com.readboy.HandWrite.myview
+                android:id="@+id/game_content"
+                android:layout_width="1000dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="200dp" />
+
+
+            <com.readboy.HandWrite.DrawView
+                android:id="@+id/draw"
+                android:layout_width="1088dp"
+                android:layout_height="374dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="8dp"
+                android:width="320dp">
+
+            </com.readboy.HandWrite.DrawView>
+
+            <ImageView
+                android:id="@+id/imageview_animation_list_filling"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="500dp"
+                android:layout_marginTop="350dp"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/below"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/below_anser" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>
+    <!--<LinearLayout--><!--android:id="@+id/liner"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:background="@drawable/backgrond_below"--><!--android:orientation="vertical" >--><!----><!--<RelativeLayout--><!--android:id="@+id/relativeLayout1"--><!--android:layout_width="fill_parent"--><!--android:layout_height="80dp"--><!--android:layout_centerHorizontal="true"--><!--android:layout_marginTop="30dp"--><!--android:layout_marginLeft="40dp"--><!--android:layout_marginRight="40dp"--><!--android:background="@drawable/top_menu"--><!--android:gravity="center_vertical" >--><!--<ImageView--><!--android:id="@+id/back_bt"--><!--android:layout_width="45dp"--><!--android:layout_height="45dp"--><!--android:layout_centerVertical="true"--><!--android:layout_marginLeft="40dp"--><!--android:background="@drawable/back" />--><!--<TextView--><!--android:id="@+id/type_view"--><!--android:layout_width="wrap_content"--><!--android:layout_height="35dp"--><!--android:layout_centerHorizontal="true"--><!--android:layout_centerVertical="true"--><!--android:gravity="center"--><!--android:textSize="22sp"--><!--/>--><!--<ImageView--><!--android:id="@+id/draft"--><!--android:layout_width="45dp"--><!--android:layout_height="45dp"--><!--android:layout_centerVertical="true"--><!--android:layout_marginLeft="1000dp"--><!--android:background="@drawable/draft" />--><!--<ImageView--><!--android:id="@+id/ranking"--><!--android:layout_width="45dp"--><!--android:layout_height="45dp"--><!--android:layout_centerVertical="true"--><!--android:layout_marginLeft="1100dp"--><!--android:background="@drawable/ranking" />--><!--</RelativeLayout>-->
+
+    <!--<LinearLayout --><!--android:layout_marginTop="33dp"--><!--android:layout_marginLeft="40dp"--><!--android:layout_marginRight="40dp"--><!--android:layout_marginBottom="40dp"--><!--android:layout_width="fill_parent"--><!--android:layout_height="fill_parent"--><!--android:orientation="vertical"--><!--android:background="@drawable/badkground_top">--><!--<RelativeLayout --><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_marginTop="40dp">--><!----><!--<TextView --><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:background="@drawable/game_time"--><!--android:layout_marginLeft="60dp"--><!--&gt;--><!--</TextView>--><!--<TextView --><!--android:id="@+id/number_of_game"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:text="1"--><!--android:textSize="30sp"--><!--android:layout_marginTop="3dp"--><!--android:layout_marginLeft="175dp">--><!--</TextView>--><!----><!----><!--<TextView --><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:background="@drawable/grade"--><!--android:layout_marginLeft="500dp">--><!--</TextView>--><!--<TextView --><!--android:id="@+id/grade_of_game"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:text="0"--><!--android:textSize="30sp"--><!--android:layout_marginTop="3dp"--><!--android:layout_marginLeft="650dp">--><!--</TextView>--><!----><!--<TextView --><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:background="@drawable/times"--><!--android:layout_marginLeft="900dp">--><!--</TextView>--><!--<TextView --><!--android:id="@+id/time_of_game"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:textSize="30sp"--><!--android:layout_marginTop="3dp"--><!--android:layout_marginLeft="1050dp">--><!--</TextView>--><!--</RelativeLayout>-->
+
+
+    <!--<com.readboy.HandWrite.myview--><!--android:id="@+id/game_content"--><!--android:layout_width="1000dp"--><!--android:layout_height="100dp"--><!--android:layout_gravity="center_horizontal"--><!--android:layout_marginTop="10dp"/>-->
+
+    <!--<RelativeLayout --><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content">--><!----><!--<com.readboy.HandWrite.DrawView--><!--android:id="@+id/draw"--><!--android:layout_width="wrap_content"--><!--android:layout_marginLeft="100dp"--><!--android:layout_marginRight="100dp"--><!--android:layout_height="400dp"--><!--android:background="@drawable/write_place"--><!--android:width="320dp" >--><!--</com.readboy.HandWrite.DrawView>--><!----><!--<ImageView--><!--android:id="@+id/imageview_animation_list_filling"--><!--android:layout_width="200dp"--><!--android:layout_height="200dp"--><!--android:layout_centerVertical="true"--><!--android:layout_marginLeft="500dp"--><!--android:visibility="invisible" />--><!----><!--</RelativeLayout>--><!--</LinearLayout>--><!--</LinearLayout>-->

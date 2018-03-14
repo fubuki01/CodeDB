@@ -1,0 +1,130 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        style="@style/RootFragment"
+        android:background="@color/bg_root"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp" >
+
+        <LinearLayout
+            style="@style/RootFragment"
+            android:background="@drawable/selector_home_tips"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_listview_item_hor" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tv_customer_id"
+                    style="@style/CustTvItemTitle"
+                    android:text="@string/kehubianhao" />
+
+                <TextView
+                    android:id="@+id/tv_customer_id_content"
+                    style="@style/CustTvItemContent"
+                    android:text="123" />
+
+                <!--
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                 >
+
+                <TextView
+                    android:id="@+id/tv_customer_tele_content"
+                    style="@style/CustTvItemContent"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingRight="6dp"
+                    android:text="1875555555" />
+
+                <TextView
+                    android:id="@+id/tv_customer_tele"
+                    style="@style/CustTvItemTitle"
+                    android:layout_toLeftOf="@id/tv_customer_tele_content"
+                    android:text="@string/lianxidianhua" />
+            </RelativeLayout>
+                -->
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tv_customer_tele"
+                    style="@style/CustTvItemTitle"
+                    android:text="@string/lianxidianhua" />
+
+                <TextView
+                    android:id="@+id/tv_customer_tele_content"
+                    style="@style/CustTvItemContent"
+                    android:layout_width="wrap_content"
+                    android:text="1875555555" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tv_customer_name"
+                    style="@style/CustTvItemTitle"
+                    android:text="@string/kehuxingming" />
+
+                <TextView
+                    android:id="@+id/tv_customer_name_content"
+                    style="@style/CustTvItemContent"
+                    android:text="张三" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tv_customer_type"
+                    style="@style/CustTvItemTitle"
+                    android:text="@string/chiyouchanpin" />
+
+                <TextView
+                    android:id="@+id/tv_customer_type_content"
+                    style="@style/CustTvItemContent"
+                    android:text="存款、贷款" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/CustTvItemTitle"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.8"
+                    android:text="@string/dizhi" />
+
+                <TextView
+                    android:id="@+id/tv_customer_address"
+                    style="@style/CustTvItemContent"
+                    android:text="长沙市岳麓区湖南大学" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+   <include 
+       layout="@layout/common_item_lable"/>
+
+</FrameLayout>

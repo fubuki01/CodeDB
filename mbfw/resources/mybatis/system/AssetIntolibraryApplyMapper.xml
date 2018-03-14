@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AssetIntolibraryApplyMapper">
+
+	<!-- 入库单添加 -->
+	<insert id="save_intolibrary_bill" parameterType="pd"
+		flushCache="true">
+		insert into intolibrary_apply(
+		into_purchase_bill,
+		into_code,
+		into_time,
+		into_person,
+		into_device,
+		into_count,
+		into_house,
+		asset_total_money,
+		into_note,
+		device_code,
+		product_count_flag
+		) values(
+		#{into_purchase_bill},
+		#{into_code},
+		#{into_time},
+		#{into_person},
+		#{into_device},
+		#{into_count},
+		#{into_house},
+		#{asset_total_money},
+		#{into_note},
+		#{device_code},
+		#{product_count_flag}
+		)
+	</insert>
+	<!-- 查找该类资产数量 -->
+	<select id="find_product_count_by_class" parameterType="pd"
+		resultType="Integer">
+		select product_total from products_info
+		where
+		product_code =(
+		select device_code from purchase_bill
+		where
+		purchase_code=#{into_purchase_bill}
+		)
+		and product_flag = 0
+	</select>
+	<!-- 根据入库单查询 -->
+	<select id="find_into_library_apply_by_into_code" parameterType="pd"
+		resultType="pd">
+		select into_count,product_count_flag from intolibrary_apply
+		where into_code=#{asset_into_bill}
+	</select>
+	<!-- chazah -->
+	<select id="find_into_library_apply" parameterType="pd"
+		resultType="pd">
+		select * from intolibrary_apply
+		<if test="pd.user_Permission == 2">
+			where into_purchase_bill in(
+			select pb.purchase_code from purchase_bill pb,
+			intolibrary_apply ia
+			where pb.purchase_code = ia.into_purchase_bill
+			and pb.apply_id in (
+			select apply_id from aproject_manager
+			where apply_company =#{pd.organization_name}
+			or apply_dept=#{pd.organization_name}
+			)
+
+			)
+		</if>
+		<if test="pd.user_Permission == 3">
+			where into_purchase_bill in(
+			select pb.purchase_code from purchase_bill pb,
+			intolibrary_apply ia
+			where pb.purchase_code = ia.into_purchase_bill
+			and pb.apply_id in (
+			select apply_id from aproject_manager
+			where apply_company =#{pd.superior_organization_name}
+			and apply_dept=#{pd.organization_name}
+			and apply_person=#{pd.apply_person}
+			)
+
+			)
+		</if>
+		order by id DESC
+		limit #{currentResult},#{showCount}
+	</select>
+
+	<!-- 查询入库单总条数 -->
+	<select id="find_into_libraray_bill_totalnumber" parameterType="pd"
+		resultType="Integer">
+		select count(id) from intolibrary_apply
+		<if test="user_Permission == 2">
+			where into_purchase_bill in(
+			select pb.purchase_code from purchase_bill pb,
+			intolibrary_apply ia
+			where pb.purchase_code = ia.into_purchase_bill
+			and pb.apply_id in (
+			select apply_id from aproject_manager
+			where apply_company =#{organization_name}
+			or apply_dept=#{organization_name}
+			)
+
+			)
+		</if>
+		<if test="user_Permission == 3">
+			where into_purchase_bill in(
+			select pb.purchase_code from purchase_bill pb,
+			intolibrary_apply ia
+			where pb.purchase_code = ia.into_purchase_bill
+			and pb.apply_id in (
+			select apply_id from aproject_manager
+			where apply_company =#{superior_organization_name}
+			and apply_dept=#{organization_name}
+			and apply_person=#{apply_person}
+			)
+
+			)
+		</if>
+	</select>
+
+	<select id="find_into_library_apply_limit" parameterType="pd"
+		flushCache="false" resultType="pd">
+		select *
+		from
+		intolibrary_apply
+		where
+		(#{into_code} = "" or into_code=#{into_code})
+		and
+		(#{into_purchase_bill} = "" or
+		into_purchase_bill=#{into_purchase_bill})
+		and
+		(#{into_device} = "" or
+		into_device=#{into_device})
+		and
+		(#{into_person} = "" or
+		into_person=#{into_person})
+		and
+		(#{into_time} = "" or
+		into_time=#{into_time})
+		and
+		(#{into_house} = "" or
+		into_house=#{into_house})
+		and
+		(#{into_status} = "" or
+		into_status=#{into_status})
+		limit #{offset},#{num};
+	</select>
+
+
+
+	<!-- 根据入库单id查找 -->
+	<select id="find_into_libraray_bill_by_id" parameterType="pd"
+		resultType="pd">
+		select * from intolibrary_apply where id=#{id}
+	</select>
+	<!-- 根据关键字查询入库单总数 -->
+	<select id="find_into_libraray_bill_bykey_totalnumber"
+		parameterType="page" resultType="Integer">
+		select count(id) from intolibrary_apply 
+		<if test="pd.user_Permission == 2">
+		where into_purchase_bill in(
+				select pb.purchase_code from purchase_bill pb, intolibrary_apply ia
+				where pb.purchase_code =ia.into_purchase_bill
+				and pb.apply_id in (
+				select apply_id from aproject_manager
+				where apply_company =#{pd.organization_name}
+				or apply_dept=#{pd.organization_name}
+				)
+			)
+		</if>
+		<if test="pd.user_Permission == 3">
+		where into_purchase_bill in(
+				select pb.purchase_code from purchase_bill pb, intolibrary_apply ia
+				where pb.purchase_code =ia.into_purchase_bill
+				and pb.apply_id in (
+				select apply_id from aproject_manager
+				where apply_company =#{pd.superior_organization_name}
+				and apply_dept=#{pd.organization_name}
+				and apply_person=#{pd.apply_person}
+				)
+			)
+		</if>
+		<if test="pd.user_Permission == 1">
+		where 1=1
+		</if>
+		<if test="pd.retrieve_content != '' and pd.retrieve_content != null">
+			and (
+			into_purchase_bill like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			into_code like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			into_person like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			into_device like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			into_count like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			into_house like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			asset_total_money like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			into_note like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			)
+		</if>
+	</select>
+
+	<!-- 根据关键字查询入库单 -->
+	<select id="find_into_libraray_bill_bykey" parameterType="page"
+		resultType="pd">
+		select * from intolibrary_apply
+		<if test="pd.user_Permission == 2">
+		where into_purchase_bill in(
+				select pb.purchase_code from purchase_bill pb, intolibrary_apply ia
+				where pb.purchase_code =ia.into_purchase_bill
+				and pb.apply_id in (
+				select apply_id from aproject_manager
+				where apply_company =#{pd.organization_name}
+				or apply_dept=#{pd.organization_name}
+				)
+			)
+		</if>
+		<if test="pd.user_Permission == 3">
+		where into_purchase_bill in(
+				select pb.purchase_code from purchase_bill pb, intolibrary_apply ia
+				where pb.purchase_code =ia.into_purchase_bill
+				and pb.apply_id in (
+				select apply_id from aproject_manager
+				where apply_company =#{pd.superior_organization_name}
+				and apply_dept=#{pd.organization_name}
+				and apply_person=#{pd.apply_person}
+				)
+			)
+		</if>
+		<if test="pd.user_Permission == 1">
+		where 1=1
+		</if>
+		<if test="pd.retrieve_content != '' and pd.retrieve_content != null">
+			and (
+			into_purchase_bill like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			into_code like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			into_person like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			into_device like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			into_count like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			into_house like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			asset_total_money like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			or
+			into_note like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			)
+		</if>
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 入库单修改 -->
+	<update id="edit_intolibrary_bill" parameterType="pd">
+		update intolibrary_apply
+		set 
+		into_time =#{into_time},
+		into_person =#{into_person},
+		into_device =#{into_device},
+		into_count =#{into_count},
+		into_house =#{into_house},
+		asset_total_money =#{asset_total_money},
+		into_note =#{into_note}
+		where
+		id =#{id}
+	</update>
+
+	<!-- 删除入库单 -->
+	<delete id="delete_intolibrary_bill" parameterType="pd">
+		delete from
+		intolibrary_apply where id= #{id}
+	</delete>
+	<!-- 批量删除供应商 -->
+	<delete id="delete_all_intolibrary_bill" parameterType="String"
+		flushCache="true">
+		delete from intolibrary_apply
+		where
+		id in
+		<foreach item="id" index="index" collection="array" open="("
+			separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	<!-- 在删除入库单时，恢复采购单状态 -->
+	<update id="update_status_purchase" parameterType="pd">
+		update purchase_bill
+			set purchase_bill_status='未采购'
+			where purchase_code=#{purchase_code}
+	</update>
+</mapper>

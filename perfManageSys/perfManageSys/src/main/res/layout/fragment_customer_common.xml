@@ -1,0 +1,31 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/RootFragment"
+    android:orientation="vertical" >
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/customer_common_lv_customer"
+        style="@style/PullToRefreshListView" >
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+    
+    <ProgressBar 
+        android:id="@+id/customer_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="visible"/>
+    
+    <TextView
+        android:id="@+id/customer_tv_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="未查询到客户"
+        android:textColor="@color/font_black_2"
+        android:textSize="@dimen/font_content_sec"
+        android:visibility="gone" />
+
+   <include layout="@layout/common_main_lable"/>
+    
+</FrameLayout>

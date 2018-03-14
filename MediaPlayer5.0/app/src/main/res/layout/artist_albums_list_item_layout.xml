@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants" >
+
+    <com.dream.mediaplayer.views.FadeImageView
+        android:id="@+id/item_cover"
+        android:transitionName="album_share"
+        android:layout_width="@dimen/tracks_list_cover_width"
+        android:layout_height="@dimen/tracks_list_cover_width"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/tracks_list_content_marginleft"
+        android:layout_marginTop="@dimen/tracks_list_item_margin_top"
+        android:layout_marginBottom="@dimen/tracks_list_item_margin_top" />
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tracks_list_viewline_height"
+        android:layout_below="@id/item_cover"
+        android:layout_marginLeft="@dimen/tracks_list_content_marginleft"
+        android:background="@color/item_underline_color" />
+
+    <LinearLayout
+        android:id="@+id/LinearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:paddingRight="15.0dip"
+        android:gravity="left|center_vertical"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true">
+
+        <TextView
+            android:id="@+id/album_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:focusable="true"
+            android:shadowColor="#ff000000"
+            android:shadowDx="0.3"
+            android:shadowDy="0.3"
+            android:shadowRadius="0.3"
+            android:singleLine="true"
+            android:textColor="@color/listitem_big_text_color"
+            android:textSize="@dimen/tracks_list_songname_textsize"
+            />
+
+        <TextView
+            android:id="@+id/track_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/tracks_list_littlename_margin_top"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/listitem_little_text_color"
+            android:textSize="@dimen/tracks_list_artistname_textsize" />
+    </LinearLayout>
+</RelativeLayout>
+

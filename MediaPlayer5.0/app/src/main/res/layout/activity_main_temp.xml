@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true" >
+
+    <RelativeLayout
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/topbar_height"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/title_bg" >
+        
+        <ImageView
+            android:id="@+id/search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/content_margin"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:padding="@dimen/search_padding"
+            android:src="@drawable/search" />
+
+        <RelativeLayout
+            android:id="@+id/is_playing_content"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/content_margin" >
+
+            <ImageView
+                android:id="@+id/arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/arrow_selector" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/arrow"
+                android:layout_centerVertical="true"
+                android:text="@string/title_playing"
+                android:textColor="@drawable/textview_color_selector"
+                android:textSize="@dimen/title_playing_textsize" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/fragment_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/fragment_name_textsize" />
+    </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/radio_group_height"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/tab_bg"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            style="@style/weibo_tab"
+            android:drawableTop="@drawable/playlist_selector_tab"
+            android:text="@string/play_list" />
+
+        <RadioButton
+            style="@style/weibo_tab"
+            android:drawableTop="@drawable/performer_selector"
+            android:text="@string/performer" />
+
+        <RadioButton
+            style="@style/weibo_tab"
+            android:drawableTop="@drawable/songs_selector"
+            android:text="@string/song" />
+
+        <RadioButton
+            style="@style/weibo_tab"
+            android:drawableTop="@drawable/album_selector"
+            android:text="@string/album" />
+
+        <!-- <RadioButton
+            style="@style/weibo_tab"
+            android:drawableTop="@drawable/more_selector"
+            android:text="@string/more" /> -->
+    </RadioGroup>
+
+    <FrameLayout
+        android:id="@+id/content_framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/radio_group"
+        android:layout_below="@id/topbar" />
+
+</RelativeLayout>

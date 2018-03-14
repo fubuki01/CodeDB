@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.dream.mediaplayer"
+
+    android:versionCode="1708250136"
+    android:versionName="1.36 ">
+
+
+    <uses-sdk
+        android:minSdkVersion="21"
+        android:targetSdkVersion="21" />
+
+    <!-- This is used for Last.fm and Google Music -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Used to check for a data connection -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- Used to keep the service running when the phone sleeps -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- Stick Broadcast -->
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <!-- Incoming calls -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--OutGoing calss-->
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <!-- Used to set ringtone -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--this permmision is goiing to get the phone's current system mode-->
+    <uses-permission android:name="android.permission.READ_SETTINGS" />
+    <!-- android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" -->
+    <application
+        android:name="com.dream.mediaplayer.app.App"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/NoAnimationTheme">
+        <activity
+            android:name=".activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentTheme"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.MainTempActivity"
+            android:screenOrientation="portrait">
+            <!-- <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter> -->
+        </activity>
+
+        <!-- Now Playing -->
+        <activity
+            android:name=".activity.PlayActivity"
+            android:clearTaskOnLaunch="true"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+            <!-- <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="content" />
+                <data android:host="media" />
+                <data android:mimeType="audio/*" />
+                <data android:mimeType="application/ogg" />
+                <data android:mimeType="application/x-ogg" />
+                <data android:mimeType="application/itunes" />
+            </intent-filter> -->
+            <intent-filter>
+                <action android:name="com.dream.mediaplayer.PLAYBACK_VIEWER" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- android:clearTaskOnLaunch="true"每一次启动此Activity后，将清空以此Activity为根的Task
+            android:noHistory="true"可以这么理解android:noHistory="true"对Activity行为的影响：
+            当该Activity屏幕不可见时，相当于Android系统调用Activity的finish()方法结束了该Activity。-->
+        <!--excludeFromRecents="true运行如下activity后，不会显示在recent列表中-->
+        <activity
+            android:name=".activity.PlayExternal"
+            android:clearTaskOnLaunch="true"
+            android:excludeFromRecents="true"
+            android:label="@string/app_name"
+            android:launchMode="standard">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="file" />
+                <data android:mimeType="audio/*" />
+                <data android:mimeType="application/ogg" />
+                <data android:mimeType="application/x-ogg" />
+                <data android:mimeType="application/itunes" />
+            </intent-filter>
+            <!-- <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:mimeType="audio/*"/>
+                <data android:mimeType="application/ogg"/>
+                <data android:mimeType="application/x-ogg"/>
+                <data android:mimeType="application/itunes"/>
+            </intent-filter> -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="content" />
+                <data android:mimeType="audio/*" />
+                <data android:mimeType="application/ogg" />
+                <data android:mimeType="application/x-ogg" />
+                <data android:mimeType="application/itunes" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.AlbumOfTracksActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentTheme">
+
+        </activity>
+
+        <activity
+            android:name=".activity.ArtistOfAlbumsAndTracksActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentTheme">
+
+        </activity>
+
+        <activity
+            android:name=".helpers.utils.PermissionsActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/TranslucentTheme"
+            >
+            <!--android:theme="@style/TranslucentTheme"-->
+            <!--  android:theme="@style/myTransparent"-->
+
+        </activity>
+
+        <activity
+            android:name=".activity.PlaylistOfTracksActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentTheme">
+
+        </activity>
+
+        <activity
+            android:name=".activity.SearchActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+        </activity>
+
+        <activity
+            android:name=".activity.TrackBrowserActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".activity.AddTracksToQueueActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".activity.PlaylistDialog"
+            android:label="@string/rename_playlist"
+            android:theme="@android:style/Theme.Material.Light.Dialog.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <action android:name="com.dream.mediaplayer.CREATE_PLAYLIST" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.dream.mediaplayer.RENAME_PLAYLIST" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.PlaylistPicker"
+            android:theme="@android:style/Theme.Material.Light.Dialog.NoActionBar">
+            <intent-filter>
+                <action android:name="com.dream.mediaplayer.ADD_TO_PLAYLIST" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+
+        <!-- Media button receiver -->
+        <receiver android:name=".service.MediaButtonIntentReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+                <action android:name="android.media.AUDIO_BECOMING_NOISY" />
+            </intent-filter>
+        </receiver>
+        <!--alarm receiver-->
+        <receiver android:name=".service.AlarmReceiver">
+            <intent-filter>
+                <action android:name="com.android.music.musicservicecommand.pause" />
+                <action android:name="com.android.music.musicservicecommand.togglepause" />
+            </intent-filter>
+        </receiver>
+
+
+        <receiver android:name=".service.ShutdownBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_SHUTDOWN" />
+                <category android:name="android.intent.category.HOME" />
+            </intent-filter>
+        </receiver>
+
+        <!--Conversation status receiver-->
+        <!-- Music service -->
+        <service
+            android:name=".service.ApolloService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.dream.music.apolloservice" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+        <!-- App widget 4*1 -->
+        <!--<receiver android:name="com.dream.mediaplayer.ui.widgets.MediaAppWidgetProvider"-->
+        <!--android:exported="true">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />-->
+        <!--</intent-filter>-->
+        <!--<intent-filter>-->
+        <!--<action android:name="com.android.music.updatewidget" />-->
+        <!--</intent-filter>-->
+
+        <!--<meta-data-->
+        <!--android:name="android.appwidget.provider"-->
+        <!--android:resource="@xml/appwidget_info" />-->
+        <!--</receiver>-->
+
+        <!-- App widget 4*2 -->
+        <!--<receiver android:name="com.dream.mediaplayer.ui.widgets.MediaAppWidgetProvider_4_2"-->
+        <!--android:exported="true">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />-->
+        <!--</intent-filter>-->
+        <!--<intent-filter>-->
+        <!--<action android:name="com.android.music.updatewidget" />-->
+        <!--</intent-filter>-->
+
+        <!--<meta-data-->
+        <!--android:name="android.appwidget.provider"-->
+        <!--android:resource="@xml/appwidget_info_4_2" />-->
+        <!--</receiver>-->
+    </application>
+
+</manifest>

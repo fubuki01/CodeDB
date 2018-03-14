@@ -1,0 +1,560 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- 根布局 -->
+    <style name="Root">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <!-- Activity根布局 -->
+    <style name="RootLayout" parent="Root">
+        <item name="android:background">@color/bg_root</item>
+    </style>
+
+    <!-- Fragment根布局 -->
+    <style name="RootFragment" parent="Root">
+        <item name="android:background">@color/bg_root</item>
+    </style>
+
+    <!-- 主页下方TextView -->
+    <style name="HomeTvCommon">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/font_black_2</item>
+        <item name="android:textSize">@dimen/font_home_tv</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <!-- 主界面下方导航栏 -->
+    <style name="HomeTabLayout">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <!-- 主界面下方导航栏图片 -->
+    <style name="HomeTabImageView">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:scaleType">centerInside</item>
+    </style>
+
+
+    <!-- 拜访客户上方导航栏 -->
+    <style name="VisitTabLayout">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <!-- 拜访客户导航栏图片 -->
+    <style name="VisitTabImageView">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:scaleType">centerInside</item>
+    </style>
+
+
+    <!-- 拜访客户TextView -->
+    <style name="VisitTvCommon">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/font_black_2</item>
+        <item name="android:textSize">@dimen/font_home_tv</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <!-- CustomerManage 我的客户模块 -->
+    <style name="CustTvItem">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:paddingTop">@dimen/padding_textview_top_bottom</item>
+        <item name="android:paddingBottom">@dimen/padding_textview_top_bottom</item>
+    </style>
+
+    <style name="CustTvItemTitle" parent="CustTvItem">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/padding_textview_left_right</item>
+        <item name="android:textColor">@color/font_black_2</item>
+        <item name="android:textSize">@dimen/font_content_th</item>
+    </style>
+
+    <style name="CustTvItemContent" parent="CustTvItem">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">3</item>
+        <item name="android:textColor">@color/font_black_1</item>
+        <item name="android:textSize">@dimen/font_content_sec</item>
+    </style>
+
+    <style name="ItemTv">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingTop">@dimen/padding_textview_top_bottom</item>
+        <item name="android:paddingBottom">@dimen/padding_textview_top_bottom</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="ItemTvTitle" parent="ItemTv">
+        <item name="android:textColor">@color/font_black_2</item>
+        <item name="android:textSize">@dimen/font_content_th</item>
+    </style>
+
+    <style name="ItemTvContent" parent="ItemTv">
+        <item name="android:textColor">@color/font_black_1</item>
+        <item name="android:textSize">@dimen/font_content_sec</item>
+    </style>
+
+    <!-- 我的客户详情页面，跟布局 -->
+    <style name="CostomerInfoRootLayout">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/bg_white_sec</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <!-- 客户详细信息，分类标题样式 -->
+    <style name="CustInfoTitle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:paddingLeft">@dimen/padding_textview_left_right</item>
+        <item name="android:paddingTop">@dimen/padding_textview_top_bottom</item>
+        <item name="android:paddingBottom">@dimen/padding_textview_top_bottom</item>
+        <item name="android:paddingRight">@dimen/padding_textview_left_right</item>
+        <item name="android:textColor">@color/font_black_3</item>
+        <item name="android:textSize">@dimen/font_content_fir</item>
+    </style>
+
+    <!-- 客户详细信息，分类标题后边线条 -->
+    <style name="CustInfoLine">
+        <item name="android:layout_height">1.5dp</item>
+        <item name="android:layout_width">50dp</item>
+        <item name="android:background">@color/font_black_3_3</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginLeft">5dp</item>
+    </style>
+
+    <!-- 客户详细信息，关联人信息共有 -->
+    <style name="CustRelation">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">@dimen/padding_textview_left_right</item>
+        <item name="android:paddingTop">@dimen/padding_textview_top_bottom</item>
+        <item name="android:paddingBottom">@dimen/padding_textview_top_bottom</item>
+    </style>
+    <!-- 客户详细信息，关联人信息表头 -->
+    <style name="CustRelationTitle" parent="CustRelation">
+        <item name="android:textColor">@color/font_black_2</item>
+        <item name="android:textSize">@dimen/font_content_th</item>
+    </style>
+    <!-- 客户详细信息，关联人信息内容 -->
+    <style name="CustRelationContent" parent="CustRelation">
+        <item name="android:textColor">@color/font_black_1</item>
+        <item name="android:textSize">@dimen/font_content_sec</item>
+    </style>
+
+    <!-- 客户详细信息，产品标题后边线条 -->
+    <style name="CustProductLine">
+        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_width">6dp</item>
+        <item name="android:background">@color/bg_title</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <!-- 客户详细信息，产品标题 -->
+    <style name="CustProductTitle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@color/font_black_1</item>
+        <item name="android:textSize">@dimen/font_sec_menu</item>
+    </style>
+
+    <!-- Layout 公共 -->
+    <style name="CommonLayout">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/layout_item_height</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@drawable/selector_common_layout</item>
+    </style>
+
+    <!-- Button 公共按钮样式 -->
+    <style name="CommonButton">
+        <item name="android:layout_height">@dimen/layout_button_height</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/font_sec_menu</item>
+        <item name="android:textColor">@color/font_title</item>
+        <item name="android:background">@drawable/selector_common_button</item>
+    </style>
+
+    <!-- Button 信息采集 -->
+    <style name="InfoButton">
+        <item name="android:layout_height">@dimen/layout_button_height</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/font_sec_menu</item>
+        <item name="android:textColor">@color/font_title</item>
+        <item name="android:background">@drawable/selector_login_button</item>
+    </style>
+
+    <!-- 营销申报填写查看页面 -->
+    <style name="MarketCheckLayout">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/layout_choose_height</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <!-- Performance 绩效工资模块 -->
+    <style name="PerfTv" parent="CommonLayout">
+        <item name="android:textColor">@color/font_black_2</item>
+        <item name="android:textSize">@dimen/font_common_small</item>
+    </style>
+
+    <!-- Performance -->
+    <style name="PerfTvChoose">
+        <item name="android:layout_height">@dimen/layout_item_height</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@drawable/selector_common_layout</item>
+        <item name="android:textColor">@color/font_black_1</item>
+        <item name="android:textSize">@dimen/font_common_small</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">10dp</item>
+    </style>
+
+    <!-- Layout 公共 -->
+    <style name="PerfLayoutChoose">
+        <item name="android:layout_height">@dimen/layout_choose_height</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@drawable/selector_common_layout</item>
+    </style>
+
+    <style name="PerfTvChooseTitle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:textColor">@color/font_black_1</item>
+        <item name="android:textSize">@dimen/font_content_sec</item>
+        <item name="android:paddingLeft">15dp</item>
+    </style>
+
+    <style name="PerfTvChooseLayout">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1.6</item>
+        <item name="android:gravity">right|center_vertical</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="PerfTvChooseContent">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/font_them</item>
+        <item name="android:textSize">@dimen/font_content_fir</item>
+    </style>
+
+    <style name="PerfTableTv">
+        <item name="android:layout_height">@dimen/layout_choose_height</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:textColor">@color/font_black_2</item>
+        <item name="android:textSize">@dimen/font_common_small</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/selector_common_layout</item>
+    </style>
+
+    <style name="PerfTableTv2" parent="PerfTableTv">
+        <item name="android:layout_weight">2</item>
+    </style>
+
+    <style name="PerfTableTv1.2" parent="PerfTableTv">
+        <item name="android:layout_weight">1.2</item>
+    </style>
+
+    <style name="PerfTableTv1" parent="PerfTableTv">
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="PerfTableTv3" parent="PerfTableTv">
+        <item name="android:layout_weight">3</item>
+    </style>
+
+    <!-- 绩效工资模块首页 -->
+
+
+    <!-- 水平线条 -->
+    <style name="CommonHorLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/line_height</item>
+        <item name="android:background">@color/bg_line</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <!-- 竖直线条 -->
+    <style name="CommonVerLine">
+        <item name="android:layout_width">@dimen/line_height</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/bg_line</item>
+    </style>
+
+    <!-- Performance Activity Menu TextView -->
+    <style name="PerfTvMenu">
+        <item name="android:layout_height">@dimen/layout_menu_height</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/font_black_1</item>
+        <item name="android:textSize">@dimen/font_sec_menu</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:paddingLeft">@dimen/padding_menu_hor</item>
+        <item name="android:paddingRight">@dimen/padding_menu_hor</item>
+    </style>
+
+    <!-- 营销申请页面Fragment -->
+    <style name="MarketTvCommon">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">left|center_vertical</item>
+    </style>
+
+    <style name="MarketTvTitle" parent="MarketTvCommon">
+        <item name="android:textSize">@dimen/font_content_sec</item>
+        <item name="android:paddingLeft">@dimen/padding_listview_item_hor</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1.1</item>
+        <item name="android:textColor">@color/font_black_2</item>
+    </style>
+
+    <style name="MarketTvContent" parent="MarketTvCommon">
+        <item name="android:textSize">@dimen/font_content_fir</item>
+        <item name="android:textColor">@color/font_black_1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">3</item>
+        <item name="android:hint">@string/hint</item>
+        <item name="android:textColorHint">@color/font_black_3</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="MarketCheckTvContent" parent="MarketTvContent">
+        <item name="android:hint"></item>
+    </style>
+
+    <!-- PopupWindow下面 -->
+    <style name="PopTv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/font_popup</item>
+        <item name="android:textSize">@dimen/font_common_normal</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/selector_popwindow_layout</item>
+    </style>
+
+    <!-- ViewPager 导航栏样式 -->
+    <style name="TabCommon">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/layout_menu_height</item>
+        <item name="pstsShouldExpand">true</item>
+        <item name="pstsUnderlineHeight">2dp</item>
+        <item name="pstsIndicatorHeight">4dp</item>
+        <item name="pstsIndicatorColor">@color/bg_title</item>
+        <item name="selectedTabTextColor">@color/bg_title</item>
+        <item name="pstsUnderlineColor">@android:color/transparent</item>
+        <item name="pstsDividerColor">@color/bg_line</item>
+        <item name="pstsTabBackground">@drawable/bg_tab</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+    <!-- 下拉刷新控件 -->
+    <style name="PullToRefreshListView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:scrollbarSize">5dp</item>
+        <item name="android:scrollbarThumbVertical">@drawable/listview_scrollbar_style</item>
+        <item name="android:divider">@android:color/transparent</item>
+        <item name="ptrAnimationStyle">rotate</item>
+        <item name="ptrDrawable">@drawable/ic_load</item>
+        <item name="ptrHeaderSubTextColor">@color/font_black_3</item>
+        <item name="ptrHeaderTextColor">@color/font_black_2</item>
+    </style>
+
+    <!-- 下拉刷新控件 -->
+    <style name="ProductListView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:scrollbarSize">5dp</item>
+        <item name="android:scrollbarThumbVertical">@drawable/listview_scrollbar_style</item>
+        <item name="android:divider">@android:color/transparent</item>
+    </style>
+
+    <!-- 监控预警，ListView -->
+    <style name="ListView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:scrollbarSize">5dp</item>
+        <item name="android:scrollbarThumbVertical">@drawable/listview_scrollbar_style</item>
+        <item name="android:divider">@android:color/transparent</item>
+        <item name="ptrAnimationStyle">rotate</item>
+        <item name="ptrDrawable">@drawable/ic_load</item>
+        <item name="ptrHeaderSubTextColor">@color/font_black_3</item>
+        <item name="ptrHeaderTextColor">@color/font_black_2</item>
+    </style>
+
+    <!-- 营销申报，添加页面中 RadioButton样式 -->
+    <style name="RadioButtonCommon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/radiobutton_background</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/textcolor_radiobutton</item>
+        <item name="android:textSize">@dimen/font_content_sec</item>
+        <item name="android:paddingLeft">@dimen/padding_radiobutton_left_right</item>
+        <item name="android:paddingRight">@dimen/padding_radiobutton_left_right</item>
+        <item name="android:paddingTop">@dimen/padding_radiobutton_top_bottom</item>
+        <item name="android:paddingBottom">@dimen/padding_radiobutton_top_bottom</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+    </style>
+
+    <style name="ProductMoreTV">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:background">@drawable/selector_common_layout</item>
+        <item name="android:textColor">@color/font_black_3</item>
+        <item name="android:textSize">@dimen/font_content_sec</item>
+        <item name="android:text">查看更多>></item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+    </style>
+
+    <!-- 绩效工资，按月查询，首页 -->
+    <style name="PerformanceTvItem">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <style name="PerformanceTitle" parent="PerformanceTvItem">
+        <item name="android:textColor">@color/font_black_2</item>
+        <item name="android:textSize">@dimen/font_content_th</item>
+    </style>
+
+    <style name="PerformanceContent" parent="PerformanceTvItem">
+        <item name="android:textColor">@color/font_black_1</item>
+        <item name="android:textSize">@dimen/font_content_sec</item>
+    </style>
+
+    <style name="PerformanceTitle2" parent="PerformanceTvItem">
+        <item name="android:textColor">@color/font_black_1</item>
+        <item name="android:textSize">@dimen/font_content_fir</item>
+    </style>
+
+    <style name="PerformanceContent2" parent="PerformanceTvItem">
+        <item name="android:textColor">@color/font_them</item>
+        <item name="android:textSize">@dimen/font_content_fir</item>
+    </style>
+    
+    <style name="PerformanceContent3">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:gravity">right|center_vertical</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:textColor">@color/font_black_2</item>
+        <item name="android:textSize">@dimen/font_content_sec</item>
+    </style>
+    
+    <style name="PerformanceContent4">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:gravity">right|center_vertical</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:textColor">@color/font_black_2</item>
+        <item name="android:textSize">@dimen/font_content_sec</item>
+    </style>
+
+    <!-- 拜访，基本信息，EditView -->
+    <style name="VisitEditLine">
+        <item name="android:background">@color/bg_white</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">top</item>
+        <item name="android:textColor">@color/font_black_2</item>
+        <item name="android:textColorHint">@color/font_black_3</item>
+        <item name="android:textSize">@dimen/font_content_four</item>
+        <item name="android:paddingLeft">@dimen/lines_left_right_margin</item>
+        <item name="android:layout_marginTop">@dimen/lines_top_bottom_margin</item>
+    </style>
+
+    <style name="VisitTextLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/font_black_3</item>
+        <item name="android:layout_marginLeft">@dimen/lines_left_right_margin</item>
+        <item name="android:layout_marginTop">@dimen/lines_top_bottom_margin</item>
+    </style>
+
+    <style name="dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <!--边框-->
+        <item name="android:windowIsFloating">true</item>
+        <!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">false</item>
+        <!--半透明-->
+        <item name="android:windowNoTitle">true</item>
+        <!--无标题-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--背景透明-->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!--模糊-->
+    </style>
+
+    <style name="My_CheckBox">
+        <item name="android:colorControlActivated">@color/font_tab_selected</item>
+        <item name="android:colorControlNormal">#333333</item>
+    </style>
+</resources>

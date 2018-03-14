@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hnran.perfmanagesys.visit.VisitContactsActivity">
+
+   <ListView
+       android:id="@+id/listview"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"/>
+
+   <com.hnran.perfmanagesys.view.SlideBar
+       android:id="@+id/slidebar"
+       android:layout_width="20dp"
+       android:layout_alignParentRight="true"
+       android:layout_height="match_parent"/>
+
+   <TextView
+       android:id="@+id/checked"
+       android:visibility="gone"
+       android:layout_width="80dp"
+       android:layout_height="80dp"
+       android:text="A"
+       android:background="@drawable/slide_shape"
+       android:textSize="22sp"
+       android:gravity="center"
+       android:layout_centerInParent="true"/>
+
+
+</RelativeLayout>

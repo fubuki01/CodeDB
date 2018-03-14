@@ -1,0 +1,98 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/RootFragment"
+    android:background="@color/bg_white"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_listview_item_hor" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/CustTvItemTitle"
+                android:text="指标名称：" />
+
+            <TextView
+                android:id="@+id/item_1_1"
+                style="@style/CustTvItemContent"
+                android:text="各项存款日常净增" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/CustTvItemTitle"
+                android:text="指标任务：" />
+
+            <TextView
+                android:id="@+id/item_1_2"
+                style="@style/CustTvItemContent"
+                android:text="10000" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/CustTvItemTitle"
+                android:text="指标结果：" />
+
+            <TextView
+                android:id="@+id/item_2_1"
+                style="@style/CustTvItemContent"
+                android:text="50" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/CustTvItemTitle"
+                android:text="指标贡献率：" />
+
+            <TextView
+                android:id="@+id/item_2_2"
+                style="@style/CustTvItemContent"
+                android:text="2017" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            style="@style/CustTvItemTitle"
+            android:text="指标工资：" />
+
+        <TextView
+            android:id="@+id/item_3_1"
+            style="@style/CustTvItemContent"
+            android:text="271" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,111 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/RootLayout"
+    android:orientation="vertical" >
+
+    <com.hnran.perfmanagesys.view.NoScrollViewPager
+        android:id="@+id/home_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/home_ll_tip_line"
+        android:layout_gravity="center" />
+
+    <View 
+        android:id="@+id/home_ll_tip_line"
+        style="@style/CommonHorLine"
+        android:layout_above="@+id/home_ll_tip" />
+
+    <LinearLayout
+        android:id="@+id/home_ll_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/bg_tab_home"
+        android:orientation="horizontal" >
+
+        <LinearLayout 
+            android:id="@+id/home_ll_1"
+            style="@style/HomeTabLayout"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/home_iv_1"
+                style="@style/HomeTabImageView"
+                android:src="@drawable/customer" />
+
+            <TextView
+                android:id="@+id/home_tv_kehu"
+                style="@style/HomeTvCommon"
+                android:text="@string/wodekehu" />
+        </LinearLayout>
+
+        <LinearLayout 
+            android:id="@+id/home_ll_2"
+            style="@style/HomeTabLayout"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/home_iv_2"
+                style="@style/HomeTabImageView"
+                android:src="@drawable/market" />
+
+            <TextView
+                android:id="@+id/home_tv_yingxiao"
+                style="@style/HomeTvCommon"
+                android:text="@string/yingxiaoshenbao" />
+        </LinearLayout>
+
+        <LinearLayout 
+            android:id="@+id/home_ll_3"
+            style="@style/HomeTabLayout"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/home_iv_3"
+                style="@style/HomeTabImageView"
+                android:src="@drawable/performance" />
+
+            <TextView
+                android:id="@+id/home_tv_jixiao"
+                style="@style/HomeTvCommon"
+                android:text="@string/jixiaogongzi" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/HomeTabLayout"
+            android:id="@+id/home_ll_4"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/home_iv_4"
+                style="@style/HomeTabImageView"
+                android:src="@drawable/performance" />
+
+            <TextView
+                android:id="@+id/home_tv_jixiao_2"
+                style="@style/HomeTvCommon"
+                android:text="@string/jixiaogongzi" />
+        </LinearLayout>
+        
+        
+        <LinearLayout style="@style/HomeTabLayout"
+            android:id="@+id/home_ll_5"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/home_iv_5"
+                style="@style/HomeTabImageView"
+                android:src="@drawable/warning" />
+
+            <TextView
+                android:id="@+id/home_tv_jiankong"
+                style="@style/HomeTvCommon"
+                android:text="@string/jiankongyujing" />
+        </LinearLayout>
+    </LinearLayout>
+    
+    <ProgressBar 
+        android:id="@+id/home_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>

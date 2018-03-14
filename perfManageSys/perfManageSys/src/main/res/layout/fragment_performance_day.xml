@@ -1,0 +1,500 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/RootFragment"
+    android:orientation="vertical" >
+
+    <include layout="@layout/layout_common_top_title" />
+
+    <RelativeLayout
+        android:id="@+id/perf_rl_date"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_choose_height"
+        android:background="@drawable/selector_common_layout_white" >
+
+        <TextView
+            android:id="@+id/perf_tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:paddingRight="12dp"
+            android:textColor="@color/font_black_2"
+            android:textSize="@dimen/font_content_fir" />
+
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="8dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/perf_tv_date"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_bottom" />
+    </RelativeLayout>
+
+    <View style="@style/CommonHorLine" />
+
+    <ProgressBar
+        android:id="@+id/perf_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/perf_tv_text"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="未查询到选择日期的工资信息"
+        android:textColor="@color/font_black_2"
+        android:textSize="@dimen/font_content_sec"
+        android:visibility="gone" />
+
+    <com.hnran.perfmanagesys.view.StickyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:id="@+id/perf_root"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_marginBottom="1dp"
+                android:background="@color/bg_white"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:background="@color/bg_white"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp" >
+
+                    <TextView
+                        android:id="@+id/perf_rank_quanhang"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="bottom|center_horizontal"
+                        android:text="20,2"
+                        android:textColor="@color/font_black_1"
+                        android:textSize="@dimen/font_content_big" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="top|center_horizontal"
+                        android:paddingTop="6dp"
+                        android:text="当月累计绩效排名"
+                        android:textColor="@color/font_black_1"
+                        android:textSize="@dimen/font_content_fir" />
+                </LinearLayout>
+
+                <View
+                    style="@style/CommonVerLine"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:background="@color/bg_white"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="bottom|center_horizontal"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:id="@+id/perf_tv_month"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/font_them"
+                            android:textSize="@dimen/font_content_big" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="5dp"
+                            android:text="元"
+                            android:textColor="@color/font_them"
+                            android:textSize="@dimen/font_content_th" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="top|center_horizontal"
+                        android:paddingTop="6dp"
+                        android:text="当月绩效工资合计"
+                        android:textColor="@color/font_black_1"
+                        android:textSize="@dimen/font_content_fir" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_choose_height"
+                android:background="@color/bg_white"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:tag="sticky" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="日绩效工资明细"
+                    android:textColor="@color/font_black_3"
+                    android:textSize="@dimen/font_content_th" />
+
+                <View
+                    android:layout_width="90dp"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/bg_line" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_white_sec"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:id="@+id/perf_ll_cunkuan"
+                    style="@style/PerfLayoutChoose"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/PerfTvChooseTitle"
+                        android:text="存款业绩：" />
+
+                    <LinearLayout style="@style/PerfTvChooseLayout" >
+
+                        <TextView
+                            android:id="@+id/perf_tv_cunkuan"
+                            style="@style/PerfTvChooseContent"
+                            android:text="56" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="2dp"
+                            android:text="元"
+                            android:textColor="@color/font_them"
+                            android:textSize="@dimen/font_content_four" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/image_right_size"
+                        android:layout_height="@dimen/image_right_size"
+                        android:layout_marginRight="10dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_right" />
+                </LinearLayout>
+
+                <View style="@style/CommonHorLine" />
+
+                <LinearLayout
+                    android:id="@+id/perf_ll_daikuan"
+                    style="@style/PerfLayoutChoose"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/PerfTvChooseTitle"
+                        android:text="贷款业绩：" />
+
+                    <LinearLayout style="@style/PerfTvChooseLayout" >
+
+                        <TextView
+                            android:id="@+id/perf_tv_daikuan"
+                            style="@style/PerfTvChooseContent"
+                            android:text="38" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="2dp"
+                            android:text="元"
+                            android:textColor="@color/font_them"
+                            android:textSize="@dimen/font_content_four" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/image_right_size"
+                        android:layout_height="@dimen/image_right_size"
+                        android:layout_marginRight="10dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_right" />
+                </LinearLayout>
+
+                <View style="@style/CommonHorLine" />
+
+                <LinearLayout
+                    android:id="@+id/perf_ll_dianzi"
+                    style="@style/PerfLayoutChoose"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/PerfTvChooseTitle"
+                        android:text="电子银行业绩：" />
+
+                    <LinearLayout style="@style/PerfTvChooseLayout" >
+
+                        <TextView
+                            android:id="@+id/perf_tv_dianzi"
+                            style="@style/PerfTvChooseContent"
+                            android:text="38" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="2dp"
+                            android:text="元"
+                            android:textColor="@color/font_them"
+                            android:textSize="@dimen/font_content_four" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/image_right_size"
+                        android:layout_height="@dimen/image_right_size"
+                        android:layout_marginRight="10dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_right" />
+                </LinearLayout>
+
+                <View style="@style/CommonHorLine" />
+
+                <LinearLayout
+                    android:id="@+id/perf_ll_yewu"
+                    style="@style/PerfLayoutChoose"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/PerfTvChooseTitle"
+                        android:text="业务量：" />
+
+                    <LinearLayout style="@style/PerfTvChooseLayout" >
+
+                        <TextView
+                            android:id="@+id/perf_tv_yewu"
+                            style="@style/PerfTvChooseContent"
+                            android:text="38" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="2dp"
+                            android:text="元"
+                            android:textColor="@color/font_them"
+                            android:textSize="@dimen/font_content_four" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/image_right_size"
+                        android:layout_height="@dimen/image_right_size"
+                        android:layout_marginRight="10dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_right" />
+                </LinearLayout>
+
+                <View style="@style/CommonHorLine" />
+
+                <LinearLayout
+                    android:id="@+id/perf_ll_guanli"
+                    style="@style/PerfLayoutChoose"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/PerfTvChooseTitle"
+                        android:text="管理绩效：" />
+
+                    <LinearLayout style="@style/PerfTvChooseLayout" >
+
+                        <TextView
+                            android:id="@+id/perf_tv_guanli"
+                            style="@style/PerfTvChooseContent"
+                            android:text="38" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="2dp"
+                            android:text="元"
+                            android:textColor="@color/font_them"
+                            android:textSize="@dimen/font_content_four" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/image_right_size"
+                        android:layout_height="@dimen/image_right_size"
+                        android:layout_marginRight="10dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_right" />
+                </LinearLayout>
+
+                <View style="@style/CommonHorLine" />
+
+                <LinearLayout
+                    android:id="@+id/perf_ll_diqu"
+                    style="@style/PerfLayoutChoose"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/PerfTvChooseTitle"
+                        android:text="地区补差：" />
+
+                    <LinearLayout style="@style/PerfTvChooseLayout" >
+
+                        <TextView
+                            android:id="@+id/perf_tv_diqu"
+                            style="@style/PerfTvChooseContent"
+                            android:text="38" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="2dp"
+                            android:text="元"
+                            android:textColor="@color/font_them"
+                            android:textSize="@dimen/font_content_four" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/image_right_size"
+                        android:layout_height="@dimen/image_right_size"
+                        android:layout_marginRight="10dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_right" />
+                </LinearLayout>
+
+                <View style="@style/CommonHorLine" />
+
+                <LinearLayout
+                    android:id="@+id/perf_ll_qita"
+                    style="@style/PerfLayoutChoose"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/PerfTvChooseTitle"
+                        android:text="其它：" />
+
+                    <LinearLayout style="@style/PerfTvChooseLayout" >
+
+                        <TextView
+                            android:id="@+id/perf_tv_qita"
+                            style="@style/PerfTvChooseContent"
+                            android:text="38" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="2dp"
+                            android:text="元"
+                            android:textColor="@color/font_them"
+                            android:textSize="@dimen/font_content_four" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/image_right_size"
+                        android:layout_height="@dimen/image_right_size"
+                        android:layout_marginRight="10dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_right" />
+                </LinearLayout>
+
+                <View style="@style/CommonHorLine" />
+
+                <LinearLayout
+                    android:id="@+id/perf_ll_jingying"
+                    style="@style/PerfLayoutChoose"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/PerfTvChooseTitle"
+                        android:text="经营目标：" />
+
+                    <LinearLayout style="@style/PerfTvChooseLayout" >
+
+                        <TextView
+                            android:id="@+id/perf_tv_jingying"
+                            style="@style/PerfTvChooseContent"
+                            android:text="38" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="2dp"
+                            android:text="元"
+                            android:textColor="@color/font_them"
+                            android:textSize="@dimen/font_content_four" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/image_right_size"
+                        android:layout_height="@dimen/image_right_size"
+                        android:layout_marginRight="10dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_right" />
+                </LinearLayout>
+
+                <View style="@style/CommonHorLine" />
+
+                <LinearLayout
+                    android:id="@+id/perf_ll_yanqi"
+                    style="@style/PerfLayoutChoose"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/PerfTvChooseTitle"
+                        android:text="延期兑付：" />
+
+                    <LinearLayout style="@style/PerfTvChooseLayout" >
+
+                        <TextView
+                            android:id="@+id/perf_tv_yanqi"
+                            style="@style/PerfTvChooseContent"
+                            android:text="38" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="2dp"
+                            android:text="元"
+                            android:textColor="@color/font_them"
+                            android:textSize="@dimen/font_content_four" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/image_right_size"
+                        android:layout_height="@dimen/image_right_size"
+                        android:layout_marginRight="10dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_right" />
+                </LinearLayout>
+
+                <View style="@style/CommonHorLine" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.hnran.perfmanagesys.view.StickyScrollView>
+
+</LinearLayout>

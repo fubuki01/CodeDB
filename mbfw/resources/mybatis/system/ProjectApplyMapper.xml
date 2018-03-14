@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProjectApplyMapper">
+	
+	
+<resultMap type="ProjectApply" id="ProjectApplyResultMap">
+		<id column="apply_id" property="apply_id"/>
+		<result column="apply_name" property="apply_name"/>
+		<result column="apply_company" property="apply_company"/>
+		<result column="apply_dept" property="apply_dept"/>
+		<result column="apply_procedure" property="apply_procedure"/>
+		<result column="apply_time" property="apply_time"/>
+		<result column="apply_person" property="apply_person"/>
+		<result column="device_name" property="device_name"/>
+		<result column="device_price" property="device_price"/>
+		<result column="device_model" property="device_model"/>
+		<result column="device_number" property="device_number"/>
+		<result column="device_purpose" property="device_purpose"/>
+		<result column="device_use_years" property="device_use_years"/>
+		<result column="apply_reason" property="apply_reason"/>
+		<result column="apply_report_address" property="apply_report_address"/>
+		<result column="apply_status" property="apply_status"/>
+		<result column="apply_remarks" property="apply_remarks"/>
+	</resultMap> 
+
+
+
+	<!-- 新增项目立项 -->
+	<insert id="addProject" parameterType="ProjectApply" flushCache="false">
+		insert into aproject_manager(
+			apply_name,
+			apply_company,
+			apply_dept,
+			apply_procedure,
+			apply_time,
+			apply_person,
+			device_name,
+			device_price,
+			device_model,
+			device_number,
+			device_purpose,
+			device_use_years,
+			apply_reason,
+			apply_report_address,
+			apply_status,
+			apply_remarks
+		)values(
+			#{apply_name},
+			#{apply_company},
+			#{apply_dept},
+			#{apply_procedure},
+			#{apply_time},
+			#{apply_person},
+			#{device_name},
+			#{device_price},
+			#{device_model},
+			#{device_number},
+			#{device_purpose},
+			#{device_use_years},
+			#{apply_reason},
+			#{apply_report_address},
+			"已提交",
+			#{apply_remarks}
+		)	
+	</insert>
+	
+	<!-- 查询数据库，返回每页节点信息数据 -->
+	<select id="listAllProject" parameterType="com.mbfw.entity.assets.PageOption"   resultType="pd" >
+		select *
+		from
+		aproject_manager
+		<!-- 先写order by再写limit -->
+		order by apply_time desc
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 查询数据库，返回权限为2对应项目立项的信息 -->
+	<select id="listPermission2Project" parameterType="com.mbfw.entity.assets.PageOption"   resultType="pd" >
+		select *
+		from
+		aproject_manager
+		where (apply_dept = #{pd.apply_dept}
+		or apply_company = #{pd.apply_dept})
+		<!-- 先写order by再写limit -->
+		order by apply_time desc
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 查询数据库，返回权限为2对应项目立项的信息的条数 -->
+	<select id="listPermission2ProjectTotal" parameterType="com.mbfw.entity.assets.PageOption"   resultType="Integer" >
+		select count(*)
+		from
+		aproject_manager
+		where apply_dept = #{pd.apply_dept}
+		or apply_company = #{pd.apply_dept}
+	</select>
+	
+	<!-- 查询数据库，返回权限为3对应项目立项的信息 -->
+	<select id="listPermission3Project" parameterType="com.mbfw.entity.assets.PageOption"   resultType="pd" >
+		select *
+		from
+		aproject_manager
+		where apply_dept = #{pd.apply_dept}
+		and apply_person = #{pd.apply_person}
+		and apply_company = #{pd.apply_company}
+		<!-- 先写order by再写limit -->
+		order by apply_time desc
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 查询数据库，返回权限为3对应项目立项的信息的条数-->
+	<select id="listPermission3ProjectTotal" parameterType="com.mbfw.entity.assets.PageOption"   resultType="Integer" >
+		select count(*)
+		from
+		aproject_manager
+		where apply_dept = #{pd.apply_dept}
+		and apply_person = #{pd.apply_person}
+		and apply_company = #{pd.apply_company}
+	</select>
+	
+	<!-- 项目列表 -->
+	<!-- <select id="listAllProject" parameterType="page" resultType="pd" useCache="false">
+		select  apply_id,
+				apply_name,
+				apply_company,
+				apply_dept,
+				apply_procedure,
+				apply_time,
+				apply_person,
+				device_name,
+				device_price,
+				device_model,
+				device_number,
+				device_purpose,
+				device_use_years,
+				apply_reason,
+				apply_report_address,
+				apply_status,
+				apply_remarks
+		from aproject_manager 
+		<if test="pd.apply_name != null and pd.apply_name != ''">关键词检索
+			where apply_name = #{pd.apply_name }
+		</if>
+		order by apply_time desc; 
+	</select> -->
+	
+	<!-- 删除选中的项目 -->
+	<delete id="deleteProject" parameterType="Integer" flushCache="false">
+		delete from aproject_manager
+		where apply_id in
+  			 <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                  #{item}
+             </foreach>
+	</delete>
+	
+	<!-- 删除流程表中对应的项目流程 -->
+	<delete id="deleteProcessProject" parameterType="Integer" flushCache="false">
+		delete from aproject_process
+		where process_Type = "项目立项"
+		and project_Id in
+  			 <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                  #{item}
+             </foreach>
+	</delete>
+	
+	<!-- 查询选中的多个条目 -->
+	<select id="searchProject" parameterType="Integer" resultType="pd" useCache="false">
+		select  apply_id,
+				apply_report_address
+		from aproject_manager 
+		where apply_id in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                  #{item}
+        </foreach>
+	</select>
+	
+	<!-- 查询选中的一个条目 即要修改的条目-->
+	<select id="searchModifyProject" parameterType="Integer" resultType="pd" useCache="false">
+		select  apply_id,
+				apply_name,
+				apply_company,
+				apply_dept,
+				apply_procedure,
+				apply_time,
+				apply_person,
+				device_name,
+				device_price,
+				device_model,
+				device_number,
+				device_purpose,
+				device_use_years,
+				apply_reason,
+				apply_report_address,
+				apply_status,
+				apply_remarks
+		from aproject_manager 
+		where apply_id  = #{s}
+	</select>
+	
+	<!-- 更新修改的项目 -->
+	<update id="updateProject" parameterType="ProjectApply" flushCache="false">
+		update aproject_manager 
+		set 	apply_name				= #{apply_name},
+				apply_company 			= #{apply_company},
+				apply_dept 				= #{apply_dept},
+				apply_procedure			= #{apply_procedure},
+				apply_time				= #{apply_time},
+				apply_person			= #{apply_person},
+				device_name				= #{device_name},
+				device_price 			= #{device_price},
+				device_model 			= #{device_model},
+				device_number			= #{device_number},
+				device_purpose			= #{device_purpose},
+				device_use_years		= #{device_use_years},
+				apply_reason			= #{apply_reason},
+				apply_report_address 	= #{apply_report_address},
+				apply_status			= "已修改",
+				apply_remarks			=#{apply_remarks}
+			where 
+				apply_id = #{apply_id}
+	</update>
+	
+	
+	<!-- 更新请求打回的项目 -->
+	<update id="updateReturnProject" parameterType="Integer" flushCache="false">
+		update aproject_manager 
+		set 	apply_status = "请求打回中"
+		where apply_id in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                  #{item}
+        </foreach>
+	</update>
+	
+	<!-- 获取项目的数量 -->
+	<select id="findTotalProjectNumber" resultType="Integer">
+		select count(*)
+		from
+		aproject_manager
+	</select>
+	
+	
+	<!-- 根据检索内容，获取对应的数据条数 -->
+	<select id="findSearchNumber" parameterType="String" resultType="Integer">
+		select count(*)
+		from 
+		aproject_manager
+		where
+			apply_name LIKE concat(concat('%',#{str}),'%')
+			or apply_dept LIKE concat(concat('%',#{str}),'%')
+			or apply_company LIKE concat(concat('%',#{str}),'%')
+			or apply_person LIKE concat(concat('%',#{str}),'%')
+			or device_name LIKE concat(concat('%',#{str}),'%')
+			or apply_status LIKE concat(concat('%',#{str}),'%')
+	</select>
+	
+	<!-- 关键字查询 -->
+	<select id="keySearchProject" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd" flushCache="false">
+		select * FROM aproject_manager
+			where apply_name LIKE concat(concat('%',#{pd.key}),'%')
+			or apply_dept LIKE concat(concat('%',#{pd.key}),'%')
+			or apply_company LIKE concat(concat('%',#{pd.key}),'%')
+			or apply_person LIKE concat(concat('%',#{pd.key}),'%')
+			or device_name LIKE concat(concat('%',#{pd.key}),'%')
+			or apply_status LIKE concat(concat('%',#{pd.key}),'%')
+			
+			limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 关键字查询  权限为2的对应的项目立项的条数-->
+	<select id="keySearchPermission2Project" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd" flushCache="false">
+		select * FROM aproject_manager
+			where (apply_dept = #{pd.apply_dept}
+			or apply_company = #{pd.apply_dept})
+			and(
+				apply_name LIKE concat(concat('%',#{pd.key}),'%')
+				or apply_dept LIKE concat(concat('%',#{pd.key}),'%')
+				or apply_company LIKE concat(concat('%',#{pd.key}),'%')
+				or apply_person LIKE concat(concat('%',#{pd.key}),'%')
+				or device_name LIKE concat(concat('%',#{pd.key}),'%')
+				or apply_status LIKE concat(concat('%',#{pd.key}),'%')
+			)
+			limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 关键字查询  权限为2的对应的项目立项的条数-->
+	<select id="keySearchPermission2ProjectTotal" parameterType="com.mbfw.entity.assets.PageOption" resultType="Integer" flushCache="false">
+		select count(*) FROM aproject_manager
+			where (apply_dept = #{pd.apply_dept}
+			or apply_company = #{pd.apply_dept})
+			and(
+				apply_name LIKE concat(concat('%',#{pd.key}),'%')
+				or apply_dept LIKE concat(concat('%',#{pd.key}),'%')
+				or apply_company LIKE concat(concat('%',#{pd.key}),'%')
+				or apply_person LIKE concat(concat('%',#{pd.key}),'%')
+				or device_name LIKE concat(concat('%',#{pd.key}),'%')
+				or apply_status LIKE concat(concat('%',#{pd.key}),'%')
+			)
+	</select>
+	
+	<!-- 关键字查询  权限为3的对应的项目立项-->
+	<select id="keySearchPermission3Project" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd" flushCache="false">
+		select * FROM aproject_manager
+			where apply_dept = #{pd.apply_dept}
+			and apply_person = #{pd.apply_person}
+			and apply_company = #{pd.apply_company}
+			and(
+				apply_name LIKE concat(concat('%',#{pd.key}),'%')
+				or apply_dept LIKE concat(concat('%',#{pd.key}),'%')
+				or apply_company LIKE concat(concat('%',#{pd.key}),'%')
+				or apply_person LIKE concat(concat('%',#{pd.key}),'%')
+				or device_name LIKE concat(concat('%',#{pd.key}),'%')
+				or apply_status LIKE concat(concat('%',#{pd.key}),'%')
+			)
+			limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 关键字查询  权限为3的对应的项目立项的条数-->
+	<select id="keySearchPermission3ProjectTotal" parameterType="com.mbfw.entity.assets.PageOption" resultType="Integer" flushCache="false">
+		select count(*) FROM aproject_manager
+			where apply_dept = #{pd.apply_dept}
+			and apply_person = #{pd.apply_person}
+			and apply_company = #{pd.apply_company}
+			and(
+				apply_name LIKE concat(concat('%',#{pd.key}),'%')
+				or apply_dept LIKE concat(concat('%',#{pd.key}),'%')
+				or apply_company LIKE concat(concat('%',#{pd.key}),'%')
+				or apply_person LIKE concat(concat('%',#{pd.key}),'%')
+				or device_name LIKE concat(concat('%',#{pd.key}),'%')
+				or apply_status LIKE concat(concat('%',#{pd.key}),'%')
+			)
+	</select>
+	
+	<!-- 查询审批流程的信息 用于增加项目的时候进行选择 -->
+	<select id="findApproveProcess" resultType="pd">
+		select *
+		from
+		sys_process_approval
+	</select>
+	
+	
+	<!-- 查看审批信息-->
+	<select id="checkApprovalProject" parameterType="Integer" resultType="pd" useCache="false">
+		select  *
+		from aproject_process,aproject_processdetail,sys_user, sys_approvnode
+		where aproject_process.project_Id  = #{s}
+		and aproject_processdetail.detail_ProcessId = aproject_process.projectprocess_Id
+		and sys_approvnode.node_Id = aproject_processdetail.detail_CurrentNodeId
+		and sys_user.USER_ID = aproject_processdetail.detail_ApproverUserID
+	</select>
+</mapper>

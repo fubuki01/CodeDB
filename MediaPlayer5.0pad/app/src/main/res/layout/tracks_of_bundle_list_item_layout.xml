@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants" >
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tracks_list_viewline_height"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/tracks_list_header_underline_marginleft"
+        android:layout_marginRight="@dimen/tracks_list_header_underline_marginleft"
+        android:background="@color/item_underline_color" />
+
+    <TextView
+        android:id="@+id/music_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/visualizerView"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/tracks_list_content_marginleft"
+        android:layout_marginRight="@dimen/tracks_list_content_marginleft"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="14dp"
+        android:ellipsize="end"
+        android:focusable="true"
+        android:shadowColor="#ff000000"
+        android:shadowDx="0.3"
+        android:shadowDy="0.3"
+        android:shadowRadius="0.3"
+        android:singleLine="true"
+        android:textColor="@color/listitem_big_text_color"
+        android:textSize="@dimen/tracks_list_songname_textsize" />
+
+    <TextView
+        android:id="@+id/music_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/tracks_list_content_margin_right"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/listitem_big_text_color"
+        android:textSize="@dimen/tracks_list_artistname_textsize" />
+
+    <!-- <com.dream.mediaplayer.ui.widgets.VisualizerView
+        android:id="@+id/visualizerView"
+        android:layout_width="@dimen/visualizerview_width"
+        android:layout_height="@dimen/visualizerview_height"
+        android:layout_toLeftOf="@id/music_duration"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:visibility="gone" /> -->
+        
+    <ImageView
+        android:id="@+id/visualizerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/music_duration"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:visibility="gone" />
+
+</RelativeLayout>

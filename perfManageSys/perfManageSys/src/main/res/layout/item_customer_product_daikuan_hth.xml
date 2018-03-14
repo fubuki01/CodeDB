@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/CommonLayout"
+    android:gravity="left"
+    android:background="@color/bg_white_sec"
+    android:orientation="horizontal"
+    android:layout_marginTop="10dp" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="合同号："
+        android:textColor="@color/font_black_3"
+        android:textSize="@dimen/font_content_fir"
+        android:paddingLeft="10dp" />
+
+    <TextView
+        android:id="@+id/customer_product_daikuan_hth"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="20170989-0909-01"
+        android:textColor="@color/font_black_3"
+        android:textSize="@dimen/font_content_fir"
+        android:paddingLeft="10dp" />
+
+</LinearLayout>

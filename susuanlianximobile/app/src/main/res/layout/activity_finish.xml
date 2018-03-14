@@ -1,0 +1,259 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+ <RelativeLayout 
+     android:id="@+id/rl_top"
+     android:layout_height="258dp"
+     android:layout_width="match_parent"
+     android:background="#0090ff"
+    >
+	 <ImageView
+		 android:id="@+id/iv_exit"
+		 android:src="@drawable/exitimage"
+		 android:layout_width="wrap_content"
+		 android:layout_height="wrap_content"
+		 android:layout_alignParentRight="true"
+		 android:layout_marginRight="20dp"
+		 android:layout_marginTop="30dp"/>
+
+      <ImageView
+          android:id="@+id/medallight"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@drawable/medallight"
+          android:layout_centerInParent="true"
+          />
+     <ImageView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:src="@drawable/medal"
+         android:layout_centerInParent="true"
+   		  />
+
+     <!-- 分数显示布局 -->
+   	 <LinearLayout 
+   	     android:layout_width="wrap_content"
+   	     android:layout_height="wrap_content"
+   	     android:layout_centerInParent="true"
+		 android:layout_alignParentBottom="true"
+		 android:layout_marginBottom="77dp"
+		 android:gravity="bottom">
+		   <!-- 显示的分数-->
+		 <ImageView
+			 android:id="@+id/medalnumber0"
+			 android:layout_width="wrap_content"
+			 android:layout_height="wrap_content"
+
+			/>
+			<!-- 显示的分数-->
+		  <ImageView
+			 android:id="@+id/medalnumber1"
+			 android:layout_width="wrap_content"
+			 android:layout_height="wrap_content"
+
+			/>
+
+			 <!-- 显示的分数-->
+		   <ImageView
+			 android:id="@+id/medalnumber2"
+			 android:layout_width="wrap_content"
+			 android:layout_height="wrap_content"
+
+			/>
+			 <!-- 显示的分数-->
+		   <ImageView
+			 android:id="@+id/medalnumber3"
+			 android:layout_width="wrap_content"
+			 android:layout_height="wrap_content"
+
+			/>
+			<ImageView
+			 android:id="@+id/medalnumber4"
+			 android:layout_width="wrap_content"
+			 android:layout_height="wrap_content"
+
+			/>
+			<!-- 字幕分 -->
+			<ImageView
+				android:id="@+id/medalfen"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/medalgrade"
+				android:layout_marginLeft="4dp"
+			/>
+   	 </LinearLayout>
+
+
+ </RelativeLayout>
+ 
+
+   <!-- 第一行-->   	  
+  <LinearLayout 
+     	 android:id="@+id/ll_showgrade1"
+         android:layout_width="match_parent"
+         android:layout_height="106dp"
+         android:layout_below="@+id/rl_top"
+         android:orientation="horizontal">  
+         
+         <!-- 第一列  -->
+         <LinearLayout 
+             android:layout_weight="1"
+             android:layout_width="0dp"
+             android:layout_height="match_parent"
+             android:orientation="vertical"
+             android:gravity="center">
+             <!-- 答对题数 -->
+		     <TextView 
+		     android:id="@+id/tv_rightnumber"
+		     android:layout_height="wrap_content"
+		     android:layout_width="wrap_content"
+		     android:textSize="26sp"
+		  	 />
+		 
+		     <TextView 
+		         android:layout_width="wrap_content"
+		         android:layout_height="wrap_content"
+		         android:text="答对题数"
+		         android:textColor="#A8A8A8"
+		         android:textSize="14sp"
+		         android:layout_marginTop="10dp"
+		         />            
+         </LinearLayout>
+    
+         <View
+		  android:layout_width="1dp"
+		  android:layout_height="match_parent"
+		  android:background="#cccccc"		  
+		  />
+         
+         <!-- 第二列 -->
+         <LinearLayout 
+             android:layout_weight="1"
+             android:layout_width="0dp"
+             android:layout_height="match_parent"
+             android:orientation="vertical"
+             android:gravity="center">          
+              <!-- 本次排名 -->
+		      <TextView 
+		     android:id="@+id/tv_currentrank"
+		     android:layout_height="wrap_content"
+		     android:layout_width="wrap_content"
+		     android:textSize="26sp"
+		     />
+		     <TextView 
+		         android:layout_width="wrap_content"
+		         android:layout_height="wrap_content"
+		         android:text="本次排名"
+		         android:textColor="#A8A8A8"
+		         android:textSize="14sp"
+		         android:layout_marginTop="10dp"/>            
+         </LinearLayout>                                                     
+  </LinearLayout> 	  
+  
+   <!-- 第二行-->   	  
+  <LinearLayout 
+      	 android:id="@+id/ll_showgrade2"
+      	 android:layout_below="@+id/ll_showgrade1"
+         android:layout_width="match_parent"
+         android:layout_height="106dp"
+         android:orientation="horizontal">  
+        
+         <!-- 第一列  -->
+         <LinearLayout 
+             android:layout_weight="1"
+             android:layout_width="0dp"
+             android:layout_height="106dp"
+             android:orientation="vertical"
+             android:gravity="center">
+             <!-- 答对题数 -->
+		     <TextView 
+		     android:id="@+id/tv_historygrade"
+		     android:layout_height="wrap_content"
+		     android:layout_width="wrap_content"
+		     android:textSize="26sp"
+
+		  	 />
+		     <TextView 
+		         android:layout_width="wrap_content"
+		         android:layout_height="wrap_content"
+		         android:text="历史最高得分"
+		         android:textColor="#A8A8A8"
+		         android:textSize="14sp"
+		         android:layout_marginTop="10dp"
+		         />            
+         </LinearLayout>
+         
+          <View
+		  android:layout_width="1dp"
+		  android:layout_height="match_parent"
+		  android:background="#cccccc"		  
+		  />
+         
+         <!-- 第二列 -->
+         <LinearLayout 
+             android:layout_weight="1"
+             android:layout_width="0dp"
+             android:layout_height="106dp"
+             android:orientation="vertical"
+             android:gravity="center">          
+              <!-- 本次排名 -->
+		      <TextView 
+		     android:id="@+id/tv_historyrank"
+		     android:layout_height="wrap_content"
+		     android:layout_width="wrap_content"
+		     android:textSize="26sp"
+		     />
+		     <TextView 
+		         android:layout_width="wrap_content"
+		         android:layout_height="wrap_content"
+		         android:text="历史最高排名"
+		         android:textColor="#A8A8A8"
+		         android:textSize="14sp"
+		         android:layout_marginTop="10dp"/>            
+         </LinearLayout>                                                     
+  </LinearLayout>
+  
+  <!-- 第一条横线 -->
+  <View 
+      android:layout_below="@+id/ll_showgrade1"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="#cccccc"/>
+	
+  <!-- 第二条横线 -->
+  <View 
+      android:id="@+id/view_xian"
+      android:layout_below="@+id/ll_showgrade2"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="#cccccc"/>
+  		   
+         
+ <LinearLayout 
+     android:layout_below="@+id/view_xian"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:gravity="center">
+    <!--查看排行榜-->
+  		 <Button 
+         android:id="@+id/medallookrank"
+         android:layout_width="133dp"
+         android:layout_height="41dp"
+         android:textSize="18sp"
+         android:text="排行榜"
+         android:background="@drawable/myselector_gradebtnlookrank" />
+ 
+      <!--重新挑战 -->
+     <Button 
+         android:id="@+id/medalrestartgame"
+         android:layout_width="133dp"
+         android:layout_height="41dp"
+         android:text="再次挑战"
+         android:textSize="18sp"      
+         android:background="@drawable/myselector_restartbtn"
+         android:layout_marginLeft="26dp"/>  
+	</LinearLayout>
+	
+</RelativeLayout>

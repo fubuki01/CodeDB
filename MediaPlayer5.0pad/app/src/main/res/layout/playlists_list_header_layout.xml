@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants" >
+
+    <com.dream.mediaplayer.views.FadeImageView
+        android:id="@+id/item_cover"
+        android:layout_width="@dimen/tracks_list_cover_width"
+        android:layout_height="@dimen/tracks_list_cover_width"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/tracks_list_content_marginleft"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="14dp"
+        android:scaleType="center"
+        android:src="@drawable/playlists_list_header_icon" />
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tracks_list_viewline_height"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="124dp"
+        android:background="@color/item_underline_color" />
+
+    <LinearLayout
+        android:id="@+id/LinearLayout1"
+        android:layout_toRightOf="@+id/item_cover"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="4dp"
+        android:gravity="left|center_vertical"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true">
+
+        <TextView
+            android:id="@+id/tv_new_playlist"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:focusable="true"
+            android:shadowColor="#ff000000"
+            android:shadowDx="0.3"
+            android:shadowDy="0.3"
+            android:shadowRadius="0.3"
+            android:singleLine="true"
+            android:text="@string/playlists_list_header_text"
+            android:textColor="@color/playlist_header_text_color"
+            android:textSize="@dimen/tracks_list_songname_textsize" />
+
+    </LinearLayout>
+
+</RelativeLayout>

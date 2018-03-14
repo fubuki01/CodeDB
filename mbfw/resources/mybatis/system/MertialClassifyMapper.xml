@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MertialClassifyMapper">
+	<resultMap type="MertialClassify" id="MertialClassifyResultMap">
+		<id column="number" property="number"/>
+		<result column="name" property="name"/>
+		<result column="pId" property="pId"/>
+		<result column="open" property="open"/>
+		<result column="isuse" property="isuse"/>
+		<result column="orderSort" property="orderSort"/>
+		<result column="parentSort" property="parentSort"/>
+		<result column="coding" property="coding"/>
+	</resultMap> 
+	
+	
+	<!-- 增加原始节点 -->
+	<insert id="addPoint" parameterType="pd" flushCache="false">
+		insert into mertial_classify(
+			name,
+			pId,
+			open,
+			isuse,
+			orderSort
+		)values(
+			#{name},
+			"0",
+			"false",
+			"false",
+			#{orderSort}
+		)	
+	</insert>
+	
+	<!-- 增加孩子节点 -->
+	<insert id="addChildPoint" parameterType="pd" flushCache="false">
+		
+		insert into mertial_classify(
+			name,
+			pId,
+			open,
+			isuse,
+			orderSort,
+			parentSort,
+			coding
+		)values(
+			#{name},
+			#{pId},
+			"false",
+			"false",
+			#{orderSort},
+			#{parentSort},
+			#{coding}
+		)	
+	</insert>
+	
+	<!-- 查询项目列表 -->
+	<select id="listAllPoint" parameterType="pd" resultType="pd" useCache="false">
+		select  number,
+				name,
+				pId,
+				isuse,
+				open
+		from mertial_classify 
+		order by number desc; 
+	</select>
+	
+	<!-- 查询父节点对应的所有孩子节点 -->
+	<select id="listChildPoint" parameterType="pd" resultType="pd" useCache="false">
+		select  *
+		from mertial_classify 
+		where pId = #{pId}
+	</select>
+	
+	<!-- 查询孩子添加孩子节点对应的父节点 获取起序列号 -->
+	<select id="getParentPoint" parameterType="pd" resultType="pd" useCache="false">
+		select  *
+		from mertial_classify 
+		where number = #{pId}
+	</select>
+	
+	<!-- 查询所有父类节点 -->
+	<select id="listAllParentPoint" parameterType="pd" resultType="pd" useCache="false">
+		select  *
+		from mertial_classify 
+		where pId = "0"
+	</select>
+	
+	<!-- 查询节点的使用情况 -->
+	<select id="searchPointByZi" parameterType="pd" resultType="pd" useCache="false">
+		select  *
+		from products_info 
+		where 
+			product_flag = 1
+		and
+			 product_name = #{name}
+		
+	
+	</select>
+	
+	<!-- 查询节点的使用情况 -->
+	<select id="searchPointByFu" parameterType="pd" resultType="pd" useCache="false">
+		select  *
+		from products_info 
+		where 
+			product_flag = 1
+		and
+			product_class = #{name}
+
+	</select>
+	
+	
+	<!-- 删除节点 -->
+	<delete id="delectPoint" parameterType="pd" flushCache="false">
+		delete from mertial_classify
+		where 
+			number = #{number}
+		or pId = #{number}
+	</delete>
+	
+	<!-- 耗材资产查询 -->
+	<select id="find_used_class" parameterType="pd" resultType="pd">
+		select * from mertial_classify
+	</select>
+	
+	<!-- 查询资产类别是否存在-->
+	<select id="findByClass" parameterType="pd" resultType="pd" useCache="false">
+		select  *
+		from mertial_classify 
+		where 
+			name = #{name}
+			and pId = 0
+	
+	</select>
+	
+	
+	<!-- 查询资产名称是否存在-->
+	<select id="findByMertialName" parameterType="pd" resultType="pd" useCache="false">
+		select  *
+		from mertial_classify 
+		where 
+			name = #{name}
+			and pId = #{pId}
+	</select>
+</mapper>

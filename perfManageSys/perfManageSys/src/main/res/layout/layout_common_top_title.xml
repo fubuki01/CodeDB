@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/layout_title_height"
+    android:background="@color/bg_title" >
+
+    <TextView
+        android:id="@+id/tv_common_top_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/wodekehu"
+        android:textColor="@color/font_title"
+        android:textSize="@dimen/font_title" />
+    <!--
+    <View
+        style="@style/CommonHorLine"
+        android:layout_alignParentBottom="true" />
+    -->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:visibility="visible" >
+
+        <ImageView
+            android:id="@+id/common_top_iv_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_search"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/common_top_iv_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="8dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_add"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</RelativeLayout>

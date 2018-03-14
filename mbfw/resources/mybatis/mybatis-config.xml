@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD SQL Map Config 3.0//EN"  
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<settings> 
+        <setting name="cacheEnabled" value="true" /><!-- 全局映射器启用缓存 -->   
+        <setting name="useGeneratedKeys" value="true" /> 
+        <setting name="defaultExecutorType" value="REUSE" /> 
+    </settings>
+
+	<typeAliases>
+		<typeAlias type="com.mbfw.entity.assets.MertialClassify" alias="MertialClassify"/>
+		<typeAlias type="com.mbfw.entity.assets.ProjectApply" alias="ProjectApply"/>
+		<typeAlias type="com.mbfw.entity.assets.AssetClassify" alias="AssetClassify"/>
+		<typeAlias type="com.mbfw.entity.system.User" alias="User"/>
+		<typeAlias type="com.mbfw.entity.system.Role" alias="Role"/>
+		<typeAlias type="com.mbfw.entity.system.Menu" alias="Menu"/>
+		<typeAlias type="com.mbfw.entity.system.ProjectManage" alias="ProjectManage"/>
+	    <typeAlias type="com.mbfw.entity.assets.SuppliesStore" alias="SuppliesStore"/>
+	    <typeAlias type="com.mbfw.entity.assets.SuppliesInquiry" alias="SuppliesInquiry"/>
+		<typeAlias type="com.mbfw.entity.assets.SuppliesApplication" alias="SuppliesApplication"/>
+		<typeAlias type="com.mbfw.entity.assets.SuppliesUse" alias="SuppliesUse"/>
+		<typeAlias type="com.mbfw.entity.assets.AssetAlter" alias="AssetAlter"/>
+		
+		<!--资产统计  -->
+		<typeAlias type="com.mbfw.entity.assets.AssetCountTable" alias="AssetCountTable"/>
+		
+		<typeAlias type="com.mbfw.util.PageData" alias="pd"/>
+		<!-- 分页 -->
+		<typeAlias type="com.mbfw.entity.Page" alias="Page"/>
+
+		<typeAlias type="com.mbfw.entity.assets.AssetGetManage" alias="AssetGetManage"/>
+		<typeAlias type="com.mbfw.entity.assets.AssetRecycleManage" alias="AssetRecycleManage"/>
+		<typeAlias type="com.mbfw.entity.assets.AssetAbandonManage" alias="AssetAbandonManage"/>
+		<typeAlias type="com.mbfw.entity.assets.AssetCheckManage" alias="AssetCheckManage"/>
+<!-- 		<typeAlias type="com.mbfw.entity.assets.AssetRegister" alias="AssetRegister"/> -->
+		<typeAlias type="com.mbfw.entity.assets.AssetInfo" alias="AssetInfo"/>
+
+		<typeAlias type="com.mbfw.entity.assets.AssetAllot" alias="AssetAllot"/>
+		<typeAlias type="com.mbfw.entity.assets.AssetRAR" alias="AssetRAR"/>
+		<typeAlias type="com.mbfw.entity.assets.AssetReportAndRepair" alias="AssetReportAndRepair"/>
+		<!-- 采购单生成  -->
+		<typeAlias type="com.mbfw.entity.assets.AssetPurchaseBill" alias="AssetPurchaseBill"/>
+		<!-- 采购申请 -->
+		<typeAlias type="com.mbfw.entity.system.ProjectManage" alias="ProjectManage"/>
+		<!-- 入库单填写 -->
+		<typeAlias type="com.mbfw.entity.assets.AssetIntolibraryApply" alias="AssetIntolibraryApply"/>
+		<!-- 资产信息-->
+		<typeAlias type="com.mbfw.entity.assets.AssetInfo" alias="AssetInfo"/>
+		<!-- 供应商信息 -->
+		<typeAlias type="com.mbfw.entity.assets.AssertAProvider" alias="AssertAProvider"/>
+
+		<!-- 机构信息 -->
+		<typeAlias type="com.mbfw.entity.assets.InstitutionalInfo" alias="InstitutionalInfo"/>
+
+		<!-- 产品信息 -->
+		<typeAlias type="com.mbfw.entity.assets.ProductsInfo" alias="ProductsInfo"/>
+		
+		<!-- 下发单 -->
+		<typeAlias type="com.mbfw.entity.assets.AssetIssued" alias="AssetIssued"/>
+		<!-- 接收单 -->
+		<typeAlias type="com.mbfw.entity.assets.AssetReceive" alias="AssetReceive"/>
+		
+	</typeAliases>
+	
+	<plugins>
+		<plugin interceptor="com.mbfw.plugin.PagePlugin">
+			<property name="dialect" value="mysql"/>
+			<property name="pageSqlId" value=".*listPage.*"/>
+		</plugin>
+	</plugins>
+	
+</configuration>

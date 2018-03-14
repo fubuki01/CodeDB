@@ -1,0 +1,132 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_root"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_white"
+            android:paddingBottom="6dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="6dp" >
+
+            <!-- 第一行 -->
+
+            <TextView
+                android:id="@+id/item_warning_dingqi_jigou_title"
+                style="@style/ItemTvTitle"
+                android:layout_alignParentLeft="true"
+                android:text="业务机构：" />
+
+            <TextView
+                android:id="@+id/item_warning_dingqi_jigou"
+                style="@style/ItemTvContent"
+                android:layout_toRightOf="@+id/item_warning_dingqi_jigou_title"
+                android:text="营业部" />
+
+            <TextView
+                android:id="@+id/item_warning_dingqi_kehumc_title"
+                style="@style/ItemTvTitle"
+                android:layout_alignLeft="@+id/item_warning_dingqi_kaihu_title"
+                android:layout_toRightOf="@+id/item_warning_dingqi_jigou"
+                android:text="客户名称：" />
+
+            <TextView
+                android:id="@+id/item_warning_dingqi_kehumc"
+                style="@style/ItemTvContent"
+                android:layout_toRightOf="@+id/item_warning_dingqi_kehumc_title"
+                android:text="张三" />
+
+            <!-- 第二行 -->
+
+            <TextView
+                android:id="@+id/item_warning_dingqi_cunqi_title"
+                style="@style/ItemTvTitle"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/item_warning_dingqi_jigou_title"
+                android:text="存期：" />
+
+            <TextView
+                android:id="@+id/item_warning_dingqi_cunqi"
+                style="@style/ItemTvContent"
+                android:layout_below="@id/item_warning_dingqi_jigou_title"
+                android:layout_toRightOf="@+id/item_warning_dingqi_cunqi_title"
+                android:text="365" />
+
+            <TextView
+                android:id="@+id/item_warning_dingqi_kaihu_title"
+                style="@style/ItemTvTitle"
+                android:layout_below="@id/item_warning_dingqi_jigou_title"
+                android:layout_toLeftOf="@+id/item_warning_dingqi_kaihu"
+                android:text="开户日期：" />
+
+            <TextView
+                android:id="@+id/item_warning_dingqi_kaihu"
+                style="@style/ItemTvContent"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/item_warning_dingqi_jigou_title"
+                android:text="2017-05-11" />
+
+            <!-- 第三行 -->
+
+            <TextView
+                android:id="@+id/item_warning_dingqi_yue_title"
+                style="@style/ItemTvTitle"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/item_warning_dingqi_kaihu_title"
+                android:text="余额：" />
+
+            <TextView
+                android:id="@+id/item_warning_dingqi_yue"
+                style="@style/ItemTvContent"
+                android:layout_below="@id/item_warning_dingqi_kaihu_title"
+                android:layout_toRightOf="@+id/item_warning_dingqi_yue_title"
+                android:text="10000" />
+
+            <TextView
+                android:id="@+id/item_warning_dingqi_daoqi_title"
+                style="@style/ItemTvTitle"
+                android:layout_alignLeft="@id/item_warning_dingqi_kaihu_title"
+                android:layout_below="@id/item_warning_dingqi_kaihu_title"
+                android:layout_toRightOf="@+id/item_warning_dingqi_yue"
+                android:text="到期日期：" />
+
+            <TextView
+                android:id="@+id/item_warning_dingqi_daoqi"
+                style="@style/ItemTvContent"
+                android:layout_below="@id/item_warning_dingqi_kaihu"
+                android:layout_toRightOf="@id/item_warning_dingqi_daoqi_title"
+                android:text="2017-05-11" />
+
+            <!-- 第四行 -->
+
+            <TextView
+                android:id="@+id/item_warning_dingqi_lilv_title"
+                style="@style/ItemTvTitle"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/item_warning_dingqi_yue_title"
+                android:text="利率(%)：" />
+
+            <TextView
+                android:id="@+id/item_warning_dingqi_lilv"
+                style="@style/ItemTvContent"
+                android:layout_below="@id/item_warning_dingqi_yue_title"
+                android:layout_toRightOf="@+id/item_warning_dingqi_lilv_title"
+                android:text="3.2" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <include layout="@layout/common_item_lable" />
+
+</FrameLayout>

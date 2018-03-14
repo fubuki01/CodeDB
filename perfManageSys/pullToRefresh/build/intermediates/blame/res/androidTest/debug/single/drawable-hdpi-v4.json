@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "D:\\workspace\\perfManageSys\\pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\ic_warm.png",
+        "source": "D:\\workspace\\perfManageSys\\pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\ic_warm.png"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\indicator_arrow.png",
+        "source": "D:\\workspace\\perfManageSys\\pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\indicator_arrow.png"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\default_ptr_rotate.png",
+        "source": "D:\\workspace\\perfManageSys\\pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_ptr_rotate.png"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\pullToRefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\default_ptr_flip.png",
+        "source": "D:\\workspace\\perfManageSys\\pullToRefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_ptr_flip.png"
+    }
+]

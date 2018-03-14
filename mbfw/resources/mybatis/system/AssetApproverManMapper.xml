@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ApproverManage">
+	<!--显示所有的审核人员  -->
+ 	<select id="approverListPage"  parameterType="com.mbfw.entity.assets.PageOption"  resultType="pd" useCache="false">
+ 		select *
+ 		from sys_approver
+ 		limit #{currentResult},#{showCount}
+ 	</select>
+	
+	<!-- 根据user_id来删除用户，在审核人表中 -->
+	<delete id="deleteApprover" parameterType="String" flushCache="false">
+		delete 
+		from sys_approver
+		where 
+			user_Id = #{user_Id}
+	</delete>
+	
+	<!-- 根据ID来显示对应的审核人信息 -->
+	<select id="findByUiId" parameterType="pd" resultType="pd" useCache="false">
+		select *
+		from sys_approver
+		where
+			user_Id = #{USER_ID}
+	</select>
+	
+	<!-- 根据userid进行更新用户信息 -->
+	<update id="editApprover" parameterType="pd" flushCache="false">
+		update sys_approver
+		set
+			approver_Description = #{approver_Description},
+			approver_Rights_Description = #{approver_Rights_Description}
+		where 
+			user_Id = #{user_Id}
+	</update>
+	
+	<!-- 根据用户ID进行批量删除审批人员 -->
+	<delete id="deleteBatchApprover" parameterType="Integer" flushCache="false">
+		delete
+		from
+		sys_approver
+		where
+			user_Id  in
+			<foreach collection="array" close=")" separator="," open="(" item="id">
+				#{id}
+			</foreach>				
+	</delete>
+	
+	
+	<!-- 返回所有的用户的信息 -->
+	<select id="addApproverByUser" resultType="pd">
+		select *
+		from
+		sys_user
+	</select>
+	
+	<!-- 添加一个用户信息到审核人员表中 -->
+	<insert id="addApproverOne" parameterType="pd">
+		insert into
+		sys_approver(
+			user_Id,
+			approver_Description,
+			approver_Rights_Description,
+			user_Name			
+		)values(
+			#{user_Id},
+			#{approver_Description},
+			#{approver_Rights_Description},
+			#{user_Name}
+		)
+	</insert>
+	
+	<!-- 判断新添加的用户是否已经在审核人员表中 -->
+	<select id="findCurrentInfo" parameterType="pd" resultType="Integer">
+		select count(*)
+		from
+		sys_approver
+		where
+			user_Id = #{user_Id}
+	</select>
+	
+	
+	<!-- 获取审核人员的条数 -->
+	<select id="findTotalNumber" resultType="Integer">
+		select count(*)
+		from
+		sys_approver
+	</select>
+	
+	<!-- 根据检索内容，获取对应的数据条数 -->
+	<select id="findSearchNameNumber" parameterType="com.mbfw.entity.assets.PageOption" resultType="Integer">
+		select count(*)
+		from 
+		sys_approver
+		where
+			<if test="pd.retrieve_content != null and pd.retrieve_contentE != ''">
+			user_Name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对姓名进行检索 -->
+			or
+			user_Id LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对用户审批序号进行检索 -->
+			or
+			approver_Description LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对用户审批人描述进行检索 -->
+			or
+			approver_Rights_Description LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对审批人权限描述进行检索 -->	
+			</if>
+	</select>
+	
+	<!-- 根据检索姓名，获取对应的数据 -->
+	<select id="findTotalSearchInfo" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd">
+		select *
+		from
+		sys_approver
+		where 
+		<if test="pd.retrieve_content != null and pd.retrieve_contentE != ''">
+			user_Name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对姓名进行检索 -->
+			or
+			user_Id LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对用户ID进行检索 -->
+			or
+			approver_Description LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对用户审批人描述进行检索 -->
+			or
+			approver_Rights_Description LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对审批人权限描述进行检索 -->				
+		</if>
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 返回所有的审核人员的信息（不分页显示）主要用在用户界面中，判断用户是否已经是审核人员 -->
+	<select id="findAllApproverInfoToUser" resultType="String">
+		select user_Id
+ 		from sys_approver
+	</select>
+	
+	<!-- 模糊匹配搜索的内容，返回匹配到的用户信息 -->
+	<select id="findResearchResultName" parameterType="String" resultType="pd">
+		select *
+		from 
+			sys_user
+		where
+			NAME LIKE CONCAT(CONCAT('%', #{checkStr}),'%') <!-- 根据用户姓名进行匹配 -->
+	</select>
+	
+	<!-- 根据点击的用户的userid来判断在审批节点中是否有该人员的信息数据 ，返回0表示没有-->
+	<select id="findCurrentApproverDeleteStatus" parameterType="String" resultType="Integer">
+		select count(*)
+		from
+			sys_approvnodepeople
+		where
+			approvnode_UserId = #{approvnode_UserId}
+	</select>
+	
+	<!-- 获取所有审批节点中的，所有的审批人员的ID，用于判断能够被批量删除 -->
+	<select id="findAllNodeApproverUserIds" resultType="String">
+		select 
+			approvnode_UserId
+		from
+			sys_approvnodepeople
+	</select>
+	
+</mapper>

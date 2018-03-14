@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootboot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:fitsSystemWindows="true">
+
+    <!-- top_bar -->
+
+    <RelativeLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_topbar_height"
+        android:layout_alignParentTop="true">
+
+        <View
+            android:id="@+id/topbar_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/topbar_underline_height"
+            android:layout_alignParentBottom="true"
+            android:background="@color/item_underline_color" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_above="@id/topbar_line" >
+
+            <RelativeLayout
+                android:id="@+id/ret"
+                android:layout_width="88dp"
+                android:layout_height="88dp">
+                <ImageView
+                    android:id="@+id/return_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:clickable="true"
+                    android:src="@drawable/return_normal_new" />
+            </RelativeLayout>
+
+
+            <ImageView
+                android:id="@+id/search_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/search_text_btn_margin_right"
+                android:clickable="true"
+                android:src="@drawable/btn_search_selector"
+                android:visibility="invisible"/>
+
+            <TextView
+                android:id="@+id/album_name"
+                android:layout_width="850dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_centerInParent="true"
+                android:singleLine="true"
+                android:gravity="center"
+                android:textColor="@color/topbar_text_color"
+                android:textSize="@dimen/topbar_text_size" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <!-- <include
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        layout="@layout/bottombar" /> -->
+        
+   	<fragment
+        android:name="com.dream.mediaplayer.fragment.BottomActionBarFragment"
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+
+    <FrameLayout
+        android:id="@+id/framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top_bar"
+        android:layout_above="@id/bottom_bar">
+    </FrameLayout>
+
+</RelativeLayout>

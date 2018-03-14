@@ -1,0 +1,66 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        style="@style/RootFragment"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            style="@style/CommonLayout"
+            android:background="@color/bg_white"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/PerfTableTv1"
+                android:text="关联人类型" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                style="@style/PerfTableTv1"
+                android:text="关联人姓名" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                style="@style/PerfTableTv1"
+                android:text="联系电话" />
+
+            <View style="@style/CommonVerLine" />
+        </LinearLayout>
+
+        <View style="@style/CommonHorLine" />
+
+        <LinearLayout
+            style="@style/CommonLayout"
+            android:background="@color/bg_white"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/customer_relation_tv_lxrlx"
+                style="@style/PerfTableTv1"
+                android:text="配偶" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/customer_relation_tv_xm"
+                style="@style/PerfTableTv1"
+                android:text="李四" />
+
+            <View style="@style/CommonVerLine" />
+
+            <TextView
+                android:id="@+id/customer_relation_tv_dh"
+                style="@style/PerfTableTv1"
+                android:text="12345678998" />
+
+            <View style="@style/CommonVerLine" />
+        </LinearLayout>
+
+        <View style="@style/CommonHorLine" />
+    </LinearLayout>
+
+</ScrollView>

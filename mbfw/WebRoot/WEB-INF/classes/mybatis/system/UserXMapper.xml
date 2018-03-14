@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserXMapper">
+	
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>  
+	
+	<!-- 换皮肤-->
+	<update id="setSKIN" parameterType="pd" flushCache="false">
+		update SYS_USER set 
+		SKIN = #{SKIN} 
+		where USERNAME = #{USERNAME}
+	</update>
+	
+	<!-- 更新登录时间 -->
+	<update id="updateLastLogin" parameterType="pd" flushCache="false">
+		update SYS_USER set 
+		LAST_LOGIN = #{LAST_LOGIN} 
+		where USER_ID = #{USER_ID}
+	</update>
+	
+	<!-- 判断用户名和密码 -->
+	<select id="getUserInfo" parameterType="pd" resultType="pd" useCache="false"><!-- insert update delete (flushCache="true/false") -->
+		select * from SYS_USER 
+		where 1=1
+		<if test="USERNAME != null and PASSWORD != null">
+	  	and	(
+	  		(USERNAME = #{USERNAME} and PASSWORD = #{PASSWORD})
+	  		or
+	  		(EMAIL = #{USERNAME} and PASSWORD = #{PASSWORD})
+	  		or
+	  		(NUMBER = #{USERNAME} and PASSWORD = #{PASSWORD})
+	  		)
+		</if>
+		<if test="USER_ID != null and USER_ID != ''">
+		and USER_ID = #{USER_ID}
+		</if>
+	</select>
+	
+
+	
+	<!-- 存入IP -->
+	<update id="saveIP" parameterType="pd" flushCache="false">
+		update SYS_USER 
+			set 
+				IP = #{IP}
+			where 
+				USERNAME = #{USERNAME}
+	</update>
+	
+	<!-- 修改 -->
+	<update id="editU" parameterType="pd" flushCache="false">
+		update  SYS_USER
+			set USERNAME				= #{USERNAME},
+				NAME 					= #{NAME},
+				ROLE_ID 				= #{ROLE_ID},
+				BZ						= #{BZ},
+				EMAIL					= #{EMAIL},
+				NUMBER					= #{NUMBER},
+				PHONE					= #{PHONE},
+				organization_name		=#{organization_name},
+				superior_organization_name = #{superior_organization_name},
+				user_Permission			= #{user_Permission}
+			<if test="PASSWORD != null and PASSWORD != ''">
+				,PASSWORD				= #{PASSWORD}
+			</if>
+			where 
+				USER_ID = #{USER_ID}
+	</update>
+	
+	<!-- 通过user_id获取数据 -->
+	<select id="findByUiId" parameterType="pd" resultType="pd" useCache="false">
+		select 
+			USER_ID,
+			USERNAME,
+			PASSWORD,
+			NAME,
+			RIGHTS,
+			ROLE_ID,
+			LAST_LOGIN,
+			IP,
+			STATUS,
+			BZ,
+			SKIN,
+			EMAIL,
+			NUMBER,
+			PHONE,
+			organization_name,
+			superior_organization_name,
+			user_Permission
+		from 
+			SYS_USER
+		where 
+			USER_ID = #{USER_ID}
+	</select>
+		
+	<!-- 通过邮箱获取数据 -->
+	<select id="findByUE" parameterType="pd" resultType="pd" useCache="false">
+		select 
+			USER_ID,
+			USERNAME,
+			PASSWORD,
+			NAME,
+			RIGHTS,
+			ROLE_ID,
+			LAST_LOGIN,
+			IP,
+			STATUS,
+			BZ,
+			SKIN,
+			EMAIL,
+			NUMBER,
+			PHONE
+		from 
+			SYS_USER
+		where 
+			EMAIL = #{EMAIL}
+		<if test="USERNAME != null and USERNAME != ''">
+			and USERNAME != #{USERNAME} 
+		</if>
+	</select>
+	
+	<!-- 通过编号获取数据 -->
+	<select id="findByUN" parameterType="pd" resultType="pd" useCache="false">
+		select 
+			USER_ID,
+			USERNAME,
+			PASSWORD,
+			NAME,
+			RIGHTS,
+			ROLE_ID,
+			LAST_LOGIN,
+			IP,
+			STATUS,
+			BZ,
+			SKIN,
+			EMAIL,
+			NUMBER,
+			PHONE
+		from 
+			SYS_USER
+		where 
+			NUMBER = #{NUMBER}
+		<if test="USERNAME != null and USERNAME != ''">
+			and USERNAME != #{USERNAME} 
+		</if>
+	</select>
+	
+	<!-- 通过USERNAME获取数据 -->
+	<select id="findByUId" parameterType="pd" resultType="pd" useCache="false">
+		select 
+			USER_ID,
+			USERNAME,
+			PASSWORD,
+			NAME,
+			RIGHTS,
+			ROLE_ID,
+			LAST_LOGIN,
+			IP,
+			STATUS,
+			BZ,
+			SKIN,
+			EMAIL,
+			NUMBER,
+			PHONE
+		from 
+			SYS_USER
+		where 
+			USERNAME = #{USERNAME}
+	</select>
+	
+	<!-- 新增用户 -->
+	<insert id="saveU" parameterType="pd" flushCache="false">
+		insert into SYS_USER (
+			USER_ID,
+			USERNAME,
+			PASSWORD,
+			NAME,
+			RIGHTS,
+			ROLE_ID,
+			LAST_LOGIN,
+			IP,
+			STATUS,
+			BZ,
+			SKIN,
+			EMAIL,
+			NUMBER,
+			PHONE,
+			superior_organization_name,
+			organization_name,
+			user_Permission,
+			creatuser_Time
+		) values (
+			#{USER_ID},
+			#{USERNAME},
+			#{PASSWORD},
+			#{NAME},
+			#{RIGHTS},
+			#{ROLE_ID},
+			#{LAST_LOGIN},
+			#{IP},
+			#{STATUS},
+			#{BZ},
+			#{SKIN},
+			#{EMAIL},
+			#{NUMBER},
+			#{PHONE},
+			#{superior_organization_name},
+			#{organization_name},
+			#{user_Permission},
+			#{creatuser_Time}
+		)
+	</insert>
+	<!-- 用户列表(用户组) -->
+	<select id="userlistPage" parameterType="page" resultType="pd" useCache="false">
+		select  u.USER_ID,
+				u.USERNAME,
+				u.PASSWORD,
+				u.LAST_LOGIN,
+				u.NAME,
+				u.IP,
+				u.EMAIL,
+				u.NUMBER,
+				u.PHONE,
+				u.organization_name,
+				u.superior_organization_name,
+				u.user_Permission,
+				u.BZ,
+				u.creatuser_Time,
+				r.ROLE_ID,
+				r.ROLE_NAME
+		from SYS_USER u, SYS_ROLE r 
+		where u.ROLE_ID = r.ROLE_ID 
+		and u.USERNAME != 'admin'
+		and (r.ROLE_ID != '7' and r.PARENT_ID != '7')
+		<if test="pd.USERNAME != null and pd.USERNAME != ''"><!-- 关键词检索 -->
+			and
+				(
+					 u.USERNAME LIKE CONCAT(CONCAT('%', #{pd.USERNAME}),'%')
+					 or 
+					 u.EMAIL LIKE CONCAT(CONCAT('%', #{pd.USERNAME}),'%') 
+					 or
+					 u.NUMBER LIKE CONCAT(CONCAT('%', #{pd.USERNAME}),'%')
+					 or
+					 u.NAME LIKE CONCAT(CONCAT('%', #{pd.USERNAME}),'%')
+					 or
+					 u.PHONE LIKE CONCAT(CONCAT('%', #{pd.USERNAME}),'%')
+					 or
+					 u.BZ LIKE CONCAT(CONCAT('%', #{pd.USERNAME}),'%')
+					 or
+					 u.organization_name LIKE CONCAT(CONCAT('%', #{pd.USERNAME}),'%')
+					 or
+					 u.superior_organization_name LIKE CONCAT(CONCAT('%', #{pd.USERNAME}),'%')					 
+				)
+		</if>
+		<if test="pd.ROLE_ID != null and pd.ROLE_ID != ''"><!-- 角色检索 -->
+			and u.ROLE_ID = #{pd.ROLE_ID} 
+		</if>
+		<if test="pd.user_Permission != null and pd.user_Permission != ''"><!-- 用户部门权限检索 -->
+			and u.user_Permission = #{pd.user_Permission}
+		</if>
+		<if test="pd.creatuser_Time!=null and pd.creatuser_Time!=''"><!-- 创建时间检索 -->
+			and 
+			u.creatuser_Time &gt;= #{pd.creatuser_Time} 
+		</if>
+		<if test="pd.creatuser_Time!=null and pd.creatuser_endTime!=''"><!-- 创建截止日期 -->
+			and	u.creatuser_Time &lt;= #{pd.creatuser_endTime}
+		</if> 
+		order by u.creatuser_Time desc
+	</select>
+	
+	<!-- 用户列表(全部) -->
+	<select id="listAllUser" parameterType="pd" resultType="pd" useCache="false">
+		select   u.USER_ID,
+				u.USERNAME,
+				u.PASSWORD,
+				u.LAST_LOGIN,
+				u.NAME,
+				u.IP,
+				u.EMAIL,
+				u.NUMBER,
+				u.PHONE,
+				u.organization_name,
+				u.superior_organization_name,
+				u.user_Permission,
+				u.BZ,
+				u.creatuser_Time,
+				r.ROLE_ID,
+				r.ROLE_NAME
+		from SYS_USER u, SYS_ROLE r 
+		where
+			 u.ROLE_ID = r.ROLE_ID 
+		and 
+			 u.USERNAME != 'admin'
+		and (r.ROLE_ID != '7' and r.PARENT_ID != '7')
+		<if test="checkContent != null and checkContent != ''"><!-- 关键词检索 -->
+			and
+				(
+					 u.USERNAME LIKE CONCAT(CONCAT('%', #{checkContent}),'%')
+					 or 
+					 u.EMAIL LIKE CONCAT(CONCAT('%', #{checkContent}),'%') 
+					 or
+					 u.NUMBER LIKE CONCAT(CONCAT('%', #{checkContent}),'%')
+					 or
+					 u.NAME LIKE CONCAT(CONCAT('%', #{checkContent}),'%')
+					  or
+					 u.PHONE LIKE CONCAT(CONCAT('%', #{checkContent}),'%')
+					 or
+					 u.BZ LIKE CONCAT(CONCAT('%', #{checkContent}),'%')
+					 or
+					 u.organization_name LIKE CONCAT(CONCAT('%', #{checkContent}),'%')					 
+					 or
+					 u.superior_organization_name LIKE CONCAT(CONCAT('%', #{checkContent}),'%')					 
+				)
+		</if>
+		<if test="roleContent != null and roleContent != ''"><!-- 角色检索 -->
+			and u.ROLE_ID = #{roleContent} 
+		</if>
+		<if test="department != null and department != ''"><!-- 用户部门权限检索 -->
+			and u.user_Permission = #{department}
+		</if>
+		<if test="creatuser_Time !=null and creatuser_Time !=''"><!-- 创建时间检索 -->
+			and 
+			u.creatuser_Time &gt;= #{creatuser_Time} 
+		</if>
+		<if test="creatuser_Time!=null and creatuser_endTime!=''"><!-- 创建截止日期 -->
+			and	u.creatuser_Time &lt;= #{creatuser_endTime}
+		</if> 
+		order by u.creatuser_Time desc
+	</select>
+	
+	<!-- 删除用户 -->
+	<delete id="deleteU" parameterType="pd" flushCache="false">
+		delete from SYS_USER
+		where 
+			USER_ID = #{USER_ID}
+	</delete>
+	
+	<!-- 批量删除用户 -->
+	<delete id="deleteAllU" parameterType="String" flushCache="false">
+		delete from SYS_USER
+		where 
+			USER_ID in
+  			 <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                  #{item}
+             </foreach>
+	</delete>
+	
+	<!-- 添加到审核人员 -->
+	<insert id="saveApprover" parameterType="pd" flushCache="false">
+		insert into sys_approver(
+		user_Id,
+		user_Name,
+		approver_Description,
+		approver_Rights_Description
+		) 
+		values(
+		 #{user_Id},
+		 #{user_Name},
+		 #{approver_Description},
+		 #{approver_Rights_Description}
+		)
+	</insert>
+	
+	<!-- 查找该id用户是否已经在审核表 -->
+	<select id="findByUiIdApprover" parameterType="String" resultType="pd">
+		select *
+		from sys_approver
+		where 
+			user_Id = #{USER_ID}
+	</select>
+	
+	<!-- 查找该用户在用户表中的数据，单纯通过user_id参数 -->
+	<select id="findByUiIdUser" parameterType="String" resultType="pd">
+		select *
+		from SYS_USER
+		where 
+			USER_ID = #{USER_ID}
+	</select>
+	
+	<!-- 获取所有的用户部门的权限信息 -->
+	<select id="findAllDepartmentAuthority" resultType="pd">
+		select *
+		from 
+			user_departmentauthority
+	</select>
+	
+	<!-- 查询部门信息中，属于(总行)的部门名称 -->
+	<select id="findAllInstitutionalSuper" resultType="String">
+		select 
+			organization_abbreviation
+		from
+			institutional_information
+		where
+			business_organization_nature like "无贷款%"
+		or
+			business_organization_nature like ""			
+	</select>
+		
+		<!-- 查询部门信息中，属于(支行)的部门名称 -->
+	<select id="findAllInstitutionalCurrent" resultType="String">
+		select 
+			organization_abbreviation
+		from
+			institutional_information	
+		where
+			business_organization_nature like "有贷款%"	
+	</select>
+	
+</mapper>

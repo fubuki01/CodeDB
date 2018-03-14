@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\color\\textcolor_radiobutton_content.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\color\\textcolor_radiobutton_content.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\color\\textcolor_top_back.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\color\\textcolor_top_back.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\color\\textcolor_radiobutton.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\color\\textcolor_radiobutton.xml"
+    }
+]

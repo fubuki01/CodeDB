@@ -1,0 +1,183 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_root"
+    android:orientation="vertical"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp" >
+
+    <LinearLayout
+        style="@style/RootFragment"
+        android:background="@drawable/selector_home_tips"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_listview_item_hor" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/CustTvItemTitle"
+                    android:text="组织名称：" />
+
+                <TextView
+                    android:id="@+id/item_performance_dianzi_jgpj_zzmc"
+                    style="@style/CustTvItemContent"
+                    android:text="营业部" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/CustTvItemTitle"
+                    android:text="统计日期：" />
+
+                <TextView
+                    android:id="@+id/item_performance_dianzi_jgpj_tjrq"
+                    style="@style/CustTvItemContent"
+                    android:text="2017-05-11" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/CustTvItemTitle"
+                    android:text="岗位名称：" />
+
+                <TextView
+                    android:id="@+id/item_performance_dianzi_jgpj_gwmc"
+                    style="@style/CustTvItemContent"
+                    android:text="张三" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/CustTvItemTitle"
+                    android:text="员工姓名：" />
+
+                <TextView
+                    android:id="@+id/item_performance_dianzi_jgpj_ygxm"
+                    style="@style/CustTvItemContent"
+                    android:text="2017-05-11" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/CustTvItemTitle"
+                    android:text="指标标识：" />
+
+                <TextView
+                    android:id="@+id/item_performance_dianzi_jgpj_zbbs"
+                    style="@style/CustTvItemContent"
+                    android:text="自然增长" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/CustTvItemTitle"
+                    android:text="指标名称：" />
+
+                <TextView
+                    android:id="@+id/item_performance_dianzi_jgpj_zbmc"
+                    style="@style/CustTvItemContent"
+                    android:text="2017-07-01" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/CustTvItemTitle"
+                    android:text="指标结果：" />
+
+                <TextView
+                    android:id="@+id/item_performance_dianzi_jgpj_zbjg"
+                    style="@style/CustTvItemContent"
+                    android:text="122" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/CustTvItemTitle"
+                    android:text="指标单价：" />
+
+                <TextView
+                    android:id="@+id/item_performance_dianzi_jgpj_zbdj"
+                    style="@style/CustTvItemContent"
+                    android:text="123" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/CustTvItemTitle"
+                android:text="指标工资：" />
+
+            <TextView
+                android:id="@+id/item_performance_dianzi_jgpj_zbgz"
+                style="@style/CustTvItemContent"
+                android:text="123" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

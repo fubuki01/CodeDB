@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AssetAllotMapper">
+	
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>  
+    <resultMap type="AssetAllot" id="AssetAllotMap">
+    	<id column="id" property="id"/>
+    	<result column="asset_code" property="asset_code"/>
+    	<result column="bank_name" property="bank_name"/>
+    	<result  column="it_department" property="it_department"/>
+    	<result  column="ot_department" property="ot_department"/>
+    	<result  column="allot_time" property="allot_time"/>
+    	<result  column="allot_reason" property="allot_reason"/>
+    	<result  column="asset_user" property="asset_user"/>
+    	<result  column="asset_receiver" property="asset_receiver"/>
+    	<result  column="rt_agency" property="rt_agency"/>
+    	<result  column="idea" property="idea"/>
+    	<result  column="remark" property="remark"/>
+    	<result  column="allot_name" property="allot_name"/>
+    	<result  column="apply_procedure" property="apply_procedure"/>
+    	<result  column="user_id" property="user_id"/>
+    </resultMap>
+    	<!-- 获取数据总条数 -->
+	<select id="findTotalNumber" parameterType="com.mbfw.entity.assets.PageOption" resultType="Integer">
+		select count(*)
+		from
+		asset_allot
+		<where>
+			<if test="pd.userPermission == 3"><!-- 表示是员工级别，那么只能看到自己名字的资产 -->
+				 user_id = #{pd.user_id}
+			</if>
+			<if test="pd.userPermission == 2"><!-- 表示是支行的管理员，那么可以看到整个支行的资产 -->
+				 bank_name = #{pd.bank_name}
+			</if>
+		</where>
+	</select>
+	<!-- 查询 所有-->
+	<select id="listAllAssetAllot"  parameterType="com.mbfw.entity.assets.PageOption" resultType="pd" flushCache="false">
+		select * 
+		from 
+			asset_allot 
+		<where>
+			<if test="pd.userPermission == 3"><!-- 表示是员工级别，那么只能看到自己名字的资产 -->
+				 user_id = #{pd.user_id}
+			</if>
+			<if test="pd.userPermission == 2"><!-- 表示是支行的管理员，那么可以看到整个支行的资产 -->
+				 bank_name = #{pd.bank_name}
+			</if>
+		</where>
+		limit #{currentResult},#{showCount}
+	</select>
+	<!-- 查询 除了id之外的-->
+	<select id="listAssetAllot" resultMap="AssetAllotMap">
+		select 
+			   id,
+			   asset_code,
+			   bank_name,
+			   it_department,
+			   ot_department,
+			   allot_time,
+			   allot_reason,
+			   asset_user,
+			   asset_receiver,
+			   rt_agency,
+			   idea,
+			   status
+		 from asset_allot 
+		 where id= #{id}
+	</select>
+	
+	<!-- 根据检索内容，获取对应的数据条数 -->
+	<select id="findPzSearchNameNumber" parameterType="com.mbfw.entity.assets.PageOption" resultType="Integer">
+		select count(*)
+		from 
+		asset_allot
+		<where>
+			<if test="pd.userPermission == 3"><!-- 表示是员工级别，那么只能看到自己名字的资产 -->
+			and	 user_id = #{pd.user_id}
+			</if>
+			<if test="pd.userPermission == 2"><!-- 表示是支行的管理员，那么可以看到整个支行的资产 -->
+			and bank_name = #{pd.bank_name}
+			</if>
+			and
+			(<if test="pd.retrieve_content != null or pd.retrieve_content != ''">
+			asset_code LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产编码进行检索 -->
+			or
+			bank_name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			it_department LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用人进行检索 -->
+			or
+			ot_department LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用时间进行检索 -->
+			or
+			allot_time LIKE binary CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产用途进行检索 -->
+			or
+			allot_reason LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产状态进行检索 -->
+			or
+			asset_user LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对规格进行检索 -->
+			or
+			asset_receiver LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			rt_agency LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			idea LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			status LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			remark LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			</if>	)
+			</where>
+	</select>
+	
+	<!-- 根据检索姓名，获取对应的数据 -->
+	<select id="findPzTotalSearchInfo" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd">
+		select *
+		from
+		asset_allot
+		where 
+			<if test="pd.userPermission == 3"><!-- 表示是员工级别，那么只能看到自己名字的资产 -->
+				 user_id = #{pd.user_id}
+			</if>
+			<if test="pd.userPermission == 2"><!-- 表示是支行的管理员，那么可以看到整个支行的资产 -->
+				 bank_name = #{pd.bank_name}
+			</if>
+			and
+			(
+			
+			<if test="pd.retrieve_content != null or pd.retrieve_content != ''">
+			asset_code LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产编码进行检索 -->
+			or
+			bank_name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			it_department LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用人进行检索 -->
+			or
+			ot_department LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用时间进行检索 -->
+			or
+			allot_time LIKE binary CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产用途进行检索 -->
+			or
+			allot_reason LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产状态进行检索 -->
+			or
+			asset_user LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对规格进行检索 -->
+			or
+			asset_receiver LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			rt_agency LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			idea LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			status LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			remark LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+		</if>)
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 新增调用申请表 -->
+	<insert id="saveAllot" parameterType="pd" flushCache="true" useGeneratedKeys="true" keyProperty="id">
+		insert into asset_allot (
+			asset_code,
+			bank_name,
+			it_department,
+			ot_department,
+			allot_time,
+			allot_reason,
+			asset_user,
+			asset_receiver,
+			status,
+			allot_name,
+			apply_procedure,
+			user_id
+		) values (
+			#{asset_code},
+			#{bank_name},
+			#{it_department},
+			#{ot_department},
+			#{allot_time},
+			#{allot_reason},
+			#{asset_user},
+			#{asset_receiver},
+			"已提交",
+			#{allot_name},
+			#{apply_procedure},
+			#{user_id}
+		)
+	</insert>
+		<!-- 删除 -->
+	<delete id="deleteAllot" parameterType="pd" flushCache="true">
+		delete from asset_allot
+		where 
+			id = #{id}
+	</delete>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAllAllot" parameterType="String" flushCache="true">
+		delete from asset_allot
+		where 
+			asset_allot.id in
+  			 <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                  #{item}
+             </foreach>
+	</delete>
+	
+	<!-- 修改 -->
+	<update id="editAllot" parameterType="pd" flushCache="true">
+		update  asset_allot
+			set 	
+									
+				bank_name 					= #{bank_name},
+				it_department 				= #{it_department},
+				ot_department						= #{ot_department},
+				allot_time					= #{allot_time},
+				allot_reason					= #{allot_reason},
+				asset_user					= #{asset_user},
+				asset_receiver				= #{asset_receiver}
+				
+			where 
+				id = #{id}
+	</update>
+	<!-- 审批 -->
+	<update id="editAllot1" parameterType="pd" flushCache="true">
+		update  asset_allot
+			set 	
+				rt_agency					= #{rt_agency},
+				idea                        = #{idea},
+				status						= #{status}
+			where 
+				id = #{id}
+	</update>
+	<!-- 公司名称查找(jieyin专用,误删) -->
+	<select id="findAssetGongsi"  parameterType="pd"  resultType="String">
+		select asset_use_company
+		from asset_info
+		where
+			asset_code=#{asset_code}
+	</select>
+	
+	<!-- 部门名称查找(jieyin专用,误删) -->
+	<select id="findAssetDept"  parameterType="pd"  resultType="String">
+		select asset_use_dept
+		from asset_info
+		where
+			asset_code=#{asset_code}
+	</select>
+	
+	<!-- 原资产使用人查找(jieyin专用,误删) -->
+	<select id="findAssetUser"  parameterType="pd"  resultType="String">
+		select asset_user
+		from asset_info
+		where
+			asset_code=#{asset_code}
+	</select>
+	
+	<!-- 资产使用人以及新的部门 -->
+	<select id="findAssetInfo"  parameterType="pd"  resultType="AssetInfo">
+		select *
+		from asset_info
+		where
+			asset_code=#{asset_code}
+	</select>
+	
+	<!-- 修改资产使用人以及新的部门 -->
+	<update id="editAssetInfo" parameterType="pd" flushCache="true">
+		update  asset_info
+			set 	
+				asset_use_dept					= #{it_department},
+				asset_user                        = #{asset_receiver}
+			where 
+				asset_code = #{asset_code}
+	</update>
+	
+</mapper>

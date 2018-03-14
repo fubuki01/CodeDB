@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AssetDepartment">
+	<!-- 插入数据到部门表中 -->
+	<insert id="savedepartment" parameterType="pd">
+		insert into
+		sys_department(
+		department_Name,
+		department_Code,
+		department_Pro,
+		department_Grade,
+		department_Style,
+		department_PrincipalName,
+		department_PrincipalId	
+		)values(
+			#{department_Name},
+			#{department_Code},
+			#{department_Pro},
+			#{department_Grade},
+			#{department_Style},
+			#{department_PrincipalName},
+			#{department_PrincipalId}
+		)
+	</insert>
+</mapper>

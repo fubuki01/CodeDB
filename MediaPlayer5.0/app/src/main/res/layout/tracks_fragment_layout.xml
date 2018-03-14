@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:gravity="center_vertical">
+
+    <!--<fragment-->
+    <!--android:id="@+id/bottom"-->
+    <!--android:name="com.dream.mediaplayer.fragment.BottomActionBarFragment"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true" />-->
+    <!-- android:layout_above="@id/bottom"-->
+
+    <se.emilsjolander.stickylistheaders.SideBarView
+        android:id="@+id/sidebar"
+        style="@style/sidebar_view_style" />
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@id/sidebar"
+        android:cacheColorHint="@color/transparent"
+        android:divider="#00ffffff"
+        android:dividerHeight="0.1dp"
+        android:drawSelectorOnTop="false"
+        android:fastScrollEnabled="false"
+        android:overScrollMode="never"
+        android:scrollbars="none" />
+
+
+</RelativeLayout>

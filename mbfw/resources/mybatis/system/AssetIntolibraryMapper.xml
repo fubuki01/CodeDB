@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AssetIntolibraryMapper">
+	
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>  
+  
+  	<!-- 资产添加 -->
+	<insert id="save_asset_into_house" parameterType="pd" flushCache="true">
+		insert into asset_info(
+			asset_name,
+			asset_code,
+			asset_class,
+			asset_standard_model,
+			asset_image,
+			asset_sn,
+			asset_detail_config,
+			asset_unit,
+			asset_price,
+			asset_storehouse,
+			asset_purchase_time,
+			asset_provider,
+			asset_max_years,
+			asset_qr_code,
+			asset_brand,
+			asset_status,
+			asset_into_bill,
+			asset_nod
+		) values(
+			#{asset_name},
+			#{asset_code},
+			#{asset_class},
+			#{asset_standard_model},
+			#{asset_image},
+			#{asset_sn},
+			#{asset_detail_config},
+			#{asset_unit},
+			#{asset_price},
+			#{asset_storehouse},
+			#{asset_purchase_time},
+			#{asset_provider},
+			#{asset_max_years},
+			#{asset_qr_code},
+			#{asset_brand},
+			#{asset_status},
+			#{asset_into_bill},
+			#{asset_nod}
+		)
+	</insert>
+	
+	<!-- 填写资产入库单 -->
+	<select id="find_asset_into_libraray" parameterType="String" resultType="pd">
+		select  ia.into_code,
+				ia.into_device,
+				pi.product_total,
+				pi.product_class,
+				pi.product_type,
+				pi.product_price,
+				pi.product_unit,
+				pi.provider_name,
+				pi.product_code,
+				ia.into_time,
+				ia.into_count,
+				ia.device_code
+		from intolibrary_apply ia, products_info pi 
+		where   
+				ia.into_code = #{ia.into_code}
+				and (ia.device_code=pi.product_code) 
+	</select>
+	<!--查询未完成入库单   -->
+	<select id="find_into_library_for_asset"  parameterType="pd" resultType="pd">
+		select * from intolibrary_apply where into_status in('未入库','入库中')
+		<if test="user_Permission == 2">
+		and into_purchase_bill in(
+				select pb.purchase_code from purchase_bill pb, intolibrary_apply ia
+				where pb.purchase_code =ia.into_purchase_bill
+				and pb.apply_id in (
+				select apply_id from aproject_manager
+				where apply_company =#{organization_name}
+				or apply_dept=#{organization_name}
+				)
+			)
+		</if>
+		<if test="user_Permission == 3">
+		and into_purchase_bill in(
+				select pb.purchase_code from purchase_bill pb, intolibrary_apply ia
+				where pb.purchase_code =ia.into_purchase_bill
+				and pb.apply_id in (
+				select apply_id from aproject_manager
+				where apply_company =#{superior_organization_name}
+				and apply_dept=#{organization_name}
+				and apply_person=#{apply_person}
+				)
+			)
+		</if>
+	</select>
+	
+	<!-- 更新入库单，是该条记录状态完成 -->
+	<update id="update_into_library_for_asset" parameterType="String" >
+		update intolibrary_apply 
+		set into_status = "已入库" 
+		where into_code = #{into_code}
+	</update>
+	<!-- 更新入库单，是该条记录状态完成 -->
+	<update id="updating_into_library_for_asset" parameterType="String" >
+		update intolibrary_apply 
+		set into_status = "入库中" 
+		where into_code = #{into_code}
+	</update>
+</mapper>

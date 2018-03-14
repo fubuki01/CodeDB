@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<!-- apply bill insert  -->
+<mapper namespace="AssetAProjectManager">
+	
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>  
+    
+	<insert id="save_purchase_apply" parameterType="pd"  flushCache="false" useGeneratedKeys="true" keyProperty="apply_id">
+		insert into aproject_manager (
+					apply_name,
+					apply_person,
+					apply_dept,
+					device_model,
+					device_price,
+					device_number,
+					device_name,
+					device_purpose,
+					device_use_years,
+					apply_report_address,
+					apply_time,
+					apply_procedure,
+					apply_reason,
+					apply_company,
+					apply_remarks
+		) values (
+			#{ apply_name},
+			#{apply_person },
+			#{apply_dept },
+			#{device_model },
+			#{ device_price},
+			#{ device_number},
+			#{ device_name},
+			#{ device_purpose},
+			#{device_use_years },
+			#{ apply_report_address},
+			#{apply_time},
+			#{apply_procedure},
+			#{apply_reason},
+			#{apply_company},
+			#{apply_remarks}
+		)
+	</insert>
+		
+		<!-- 查到添加了项目后的最大ID序号 -->
+	<select id="findMaxIdNumber" resultType="Integer">
+		select Max(apply_id)
+		from
+			aproject_manager
+	</select>
+	
+	<!-- 根据选择的审批流程获取对应的第一个审批节点的名字，主要用来显示的 -->
+	<select id="findProcessNodeName" parameterType="Integer" resultType="String">
+		select sys_approvnode.node_Name
+		from
+			sys_approvnode ,sys_process_detail
+		where
+			sys_process_detail.processdetail_Id = #{processdetail_Id}
+		and
+			sys_process_detail.processdetail_NodeId = sys_approvnode.node_Id
+		and
+			sys_process_detail.processdetail_Nodeorder = 1			 
+	</select>
+	
+	<insert id="saveOneProjectProcessInfo" parameterType="pd">
+		insert into
+		aproject_process(
+			project_Name,
+			project_Id,
+			project_Stryle,
+			current_NodeOrder,
+			process_FinishStatus,
+			process_ApprovalId,
+			process_ApprovalName,
+			current_NodeName,
+			description_Passnumber,
+			description_Refusenumber,
+			process_Type
+		)values(
+			#{project_Name},
+			#{project_Id},
+			#{project_Stryle},
+			#{current_NodeOrder},
+			#{process_FinishStatus},
+			#{process_ApprovalId},
+			#{process_ApprovalName},
+			#{current_NodeName},
+			#{description_Passnumber},
+			#{description_Refusenumber},
+			#{process_Type}
+		)
+	</insert>
+	<select id="find_finish_purchase_bill" parameterType="pd" resultType="pd">
+		select * from aproject_manager where apply_status ='审批完成(通过)' 
+		<if test="user_Permission == 2">
+		and (apply_company =#{organization_name} or apply_dept=#{organization_name})
+		</if> 
+		<if test="user_Permission == 3">
+		and apply_id in (
+			select apply_id from  aproject_manager where apply_company =#{superior_organization_name} 
+			and apply_dept=#{organization_name} and apply_person=#{apply_person}
+		)
+		</if>
+	</select>
+	
+	<!-- 更新项目立项 -->
+	<update id="update_finish_purchase_bill" parameterType="Integer">
+		update aproject_manager 
+		set apply_status ='采购中'
+		where apply_id=#{apply_id}
+	</update>
+	
+	<!-- 更新项目立项的状态-->
+	<update id="update_apply_project_after_registerasset" parameterType="String">
+		update aproject_manager
+		set apply_status='已采购'
+		where apply_id =
+			(select apply_id from purchase_bill where purchase_code= 
+			(select into_purchase_bill from intolibrary_apply where into_code=#{into_code})
+		)
+	</update>
+	
+	<!-- 更新项目立项的状态,使之采购中-->
+	<update id="updating_apply_project_after_registerasset" parameterType="String">
+		update aproject_manager
+		set apply_status='采购中'
+		where apply_id =
+			(select apply_id from purchase_bill where purchase_code= 
+			(select into_purchase_bill from intolibrary_apply where into_code=#{into_code})
+		)
+	</update>
+	
+	<!-- 在删除采购单状态时，恢复项目立项采购单状态 -->
+	<update id="update_status_project" parameterType="pd">
+		update aproject_manager
+			set apply_status='审批完成(通过)'
+			where apply_id=#{apply_id}
+	</update>
+</mapper>

@@ -1,0 +1,144 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootboot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+    <!--
+    android:fitsSystemWindows="true" >-->
+
+    <!-- top_bar -->
+    <LinearLayout
+        android:id="@+id/top_statusbar"
+        android:layout_width="match_parent"
+        android:layout_height="18dp"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <!--  android:layout_alignParentTop="true" > -->
+    <RelativeLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_topbar_height"
+        android:layout_below="@id/top_statusbar">
+
+
+        <View
+            android:id="@+id/topbar_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/topbar_underline_height"
+            android:layout_alignParentBottom="true"
+            android:background="@color/item_underline_color" />
+
+        <RelativeLayout
+            android:id="@+id/topbar_title_content"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true" >
+
+            <TextView
+                android:id="@+id/topbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:gravity="center_vertical"
+                android:textColor="@drawable/main_activity_textview_color_selector"
+                android:textSize="@dimen/topbar_textsize" />
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="11dp"
+                android:layout_toRightOf="@id/topbar_title"
+                android:background="@drawable/main_activity_arrow_selector" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/update_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/search_text_btn_margin_right"
+            android:layout_toLeftOf="@id/search_textview"
+            android:background="@null"
+            android:clickable="true"
+            android:text="@string/update_btn_textview_text"
+            android:textColor="@drawable/btn_search_color"
+            android:textSize="@dimen/topbar_text_size"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/search_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/search_text_btn_margin_right"
+            android:background="@drawable/btn_search_selector"
+            android:clickable="true"
+            android:padding="@dimen/search_btn_padding" />
+    </RelativeLayout>
+
+    <!-- bottom_bar -->
+
+
+    <!--
+         <include
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        layout="@layout/bottombar" />
+    -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_bar"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/fragmentPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="9">
+        </FrameLayout>
+
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <fragment
+                android:id="@+id/bottom_bar"
+                android:name="com.dream.mediaplayer.fragment.BottomActionBarFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <!--
+    <fragment
+        android:name="com.dream.mediaplayer.fragment.BottomActionBarFragment"
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        />
+
+    <FrameLayout
+        android:id="@+id/fragmentPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_bar"
+        android:layout_below="@id/top_bar" >
+    </FrameLayout>-->
+
+</RelativeLayout>

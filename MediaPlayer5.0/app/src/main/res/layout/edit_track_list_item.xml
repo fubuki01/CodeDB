@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+** Copyright 2008, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License"); 
+** you may not use this file except in compliance with the License. 
+** You may obtain a copy of the License at 
+**
+**     http://www.apache.org/licenses/LICENSE-2.0 
+**
+** Unless required by applicable law or agreed to in writing, software 
+** distributed under the License is distributed on an "AS IS" BASIS, 
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+** See the License for the specific language governing permissions and 
+** limitations under the License.
+*/
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="66dp"
+    android:descendantFocusability="blocksDescendants" 
+    android:background="@drawable/listview_track"
+    >
+
+    <ImageView 
+        android:id="@+id/drag_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/drag_icon"/>
+
+    <!-- <com.dream.mediaplayer.ui.widgets.VisualizerView
+        android:id="@+id/visualizerView"
+        android:layout_width="@dimen/visualizerview_width"
+        android:layout_height="@dimen/visualizerview_height"
+        android:layout_toLeftOf="@id/drag_icon"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/tracks_list_content_margin_right" /> -->
+        
+    <ImageView
+        android:id="@+id/visualizerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/drag_icon"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="19dp" />
+
+    <LinearLayout
+        android:id="@+id/LinearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/tracks_list_content_marginleft"
+        android:layout_marginRight="4dp"
+        android:layout_toLeftOf="@id/visualizerView"
+        android:gravity="left|center_vertical"
+        android:orientation="vertical" 
+        >
+
+        <TextView
+            android:id="@+id/music_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:focusable="true"
+            android:shadowColor="#ff000000"
+            android:singleLine="true"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif"
+            />
+        <!--             android:shadowDx="0.3"
+            android:shadowDy="0.3"
+            android:shadowRadius="0.3" -->
+
+        <TextView
+            android:id="@+id/music_Artist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/tracks_list_littlename_margin_top"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="#474747"
+            android:textSize="13sp"
+            android:fontFamily="sans-serif"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:background="#c8c8c8" />
+
+</RelativeLayout>
+
+
+<!-- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="66dip"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:baselineAligned="false">
+
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="66dip"
+        android:gravity="center_vertical"
+        android:ignoreGravity="@+id/icon"
+        android:background="@drawable/playlist_tile"
+        android:paddingStart="47dip"
+        >
+
+        <include layout="@layout/track_list_item_common" />
+
+    </RelativeLayout>
+
+</LinearLayout> -->

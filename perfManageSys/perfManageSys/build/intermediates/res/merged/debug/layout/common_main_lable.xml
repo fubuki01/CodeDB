@@ -1,0 +1,16 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/performance_tv_lable"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|right"
+    android:layout_marginBottom="4dp"
+    android:layout_marginRight="10dp"
+    android:background="@drawable/shape_lable"
+    android:gravity="center"
+    android:minHeight="25dp"
+    android:minWidth="25dp"
+    android:text="7"
+    android:textColor="@color/font_black_3"
+    android:textSize="@dimen/font_content_th"
+    android:visibility="gone" >
+</TextView>

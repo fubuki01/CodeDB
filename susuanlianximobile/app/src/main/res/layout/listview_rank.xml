@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="76dp"
+        android:background="#ffffff"
+        >
+
+        <ImageView
+            android:id="@+id/list_rankimg"
+            android:layout_width="26dp"
+            android:layout_height="25dp"
+            android:background="@drawable/rank1"
+            android:layout_marginLeft="11dp"
+            android:layout_centerVertical="true"
+            />
+
+        <com.readboy.mentalcalculation.MyView.MyCircleimgView
+            android:id="@+id/list_headimg"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+
+            app:border_width="0dp"
+            app:border_color="#ffffff"
+            android:layout_toRightOf="@+id/list_rankimg"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
+            />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_toRightOf="@+id/list_headimg"
+            android:layout_marginLeft="13dp"
+            android:layout_centerVertical="true">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/list_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="滑稽"
+                    android:textColor="#333333"
+                    android:textSize="16sp"
+                    android:textStyle="normal"/>
+
+                <TextView
+                    android:id="@+id/list_address"
+                    android:layout_marginTop="9dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="湖南大学幼儿园"
+                    android:textColor="#a8a8a8"
+                    android:textSize="13sp"
+                    android:textStyle="normal"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/list_grade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="666分"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

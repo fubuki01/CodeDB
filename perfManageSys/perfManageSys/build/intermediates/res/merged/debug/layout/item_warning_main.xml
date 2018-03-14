@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/layout_choose_height"
+    android:background="@drawable/selector_common_layout"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingBottom="@dimen/padding_listview_item_ver"
+    android:paddingLeft="@dimen/padding_listview_item_hor"
+    android:paddingRight="@dimen/padding_listview_item_hor"
+    android:paddingTop="4dp" >
+
+    <TextView
+        android:id="@+id/warning_tv_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="left|center_vertical"
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="@string/kehubianhao"
+        android:textColor="@color/font_black_1"
+        android:textSize="@dimen/font_content_fir" />
+
+    <ImageView
+        android:id="@+id/warning_iv_go"
+        android:layout_width="@dimen/image_right_size"
+        android:layout_height="@dimen/image_right_size"
+        android:layout_marginRight="5dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_right" />
+
+</LinearLayout>

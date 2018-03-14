@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="color_next_problem_button_press">#0081e5</color>
+    <color name="color_next_problem_button">#0090ff</color>
+    <color name="color_key_press">#e5e5e5</color>
+    <color name="color_key">#ffffff</color>
+    <color name="color_below_line">#0090ff</color>
+    <color name="color_dialog_transparents">#66000000</color>
+</resources>

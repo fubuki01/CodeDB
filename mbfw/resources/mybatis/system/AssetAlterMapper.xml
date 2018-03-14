@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AssetAlterMapper">
+<resultMap type="AssetAlter" id="AssetAlterMap">
+</resultMap>
+	<!--显示所有的审核人员 -->
+	<select id="listAllAssetAlter" parameterType="page"
+		resultType="pd" useCache="false">
+		select *
+		from asset_alter
+	</select>
+	<!-- 新增项目 -->
+	<insert id="addPz" parameterType="pd" flushCache="true">
+		insert into
+		asset_alter (
+		asset_code,
+		chan_config,
+		deadline,
+		reason_change,
+		config_sour,
+		config_cost,
+		applicant,
+		applicant_sector,
+		company_apply,
+		time,
+		remarks
+		) values (
+		#{asset_code},
+		#{chan_config},
+		#{deadline},
+		#{reason_change},
+		#{config_sour},
+		#{config_cost},
+		#{applicant},
+		#{applicant_sector},
+		#{company_apply},
+		#{time},
+		#{remarks}
+		)
+	</insert>
+
+
+   
+	<!-- 批量删除 -->
+	<delete id="deletePz" parameterType="Integer" flushCache="true">
+		delete from asset_alter
+		where
+		asset_alter.id in
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<!-- 批量删除 -->
+<!-- 	<delete id="deletePz" parameterType="Integer" flushCache="true"> -->
+<!-- 		delete from asset_alter -->
+<!-- 		where -->
+<!-- 		asset_alter.id in -->
+<!-- 		<foreach item="ids" index="index" collection="array" open="(" -->
+<!-- 			separator="," close=")"> -->
+<!-- 			#{ids} -->
+<!-- 		</foreach> -->
+<!-- 	</delete> -->
+
+	<!-- 查询出来编辑 -->
+	<select id="editPz" resultMap="AssetAlterMap">
+		select id,
+		asset_code,
+		chan_config,
+		deadline,
+		reason_change,
+		config_sour,
+		config_cost,
+		applicant,
+		applicant_sector,
+		company_apply,
+		time,
+		remarks
+		from asset_alter
+		where id= #{id}
+	</select>
+
+	<!-- 更新 -->
+	<update id="updatePz" parameterType="pd" flushCache="true">
+		update asset_alter
+		set
+		asset_code                 = #{asset_code},
+		chan_config                 = #{chan_config},
+		deadline                 = #{deadline},
+		reason_change                 = #{reason_change},
+		config_sour                           = #{config_sour},
+		config_cost                       = #{config_cost},
+		applicant                      = #{applicant},
+		applicant_sector              = #{applicant_sector},
+		company_apply                  = #{company_apply},
+		time                              = #{time},
+        remarks                          = #{remarks}
+		where
+		     id = #{id}
+	</update>
+   
+   <!-- 根据user_id来删除用户，在审核人表中 -->
+	<delete id="delPz" parameterType="pd" flushCache="true">
+		delete 
+		from asset_alter
+		where 
+			id = #{id}
+	</delete>
+
+
+
+
+
+<!--显示所有的审核人员  -->
+ 	<select id="PzListPage"  parameterType="com.mbfw.entity.assets.PageOption"  resultType="pd" useCache="false">
+ 		select *
+ 		from asset_alter
+ 		<choose>
+ 		<when test="pd.permission == 1">
+ 		</when>
+ 		<otherwise>
+ 		where
+ 		<if test="pd.permission == 2"> <!-- 支行管理员 -->
+ 			 applicant_sector = #{pd.organization_name}
+ 		</if>
+ 		<if test="pd.permission == 3"> <!-- 员工 -->
+ 			 asset_alter.applicant = #{pd.username}
+ 		</if>
+ 		</otherwise>
+ 		</choose>
+ 		limit #{currentResult},#{showCount}
+ 	</select>
+
+
+
+ <!-- 获取页面条数 -->
+	<select id="findTotalPzNumber" resultType="Integer">
+		select count(*)
+		from
+		asset_alter
+	</select>
+
+
+ <!-- 根据检索内容，获取对应的数据条数 -->
+	<select id="findPzSearchNameNumber" parameterType="com.mbfw.entity.assets.PageOption" resultType="Integer">
+		select count(*)
+		from 
+		asset_alter
+		where
+			<if test="pd.retrieve_content != null and pd.retrieve_contentE != ''">
+			asset_code LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产编码进行检索 -->
+			or
+			chan_config LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			deadline LIKE binary CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用人进行检索 -->
+			or
+			reason_change LIKE binary  CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用时间进行检索 -->
+			or
+			config_sour LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产用途进行检索 -->
+			or
+			config_cost LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产状态进行检索 -->
+			or
+			applicant LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对规格进行检索 -->
+			or
+			applicant_sector LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			company_apply LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			remarks LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			time LIKE binary CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			
+			</if>
+	</select>
+
+
+<!-- 根据检索姓名，获取对应的数据 -->
+	<select id="findPzTotalSearchInfo" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd">
+		select *
+		from
+		asset_alter
+		where 
+		<if test="pd.retrieve_content != null and pd.retrieve_contentE != ''">
+			asset_code LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产编码进行检索 -->
+			or
+			chan_config LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			deadline LIKE binary CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用人进行检索 -->
+			or
+			reason_change LIKE binary  CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用时间进行检索 -->
+			or
+			config_sour LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产用途进行检索 -->
+			or
+			config_cost LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产状态进行检索 -->
+			or
+			applicant LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对规格进行检索 -->
+			or
+			applicant_sector LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			company_apply LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			remarks LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			time LIKE binary CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+		</if>
+		limit #{currentResult},#{showCount}
+	</select>
+
+
+<!--    下拉框中的资产编码   -->
+	<select id="find_assetAlter"  parameterType="pd" resultType="pd">
+		select * from asset_info 
+	</select>
+<!-- 通过ID查询产品信息  -->
+	<select id="find_product_to_add_supplies" parameterType="String" resultType="pd" flushCache="true">
+		select * from asset_info where asset_code  = #{asset_code }
+	</select>
+
+
+
+
+
+
+
+
+
+
+</mapper>

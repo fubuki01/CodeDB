@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootboot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    >
+    <!-- android:fitsSystemWindows="true" -->
+
+    <RelativeLayout
+        android:id="@+id/bottom_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <FrameLayout
+            android:id="@+id/progress_content_fl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-14dp"
+            >
+
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="4dp"-->
+            <!--android:background="@android:color/white" />-->
+            <!--android:background="@android:color/white"-->
+
+            <RelativeLayout
+                android:id="@+id/progress_content"
+                android:layout_width="match_parent"
+                android:layout_height="34dp">
+                <!-- android:layout_height="15dp"-->
+
+                <SeekBar
+                    android:id="@+id/seekbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:background="@null"
+                    android:foregroundGravity="bottom"
+                    android:maxHeight="4dp"
+                    android:minHeight="4dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="0dp"
+                    android:progressDrawable="@drawable/layer_list_progrssbar_play_bottom"
+                    android:thumb="@drawable/progress_thumb"
+                    android:thumbOffset="1dp" />
+            </RelativeLayout>
+        </FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/time_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/progress_content_fl"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="-4dp">
+
+            <TextView
+                android:id="@+id/play_current_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="13dp"
+                android:singleLine="true"
+                android:text="@string/play_current_time"
+                android:textColor="@color/white"
+                android:textSize="@dimen/play_time_text_size" />
+
+            <TextView
+                android:id="@+id/play_total_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="13dp"
+                android:singleLine="true"
+                android:text="@string/play_total_time"
+                android:textColor="@color/white"
+                android:textSize="@dimen/play_time_text_size" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/song_info_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/time_content"
+            android:layout_marginBottom="46dp" >
+
+            <com.dream.mediaplayer.views.MarqueeTextView
+                android:id="@+id/play_songname"
+                android:layout_width="340dp"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/bottombar_defaultsongname"
+                android:textColor="@color/white"
+                android:textSize="@dimen/play_songname_sp_size" />
+
+            <com.dream.mediaplayer.views.MarqueeTextView
+                android:id="@+id/play_artistname"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/bottombar_defaultartist"
+                android:textColor="@color/white"
+                android:textSize="@dimen/play_artistname_sp_size"
+                android:layout_below="@+id/play_songname" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/btn_control_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/song_info_content"
+            android:layout_marginBottom="19dp" >
+
+            <ImageButton
+                android:id="@+id/btn_favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="13dp"
+                android:background="@null"
+                android:src="@drawable/btn_play_favorite_unselect_selector" />
+
+            <ImageButton
+                android:id="@+id/btn_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                android:background="@null"
+                android:src="@drawable/btn_more_selector"
+                android:visibility="invisible" />
+
+            <LinearLayout
+                android:id="@+id/play_linear_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_toLeftOf="@id/btn_more"
+                android:layout_toRightOf="@id/btn_favorite"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <com.dream.mediaplayer.ui.widgets.RepeatingImageButton
+                    android:id="@+id/nPlay_play_pre"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:src="@drawable/btn_play_pre_selector"
+                    android:transitionName="btn_pre" />
+
+                <ImageButton
+                    android:id="@+id/nPlay_play_playPause"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:src="@drawable/btn_play_play_selector"
+                    android:transitionName="btn_play" />
+
+                <com.dream.mediaplayer.ui.widgets.RepeatingImageButton
+                    android:id="@+id/nPlay_play_next"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:src="@drawable/btn_play_next_selector"
+                    android:transitionName="btn_next" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/volume_content"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_below="@id/btn_control_content" >
+
+            <ImageView
+                android:id="@+id/volume_icon_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dp"
+                android:src="@drawable/volume_icon_left" />
+
+            <ImageView
+                android:id="@+id/volume_icon_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="30dp"
+                android:src="@drawable/volume_icon_right" />
+
+            <SeekBar
+                android:id="@+id/volume_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_toLeftOf="@id/volume_icon_right"
+                android:layout_toRightOf="@id/volume_icon_left"
+                android:background="@null"
+                android:maxHeight="2dp"
+                android:minHeight="2dp"
+                android:progressDrawable="@drawable/layer_list_seekbar_volume"
+                android:thumb="@drawable/seekbar_volume_thumb"
+                android:thumbOffset="7dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/playmode_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/volume_content"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal" >
+
+                <ImageButton
+                    android:id="@+id/btn_shuffle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:src="@drawable/btn_play_shuffle_open_selector" />
+
+                <ImageButton
+                    android:id="@+id/btn_repeat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="77dp"
+                    android:background="@null"
+                    android:src="@drawable/btn_play_repeat_all_selector" />
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/top_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_content"
+        android:layout_alignParentTop="true" >
+
+        <FrameLayout
+            android:id="@+id/nPlay_album_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true" >
+
+            <com.dream.mediaplayer.views.FadeFrameLayoutImageView
+                android:id="@+id/imageFadeFrameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <com.dream.mediaplayer.views.FadeImageView
+                    android:id="@+id/imageCover"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:transitionName="imageCoverName" />
+            </com.dream.mediaplayer.views.FadeFrameLayoutImageView>
+
+            <!-- android:layout_marginTop="25dp" -->
+            <com.dream.mediaplayer.views.FadeFrameLayout
+                android:id="@+id/nPlay_big_lyric_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:visibility="invisible" >
+                <com.lg.lrcview_master.LrcView
+                    android:id="@+id/lrcView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+            </com.dream.mediaplayer.views.FadeFrameLayout>
+        </FrameLayout>
+        <View
+            android:id="@+id/shallow_black_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black_0.38"
+            android:visibility="invisible"/>
+
+        <LinearLayout android:layout_height="18dp"
+            android:layout_width="match_parent"
+            android:id="@+id/top_statusbar"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical">
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_topbar_height"
+            android:layout_below="@id/top_statusbar">
+
+            <ImageButton
+                android:id="@+id/btn_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="11dp"
+                android:background="@null"
+                android:src="@drawable/btn_current_playlist_selector" />
+
+            <View
+                android:id="@+id/topbar_line"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/topbar_underline_height"
+                android:layout_alignParentBottom="true"
+                android:background="@color/item_underline_color"
+                android:visibility="invisible" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+    <FrameLayout
+        android:visibility="gone"
+        android:id="@+id/curlist_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_content" />
+
+</RelativeLayout>

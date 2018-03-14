@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_white"
+    android:paddingBottom="5dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="5dp" >
+
+    <!-- 第一行 -->
+    <TextView
+        android:id="@+id/item_1_1_title"
+        style="@style/ItemTvTitle"
+        android:layout_alignParentLeft="true"
+        android:text="指标名称：" />
+
+    <TextView
+        android:id="@+id/item_1_1"
+        style="@style/ItemTvContent"
+        android:layout_toRightOf="@+id/item_1_1_title"
+        android:text="各项存款日常净增" />
+
+    <TextView
+        android:id="@+id/item_1_2_title"
+        style="@style/ItemTvTitle"
+        android:layout_toRightOf="@+id/item_1_1"
+        android:layout_alignLeft="@+id/item_2_2_title"
+        android:layout_alignBottom="@+id/item_1_2"
+        android:text="指标任务：" />
+
+    <TextView
+        android:id="@+id/item_1_2"
+        style="@style/ItemTvContent"
+        android:layout_toRightOf="@+id/item_1_2_title"
+        android:text="10000" />
+
+    <!-- 第二行 -->
+
+    <TextView
+        android:id="@+id/item_2_1_title"
+        style="@style/ItemTvTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/item_1_1_title"
+        android:text="指标分值：" />
+
+    <TextView
+        android:id="@+id/item_2_1"
+        style="@style/ItemTvContent"
+        android:layout_below="@id/item_1_1_title"
+        android:layout_toRightOf="@+id/item_2_1_title"
+        android:text="50" />
+
+    <TextView
+        android:id="@+id/item_2_2_title"
+        style="@style/ItemTvTitle"
+        android:layout_below="@id/item_1_2_title"
+        android:layout_toLeftOf="@+id/item_2_2"
+        android:layout_alignBottom="@+id/item_2_2"
+        android:text="指标结果：" />
+
+    <TextView
+        android:id="@+id/item_2_2"
+        style="@style/ItemTvContent"
+        android:layout_below="@id/item_1_2"
+        android:layout_alignParentRight="true"
+        android:text="20170" />
+    
+    <!-- 第三行 -->
+
+    <TextView
+        android:id="@+id/item_3_1_title"
+        style="@style/ItemTvTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/item_2_1_title"
+        android:text="指标得分：" />
+
+    <TextView
+        android:id="@+id/item_3_1"
+        style="@style/ItemTvContent"
+        android:layout_below="@id/item_2_1_title"
+        android:layout_toRightOf="@+id/item_3_1_title"
+        android:text="100" />
+
+    <TextView
+        android:id="@+id/item_3_2_title"
+        style="@style/ItemTvTitle"
+        android:layout_below="@id/item_2_1_title"
+        android:layout_toRightOf="@+id/item_2_1"
+        android:layout_alignLeft="@id/item_2_2_title"
+        android:layout_alignBottom="@+id/item_3_2"
+        android:text="指标工资：" />
+
+    <TextView
+        android:id="@+id/item_3_2"
+        style="@style/ItemTvContent"
+        android:layout_below="@id/item_2_1_title"
+        android:layout_toRightOf="@+id/item_3_2_title"
+        android:text="500" />
+
+</RelativeLayout>

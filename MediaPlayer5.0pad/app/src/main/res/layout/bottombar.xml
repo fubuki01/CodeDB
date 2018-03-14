@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bottombar_background_color"
+    android:clickable="true">
+
+    <View
+        android:id="@+id/top_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tracks_list_viewline_height"
+        android:layout_alignParentTop="true"
+        android:background="@color/bottombar_topline_color" />
+
+    <RelativeLayout
+        android:id="@+id/center_content"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:layout_below="@id/top_line"
+        android:background="@color/white_0.90">
+
+        <ImageButton
+            android:id="@+id/bottombar_pre"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="14dp"
+            android:background="@null"
+            android:src="@drawable/btn_bottombar_pre_selector_new" />
+
+        <ImageButton
+            android:id="@+id/bottombar_play"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/bottombar_pre"
+            android:layout_marginLeft="10dp"
+            android:background="@null"
+            android:src="@drawable/btn_bottombar_play_selector_btn" />
+
+        <ImageButton
+            android:id="@+id/bottombar_next"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/bottombar_play"
+            android:layout_marginLeft="10dp"
+            android:background="@null"
+            android:src="@drawable/btn_bottombar_next_selector_new" />
+        <!-- <com.dream.mediaplayer.ui.widgets.VisualizerView
+            android:id="@+id/visualizerView"
+            android:layout_width="@dimen/visualizerview_width"
+            android:layout_height="@dimen/visualizerview_height"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp" /> -->
+            
+        <ImageView
+            android:id="@+id/visualizerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="32dp" />
+        <LinearLayout
+            android:id="@+id/name_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="245dp"
+            android:layout_marginRight="245dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:gravity="center"
+            android:orientation="vertical" >
+            
+            <com.dream.mediaplayer.views.MarqueeTextView
+                android:id="@+id/bottombar_songname"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/bottom_action_bar_textview_padding_left"
+                android:paddingRight="@dimen/bottom_action_bar_textview_padding_left"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:text="@string/bottombar_defaultsongname"
+                android:textColor="@color/bottombar_songname_color"
+                android:textSize="@dimen/bottombar_songname_textsize" />
+
+            <com.dream.mediaplayer.views.MarqueeTextView
+                android:id="@+id/bottombar_artistname"
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/bottombar_artistname_margintop"
+                android:paddingLeft="@dimen/bottom_action_bar_textview_padding_left"
+                android:paddingRight="@dimen/bottom_action_bar_textview_padding_left"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:text="@string/bottombar_defaultartist"
+                android:textColor="@color/bottombar_artistname_color"
+                android:textSize="@dimen/bottombar_artistname_textsize" />
+        </LinearLayout>
+    </RelativeLayout>
+
+	<ProgressBar 
+        android:id="@+id/bottom_progress"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottombar_progressbar_height"
+        android:layout_below="@id/center_content"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progressDrawable="@drawable/layer_list_bottombar_progrssbar"/>
+	
+	<View
+        android:id="@+id/bottom_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tracks_list_viewline_height"
+        android:layout_below="@id/bottom_progress"
+        android:background="@color/bottombar_topline_color" />
+</RelativeLayout>

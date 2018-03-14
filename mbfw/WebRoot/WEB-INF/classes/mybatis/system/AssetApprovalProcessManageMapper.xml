@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ApprovalProcessManage">
+	<!-- 查询所有的审核节点的内容 -->
+	<select id="findallnodeinfo"  resultType="pd">
+		select *
+		from 
+		sys_approvnode
+		
+	</select>
+	
+	<!-- 插入新增的流程数据 -->
+	<insert id="saveprocessinfo" parameterType="pd">
+		insert into
+		sys_process_approval(
+			process_Name,
+			process_Content,
+			process_Type
+		)values(
+			#{process_Name},
+			#{process_Content},
+			#{process_Type}
+		)	
+	</insert>
+	
+	<!-- 查询一共有多少条审批流程 -->
+	<select id="findtotalnumber" resultType="Integer">
+		select max(process_Id)
+		from
+			sys_process_approval
+	</select>
+	
+	<!-- 插入数据到流程详细表中 -->
+	<insert id="saveapprovalnodedetail" parameterType="com.mbfw.entity.assets.AssetApprovalProcessDetail">
+	insert into
+	sys_process_detail(
+		processdetail_Id,
+		processdetail_NodeId,
+		processdetail_Nodeorder,
+		processdetail_Back
+	)values(
+		#{processdetail_Id},
+		#{processdetail_NodeId},
+		#{processdetail_Nodeorder},
+		#{processdetail_Back}
+	)
+	</insert>
+	
+	<!-- 查询所有的流程表信息 -->
+	<select id="findtotalprocessinfo" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd">
+		select *
+		from 
+		sys_process_approval
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 根据流程号ID，删除流程表中对应的数据 -->
+	<delete id="deleteprocessnode" parameterType="Integer">
+		delete 
+		from 
+		sys_process_approval
+		where 
+			process_Id = #{process_Id}
+	</delete>
+	
+	<!-- 根据流程号ID，删除流程节点表中对应的数据 -->
+	<delete id="deleteprocessdetailnode" parameterType="Integer">
+		delete 
+		from 
+		sys_process_detail
+		where 
+			processdetail_Id = #{processdetail_Id}
+	</delete>
+	
+	<!--根据流程ID， 查询当前的流程信息 -->
+	<select id="findprocesssimple" parameterType="Integer" resultType="pd">
+		select *
+		from
+		sys_process_approval
+		where
+			process_Id = #{process_Id}
+	</select>
+	
+	<!-- 根据流程ID，查询所有对应的审批节点信息 ，并且根据顺序字段进行排序-->
+	<select id="findallcurrentnode" parameterType="Integer" resultType="pd">
+		select *
+		from
+			sys_process_detail
+		where
+		processdetail_Id = #{processdetail_Id}
+		order by processdetail_Nodeorder asc
+	</select>
+	
+	<!-- 更新点击修改的流程号ID的信息 -->
+	<update id="updatecurrentprocess" parameterType="pd">
+		update
+		sys_process_approval
+		set
+			process_Name = #{process_Name},
+			process_Content = #{process_Content},
+			process_Type = #{process_Type}
+		where 
+			process_Id =#{process_Id}
+	</update>
+	
+	<!-- 根据流程号ID将流程细节表中相应的数据进行删除 -->
+	<delete id="deletecurrentprocessdetail" parameterType="Integer">
+		delete
+		from
+		sys_process_detail
+		where
+		processdetail_Id = #{processdetail_Id}
+	</delete>
+	
+	<!--根据多个流程ID进行 批量删除流程表的信息 -->
+	<delete id="deletebatchprocess" parameterType="Integer" flushCache="false">
+		delete
+		from
+		sys_process_approval
+		where
+			process_Id  in
+			<foreach collection="array" close=")" separator="," open="(" item="id">
+				#{id}
+			</foreach>				
+	</delete>
+	
+	<!--根据多个流程ID进行 批量删除流程详细表的信息 -->
+	<delete id="deletebatchprocessdetaile" parameterType="Integer" flushCache="false">
+		delete
+		from
+		sys_process_detail
+		where
+			processdetail_Id  in
+			<foreach collection="array" close=")" separator="," open="(" item="id">
+				#{id}
+			</foreach>				
+	</delete>
+	
+	
+	<!-- 获取流程的条数 -->
+	<select id="findTotalNumber" resultType="Integer">
+		select count(*)
+		from
+		sys_process_approval
+	</select>
+	
+	<!-- 根据检索内容，获取对应的数据条数 -->
+	<select id="findSearchNameNumber" parameterType="com.mbfw.entity.assets.PageOption" resultType="Integer">
+		select count(*)
+		from 
+		sys_process_approval
+		where
+			<if test="pd.retrieve_content != null and pd.retrieve_contentE != ''">
+			process_Name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对姓名进行检索 -->
+			or
+			process_Content LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对流程内容进行检索 -->
+			or
+			process_Type LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对流程类型进行检索 -->
+			
+			</if>
+	</select>
+	
+	<!-- 根据检索姓名，获取对应的数据 -->
+	<select id="findTotalSearchInfo" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd">
+		select *
+		from
+		sys_process_approval
+		where 
+		<if test="pd.retrieve_content != null and pd.retrieve_contentE != ''">
+			process_Name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对姓名进行检索 -->
+			or
+			process_Content LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对流程内容进行检索 -->
+			or
+			process_Type LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对流程类型进行检索 -->
+		</if>
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	
+	<!-- 返回所有的审批流程的信息，方便他们项目立项中进行选择审批流程 -->
+	<select id="findAllProcessIntoToProject" resultType="pd">
+		select *
+		from 
+			sys_process_approval
+	</select>
+	
+	<!-- 根据流程号ID，查询项目过程表中是否当前项目中有使用该流程 -->
+	<select id="findCurrentProcessStatus" parameterType="Integer" resultType="Integer">
+		select count(*)
+		from
+			aproject_process
+		where
+			process_ApprovalId = #{process_ApprovalId}
+		and
+			process_FinishStatus = "未完成"	
+	</select>
+	
+	<!-- 查询审批过程表，获取所有当前使用的审批流程的ID -->
+	<select id="findAllProjectProcessIds" resultType="Integer">
+		select process_ApprovalId
+		from
+			aproject_process
+	</select>
+</mapper>

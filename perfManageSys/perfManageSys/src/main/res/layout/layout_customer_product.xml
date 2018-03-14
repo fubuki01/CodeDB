@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/CostomerInfoRootLayout"
+    android:tag="ProductNoStiChild" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            style="@style/CustInfoTitle"
+            android:text="持有产品" />
+
+        <View style="@style/CustInfoLine" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/customer_relation_user_ll_add"
+        style="@style/CostomerInfoRootLayout"
+        android:paddingTop="0dp" >
+
+        <include layout="@layout/layout_customer_product_cunkuan" />
+
+        <View
+            android:id="@+id/layout_customer_product_daikuan_line"
+            style="@style/CommonHorLine"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:visibility="gone" />
+
+        <include layout="@layout/layout_customer_product_daikuan" />
+
+        <include layout="@layout/layout_customer_product_shouji" />
+
+        <include layout="@layout/layout_customer_product_etc" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_white_sec"
+        android:gravity="center"
+        android:paddingBottom="12dp"
+        android:text="已显示全部"
+        android:textColor="@color/font_black_3"
+        android:textSize="@dimen/font_content_sec" />
+
+</LinearLayout>

@@ -1,0 +1,19 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/RootFragment"
+    android:orientation="vertical" >
+
+    <include layout="@layout/layout_common_top_title" />
+
+    <com.hnran.perfmanagesys.view.PagerSlidingTabStrip
+        android:id="@+id/market_tabs"
+        style="@style/TabCommon" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/market_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1" />
+
+</LinearLayout>

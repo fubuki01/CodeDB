@@ -1,0 +1,32 @@
+apply plugin: 'com.android.application'
+
+android {
+    //compileOptions.encoding = "GBK"
+    compileSdkVersion 17
+    buildToolsVersion "23.0.3"
+    //android {compileOptions.encoding = "GBK"}
+    defaultConfig {
+        applicationId "com.readboy.mentalcalculation"
+        minSdkVersion 14
+        targetSdkVersion 17
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    compile 'com.android.support:support-v4:18.0.0'
+    compile files('libs/nineoldandroids-2.4.0.jar')
+    compile files('libs/getAccountInfo.jar')
+    compile files('libs/getChapterScore.jar')
+    compile files('libs/getPersonalInfo.jar')
+    compile files('libs/volley.jar')
+}
+//tasks.withType(JavaCompile) {
+//options.encoding = "GBK"
+//}

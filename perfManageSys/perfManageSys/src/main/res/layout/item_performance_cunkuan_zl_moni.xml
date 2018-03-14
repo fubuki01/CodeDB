@@ -1,0 +1,261 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_root"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp" >
+
+        <LinearLayout
+            style="@style/RootFragment"
+            android:background="@drawable/selector_home_tips"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_listview_item_hor" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/CustTvItemTitle"
+                        android:text="存款账号：" />
+
+                    <TextView
+                        android:id="@+id/item_performance_ck_zl_ml_ckzh"
+                        style="@style/CustTvItemContent"
+                        android:text="430123199009099809" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View style="@style/CommonHorLine" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/CustTvItemTitle"
+                        android:text="机构名称：" />
+
+                    <TextView
+                        android:id="@+id/item_performance_ck_zl_ml_jgmc"
+                        style="@style/CustTvItemContent"
+                        android:text="营业部" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/CustTvItemTitle"
+                        android:text="账户名称：" />
+
+                    <TextView
+                        android:id="@+id/item_performance_ck_zl_ml_zhmc"
+                        style="@style/CustTvItemContent"
+                        android:text="自然增长" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/CustTvItemTitle"
+                        android:text="余额：" />
+
+                    <TextView
+                        android:id="@+id/item_performance_ck_zl_ml_ye"
+                        style="@style/CustTvItemContent"
+                        android:text="20" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/CustTvItemTitle"
+                        android:text="营销类型：" />
+
+                    <TextView
+                        android:id="@+id/item_performance_ck_zl_ml_yxlx"
+                        style="@style/CustTvItemContent"
+                        android:text="2017-05-11" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/CustTvItemTitle"
+                        android:text="FTP利差(%)：" />
+
+                    <TextView
+                        android:id="@+id/item_performance_ck_zl_ml_ftplc"
+                        style="@style/CustTvItemContent"
+                        android:text="201" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/CustTvItemTitle"
+                        android:text="分成比例(%)：" />
+
+                    <TextView
+                        android:id="@+id/item_performance_ck_zl_ml_fcbl"
+                        style="@style/CustTvItemContent"
+                        android:text="2" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/CustTvItemTitle"
+                    android:text="存量模拟利润：" />
+
+                <TextView
+                    android:id="@+id/item_performance_ck_zl_ml_clmnlr"
+                    style="@style/CustTvItemContent"
+                    android:text="20" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/CustTvItemTitle"
+                    android:text="期末模拟利润：" />
+
+                <TextView
+                    android:id="@+id/item_performance_ck_zl_ml_qmmnlr"
+                    style="@style/CustTvItemContent"
+                    android:text="200" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/CustTvItemTitle"
+                    android:text="增量模拟利润：" />
+
+                <TextView
+                    android:id="@+id/item_performance_ck_zl_ml_zlmnlr"
+                    style="@style/CustTvItemContent"
+                    android:text="20" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/CustTvItemTitle"
+                        android:text="单价：" />
+
+                    <TextView
+                        android:id="@+id/item_performance_ck_zl_ml_dj"
+                        style="@style/CustTvItemContent"
+                        android:text="20" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/CustTvItemTitle"
+                        android:text="工资：" />
+
+                    <TextView
+                        android:id="@+id/item_performance_ck_zl_ml_gz"
+                        style="@style/CustTvItemContent"
+                        android:text="10000" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/CustTvItemTitle"
+                    android:text="累计工资：" />
+
+                <TextView
+                    android:id="@+id/item_performance_ck_zl_ml_ljgz"
+                    style="@style/CustTvItemContent"
+                    android:text="10" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <include layout="@layout/common_item_lable" />
+
+</FrameLayout>

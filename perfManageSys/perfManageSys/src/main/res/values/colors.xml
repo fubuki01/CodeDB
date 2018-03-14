@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 字体颜色 -->
+    <color name="font_title">#ffffff</color>
+    <color name="font_black_1">#333333</color>
+    <color name="font_black_2">#666666</color>
+    <color name="font_black_3">#808080</color>
+    <color name="font_black_3_3">#80808080</color>
+    
+    <color name="font_launch">#2e4975</color>
+    
+    <color name="font_red">#cc0000</color>
+    <color name="font_them">#304c79</color>
+    
+    <color name="font_black_5">#808080</color>
+    
+    <color name="font_tab_home_selected">#ffffff</color>
+    <color name="font_tab_selected">#304c79</color>
+    
+    <color name="font_choose_save">#3ec3f7</color>
+    <color name="font_choose_warning">#000000</color>
+    
+    <color name="font_popup">#f2f2f2</color>
+    
+    <!-- 背景颜色 -->
+    <color name="bg_white">#ffffff</color>
+    <color name="bg_white_sec">#f9f9f9</color>
+    <color name="bg_root">#eeeeee</color>
+    
+    <color name="bg_them_5">#0d304c79</color>
+    <color name="bg_them_10">#eaedf2</color>
+    <color name="bg_them_20">#33304c79</color>
+    <color name="bg_them_50">#80304c79</color>
+    <color name="bg_them_80">#cc304c79</color>
+    
+    <!--  
+    <color name="bg_menu">#fafafa</color>
+    <color name="bg_menu_selected">#f9f9f9</color>  -->
+    
+    <color name="bg_title">#304c79</color>
+    
+    <color name="bg_translucent">#01000000</color>
+    
+    
+    <color name="bg_tab_selected">#f9f9f9</color>
+    
+    <color name="bg_tab_home">#ffffff</color>
+    <color name="bg_tab_home_selected">#f0f8ff</color>
+    
+    <color name="bg_layout_click">#0d000000</color>
+    
+    
+    <color name="bg_login_button_click">#6e81a1</color>
+    <color name="bg_login_button">#304c79</color>
+    <color name="bg_login_button_not_click">#6e81a1</color>
+    
+    <color name="pop_bg">#dd0a0a0a</color>
+    <color name="pop_bg_selected">#990a0a0a</color>
+    
+    <!--  -->
+    <color name="bg_line">#1a000000</color>
+    
+    <color name="bg_button_unchecked">#99304c79</color>
+    <color name="bg_button_checked">#80304c79</color>
+
+
+    <color name="bg_tab_visit">#ffffff</color>
+    <color name="bg_tab_visit_selected">#f0f8ff</color>
+    
+
+</resources>

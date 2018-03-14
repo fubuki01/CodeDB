@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProviderMapper">
+	
+	<!-- 供应商添加  -->
+	<insert id="save_provider_insert" parameterType="pd" flushCache="true">
+		insert into aprovider(
+			provider_name,
+			provider_address,
+			provider_main_products,
+			provider_tel,
+			provider_fax,
+			provider_email,
+			provider_conn_person,
+			provider_conn_tel,
+			provider_aptitude,
+			products_quality_standard,
+			provider_comment,
+			provider_note
+			
+		) values(
+			#{provider_name},
+			#{provider_address},
+			#{provider_main_products},
+			#{provider_tel},
+			#{provider_fax},
+			#{provider_email},
+			#{provider_conn_person},
+			#{provider_conn_tel},
+			#{provider_aptitude},
+			#{products_quality_standard},
+			#{provider_comment},
+			#{provider_note}
+		)
+	</insert>
+	<!-- 查找全部供应商 -->
+	<select id="find_provider_insert" parameterType="page" resultType="pd" useCache="false">
+		select * from aprovider
+		order by provider_code DESC
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 查找全部供应商 不要分页-->
+	<select id="find_provider" parameterType="pd" resultType="pd" useCache="false">
+		select * from aprovider
+		order by provider_code DESC
+	</select>
+	
+	<!-- 通过id 查找供应商  -->
+	<select id="find_providerByPId" parameterType="pd" resultType="pd" useCache="false">
+		select * from aprovider where provider_code=#{provider_code}
+	</select>
+	
+	<!-- 通过provider_code 查询产品信息  -->
+	<select id="findProviderByprovider_code" parameterType="pd" resultType="pd" flushCache="false">
+		select * from aprovider where provider_code = #{provider_code}
+	</select>
+	
+	<!-- 查询供应商总条数 -->
+	<select id="find_provider_totalnumber" parameterType="pd" resultType="Integer">
+		select count(provider_code) from aprovider
+	</select>
+	
+	<!-- 根据关键字查询总条数 -->
+	<select id="find_provider_bykey_totalnumber" parameterType="page" resultType="Integer">
+		select count(provider_code) from aprovider where 1=1
+		<if test="pd.retrieve_content != '' and pd.retrieve_content != null">
+		and (
+			provider_code like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+			provider_name  like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+			provider_address  like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+			provider_main_products  like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+			provider_tel  like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+			provider_fax  like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+			provider_email like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+			provider_conn_person  like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+			provider_conn_tel  like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+			provider_aptitude  like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+			products_quality_standard  like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+			provider_comment  like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+			provider_note
+		)
+		</if>
+	</select>
+	
+	<!-- 根据关键字查询总条数 -->
+	<select id="find_provider_bykey" parameterType="page" resultType="pd">
+		select * from aprovider where 1=1
+		<if test="pd.retrieve_content != '' and pd.retrieve_content != null">
+		and (
+			provider_code like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+			provider_name  like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+			provider_address  like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+			provider_main_products  like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+			provider_tel  like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+			provider_fax  like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+			provider_email like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+			provider_conn_person  like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+			provider_conn_tel  like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+			provider_aptitude  like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+			products_quality_standard  like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+			provider_comment  like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+			provider_note
+		)
+		</if>
+		order by provider_code DESC
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 修改供应商 -->
+	<update id="edit_provider" parameterType="pd" flushCache="true">
+		update  aprovider
+			set 
+				provider_name			        = #{provider_name},
+				provider_address 				= #{provider_address},
+				provider_tel					= #{provider_tel},
+				provider_fax 					= #{provider_fax},
+				provider_email 					= #{provider_email},
+				provider_conn_person	 		= #{provider_conn_person},
+				provider_conn_tel 				= #{provider_conn_tel},
+				provider_aptitude				= #{provider_aptitude},
+				products_quality_standard 		= #{products_quality_standard},
+				provider_comment				= #{provider_comment},
+				provider_note 					= #{provider_note}
+			
+			where 
+				provider_code = #{provider_code}
+	</update>
+	
+	<!-- 删除供应商 -->
+	<delete id="delete_provider" parameterType="pd"  flushCache="true">
+		delete from aprovider 
+		where 
+			provider_code = #{provider_code}
+	</delete>
+	<!-- 批量删除供应商 -->
+	<delete id="delete_all_provider" parameterType="String" flushCache="true">
+		delete from aprovider
+		where 
+			provider_code in
+  			 <foreach item="provider_code" index="index" collection="array" open="(" separator="," close=")">
+                  #{provider_code}
+             </foreach>
+	</delete>
+	
+	<!-- 导入数据 -->
+	<select id="isRepeat" parameterType="pd" resultType="Integer">
+		select count(provider_code) from aprovider where provider_name =#{provider_name} and provider_address =#{provider_address}
+	</select>
+	
+	<!-- 查询供应商 -->
+	<select id="getProvider" resultType="pd">
+		select * from aprovider
+	</select>
+	<!-- 查到由产品导入的供应商代码 -->
+	<select id="get_code_byproduct" parameterType="pd" resultType="Integer">
+		select provider_code from aprovider where provider_name=#{provider_name} and provider_note=#{provider_note}
+	</select>
+	
+	<!-- 删除，如果产品表有已经使用的供应商，则该供应商不能删除 -->
+	<select id="find_provider_code_product" parameterType="pd" resultType="Integer">
+		select count(id) from products_info where provider_code =#{provider_code}
+	</select>
+</mapper>

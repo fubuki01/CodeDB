@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SuppliesStoreMapper">
+<resultMap type="SuppliesStore" id="SuppliesStoreMap">
+</resultMap>
+	<!--显示所有的审核人员 -->
+	<select id="listAllSuppliesStore" parameterType="page"
+		resultType="pd" useCache="false">
+		select *
+		from supplies_stored
+	</select>
+	<!-- 新增项目 -->
+	<insert id="addRk" parameterType="pd" flushCache="true">
+		insert into
+		supplies_stored (
+		supplies_years,
+		supplies_brand,
+		supplies_type,
+		supplies_model,
+		supplies_name,
+		actual_amount,
+		purchase_price,
+		bill,
+		location,
+		applicant,
+		applicant_sector,
+		company_apply,
+		remarks,
+		time
+		) values (
+		#{supplies_years},
+		#{supplies_brand},
+		#{supplies_type},
+		#{supplies_model},
+		#{supplies_name},
+		#{actual_amount},
+		#{purchase_price},
+		#{bill},
+		#{location},
+		#{applicant},
+		#{applicant_sector},
+		#{company_apply},
+		#{remarks},
+		#{time}
+		)
+	</insert>
+	
+	<!-- 耗材表中不存在就插入相应的数据 -->
+	<insert id="addSp" parameterType="pd" flushCache="true">
+		insert into
+		supplies (
+		supplies_years,
+		supplies_brand,
+		supplies_model,
+		supplies_type,
+		supplies_name,
+		inventory_quantity,
+		amount_money,
+		storage_location,
+		applicant_sector,
+		company_apply,
+		administrator,
+		remarks,
+		purchase_time
+		) values (
+		#{supplies_years},
+		#{supplies_brand},
+		#{supplies_model},
+		#{supplies_type},
+		#{supplies_name},
+		#{actual_amount},
+		#{purchase_price},
+		#{location},
+		#{applicant_sector},
+		#{company_apply},
+		#{applicant},
+		#{remarks},
+		#{time}
+		)
+	</insert>
+	
+	<!-- 如果耗材表中存在了就更新对应的耗材 -->
+	<update id="updateSp" parameterType="pd" flushCache="true">
+		update supplies 
+		set inventory_quantity = #{actual_amount}
+		where supplies_model= #{supplies_model}
+	</update>
+	
+
+	<!-- 批量删除 -->
+	<delete id="deleteRk" parameterType="Integer" flushCache="true">
+		delete from supplies_stored
+		where
+		supplies_stored.id in
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<!-- 查询出来编辑 -->
+	<select id="editRk" resultMap="SuppliesStoreMap">
+		select id,
+		supplies_model,
+		supplies_name,
+		supplies_years,
+		supplies_brand,
+		supplies_type,
+		actual_amount,
+		purchase_price,
+		bill,
+		location,
+		applicant,
+		applicant_sector,
+		company_apply,
+		remarks,
+		time
+		from supplies_stored
+		where id= #{id}
+	</select>
+	
+	<!-- 根据耗材编码查询数量 -->
+	<select id="searchSp" resultType="pd">
+		select *
+		from supplies
+		where supplies_model= #{supplies_model}
+	</select>
+
+	<!-- 更新 -->
+	<update id="updateRk" parameterType="pd" flushCache="true">
+		update supplies_stored
+		set
+		supplies_model                 = #{supplies_model},
+		supplies_name                    = #{supplies_name},
+		supplies_type                   = #{supplies_type},
+		supplies_years                 = #{supplies_years},
+		supplies_brand                   = #{supplies_brand},
+		actual_amount                 = #{actual_amount},
+		purchase_price                 = #{purchase_price},
+		bill                           = #{bill},
+		location                       = #{location},
+		applicant                      = #{applicant},
+		applicant_sector              = #{applicant_sector},
+		company_apply                  = #{company_apply},
+		remarks                       = #{remarks},
+		time                            = #{time}
+		where
+		     id = #{id}
+	</update>
+   
+   <!-- 根据user_id来删除用户，在审核人表中 -->
+	<delete id="delRk" parameterType="pd" flushCache="true">
+		delete 
+		from supplies_stored
+		where 
+			id = #{id}
+	</delete>
+
+
+
+
+<!--显示所有的审核人员  -->
+ 	<select id="RkListPage"  parameterType="com.mbfw.entity.assets.PageOption"  resultType="pd" useCache="false">
+ 		select *
+ 		from supplies_stored
+ 		<choose>
+        <when test="pd.permission == 1">
+            
+        </when>
+        <otherwise>
+        where
+            <if test="pd.permission == 2"> <!-- 支行管理员 -->
+ 			 applicant_sector = #{pd.organization_name}
+ 		</if>
+ 		<if test="pd.permission == 3"> <!-- 员工 -->
+ 			 supplies_stored.applicant = #{pd.username}
+ 		</if>
+        </otherwise>
+    </choose>
+ 		limit #{currentResult},#{showCount}
+ 	</select>
+
+
+
+ <!-- 获取页面条数 -->
+	<select id="findTotalRkNumber" resultType="Integer">
+		select count(*)
+		from
+		supplies_stored
+	</select>
+
+
+ <!-- 根据检索内容，获取对应的数据条数 -->
+	<select id="findRkSearchNameNumber" parameterType="com.mbfw.entity.assets.PageOption" resultType="Integer">
+		select count(*)
+		from 
+		supplies_stored
+		where
+			<if test="pd.retrieve_content != null and pd.retrieve_contentE != ''">
+			supplies_model LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产编码进行检索 -->
+			or
+			supplies_name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			supplies_type LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			supplies_brand LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			supplies_years LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			actual_amount LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用人进行检索 -->
+			or
+			purchase_price LIKE binary  CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用时间进行检索 -->
+			or
+			bill LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产用途进行检索 -->
+			or
+			location LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产状态进行检索 -->
+			or
+			applicant LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对规格进行检索 -->
+			or
+			applicant_sector LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			company_apply LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			remarks LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			time LIKE binary CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			
+			</if>
+	</select>
+
+
+<!-- 根据检索姓名，获取对应的数据 -->
+	<select id="findRkTotalSearchInfo" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd">
+		select *
+		from
+		supplies_stored
+		where 
+		<if test="pd.retrieve_content != null and pd.retrieve_contentE != ''">
+			supplies_model LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产编码进行检索 -->
+			or
+			supplies_name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			supplies_type LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			supplies_brand LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			supplies_years LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			actual_amount LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用人进行检索 -->
+			or
+			purchase_price LIKE binary  CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用时间进行检索 -->
+			or
+			bill LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产用途进行检索 -->
+			or
+			location LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产状态进行检索 -->
+			or
+			applicant LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对规格进行检索 -->
+			or
+			applicant_sector LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			company_apply LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			remarks LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			time LIKE binary CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+		</if>
+		limit #{currentResult},#{showCount}
+	</select>
+   
+<!--    下拉框中的耗材名称 -->
+	<select id="find_suppliesStore"  parameterType="pd" resultType="pd">
+<!-- 		select * from products_info where product_flag="耗材资产" -->
+              select * from supplies_application where state = "已通过"
+	</select>
+<!-- 通过耗材名称查询产品信息  -->
+	<select id="find_product_to_add_supplies" parameterType="String" resultType="pd" flushCache="true">
+		select * from supplies_application where id = #{product_code}
+	</select>
+<!--更新状态成已经入库 -->
+	<update id="edit_stateRuku" parameterType="String" flushCache="true">
+		update supplies_application 
+		set state = "已入库"
+		where id = #{id}
+	</update>
+
+
+
+
+</mapper>

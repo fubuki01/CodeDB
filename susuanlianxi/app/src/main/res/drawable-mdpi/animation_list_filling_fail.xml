@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+                android:oneshot="false">
+ 
+    <item
+        android:duration="100"
+        android:drawable="@drawable/fail1"/>
+ 
+    <item
+        android:duration="100"
+        android:drawable="@drawable/fail2"/>
+ 
+    <item
+        android:duration="100"
+        android:drawable="@drawable/fail3"/>
+ 
+    <item
+        android:duration="100"
+        android:drawable="@drawable/fail4"/>
+     <item
+        android:duration="100"
+        android:drawable="@drawable/fail5"/>
+ 
+    <item
+        android:duration="100"
+        android:drawable="@drawable/fail6"/>
+ 
+    <item
+        android:duration="100"
+        android:drawable="@drawable/fail7"/>
+ 
+    <item
+        android:duration="100"
+        android:drawable="@drawable/fail8"/>
+     <item
+        android:duration="100"
+        android:drawable="@drawable/fail9"/>
+ 
+    <item
+        android:duration="100"
+        android:drawable="@drawable/fail10"/>
+ 
+    <item
+        android:duration="100"
+        android:drawable="@drawable/fail11"/>
+ 
+    <item
+        android:duration="100"
+        android:drawable="@drawable/fail12"/>
+     <item
+        android:duration="100"
+        android:drawable="@drawable/fail13"/>
+ 
+    <item
+        android:duration="100"
+        android:drawable="@drawable/fail14"/>
+ 
+    <item
+        android:duration="100"
+        android:drawable="@drawable/fail15"/>
+ 
+    <item
+        android:duration="100"
+        android:drawable="@drawable/fail16"/>
+    <item
+        android:duration="100"
+        android:drawable="@drawable/fail17"/>
+</animation-list>

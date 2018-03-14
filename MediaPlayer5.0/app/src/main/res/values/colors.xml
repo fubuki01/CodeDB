@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="background_color">@color/white</color>
+    <color name="listview_track">#c9c9c9</color>
+    <color name="colorPrimaryDark">#f8f8f8</color>
+
+    <!-- A transparent black -->
+    <color name="transparent_black">#aa000000</color>
+    <color name="translucence">#30000000</color>
+    <!-- selected tab text -->
+    <color name="selected_tabtext">#bb000000</color>
+
+    <!-- non selected tab text -->
+    <color name="unselected_tabtext">#77000000</color>
+
+    <!-- A semi-transparent dark Holo shade of blue -->
+    <color name="holo_blue_dark">#ff0099cc</color>
+    <color name="holo_dark">#ffffffff</color>
+
+    <!-- Transparent -->
+    <color name="transparent">#00000000</color>
+
+    <!-- Black -->
+    <color name="black">#ff000000</color>
+
+    <!-- White -->
+    <color name="white">#ffffff</color>
+
+    <!-- Quick Queue line seperator -->
+    <color name="queue_callout_line">#99ffffff</color>
+
+    <color name="textColor">#FFFFFF</color>
+    <color name="dialog_line">#8F999999</color>
+
+    <color name="top_bar_line_color">#333B6470</color>
+
+    <!-- <color name="tracks_list_header_text_color">#ffffffff</color> -->
+    <color name="tracks_list_header_text_color">#ffffff</color>
+    <color name="playlist_header_text_color">@color/tracks_list_header_text_color</color>
+    <!-- <color name="listitem_big_text_color">#ffffff</color>
+    <color name="listitem_little_text_color">#ffffff</color> -->
+    <color name="listitem_big_text_color">#ffffff</color>
+    <color name="listitem_little_text_color">#ffffff</color>
+    <!-- <color name="item_underline_color">#59ffffff</color> -->
+    <color name="item_underline_color">#66ffffff</color>
+    <!-- <color name="listview_item_textview_select_color">#ff00A5C4</color> -->
+    <!-- <color name="listview_item_textview_select_color">#ff27dff4</color> -->
+    <color name="listview_item_textview_select_color">#2ae8ff</color>
+    <!-- <color name="listview_item_textview_unselect_color">#F5F5F5</color> -->
+    <color name="listview_item_textview_unselect_color">#ffffff</color>
+
+    <color name="queue_listview_item_title_textview_unselect_color">#000000</color>
+    <color name="queue_listview_item_artist_textview_unselect_color">#86898B</color>
+
+    <!-- <color name="sidebar_text_color">#66ffffff</color> -->
+    <color name="sidebar_text_color">#99ffffff</color>
+    <color name="sidebar_line_color">#66ffffff</color>
+    <color name="sidebar_seclect_charactor_color">@color/listview_item_textview_select_color</color>
+    <color name="sidebar_select_bitmap_color">#80333333</color>
+
+    <color name="status_bar_background_color">#00789f</color>
+
+    <color name="material_palette_blue_accent">#77E0E0E0</color>
+    <color name="material_palette_blue_accent_dark">#4c000000</color>
+
+    <!-- <color name="material_palette_blue_accent_dark">#77BDBDBD</color>
+    <color name="material_palette_blue_accent">#77E0E0E0</color> -->
+
+    <color name="material_btn_color">#ff666666</color>
+    <color name="material_oval_color">#112B2B2B</color>
+
+    <color name="widget_bk_color">#33000000</color>
+
+    <color name="AlbumOfTracksActivity_text_color">#ffffff</color>
+
+    <color name="searchTextView_text_color">#ffffff</color>
+
+    <color name="accent_color">@color/listview_item_textview_select_color</color>
+
+    <color name="pink">#ff1542</color>
+    <color name="alpha_pink">#15ff2d55</color>
+    <color name="grey">#ff929292</color>
+
+    <color name="topbar_text_color">#ffffff</color>
+    <color name="topbar_text_pressed_color">#4dffffff</color>
+    <color name="topbar_background_color">#F8F8F8</color>
+    <color name="main_activity_background_color">#FFFFFF</color>
+
+    <color name="alertdialog_solid_color">#ffffff</color>
+    <color name="alertdialog_pressed_color">#e9e9e9</color>
+    <color name="alertdialog_text_color">#000000</color>
+    <color name="alertdialog_underline_color">#bebec2</color>
+    <color name="alertdialog_cancel_text_color">#2ae8ff</color>
+
+    <color name="bottombar_background_color">#d8ffffff</color>
+    <color name="bottombar_topline_color">#BDBDBD</color>
+    <color name="bottombar_songname_color">@color/black</color>
+    <color name="bottombar_artistname_color">#6D6D6D</color>
+
+    <color name="play_activity_songname_color">#000004</color>
+    <color name="play_activity_artistname_color">#000004</color>
+    <color name="play_activity_time_color">#000004</color>
+    <color name="play_activity_background_color">#7fffffff</color>
+
+    <color name="searchbar_background_color">#96011d31</color>
+    <color name="searchbar_cancel_text_color">#ffffff</color>
+    <color name="searchbar_cancel_text_pressed_color">#99b8b8ba</color>
+
+    <color name="finish_text_color">@color/pink</color>
+    <color name="finish_text_pressed_color">#000000</color>
+    <color name="random_play_background">#40062d47</color>
+    <color name="white_04">#66ffffff</color>
+    <color name="white_0.85">#E5ffffff</color>
+    <color name="white_0.05">#f2ffffff</color>
+    <color name="white_0.75">#bfffffff</color>
+    <color name="white_0.80">#33ffffff</color>
+    <color name="blue">#2ae8ff</color>
+    <color name="btnnewlist_color">#2ae8ff</color>
+    <color name="search_hint_text_color">#4e9592</color>
+    <color name="btnnewlist_bg_color">#e9e9e9</color>
+    <color name="drag_traklist_bg_color">#0D506B</color>
+    <color name="black_0.38">#61000000</color>
+    <color name="context_menu_item_color">#585858</color>
+
+
+    <color name="colorPrimary">#FF1493</color>
+    <!--<color name="colorPrimaryDark">#D02090</color>-->
+    <color name="colorAccent">#FF4081</color>
+
+</resources>

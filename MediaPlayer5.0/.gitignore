@@ -1,0 +1,14 @@
+*.class
+*.apk
+bin/
+gen/
+.settings/
+proguard/
+bak/
+C3Ç©Ãû/
+*.rar
+build/
+app/build/
+.idea/
+
+

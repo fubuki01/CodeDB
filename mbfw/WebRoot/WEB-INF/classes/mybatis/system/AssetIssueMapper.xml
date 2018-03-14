@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AssetIssueMapper">
+	
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>  
+	<!-- 下发单添加 -->
+	<insert id="save_asset_issued_bill" parameterType="pd" flushCache="true">
+		insert into asset_issue(
+			asset_code,
+			issued_branch,
+			issued_department,
+			issue_person,
+			issue_time,
+			instruction
+		) values(
+			#{asset_code},
+			#{issued_branch},
+			#{issued_department},
+			#{issue_person},
+			#{issue_time},
+			#{instruction}
+		)
+	</insert>
+	<!-- 查找闲置资产以用来下发 -->
+	<select id="find_asset_for_issued" parameterType="page" resultType="pd">
+		select * from asset_info where asset_status ='闲置' and delete_flag=1
+		<if test="pd.user_Permission == 2">
+		and asset_into_bill in (
+			select into_code from intolibrary_apply where into_purchase_bill in (
+				select purchase_code from purchase_bill where apply_id in (
+					select apply_id from  aproject_manager where apply_company =#{pd.organization_name} 
+						or apply_dept=#{pd.organization_name} 
+				)
+			)
+		)
+		</if>
+		<if test="pd.user_Permission == 3">
+		and asset_into_bill in (
+			select into_code from intolibrary_apply where into_purchase_bill in (
+				select purchase_code from purchase_bill where apply_id in (
+					select apply_id from  aproject_manager where apply_company =#{pd.superior_organization_name} 
+						and apply_dept=#{pd.organization_name} and apply_person=#{pd.apply_person}
+				)
+			)
+		)
+		</if>
+		order by asset_purchase_time DESC
+		limit #{currentResult},#{showCount}
+	</select>
+		
+	<!-- 查询入库单总条数 -->
+	<select id="find_asset_for_issued_totalnumber" parameterType="pd" resultType="Integer">
+		select count(id) from asset_info where asset_status ='闲置' and delete_flag=1
+		<if test="user_Permission == 2">
+		and asset_into_bill in (
+			select into_code from intolibrary_apply where into_purchase_bill in (
+				select purchase_code from purchase_bill where apply_id in (
+					select apply_id from  aproject_manager where apply_company =#{organization_name} 
+						or apply_dept=#{organization_name} 
+				)
+			)
+		)
+		</if>
+		<if test="user_Permission == 3">
+		and asset_into_bill in (
+			select into_code from intolibrary_apply where into_purchase_bill in (
+				select purchase_code from purchase_bill where apply_id in (
+					select apply_id from  aproject_manager where apply_company =#{superior_organization_name} 
+						and apply_dept=#{organization_name} and apply_person=#{apply_person}
+				)
+			)
+		)
+		</if>
+	</select>
+	
+	<select id="find_into_library_apply_limit"  parameterType="pd"  flushCache="false"  resultType="pd">
+		select *
+		from
+		intolibrary_apply
+		where
+		(#{into_code} = "" or into_code=#{into_code})
+		and
+		(#{into_purchase_bill} = "" or into_purchase_bill=#{into_purchase_bill})
+		and
+		(#{into_device} = "" or into_device=#{into_device})
+		and
+		(#{into_person} = "" or into_person=#{into_person})
+		and
+		(#{into_time} = "" or into_time=#{into_time})
+		and
+		(#{into_house} = "" or into_house=#{into_house})
+		and
+		(#{into_status} = "" or into_status=#{into_status})
+		limit #{offset},#{num};
+	</select>
+	
+	
+	
+	<!-- 根据id查找下发单 -->
+	<select id="find_issued_bill_by_id" parameterType="Integer" resultType="pd">
+		select * from asset_issue where id=#{id}
+	</select >
+	
+	<!-- 根据关键字查询下发单总数 -->
+	<select id="find_asset_for_issued_bykey_totalnumber" parameterType="page" resultType="Integer">
+		select count(id) from asset_info where asset_status ='闲置' and delete_flag=1
+		<if test="pd.user_Permission == 2">
+		and asset_into_bill in(
+			select into_code from intolibrary_apply where into_purchase_bill in (
+				select purchase_code from purchase_bill where apply_id in (
+					select apply_id from  aproject_manager where apply_company =#{pd.organization_name} 
+						or apply_dept=#{pd.organization_name} 
+				)
+			)
+		)
+		</if>
+		<if test="pd.user_Permission == 3">
+		and asset_into_bill in(
+			select into_code from intolibrary_apply where into_purchase_bill in (
+				select purchase_code from purchase_bill where apply_id in (
+					select apply_id from  aproject_manager where apply_company =#{pd.superior_organization_name} 
+						and apply_dept=#{pd.organization_name} and apply_person=#{pd.apply_person}
+				)
+			)
+		)
+		</if>
+		<if test="pd.retrieve_content != '' and pd.retrieve_content != null">
+			and (
+				asset_name like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_code like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_class like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_price like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_storehouse	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_provider	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_max_years	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_brand	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_into_bill	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_unit	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_sn	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_standard_model	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			)
+		</if>
+	</select>
+	
+	<!-- 根据关键字查询下发单 -->
+	<select id="find_asset_for_issued_bykey" parameterType="page" resultType="pd">
+		select * from asset_info where asset_status ='闲置' and delete_flag=1
+		<if test="pd.user_Permission == 2">
+		and asset_into_bill in(
+			select into_code from intolibrary_apply where into_purchase_bill in (
+				select purchase_code from purchase_bill where apply_id in (
+					select apply_id from  aproject_manager where apply_company =#{pd.organization_name} 
+						or apply_dept=#{pd.organization_name} 
+				)
+			)
+		)
+		</if>
+		<if test="pd.user_Permission == 3">
+		and asset_into_bill in(
+			select into_code from intolibrary_apply where into_purchase_bill in (
+				select purchase_code from purchase_bill where apply_id in (
+					select apply_id from  aproject_manager where apply_company =#{pd.superior_organization_name} 
+						and apply_dept=#{pd.organization_name} and apply_person=#{pd.apply_person}
+				)
+			)
+		)
+		</if>
+		<if test="pd.retrieve_content != '' and pd.retrieve_content != null">
+			and (
+				asset_name like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_code like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_class like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_price like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_storehouse	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_provider	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_max_years	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_brand	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_into_bill	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_unit	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_sn	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				asset_standard_model	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			)
+		</if>
+		order by asset_purchase_time DESC
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 修改 资产表状态-->
+	<update id="update_asset_status" parameterType="Integer">
+	     update asset_info
+	     	set asset_status  ='下发'
+			where 
+				id =#{id}
+	</update>
+	
+	<!-- 修改 下发单的状态-->
+	<update id="update_asset_issue_bill_status" parameterType="pd" flushCache="true">
+	     update asset_issue
+	     	set 
+				issued_branch =#{issued_branch},
+				issued_department =#{issued_department},
+				issue_person  =#{issue_person},
+				instruction  =#{instruction}
+			where 
+				id =#{id}
+	</update>
+	
+	<!-- 删除下发单 -->
+	<delete id="delete_asset_issue_bill" parameterType="pd">
+		update asset_issue 
+		set 
+		<choose>
+			<when test="issued_status =='接收' ">
+				del_issue_flag =1
+			</when>
+			<otherwise>
+				del_issue_flag =0
+			</otherwise>
+		</choose>
+		where id= #{id}
+	</delete>
+	
+	<!-- 批量删除下发单 -->
+	<delete id="delete_all_asset_issue_bill" parameterType="String" flushCache="true">
+		update asset_issue 
+		set del_issue_flag =0
+		where 
+			id in
+  			 <foreach item="id" index="index" collection="array" open="(" separator="," close=")">
+                  #{id}
+             </foreach>
+	</delete>
+	
+	<!--下发单查询  -->
+	
+	<!-- 查询下发单总条数 -->
+	<select id="find_asset_issued_bill_totalnumber" parameterType="pd" resultType="Integer">
+	select count(*) from asset_issue x,asset_info z where x.asset_code = z.asset_code and x.del_issue_flag =1 and z.delete_flag =1
+	<if test="user_Permission == 2">
+	and	x.asset_code in(
+			select asset_code from asset_info where asset_into_bill in(
+				select into_code from intolibrary_apply where into_purchase_bill in(
+					select purchase_code from purchase_bill where apply_id in(
+						select apply_id from  aproject_manager where apply_company =#{organization_name} 
+						or apply_dept=#{organization_name}
+					)
+				)
+			)
+		)
+	</if>
+	<if test="user_Permission == 3">
+	and	x.asset_code in(
+			select asset_code from asset_info where asset_into_bill in(
+				select into_code from intolibrary_apply where into_purchase_bill in(
+					select purchase_code from purchase_bill where apply_id in(
+						select apply_id from  aproject_manager where apply_company =#{superior_organization_name} 
+						and apply_dept=#{organization_name} and apply_person=#{apply_person}
+					)
+				)
+			)
+		)
+	</if>
+	</select>
+	
+	<!-- 查找下发单 -->
+	<select id="find_asset_issued_bill" parameterType="page" resultType="pd" flushCache="true">
+		select 
+			x.id,
+			x.asset_code,
+			z.asset_name,
+			x.issued_status,
+			x.issued_branch,
+			x.issued_department,
+			x.issue_person,
+			x.issue_time,
+			x.receive_branch,
+			x.receive_department,
+			x.receiver,
+			x.receive_time,
+			x.receive_proof,
+			x.instruction
+		from asset_issue x,asset_info z 
+		where x.asset_code = z.asset_code and del_issue_flag =1 and z.delete_flag = 1
+		<if test="pd.user_Permission == 2">
+		and	x.asset_code in(
+			select asset_code from asset_info where asset_into_bill in(
+				select into_code from intolibrary_apply where into_purchase_bill in(
+					select purchase_code from purchase_bill where apply_id in(
+						select apply_id from  aproject_manager where apply_company =#{pd.organization_name} 
+						or apply_dept=#{pd.organization_name}
+					)
+				)
+			)
+		)
+		</if>
+		<if test="pd.user_Permission == 3">
+		and	x.asset_code in(
+			select asset_code from asset_info where asset_into_bill in(
+				select into_code from intolibrary_apply where into_purchase_bill in(
+					select purchase_code from purchase_bill where apply_id in(
+						select apply_id from  aproject_manager where apply_company =#{pd.superior_organization_name} 
+						and apply_dept=#{pd.organization_name} and apply_person=#{pd.apply_person}
+					)
+				)
+			)
+		)
+		</if>
+		order by x.issue_time DESC
+		limit #{currentResult},#{showCount}
+	</select>
+		
+	
+	<!-- 根据关键字查询下发单总数 -->
+	<select id="find_asset_issued_bill_bykey_totalnumber" parameterType="page" resultType="Integer">
+	select count(*) from  asset_issue x,asset_info z where x.asset_code = z.asset_code and x.del_issue_flag =1 and z.delete_flag =1
+	<if test="pd.user_Permission == 2">
+		and	x.asset_code in(
+			select asset_code from asset_info where asset_into_bill in(
+				select into_code from intolibrary_apply where into_purchase_bill in(
+					select purchase_code from purchase_bill where apply_id in(
+						select apply_id from  aproject_manager where apply_company =#{pd.organization_name} 
+						or apply_dept=#{pd.organization_name}
+					)
+				)
+			)
+		)
+		</if>
+		<if test="pd.user_Permission == 3">
+		and	x.asset_code in(
+			select asset_code from asset_info where asset_into_bill in(
+				select into_code from intolibrary_apply where into_purchase_bill in(
+					select purchase_code from purchase_bill where apply_id in(
+						select apply_id from  aproject_manager where apply_company =#{pd.superior_organization_name} 
+						and apply_dept=#{pd.organization_name} and apply_person=#{pd.apply_person}
+					)
+				)
+			)
+		)
+		</if>
+		<if test="pd.retrieve_content != '' and pd.retrieve_content != null">
+			and (
+				x.asset_code like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				z.asset_name like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				x.issued_branch like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				x.issued_department like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				x.issue_person like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				x.issued_status	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				x.receive_branch	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				x.receive_department like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				x.receiver like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			)
+		</if>
+	</select>
+	
+	<!-- 根据关键字查询下发单 -->
+	<select id="find_asset_issued_bill_bykey" parameterType="page" resultType="pd" flushCache="true">
+		select 
+			x.id,
+			x.asset_code,
+			z.asset_name,
+			x.issued_status,
+			x.issued_branch,
+			x.issued_department,
+			x.issue_person,
+			x.issue_time,
+			x.receive_branch,
+			x.receive_department,
+			x.receiver,
+			x.receive_time,
+			x.receive_proof,
+			x.instruction
+		from asset_issue x,asset_info z 
+		where x.asset_code = z.asset_code and x.del_issue_flag =1
+		<if test="pd.user_Permission == 2">
+		and	x.asset_code in(
+			select asset_code from asset_info where asset_into_bill in(
+				select into_code from intolibrary_apply where into_purchase_bill in(
+					select purchase_code from purchase_bill where apply_id in(
+						select apply_id from  aproject_manager where apply_company =#{pd.organization_name} 
+						or apply_dept=#{pd.organization_name}
+					)
+				)
+			)
+		)
+		</if>
+		<if test="pd.user_Permission == 3">
+		and	x.asset_code in(
+			select asset_code from asset_info where asset_into_bill in(
+				select into_code from intolibrary_apply where into_purchase_bill in(
+					select purchase_code from purchase_bill where apply_id in(
+						select apply_id from  aproject_manager where apply_company =#{pd.superior_organization_name} 
+						and apply_dept=#{pd.organization_name} and apply_person=#{pd.apply_person}
+					)
+				)
+			)
+		)
+		</if>
+		<if test="pd.retrieve_content != '' and pd.retrieve_content != null">
+			and (
+				x.asset_code like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				z.asset_name like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				x.issued_branch like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				x.issued_department like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				x.issue_person like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				x.issued_status	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				x.receive_branch	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				x.receive_department	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				or
+				x.receiver	like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+			)
+		</if>
+		order by issue_time DESC
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 移动端下发查询 -->
+	<select id="mobile_issue_query" parameterType="pd" resultType="pd">
+		select asset_issue.*, asset_info.asset_name
+		from asset_issue, asset_info
+		where
+			asset_issue.asset_code=asset_info.asset_code
+			and
+			(#{asset_code} = "" or asset_issue.asset_code=#{asset_code})
+			and
+			(#{asset_name} = "" or asset_info.asset_name=#{asset_name})
+			and
+			(#{issued_branch} = "" or issued_branch=#{issued_branch})
+			and
+			(#{receive_branch} = "" or receive_branch=#{receive_branch})
+			and
+			(#{issue_person} = "" or issue_person=#{issue_person})
+			and
+			(#{receiver} = "" or receiver=#{receiver})
+			and
+			(#{issue_time} = "" or issue_time=#{issue_time})
+			and
+			(#{receive_time} = "" or receive_time=#{receive_time})
+			and
+			(issued_status=#{issued_status_0}
+			or issued_status=#{issued_status_1}
+			or issued_status=#{issued_status_2})
+		limit
+			#{offset},#{num};
+	</select>
+	
+	<!--  下发中的下发单，删除时恢复资产表的状态为闲置 -->
+	<update id="update_issue_asset_status" parameterType="pd" flushCache="true">
+	     update asset_info
+	     	set 
+				asset_status  = '闲置'
+			where 
+				asset_code =#{asset_code}
+	</update>
+	
+	<!--  接收中的状态，充值下发表的接收内容 -->
+	<update id="update_issue_status" parameterType="pd" flushCache="true">
+	     update asset_issue
+	     	set 
+				issued_status  = '下发中',
+				receive_branch = null,
+				receive_department = null,
+				receiver = null,
+				receive_time = null,
+				receive_proof = null
+			where 
+				asset_code =#{asset_code}
+	</update>
+		<!--  下发中的下发单，删除时恢复资产表的状态为下发 -->
+	<update id="update_receive_asset_status" parameterType="pd" flushCache="true">
+	     update asset_info
+	     	set 
+				asset_status  = '下发'
+			where 
+				asset_code =#{asset_code}
+	</update>
+</mapper>

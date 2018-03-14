@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/CommonLayout"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        style="@style/CommonLayout"
+        android:background="@color/bg_white_sec"
+        android:orientation="horizontal" >
+
+        <View style="@style/CommonVerLine" />
+
+        <TextView
+            android:id="@+id/item_customer_daikuan_leixing"
+            style="@style/CustRelationContent"
+            android:text="管户" />
+
+        <View style="@style/CommonVerLine" />
+
+        <TextView
+            android:id="@+id/item_customer_daikuan_xingming"
+            style="@style/CustRelationContent"
+            android:text="王丫丫" />
+
+        <View style="@style/CommonVerLine" />
+
+        <TextView
+            android:id="@+id/item_customer_daikuan_bili"
+            style="@style/CustRelationContent"
+            android:text="100" />
+
+        <View style="@style/CommonVerLine" />
+
+        <TextView
+            android:id="@+id/item_customer_daikuan_kaishi"
+            style="@style/CustRelationContent"
+            android:text="2017-05-10" />
+
+        <View style="@style/CommonVerLine" />
+
+        <TextView
+            android:id="@+id/item_customer_daikuan_jieshu"
+            style="@style/CustRelationContent"
+            android:text="2018-05-01" />
+
+        <View style="@style/CommonVerLine" />
+    </LinearLayout>
+
+    <View style="@style/CommonHorLine" />
+
+</LinearLayout>

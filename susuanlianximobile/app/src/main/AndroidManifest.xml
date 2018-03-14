@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.readboy.mentalcalculation">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="com.readboy.mentalcalculation.StartChallengActivity"
+            android:screenOrientation="sensorPortrait"
+            android:launchMode="singleInstance">
+            <intent-filter>
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+                <!--<action android:name="android.intent.action.View" />-->
+                <action android:name="android.intent.action.View"/>
+                <action android:name="android.readboy.APPLICATION.FLAG"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="com.readboy.mentalcalculation.game.MyActivity.GameActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name="com.readboy.mentalcalculation.game.MyActivity.GameActivity_yu"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name="com.readboy.mentalcalculation.game.MyActivity.GameActivity_fraction_integer"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name="com.readboy.mentalcalculation.game.MyActivity.GameActivity_fraction_pre"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name="com.readboy.mentalcalculation.game.MyActivity.GameActivity_fen"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name="com.readboy.mentalcalculation.game.MyActivity.RankActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name="com.readboy.mentalcalculation.game.MyActivity.waitdialogActivity"
+            android:theme="@style/MyDialogStyle"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask">
+
+        </activity>
+        <activity android:name="com.readboy.mentalcalculation.game.MyActivity.FinishActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"></activity>
+    </application>
+
+</manifest>

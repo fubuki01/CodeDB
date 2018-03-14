@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductsInfoMapper">
+	
+    
+	<!-- 新增产品 信息-->
+	<insert id="saveProduct" parameterType="pd" flushCache="true">
+		insert into products_info (
+			provider_code,
+			provider_name,
+			product_code,
+			product_class,
+			product_name,
+			product_type,
+			product_price,
+			product_flag,
+			product_unit,
+			product_note,
+			product_others
+		) values (
+			#{provider_code},
+			#{provider_name},
+			#{product_code},
+			#{product_class},
+			#{product_name},
+			#{product_type},
+			#{product_price},
+			#{product_flag},
+			#{product_unit},
+			#{product_note},
+			#{product_others}
+		)
+	</insert>
+	<!-- 查询全部产品信息  分页显示-->
+	<select id="findProduct" parameterType="page" resultType="pd" flushCache="true">
+		select * from products_info 
+		order by id DESC
+		limit #{currentResult},#{showCount}
+	</select> 
+	
+	<!-- 查询全部产品信息  分页显示-->
+	<select id="findProductByClass" parameterType="pd" resultType="pd" flushCache="true">
+		select * from products_info where product_flag=0
+	</select> 
+	
+	<!-- 统计产品条数  -->
+	 <select id="find_productInfo_totalnumber" parameterType="pd" resultType="Integer">
+		select count(id) from products_info
+	</select> 
+	
+	<!-- 通过ID查询产品信息  -->
+	<select id="findProductById" parameterType="pd" resultType="pd" flushCache="true">
+		select * from products_info where product_code = #{product_code}
+	</select>
+	
+	<!-- 通过provider_code 查询产品信息  -->
+	<select id="findProductByprovider_code" parameterType="pd" resultType="pd" flushCache="false">
+		select * from products_info where provider_code = #{provider_code}
+	</select>
+	
+	<!-- 根据id填写产品信息 -->
+	<select id="find_product_to_add_asset" parameterType="Integer" resultType="pd">
+		select * from products_info where id=#{id}
+	</select>
+	
+	<!-- 根据关键字 ，获得符合关键字条数 -->
+	<select id="findProductByKey_totalnumber" parameterType="com.mbfw.entity.assets.PageOption" resultType="Integer" flushCache="false">
+		select count(id) from products_info where 1=1 
+		<if test="pd.retrieve_content != '' and pd.retrieve_content != null">
+			and
+				(
+					provider_code like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					provider_name like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					product_code like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					product_class like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					product_name like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					product_type like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					product_price like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					product_flag  like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					product_unit like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					product_note like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					product_others like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				
+				)
+		</if>
+	</select>
+	
+	<!-- 关键字查询 -->
+	<select id="findProductByKey" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd" flushCache="false">
+		select * from products_info where 1=1 
+		<if test="pd.retrieve_content != '' and pd.retrieve_content != null">
+			and
+				(
+					provider_code like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					provider_name like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					product_code like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					product_class like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					product_name like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					product_type like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					product_price like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					product_flag  like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					product_unit like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					product_note like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+					or
+					product_others like CONCAT(CONCAT('%',#{pd.retrieve_content}),'%')
+				
+				)
+		</if>
+		order by id DESC
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!--  更新产品信息 -->
+	<update id="updateProduct" parameterType="pd" flushCache="true">
+		update products_info
+			set provider_code   =#{provider_code},
+				provider_name	=#{provider_name},
+				product_code	=#{product_code},
+				product_class	=#{product_class},
+				product_name    =#{product_name},
+				product_type	=#{product_type},
+				product_price	=#{product_price},
+				product_flag    =#{product_flag},
+				product_unit	=#{product_unit},
+				product_note	=#{product_note},
+				product_others	=#{product_others}
+			where
+				id =#{id}
+	</update>
+	
+		<!--  更新产品信息，根据资产编码 -->
+	<update id="updateProductByProductCode" parameterType="pd" flushCache="true">
+		update products_info
+			set product_total   =#{product_total}
+			where
+				 product_code=#{product_code}
+	</update>
+	<!-- 根据id 删除产品信息  -->
+	<delete id="deleteProductById" parameterType="pd">
+		delete from  products_info where id=#{id}
+	</delete>
+	
+	<!-- 根据id 批量删除产品信息  -->
+	<delete id="deleteAllProductById" parameterType="String">
+		delete from  products_info 
+			where id in 
+			<foreach item="id" index="index" collection="array" open="(" separator="," close=")">
+					#{id}
+			</foreach>
+	</delete>
+	
+	<!-- 修改类别表变成true -->
+	<update id=""></update>
+	
+	<!-- 查询资产编码是否重复 -->
+	<select id="searchProductCode" parameterType="String" resultType="Integer">
+		select count(*) from products_info
+		where product_code = #{s}
+	</select>
+	
+	<!-- 查询所有的资产类别 -->
+	<select id="getAssetClass" resultType="pd">
+		select * from asset_classify
+	</select>
+	
+	<!-- 根据资产名称和pId查询编码 -->
+	<select id="getCode" parameterType="pd" resultType="pd">
+		select * from asset_classify
+		where name = #{name}
+		and pId = #{pId}
+	</select>
+	
+	<!-- 导入数据到资产表 -->
+	<!-- 查找匹配 产品类别，名称，供应商 肯定唯一-->
+	<select id="find_class_name" parameterType="pd" resultType="pd">
+		select * from products_info
+		where 
+		 product_class=#{product_class} 
+		 and product_name=#{product_name}
+		 and provider_name =#{provider_name} 
+		 and product_flag =0
+	</select>
+	<!-- 根据product_code 查找 -->
+	<select id="get_product_total" parameterType="pd" resultType="pd">
+		select * from products_info where product_code=#{product_code}
+	</select>
+	
+	<!-- 删除产品信息，判断资产表里有没有已用该产品 -->
+	<select id="get_asset_ncp"  parameterType="pd" resultType="Integer">
+		select count(id) from asset_info 
+		where asset_name=#{asset_name} and asset_class=#{asset_class}
+		<if test="asset_provider != null || asset_provider !=''">
+			and asset_provider=#{asset_provider}
+		</if>
+	</select>
+	
+	<!-- 判断项目立项是否使用该产品 -->
+	<select id="get_product_code_aproject" parameterType="pd" resultType="Integer">
+		select count(apply_id) from aproject_manager 
+		where device_name like CONCAT(#{product_code},'%')
+	</select>
+	
+</mapper>

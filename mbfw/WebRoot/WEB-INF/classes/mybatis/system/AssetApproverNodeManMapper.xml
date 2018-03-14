@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ApproverNode">
+	
+	<!-- 插入数据到审核节点表中 -->
+	<insert id="saveapprovnode" parameterType="pd" >
+		insert into 
+		sys_approvnode(
+		node_Name,
+		node_PassNumber,
+		node_Description,
+		node_TotalNumber
+		)
+		values(
+		#{node_Name},
+		#{node_PassNumber},
+		#{node_Description},
+		#{node_TotalNumber}
+		)
+	</insert>
+
+	<!-- 查询返回审核表中的条目数 -->
+	<select id="findnodenumber"   resultType="Integer">
+		select max(node_Id)
+		from 
+		sys_approvnode
+	</select>
+	
+	<!-- 插入数据到节点管理员中 -->
+	<insert id="savenodetopeople"  parameterType="pd">
+		insert into  
+		sys_approvnodepeople(
+			approvnode_UserId,
+			approvnode_nodeId
+		)values(
+			#{approvnode_UserId},
+			#{approvnode_nodeId}
+		)			
+	</insert>
+	
+	<!-- 查询数据库，返回所有节点信息数据 -->
+	<select id="listapprovnode" parameterType="com.mbfw.entity.assets.PageOption"   resultType="pd" >
+		select *
+		from
+		sys_approvnode
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 查询数据库，返回所有审核人信息数据 -->
+	<select id="listapprover" resultType="pd">
+		select *
+		from
+		sys_approver
+	</select>
+	
+	<!-- 根据审核节点ID，进行审核节点数据库的删除 -->
+	<delete id="deletesimplenode" parameterType="Integer">
+		delete
+		from sys_approvnode
+		where
+			node_Id = #{node_Id}
+	</delete>
+	
+	<!-- 根据审核节点ID，进行审核节点管理人员数据库的删除 -->
+	<delete id="deletesimplenodepeople" parameterType="Integer">
+		delete
+		from sys_approvnodepeople
+		where
+			approvnode_nodeId = #{approvnode_nodeId}
+	</delete>
+	
+	<!-- 根据审核节点ID，进行对应ID信息的显示 -->
+	<select id="findnodeinfo"  parameterType="pd" resultType="pd">
+		select *
+		from 
+			 sys_approvnode
+		where 
+			sys_approvnode.node_Id = #{node_Id}
+	</select>
+	
+	<!-- 根据点击的节点ID，查询审核人员的姓名和userid等信息，需要联表查询 -->
+	<select id="findApproverNodePeopleInfo" parameterType="pd" resultType="pd">
+		select 
+			sys_approvnodepeople.* , sys_approver.user_Name ,sys_approver.user_Id
+		from 
+			sys_approvnodepeople , sys_approver
+		where 
+			sys_approvnodepeople.approvnode_nodeId  = #{approvnode_nodeId}
+		and 
+			sys_approver.user_Id = sys_approvnodepeople.approvnode_UserId
+	</select>
+	
+	<!-- 当修改当前审批节点内容后，根据nodeid进行更新审核节点表中的数据 -->
+	<update id="updateEditNodeInfo" parameterType="pd">
+		update 
+		sys_approvnode
+		set 
+			node_Name = #{node_Name},
+			node_PassNumber = #{node_PassNumber},
+			node_Description = #{node_Description},
+			node_TotalNumber = #{node_TotalNumber}
+		where 
+			node_Id = #{node_Id}
+	</update>
+	
+	<!-- 根据节点ID，删除审批节点管理人中的信息 -->
+	<delete id="deleteApproverNodePeople" parameterType="Integer">
+		delete
+		from sys_approvnodepeople
+		where 
+			approvnode_nodeId = #{approvnode_nodeId}
+	</delete>
+	
+	<!-- 根据节点ID，进行批量删除审批节点数据 -->
+	<delete id="deleteBatchApprovalNode" parameterType="Integer" flushCache="false">
+		delete
+		from
+		sys_approvnode
+		where
+			node_Id  in
+			<foreach collection="array" close=")" separator="," open="(" item="id">
+				#{id}
+			</foreach>				
+	</delete>
+	
+	<!-- 根据节点ID，进行批量删除审批节点详细表中数据 -->
+	<delete id="deleteBatchApprovalNodePeople" parameterType="Integer" flushCache="false">
+		delete
+		from
+		sys_approvnodepeople
+		where
+			approvnode_nodeId  in
+			<foreach collection="array" close=")" separator="," open="(" item="id">
+				#{id}
+			</foreach>				
+	</delete>
+	
+	<!-- 获取节点的条数 -->
+	<select id="findTotalNumber" resultType="Integer">
+		select count(*)
+		from
+		sys_approvnode
+	</select>
+	
+	
+	<!-- 根据检索内容，获取对应的数据条数 -->
+	<select id="findSearchNameNumber" parameterType="com.mbfw.entity.assets.PageOption" resultType="Integer">
+		select count(*)
+		from 
+		sys_approvnode
+		where
+			<if test="pd.retrieve_content != null and pd.retrieve_contentE != ''">
+			node_Name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对姓名进行检索 -->
+			or
+			node_PassNumber LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对审批通过最小人数进行检索 -->
+			or
+			node_Description LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对审批描述进行检索 -->
+			or
+			node_TotalNumber LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对审批最大人数进行检索 -->			
+			</if>
+	</select>
+	
+	<!-- 根据检索姓名，获取对应的数据 -->
+	<select id="findTotalSearchInfo" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd">
+		select *
+		from
+		sys_approvnode
+		where 
+		<if test="pd.retrieve_content != null and pd.retrieve_contentE != ''">
+			node_Name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对姓名进行检索 -->
+			or
+			node_PassNumber LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对审批通过最小人数进行检索 -->
+			or
+			node_Description LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对审批描述进行检索 -->
+			or
+			node_TotalNumber LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对审批最大人数进行检索 -->	
+		</if>
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 根据节点ID，返回所有对应节点中审批人员的userid的String数组 -->
+	<select id="findAllApproverUserId" parameterType="Integer" resultType="String">
+		select approvnode_UserId
+		from
+			sys_approvnodepeople
+		where
+			approvnode_nodeId = #{approvnode_nodeId}		
+	</select>
+	
+	<!-- 根据审批ID，判断是否存在于审批流程中 -->
+	<select id="findCurrentNodeStatus" parameterType="Integer" resultType="Integer">
+		select count(*)
+		from 
+			sys_process_detail
+		where
+			processdetail_NodeId = #{processdetail_NodeId}
+	</select>
+	
+	<!-- 获取所有的审批流程中的审批节点的Ids，用于进行某些节点是否能够批量删除 -->
+	<select id="findAllProcessNodeIds" resultType="Integer">
+		select
+			processdetail_NodeId
+		from
+			sys_process_detail
+	</select>
+	
+</mapper>

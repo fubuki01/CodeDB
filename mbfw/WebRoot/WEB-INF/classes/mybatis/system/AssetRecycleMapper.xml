@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AssetRecycleMapper">
+	
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>  
+    <resultMap type="AssetRecycleManage" id="assetMap">
+    	<id column="id" property="id"/>
+    	<result column="asset_code" property="asset_code"/>
+    	<result column="asset_name" property="asset_name"/>
+    	<result  column="orig_company" property="orig_company"/>
+    	<result  column="orig_department" property="orig_department"/>
+    	<result  column="orig_user" property="orig_user"/>
+    	<result  column="orig_status" property="orig_status"/>
+    	<result  column="recycle_reason" property="recycle_reason"/>
+    	<result  column="recycle_time" property="recycle_time"/>
+    	<result  column="recycleman" property="recycleman"/>
+    	<result  column="recycle_manager" property="recycle_manager"/>
+    	<result  column="recycle_remark" property="recycle_remark"/>
+    	<result  column="asset_remark" property="asset_remark"/>  
+    	<result  column="is_valid" property="is_valid"/>   	
+    </resultMap>
+	
+	<select id="findGetInfoData" resultMap="assetMap">
+		select * from asset_recycle 
+		where id = #{id}
+	</select>
+	
+	<!-- 获取数据总条数 -->
+	<select id="findTotalRecycleNumber" resultType="Integer">
+		select count(*)
+		from
+			asset_recycle
+		where  
+			is_valid = "true"
+		<if test="pd.permission == 1"> <!-- 总行管理员 -->
+
+ 		</if>
+ 		<if test="pd.permission == 2"> <!-- 支行管理员 -->
+ 			and asset_recycle.orig_department = #{pd.organization_name}
+ 		</if>
+ 		<if test="pd.permission == 3"> <!-- 员工 -->
+ 			and asset_recycle.recycleman = #{pd.username}
+ 		</if>
+	</select>
+	
+	<!--显示当前页面的数据记录信息  -->
+ 	<select id="approverRecycleListPage"  parameterType="com.mbfw.entity.assets.PageOption"  resultType="pd" useCache="false">
+ 		select asset_recycle.*, asset_info.asset_name
+ 		from asset_recycle, asset_info
+ 		where
+ 			asset_recycle.asset_code = asset_info.asset_code
+ 		and  
+ 			is_valid = "true"
+ 		<if test="pd.permission == 1"> <!-- 总行管理员 -->
+
+ 		</if>
+ 		<if test="pd.permission == 2"> <!-- 支行管理员 -->
+ 			and asset_recycle.orig_department = #{pd.organization_name}
+ 		</if>
+ 		<if test="pd.permission == 3"> <!-- 员工 -->
+ 			and asset_recycle.recycleman = #{pd.username}
+ 		</if>
+ 		limit #{currentResult},#{showCount}
+ 	</select>
+
+	<select id="recycle_edit" resultMap="assetMap">
+		select asset_recycle.*, asset_info.asset_name 
+		from 
+			asset_recycle, asset_info
+		where 
+			asset_recycle.asset_code = asset_info.asset_code
+		and
+			asset_recycle.id = #{id}
+	</select>
+		
+	<!-- 新增项目 -->
+	<insert id="saveRecycle" parameterType="pd" flushCache="true">
+		insert into asset_recycle (
+			asset_code,
+			orig_company,
+			orig_department,
+			orig_user,
+			recycle_reason,
+			recycle_time,
+			recycleman,
+			recycle_manager,
+			recycle_remark,
+			is_valid
+		) values (
+			#{asset_code},
+			#{orig_company},
+			#{orig_department},
+			#{orig_user},
+			#{recycle_reason},
+			#{recycle_time},
+			#{recycleman},
+			#{recycle_manager},
+			#{recycle_remark},
+			"true"
+		)
+	</insert>
+	
+	<!-- 更新资产表的信息，把部门等信息置为null -->
+	<update id="deleteToAssetInfo" parameterType="pd" flushCache="true">
+		update asset_info
+			set 
+				asset_use_company 		= "",
+				asset_use_dept 			= "",
+				asset_user				= "",
+				asset_use 				= "" 
+			where 
+				asset_code = #{asset_code}
+	</update>
+			
+	<!-- 更改isValid的值 -->
+	<update id="changeValue" parameterType="pd" flushCache="true">
+		update asset_get
+			set 
+				is_valid		= "false"
+			where 
+				asset_code = #{asset_code}
+	</update>
+	
+	<!-- 还原isValid的值 -->
+	<update id="returnValid" parameterType="pd" flushCache="true">
+		update asset_get
+			set 
+				is_valid		= "true"
+			where 
+				asset_code = #{asset_code}
+	</update>
+	
+	<!-- 查询原资产状态 -->
+	<select id="searchStatusInfo" parameterType="Integer" resultType="pd">
+		select asset_recycle.orig_status,asset_recycle.asset_code,orig_company,orig_department,orig_user,asset_use
+		from 
+		 	asset_recycle, asset_get
+		 where
+		 	asset_recycle.asset_code = asset_get.asset_code
+		 and
+		 	asset_recycle.id = #{s}
+	</select>
+	
+	<!-- 退回原来的状态 -->
+	<update id="returnPriorStatus" parameterType="pd" flushCache="true">
+		update asset_info
+			set 
+				asset_status	= "领用"
+			where 
+				asset_code = #{asset_code}
+	</update>
+	
+	<!-- 根据ID来显示对应的信息 -->
+	<select id="findById" parameterType="pd" resultType="pd" useCache="true">
+		select *
+		from asset_recycle
+		where
+			id = #{id}
+	</select>
+	
+	<!-- 修改 -->
+	<update id="editRecycleApprover" parameterType="pd" flushCache="true">
+		update asset_recycle
+			set 
+				orig_company	 		= #{orig_company},
+				orig_department 		= #{orig_department},
+				orig_user				= #{orig_user},
+				recycle_reason 			= #{recycle_reason},
+				recycle_time 			= #{recycle_time},
+				recycleman 				= #{recycleman},			
+				recycle_manager			= #{recycle_manager},
+				recycle_remark			= #{recycle_remark}
+			where 
+				id = #{id}
+	</update>
+	
+	<!-- 删除项目 -->
+	<delete id="deleteRecycle" parameterType="pd" flushCache="true">
+		delete from asset_recycle 
+		where 
+			id = #{id}
+	</delete>
+	
+	<!-- 删除的时候把资产表中的部门等信息还原 -->
+	<update id="returnToAssetInfo" parameterType="pd" flushCache="true">
+		update asset_info
+			set 
+				asset_use_company	 		= #{orig_company},
+				asset_use_dept 				= #{orig_department},
+				asset_user					= #{orig_user},
+				asset_use					= #{asset_use}
+			where 
+				asset_code = #{asset_code}
+	</update>	
+	
+	<!-- 批量删除 -->
+	<delete id="deleteallrecycledata" parameterType="String" flushCache="true">
+		delete from asset_recycle
+		where 
+			asset_recycle.id in
+  			 <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                  #{item}
+             </foreach>
+	</delete>
+	
+		<!-- 根据检索内容，获取对应的数据条数 -->
+	<select id="findRecycleSearchNameNumber" parameterType="com.mbfw.entity.assets.PageOption" resultType="Integer">
+		select count(all asset_info.asset_status)
+		from 
+			asset_recycle,asset_info
+		where
+			asset_recycle.asset_code = asset_info.asset_code
+		and  
+			asset_recycle.is_valid = 'true'
+		and
+			asset_info.asset_status = '回收'
+		and
+			(<if test="pd.retrieve_content != null and pd.retrieve_content != ''">
+			asset_recycle.asset_code LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产编码进行检索 -->
+			or
+			asset_info.asset_name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产名称进行检索 -->
+			or
+			orig_company LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对原使用公司进行检索 -->
+			or
+			orig_department LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对原使用部门进行检索 -->
+			or
+			orig_user LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对原使用人进行检索 -->
+			or
+			recycle_reason LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对回收原因进行检索 -->
+			or
+			recycle_time LIKE binary CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对回收时间途进行检索 -->
+			or
+			recycleman LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对回收人进行检索 -->
+			or
+			recycle_manager LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->			
+			</if>)
+		<if test="pd.permission == 1"> <!-- 总行管理员 -->
+
+ 		</if>
+ 		<if test="pd.permission == 2"> <!-- 支行管理员 -->
+ 			and asset_recycle.orig_department = #{pd.organization_name}
+ 		</if>
+ 		<if test="pd.permission == 3"> <!-- 员工 -->
+ 			and asset_recycle.recycleman = #{pd.username}
+ 		</if>	
+	</select>
+	
+	<!-- 根据检索姓名，获取对应的数据 -->
+	<select id="findRecycleTotalSearchInfo" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd">
+		select asset_recycle.*,asset_info.asset_name,asset_info.asset_status
+		from
+			asset_recycle,asset_info
+		where  
+			asset_recycle.asset_code = asset_info.asset_code
+		and 
+			asset_recycle.is_valid = 'true'
+		and
+			asset_info.asset_status = '回收'
+		and
+		(<if test="pd.retrieve_content != null and pd.retrieve_content != ''">
+			asset_recycle.asset_code LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产编码进行检索 -->
+			or
+			asset_info.asset_name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产名称进行检索 -->
+			or
+			asset_recycle.orig_company LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对原使用公司进行检索 -->
+			or
+			asset_recycle.orig_department LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对原使用部门进行检索 -->
+			or
+			asset_recycle.orig_user LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对原使用人进行检索 -->
+			or
+			asset_recycle.recycle_reason LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对回收原因进行检索 -->
+			or
+			asset_recycle.recycle_time LIKE binary CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对回收时间进行检索 -->
+			or
+			asset_recycle.recycleman LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对回收人进行检索 -->
+			or
+			asset_recycle.recycle_manager LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+		</if>)	
+		<if test="pd.permission == 1"> <!-- 总行管理员 -->
+
+ 		</if>
+ 		<if test="pd.permission == 2"> <!-- 支行管理员 -->
+ 			and asset_recycle.orig_department = #{pd.organization_name}
+ 		</if>
+ 		<if test="pd.permission == 3"> <!-- 员工 -->
+ 			and asset_recycle.recycleman = #{pd.username}
+ 		</if>
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 移动端缺省查询 -->
+	<select id="findByDefault" parameterType="pd" resultMap="assetMap">
+		select asset_recycle.*, asset_info.asset_name
+		from asset_recycle, asset_info
+		where
+			asset_recycle.asset_code = asset_info.asset_code
+			and
+			is_valid = "true"
+			and
+			(#{asset_code} = "" or asset_recycle.asset_code=#{asset_code})
+			and
+			(#{asset_name} = "" or asset_info.asset_name=#{asset_name})
+			and
+			(#{orig_company} = "" or orig_company=#{orig_company})
+			and
+			(#{orig_department} = "" or orig_department=#{orig_department})
+			and
+			(#{orig_user} = "" or orig_user=#{orig_user})
+			and
+			(#{recycle_manager} = "" or recycle_manager=#{recycle_manager})
+			and
+			(#{recycle_time} = "" or recycle_time=#{recycle_time})
+			and
+			(#{recycleman} = "" or recycleman=#{recycleman})
+		limit
+			#{offset},#{num};
+	</select>
+	
+	<!-- 获取资产数量 -->
+	<select id="checkAssetCount" resultType="Integer" parameterType="pd">
+		select count(*)
+		from
+			asset_info
+		where 			
+			asset_status in ('闲置','下发','接收','回收')
+		<if test="permission == 1"> <!-- 总行管理员 -->
+
+ 		</if>
+ 		<if test="permission == 2"> <!-- 支行管理员 -->
+ 			and asset_use_dept = #{organization_name}
+ 		</if>
+	</select>
+	
+</mapper>

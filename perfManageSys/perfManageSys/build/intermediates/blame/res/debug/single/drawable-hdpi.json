@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_launcher.png",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_right.png",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-hdpi\\ic_right.png"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_bottom.png",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-hdpi\\ic_bottom.png"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_delete_white.png",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-hdpi\\ic_delete_white.png"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_geo.png",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-hdpi\\ic_geo.png"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_contact_photo.png",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-hdpi\\ic_contact_photo.png"
+    }
+]

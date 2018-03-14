@@ -1,0 +1,283 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Manifest Merging:
+-----------------
+Your project uses libraries that provide manifests, and your Eclipse
+project did not explicitly turn on manifest merging. In Android Gradle
+projects, manifests are always merged (meaning that contents from your
+libraries' manifests will be merged into the app manifest. If you had
+manually copied contents from library manifests into your app manifest
+you may need to remove these for the app to build correctly.
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+From PerfManageSys:
+* LibPro\
+* LibPro\PullToRefresh\
+* LibPro\PullToRefresh\.classpath
+* LibPro\PullToRefresh\.project
+* LibPro\PullToRefresh\.settings\
+* LibPro\PullToRefresh\.settings\org.eclipse.jdt.core.prefs
+* LibPro\PullToRefresh\AndroidManifest.xml
+* LibPro\PullToRefresh\LICENSE
+* LibPro\PullToRefresh\bin\
+* LibPro\PullToRefresh\bin\AndroidManifest.xml
+* LibPro\PullToRefresh\bin\R.txt
+* LibPro\PullToRefresh\bin\classes\
+* LibPro\PullToRefresh\bin\classes\com\
+* LibPro\PullToRefresh\bin\classes\com\handmark\
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\BuildConfig.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\ILoadingLayout.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\IPullToRefresh.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\LoadingLayoutProxy.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\OverscrollHelper.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshAdapterViewBase.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$1.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$2.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$3.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$AnimationStyle.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$Mode.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$OnLastItemVisibleListener.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$OnPullEventListener.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$OnRefreshListener.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$OnRefreshListener2.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$OnSmoothScrollFinishedListener.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$Orientation.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$SmoothScrollRunnable.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshBase$State.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshBase.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshExpandableListView$InternalExpandableListView.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshExpandableListView$InternalExpandableListViewSDK9.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshExpandableListView.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshGridView$InternalGridView.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshGridView$InternalGridViewSDK9.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshGridView.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshHorizontalScrollView$InternalHorizontalScrollViewSDK9.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshHorizontalScrollView.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshListView$InternalListView.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshListView$InternalListViewSDK9.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshListView.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshScrollView$InternalScrollViewSDK9.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshScrollView.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshWebView$1.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshWebView$2.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshWebView$InternalWebViewSDK9.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\PullToRefreshWebView.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\R$anim.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\R$attr.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\R$dimen.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\R$drawable.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\R$id.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\R$layout.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\R$string.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\R$styleable.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\R.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\extras\
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\extras\PullToRefreshWebView2$JsValueCallback.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\extras\PullToRefreshWebView2.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\extras\SoundPullEventListener.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\internal\
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\internal\EmptyViewMethodAccessor.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\internal\FlipLoadingLayout.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\internal\IndicatorLayout.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\internal\LoadingLayout.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\internal\RotateLoadingLayout.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\internal\Utils.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\internal\ViewCompat$SDK11.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\internal\ViewCompat$SDK16.class
+* LibPro\PullToRefresh\bin\classes\com\handmark\pulltorefresh\library\internal\ViewCompat.class
+* LibPro\PullToRefresh\bin\pulltorefresh.jar
+* LibPro\PullToRefresh\bin\res\
+* LibPro\PullToRefresh\bin\res\crunch\
+* LibPro\PullToRefresh\bin\res\crunch\drawable-hdpi\
+* LibPro\PullToRefresh\bin\res\crunch\drawable-hdpi\default_ptr_flip.png
+* LibPro\PullToRefresh\bin\res\crunch\drawable-hdpi\default_ptr_rotate.png
+* LibPro\PullToRefresh\bin\res\crunch\drawable-hdpi\ic_warm.png
+* LibPro\PullToRefresh\bin\res\crunch\drawable-hdpi\indicator_arrow.png
+* LibPro\PullToRefresh\bin\res\crunch\drawable-mdpi\
+* LibPro\PullToRefresh\bin\res\crunch\drawable-mdpi\default_ptr_flip.png
+* LibPro\PullToRefresh\bin\res\crunch\drawable-mdpi\default_ptr_rotate.png
+* LibPro\PullToRefresh\bin\res\crunch\drawable-mdpi\indicator_arrow.png
+* LibPro\PullToRefresh\bin\res\crunch\drawable-xhdpi\
+* LibPro\PullToRefresh\bin\res\crunch\drawable-xhdpi\default_ptr_flip.png
+* LibPro\PullToRefresh\bin\res\crunch\drawable-xhdpi\default_ptr_rotate.png
+* LibPro\PullToRefresh\bin\res\crunch\drawable-xhdpi\indicator_arrow.png
+* LibPro\PullToRefresh\gen\
+* LibPro\PullToRefresh\gen\com\
+* LibPro\PullToRefresh\gen\com\handmark\
+* LibPro\PullToRefresh\gen\com\handmark\pulltorefresh\
+* LibPro\PullToRefresh\gen\com\handmark\pulltorefresh\library\
+* LibPro\PullToRefresh\gen\com\handmark\pulltorefresh\library\BuildConfig.java
+* LibPro\PullToRefresh\gen\com\handmark\pulltorefresh\library\R.java
+* LibPro\PullToRefresh\pom.xml
+* LibPro\PullToRefresh\project.properties
+* LibPro\PullToRefresh\res\
+* LibPro\PullToRefresh\res\anim\
+* LibPro\PullToRefresh\res\anim\slide_in_from_bottom.xml
+* LibPro\PullToRefresh\res\anim\slide_in_from_top.xml
+* LibPro\PullToRefresh\res\anim\slide_out_to_bottom.xml
+* LibPro\PullToRefresh\res\anim\slide_out_to_top.xml
+* LibPro\PullToRefresh\res\drawable-hdpi\
+* LibPro\PullToRefresh\res\drawable-hdpi\default_ptr_flip.png
+* LibPro\PullToRefresh\res\drawable-hdpi\default_ptr_rotate.png
+* LibPro\PullToRefresh\res\drawable-hdpi\ic_warm.png
+* LibPro\PullToRefresh\res\drawable-hdpi\indicator_arrow.png
+* LibPro\PullToRefresh\res\drawable-mdpi\
+* LibPro\PullToRefresh\res\drawable-mdpi\default_ptr_flip.png
+* LibPro\PullToRefresh\res\drawable-mdpi\default_ptr_rotate.png
+* LibPro\PullToRefresh\res\drawable-mdpi\indicator_arrow.png
+* LibPro\PullToRefresh\res\drawable-xhdpi\
+* LibPro\PullToRefresh\res\drawable-xhdpi\default_ptr_flip.png
+* LibPro\PullToRefresh\res\drawable-xhdpi\default_ptr_rotate.png
+* LibPro\PullToRefresh\res\drawable-xhdpi\indicator_arrow.png
+* LibPro\PullToRefresh\res\drawable\
+* LibPro\PullToRefresh\res\drawable\indicator_bg_bottom.xml
+* LibPro\PullToRefresh\res\drawable\indicator_bg_top.xml
+* LibPro\PullToRefresh\res\layout\
+* LibPro\PullToRefresh\res\layout\pull_to_refresh_header_horizontal.xml
+* LibPro\PullToRefresh\res\layout\pull_to_refresh_header_vertical.xml
+* LibPro\PullToRefresh\res\values-ar\
+* LibPro\PullToRefresh\res\values-ar\pull_refresh_strings.xml
+* LibPro\PullToRefresh\res\values-cs\
+* LibPro\PullToRefresh\res\values-cs\pull_refresh_strings.xml
+* LibPro\PullToRefresh\res\values-de\
+* LibPro\PullToRefresh\res\values-de\pull_refresh_strings.xml
+* LibPro\PullToRefresh\res\values-es\
+* LibPro\PullToRefresh\res\values-es\pull_refresh_strings.xml
+* LibPro\PullToRefresh\res\values-fi\
+* LibPro\PullToRefresh\res\values-fi\pull_refresh_strings.xml
+* LibPro\PullToRefresh\res\values-fr\
+* LibPro\PullToRefresh\res\values-fr\pull_refresh_strings.xml
+* LibPro\PullToRefresh\res\values-he\
+* LibPro\PullToRefresh\res\values-he\pull_refresh_strings.xml
+* LibPro\PullToRefresh\res\values-it\
+* LibPro\PullToRefresh\res\values-it\pull_refresh_strings.xml
+* LibPro\PullToRefresh\res\values-iw\
+* LibPro\PullToRefresh\res\values-iw\pull_refresh_strings.xml
+* LibPro\PullToRefresh\res\values-ja\
+* LibPro\PullToRefresh\res\values-ja\pull_refresh_strings.xml
+* LibPro\PullToRefresh\res\values-ko\
+* LibPro\PullToRefresh\res\values-ko\pull_refresh_strings.xml
+* LibPro\PullToRefresh\res\values-nl\
+* LibPro\PullToRefresh\res\values-nl\pull_refresh_strings.xml
+* LibPro\PullToRefresh\res\values-pl\
+* LibPro\PullToRefresh\res\values-pl\pull_refresh_strings.xml
+* LibPro\PullToRefresh\res\values-pt-rBR\
+* LibPro\PullToRefresh\res\values-pt-rBR\pull_refresh_strings.xml
+* LibPro\PullToRefresh\res\values-pt\
+* LibPro\PullToRefresh\res\values-pt\pull_refresh_strings.xml
+* LibPro\PullToRefresh\res\values-ro\
+* LibPro\PullToRefresh\res\values-ro\pull_refresh_strings.xml
+* LibPro\PullToRefresh\res\values-ru\
+* LibPro\PullToRefresh\res\values-ru\pull_refresh_strings.xml
+* LibPro\PullToRefresh\res\values-zh\
+* LibPro\PullToRefresh\res\values-zh\pull_refresh_strings.xml
+* LibPro\PullToRefresh\res\values\
+* LibPro\PullToRefresh\res\values\attrs.xml
+* LibPro\PullToRefresh\res\values\dimens.xml
+* LibPro\PullToRefresh\res\values\ids.xml
+* LibPro\PullToRefresh\res\values\pull_refresh_strings.xml
+* LibPro\PullToRefresh\src\
+* LibPro\PullToRefresh\src\com\
+* LibPro\PullToRefresh\src\com\handmark\
+* LibPro\PullToRefresh\src\com\handmark\pulltorefresh\
+* LibPro\PullToRefresh\src\com\handmark\pulltorefresh\library\
+* LibPro\PullToRefresh\src\com\handmark\pulltorefresh\library\ILoadingLayout.java
+* LibPro\PullToRefresh\src\com\handmark\pulltorefresh\library\IPullToRefresh.java
+* LibPro\PullToRefresh\src\com\handmark\pulltorefresh\library\LoadingLayoutProxy.java
+* LibPro\PullToRefresh\src\com\handmark\pulltorefresh\library\OverscrollHelper.java
+* LibPro\PullToRefresh\src\com\handmark\pulltorefresh\library\PullToRefreshAdapterViewBase.java
+* LibPro\PullToRefresh\src\com\handmark\pulltorefresh\library\PullToRefreshBase.java
+* LibPro\PullToRefresh\src\com\handmark\pulltorefresh\library\PullToRefreshExpandableListView.java
+* LibPro\PullToRefresh\src\com\handmark\pulltorefresh\library\PullToRefreshGridView.java
+* LibPro\PullToRefresh\src\com\handmark\pulltorefresh\library\PullToRefreshHorizontalScrollView.java
+* LibPro\PullToRefresh\src\com\handmark\pulltorefresh\library\PullToRefreshListView.java
+* LibPro\PullToRefresh\src\com\handmark\pulltorefresh\library\PullToRefreshScrollView.java
+* LibPro\PullToRefresh\src\com\handmark\pulltorefresh\library\PullToRefreshWebView.java
+* LibPro\PullToRefresh\src\com\handmark\pulltorefresh\library\extras\
+* LibPro\PullToRefresh\src\com\handmark\pulltorefresh\library\extras\PullToRefreshWebView2.java
+* LibPro\PullToRefresh\src\com\handmark\pulltorefresh\library\extras\SoundPullEventListener.java
+* LibPro\PullToRefresh\src\com\handmark\pulltorefresh\library\internal\
+* LibPro\PullToRefresh\src\com\handmark\pulltorefresh\library\internal\EmptyViewMethodAccessor.java
+* LibPro\PullToRefresh\src\com\handmark\pulltorefresh\library\internal\FlipLoadingLayout.java
+* LibPro\PullToRefresh\src\com\handmark\pulltorefresh\library\internal\IndicatorLayout.java
+* LibPro\PullToRefresh\src\com\handmark\pulltorefresh\library\internal\LoadingLayout.java
+* LibPro\PullToRefresh\src\com\handmark\pulltorefresh\library\internal\RotateLoadingLayout.java
+* LibPro\PullToRefresh\src\com\handmark\pulltorefresh\library\internal\Utils.java
+* LibPro\PullToRefresh\src\com\handmark\pulltorefresh\library\internal\ViewCompat.java
+* ic_launcher-web.png
+* package.txt
+* tan.keystore
+* 应用版本\
+* 应用版本\ip_120.79.26.50_8080\
+* 应用版本\ip_120.79.26.50_8080\PerfManageSys.apk
+* 应用版本\ip_39_106_49_154_8080_桂东\
+* 应用版本\ip_39_106_49_154_8080_桂东\PerfManageSys.apk
+* 应用版本\ip_39_108_81_73_8745_会同\
+* 应用版本\ip_39_108_81_73_8745_会同\PerfManageSys.apk
+From PullToRefresh:
+* LICENSE
+* pom.xml
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+android-support-v4.jar => com.android.support:support-v4:21.0.3
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+In PullToRefresh:
+* AndroidManifest.xml => pullToRefresh\src\main\AndroidManifest.xml
+* assets\ => pullToRefresh\src\main\assets
+* res\ => pullToRefresh\src\main\res\
+* src\ => pullToRefresh\src\main\java\
+In PerfManageSys:
+* AndroidManifest.xml => perfManageSys\src\main\AndroidManifest.xml
+* assets\ => perfManageSys\src\main\assets
+* libs\android-support-v7-recyclerview.jar => perfManageSys\libs\android-support-v7-recyclerview.jar
+* libs\armeabi\libBaiduMapSDK_base_v4_3_1.so => perfManageSys\src\main\jniLibs\armeabi\libBaiduMapSDK_base_v4_3_1.so
+* libs\armeabi\libBaiduMapSDK_map_v4_3_1.so => perfManageSys\src\main\jniLibs\armeabi\libBaiduMapSDK_map_v4_3_1.so
+* libs\armeabi\liblocSDK7a.so => perfManageSys\src\main\jniLibs\armeabi\liblocSDK7a.so
+* libs\autoupdatelib.jar => perfManageSys\libs\autoupdatelib.jar
+* libs\BaiduLBS_Android.jar => perfManageSys\libs\BaiduLBS_Android.jar
+* libs\fastjson-1.2.6.jar => perfManageSys\libs\fastjson-1.2.6.jar
+* libs\hnulabpicker1.1.jar => perfManageSys\libs\hnulabpicker1.1.jar
+* libs\Java-WebSocket-1.3.1-SNAPSHOT.jar => perfManageSys\libs\Java-WebSocket-1.3.1-SNAPSHOT.jar
+* libs\org.apache.http.legacy.jar => perfManageSys\libs\org.apache.http.legacy.jar
+* libs\volley.jar => perfManageSys\libs\volley.jar
+* lint.xml => perfManageSys\lint.xml
+* proguard-project.txt => perfManageSys\proguard-project.txt
+* res\ => perfManageSys\src\main\res\
+* src\ => perfManageSys\src\main\java\
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)

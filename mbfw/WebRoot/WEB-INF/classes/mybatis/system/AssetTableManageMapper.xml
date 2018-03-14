@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AssetTableManageMapper">
+	
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>  
+	
+  	<!-- 资产状态为“报废”时，查找各个状态的信息信息 -->
+	<select id="find_AssetCode" parameterType="page" resultType="pd" useCache="false">
+		select * from asset_info
+		where 
+			asset_status in ('闲置','领用','回收','报修')
+		<if test="permission == 1"> 
+ 		</if>
+ 		<if test="permission == 2"> 
+ 			and asset_use_dept = #{organization_name}
+ 		</if>
+ 		<if test="permission == 3"> 
+ 			and asset_user = #{username}
+ 		</if>
+	</select>
+	
+	<!-- 资产状态为“回收”时，查找信息 -->
+	<select id="find_GetAssetCode" parameterType="page" resultType="pd" useCache="false">
+		select * from asset_info
+		where 
+			asset_status = '领用'
+		<if test="permission == 1"> 
+ 		</if>
+ 		<if test="permission == 2"> 
+ 			and asset_use_dept = #{organization_name}
+ 		</if>
+ 		<if test="permission == 3"> 
+ 			and asset_user = #{username}
+ 		</if>
+	</select>
+	
+	<!-- 资产状态为“领用”时，查找信息 -->
+	<select id="find_IdleAssetCode" parameterType="page" resultType="pd" useCache="false">
+		select * from asset_info
+		where 
+			asset_info.asset_status in ('接收','回收')
+		<if test="permission == 1"> 
+ 		</if>
+ 		<if test="permission == 2"> 
+ 			and asset_use_dept = #{organization_name}
+ 		</if>
+ 		<if test="permission == 3"> 
+ 			and asset_user = #{username}
+ 		</if>
+	</select>
+	
+	<!--查找所有资产编码信息 -->
+	<select id="find_AllAssetCode" parameterType="page" resultType="pd" useCache="false">
+		select * from asset_info
+	</select>
+			
+	<!-- 更改资产表的资产状态 -->
+	<update id="changeAssetStatus" parameterType="pd" flushCache="true">
+		update asset_info
+			set 
+				asset_status		= #{asset_status}
+			where 
+				asset_code = #{asset_code}
+	</update>
+
+	
+		
+	<!-- 填写领用表时，回显资产表的基本信息 -->
+	<select id="findAssetInfo_GetInfo" parameterType="String" resultType="pd">
+		select  
+			asset_code,
+			asset_detail_config,
+			asset_standard_model,
+			asset_name,
+			asset_status
+		from 
+			asset_info
+		where
+			asset_code = #{asset_code}
+	</select>	
+	
+	<!-- 填写回收表时，回显资产表的基本信息 -->
+	<select id="findAssetInfo_RecycleInfo" parameterType="String" resultType="pd">
+		select  
+			asset_get.asset_code,
+			asset_info.asset_name,
+			asset_get.asset_use_company,
+			asset_get.asset_use_dept,
+			asset_get.asset_user,
+			asset_info.asset_status
+		from 
+			asset_info, asset_get
+		where
+			asset_info.asset_code = asset_get.asset_code
+		and
+			asset_get.asset_code = #{asset_code}
+	</select>
+	
+	<!-- 报废时，补全资资产状态为“闲置”所需要获取信息 -->
+	<select id="findAssetInfo_byIdleStatus" parameterType="String" resultType="pd">
+		select  
+			asset_code,
+			asset_name,
+			asset_detail_config,
+			asset_purchase_time,
+			asset_max_years,
+			asset_status
+		from 
+			asset_info
+		where
+			asset_code = #{asset_code}
+	</select>
+	
+	<!-- 报废时，补全资资产状态为“领用”所需要获取信息 -->
+	<select id="findAssetInfo_byGetStatus" parameterType="String" resultType="pd">
+		select  
+			asset_get.asset_code,
+			asset_info.asset_name,
+			asset_info.asset_detail_config,
+			asset_get.asset_use_company,
+			asset_get.asset_use_dept,
+			asset_get.asset_user,
+			asset_get.asset_use,
+			asset_info.asset_purchase_time,
+			asset_info.asset_max_years,
+			asset_info.asset_status
+		from 
+			asset_get,asset_info
+		where
+			asset_get.asset_code = asset_info.asset_code
+		and
+			asset_get.asset_code = #{asset_code}
+	</select>
+	
+	<!-- 报废时，补全资资产状态为“回收”所需要获取信息 -->
+ 	<select id="findAssetInfo_byRecycleStatus" parameterType="String" resultType="pd">
+		select  
+			asset_recycle.asset_code,
+			asset_info.asset_name,
+			asset_info.asset_detail_config,
+			asset_recycle.orig_company,
+			asset_recycle.orig_department,
+			asset_recycle.orig_user,
+			asset_get.asset_use,
+			asset_info.asset_purchase_time,
+			asset_info.asset_max_years,
+			asset_info.asset_status
+		from 
+			asset_recycle,asset_info,asset_get
+		where   
+			asset_info.asset_code = asset_recycle.asset_code
+		and
+			asset_info.asset_code = asset_get.asset_code
+		and
+			asset_recycle.asset_code = #{asset_code}
+	</select> 
+	
+	<!-- 报废时，补全资资产状态为“维修”所需要获取信息 -->
+ 	<select id="findAssetInfo_byMaintainStatus" parameterType="String" resultType="pd">
+		select  
+			report_repair.asset_code,
+			asset_info.asset_name,
+			asset_info.asset_detail_config,
+			asset_info.asset_use_company,
+			asset_info.asset_use_dept,
+			asset_info.asset_user,
+			asset_info.asset_use,
+			report_repair.maintain_result,
+			asset_info.asset_status
+		from 
+			report_repair,asset_info
+		where   
+			asset_info.asset_code = report_repair.asset_code
+		and
+			report_repair.asset_code = #{asset_code}
+	</select> 
+	
+	
+	<!-- 回显盘点需要的信息 -->
+	<select id="findInfoBy_CheckInfo" parameterType="String" resultType="pd">
+		select  
+			asset_get.asset_code,
+			asset_info.asset_detail_config,
+			asset_info.asset_standard_model,
+			asset_info.asset_use_company,
+			asset_info.asset_use_dept,
+			asset_info.asset_user,
+			asset_info.asset_use,
+			asset_info.asset_name,
+			asset_info.asset_status,
+			asset_get.get_time
+		from 
+			asset_info,asset_get
+		where
+			asset_info.asset_code = asset_get.asset_code
+		and
+			asset_get.asset_code = #{asset_code}
+	</select>
+	
+	<!-- 回显判断盘点名称是否重复 -->
+	<select id="find_CheckName" parameterType="String" resultType="pd">
+		select  
+			check_name
+		from 
+			asset_check_list
+		where
+			check_name = #{check_name}
+	</select>
+
+</mapper>

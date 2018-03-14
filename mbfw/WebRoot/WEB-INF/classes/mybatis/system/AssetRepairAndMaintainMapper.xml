@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AssetRepairAndMaintainMapper">
+	
+
+    <resultMap type="AssetRAR" id="AssetRARMap">
+    	<id column="id" property="id"/>
+    	<result column="asset_code" property="asset_code"/>
+    	<result column="asset_name" property="asset_name"/>
+    	<result column="bank_name" property="bank_name"/>
+    	<result  column="department" property="department"/>
+    	<result  column="drep_department" property="drep_department"/>
+    	<result  column="repair_time" property="repair_time"/>
+    	<result  column="fault_phenomen" property="fault_phenomen"/>
+    	<result  column="fault_reason" property="fault_reason"/>
+    	<result  column="defect_time" property="defect_time"/>
+    	<result  column="status" property="status"/>
+    	<result  column="cost" property="cost"/>
+    	<result  column="maintain_result" property="maintain_result"/>
+    	<result  column="finishi_time" property="finishi_time"/>
+    	<result  column="asset_person" property="asset_person"/>
+    	<result  column="remark" property="remark"/>
+    	<result  column="allot_name" property="allot_name"/>
+    	<result  column="apply_procedure" property="apply_procedure"/>
+    
+    </resultMap>
+    
+	<!-- 查询 所有-->
+	<select id="listAllAssetRAR" resultMap="AssetRARMap">
+		select report_repair.*,asset_info.asset_name 
+		from report_repair,asset_info
+		where asset_info.asset_code = report_repair.asset_code
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	
+	<!-- 查询 除了id之外的-->
+	<select id="listAssetRAR" resultMap="AssetRARMap">
+		select *
+		 from report_repair 
+		 where id= #{id}
+	</select>
+	  	<!-- 获取数据总条数 -->
+	<select id="findTotalNumber" resultType="Integer">
+		select count(*)
+		from
+		report_repair
+	</select>
+	<!-- 根据检索内容，获取对应的数据条数 -->
+	<select id="findPzSearchNameNumber" parameterType="com.mbfw.entity.assets.PageOption" resultType="Integer">
+		select count(*)
+		from 
+		report_repair
+		where
+			<if test="pd.retrieve_content != null and pd.retrieve_content != ''">
+			asset_code LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产编码进行检索 -->
+			or
+			bank_name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			department LIKE  CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用人进行检索 -->
+			or
+			repair_time LIKE binary  CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用时间进行检索 -->
+			or
+			asset_person LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产用途进行检索 -->
+			or
+			fault_phenomen LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产状态进行检索 -->
+			or
+			fault_reason LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对规格进行检索 -->
+			or
+			maintain_result LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			finishi_time LIKE binary CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			drep_department LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			defect_time LIKE binary CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			status LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			cost LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			remark LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%') 
+			
+			</if>
+	</select>
+	
+	<!-- 根据检索姓名，获取对应的数据 -->
+	<select id="findPzTotalSearchInfo" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd">
+		select *
+		from
+		report_repair
+		where 
+		<if test="pd.retrieve_content != null and pd.retrieve_content != ''">
+			asset_code LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产编码进行检索 -->
+			or
+			bank_name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			department LIKE  CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用人进行检索 -->
+			or
+			repair_time LIKE binary  CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用时间进行检索 -->
+			or
+			asset_person LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产用途进行检索 -->
+			or
+			fault_phenomen LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产状态进行检索 -->
+			or
+			fault_reason LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对规格进行检索 -->
+			or
+			maintain_result LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			finishi_time LIKE binary CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			drep_department LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			defect_time LIKE binary CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			status LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			cost LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			remark LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%') 
+		</if>
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 新增调用申请表 -->
+	<insert id="saveRAR" parameterType="pd" flushCache="true">
+		insert into report_repair (
+			asset_code,
+			pre_asset_status,
+			bank_name,
+			department,
+			repair_time,
+			asset_person,
+			fault_phenomen,
+			fault_reason,
+			maintain_result
+		) values (
+			#{asset_code},
+			#{pre_asset_status},
+			#{bank_name},
+			#{department},
+			#{repair_time},
+			#{asset_person},
+			#{fault_phenomen},
+			#{fault_reason},
+			#{maintain_result}
+		)
+	</insert>
+		<!-- 删除 -->
+	<delete id="deleteRAR" parameterType="pd" flushCache="true">
+		delete from report_repair
+		where 
+			id = #{id}
+	</delete>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAllRAR" parameterType="String" flushCache="true">
+		delete from report_repair
+		where 
+			report_repair.id in
+  			 <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                  #{item}
+             </foreach>
+	</delete>
+	
+	<!-- 修改 -->
+	<update id="editRAR" parameterType="pd" flushCache="true">
+		update  report_repair
+			set 	
+									
+				bank_name 					= #{bank_name},
+				department 				    = #{department},
+				repair_time						= #{repair_time},
+				asset_person					= #{asset_person},
+				fault_phenomen					= #{fault_phenomen},
+				fault_reason					= #{fault_reason},
+				maintain_result						= #{maintain_result},
+				finishi_time					= #{finishi_time},
+				drep_department					= #{drep_department},
+				defect_time					= #{defect_time},
+				status					= #{status},
+				cost					= #{cost},
+				remark					= #{remark}
+			where 
+				id = #{id}
+	</update>
+	<!-- 新增维修表 -->
+	<update id="saveRAR1" parameterType="pd" flushCache="true">
+		update  report_repair
+			set 	
+				maintain_result					= #{maintain_result},
+				finishi_time					= #{finishi_time},
+				drep_department					= #{drep_department},
+				defect_time						= #{defect_time},
+				status							= #{status},
+				cost							= #{cost},
+				remark                          = #{remark}
+			where 
+				id = #{id}
+	</update>
+	
+	<!-- 移动端缺省查询 -->
+	<select id="findByDefault" parameterType="pd" resultMap="AssetRARMap">
+		select report_repair.*,asset_info.asset_name
+		from report_repair,asset_info
+		where
+			report_repair.asset_code=asset_info.asset_code
+			and
+			(#{asset_code} = "" or report_repair.asset_code=#{asset_code})
+			and
+			(#{asset_name} = "" or asset_info.asset_name=#{asset_name})
+			and
+			(#{bank_name} = "" or bank_name=#{bank_name})
+			and
+			(#{department} = "" or department=#{department})
+			and
+			(#{asset_person} = "" or asset_person=#{asset_person})
+			and
+			(#{repair_time} = "" or repair_time=#{repair_time})
+			and
+			(maintain_result=#{maintain_result_0}
+			or maintain_result=#{maintain_result_1}
+			or maintain_result=#{maintain_result_2})
+		limit
+			#{offset},#{num};
+	</select>
+	
+	<!-- 移动端更新 -->
+	<update id="mobile_updateRAR" parameterType="pd" flushCache="true">
+		update  report_repair
+		set
+			bank_name = #{bank_name},
+			department = #{department},
+			repair_time = #{repair_time},
+			asset_person = #{asset_person},
+			fault_phenomen = #{fault_phenomen},
+			fault_reason = #{fault_reason}
+		where
+			asset_code = #{asset_code}
+			and
+			maintain_result = '未维修'
+	</update>
+	
+	<!-- 移动端维修 -->
+	<update id="mobile_maintain" parameterType="pd" flushCache="true">
+		update  report_repair
+		set
+			maintain_result = #{maintain_result},
+			drep_department = #{drep_department},
+			cost = #{cost},
+			finishi_time = #{finishi_time},
+			defect_time = #{defect_time},
+			status = #{status},
+			remark = #{remark}
+		where
+			asset_code = #{asset_code}
+			and
+			maintain_result = '未维修'
+	</update>
+	
+	<!-- 移动端维修查询 -->
+	<select id="mobile_maintain_query" parameterType="pd" resultType="pd">
+		select report_repair.asset_person, report_repair.pre_asset_status, asset_info.asset_name
+		from report_repair, asset_info
+		where
+			report_repair.asset_code=asset_info.asset_code
+			and
+			report_repair.asset_code=#{asset_code}
+			and
+			report_repair.maintain_result=#{maintain_result}
+	</select>
+	
+	<!-- 下拉框选项 -->
+	<select id="findCode"  parameterType="com.mbfw.entity.assets.PageOption" resultType="pd"  >
+		select *
+		from asset_info
+	</select>
+	<!-- 改回原来的资产状态 -->
+	<update id="editAssetStatus" parameterType="pd" flushCache="true">
+	update
+		asset_info
+	set
+	    asset_status=(select pre_asset_status from report_repair where asset_code = #{asset_code} and maintain_result = '未维修')
+	where asset_code = #{asset_code}
+	</update>
+	
+		<!-- 查询 除了id之外的-->
+	<select id="listBymaintain_result" resultMap="AssetRARMap">
+		select maintain_result
+		 from report_repair 
+		 where asset_code=#{asset_code}
+	</select>
+</mapper>

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AssetFindMapper">
+<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>  
+    <resultMap type="AssetInfo" id="AssetInfoMap">
+    	<id column="id" property="id"/>
+    	<result column="asset_name" property="asset_name"/>
+    	<result column="asset_code" property="asset_code"/>
+    	<result  column="asset_class" property="asset_class"/>
+    	<result  column="asset_standard_model" property="asset_standard_model"/>
+    	<result  column="asset_sn" property="asset_sn"/>
+    	<result  column="asset_detail_config" property="asset_detail_config"/>
+    	<result  column="asset_unit" property="asset_unit"/>
+    	<result  column="asset_price" property="asset_price"/>
+    	<result  column="asset_usecompany_code" property="asset_usecompany_code"/>
+    	<result  column="asset_use_company" property="asset_use_company"/>
+    	<result  column="asset_use_dept" property="asset_use_dept"/>
+    	<result  column="asset_usedept_code" property="asset_usedept_code"/>
+    	<result  column="asset_user" property="asset_user"/>
+    	<result  column="asset_storehouse" property="asset_storehouse"/>
+    	
+    	<result column="asset_manager" property="asset_manager"/>
+    	<result column="asset_purchase_time" property="asset_purchase_time"/>
+    	<result  column="asset_provider" property="asset_provider"/>
+    	<result  column="asset_max_years" property="asset_max_years"/>
+    	<result  column="asset_qr_code" property="asset_qr_code"/>
+    	<result  column="asset_brand" property="asset_brand"/>
+    	<result  column="asset_status" property="asset_status"/>
+    	<result  column="asset_into_bill" property="asset_into_bill"/>
+    	<result  column="asset_use" property="asset_use"/>
+    	<result  column="asset_nod" property="asset_nod"/>
+    	<result  column="register_flag" property="register_flag"/>
+    	<result  column="delete_flag" property="delete_flag"/>
+    	<result  column="asset_image" property="asset_image"/>
+    	<result  column="asset_name_select" property="asset_name_select"/>
+    	<result  column="product_code" property="product_code"/>
+    	<result  column="product_total" property="product_total"/>
+
+    </resultMap>
+    
+		<!-- 查询全部采购单 -->
+	<select id="find_asset_info" resultType="pd" flushCache="true">
+		select i.*,d.organization_name 
+		from asset_info i,institutional_information d
+		where i.asset_use_dept = d.organization_name
+	</select>
+		<!-- 获取数据总条数 -->
+	<select id="findTotalNumber" parameterType="pd" resultType="Integer">
+		select count(*)
+		from
+		asset_info
+		<where>
+		<if test="userPermission == 3"> <!-- 表示是员工级别，那么只能看到自己名字的资产 -->
+ 				asset_user = #{asset_user}	
+ 			</if>
+ 			<if test="userPermission == 2"><!-- 表示是支行的管理员，那么可以看到整个支行的资产 -->
+ 				<if test="asset_use_dept == null || asset_use_dept == ''">
+ 					asset_use_company = #{asset_use_company}
+ 				</if>
+ 			</if>
+ 			<if test="userPermission == 1"><!-- 表示的是总行的管理员，那么就可以看到所有 -->
+ 					1=1
+ 			</if>
+ 			<if test="userPermission == null">
+ 					1=0
+ 		</if>
+ 		</where>
+	</select>
+	
+	<!-- 查询所有的信息，当没有输入搜索内容（需要判断权限的问题分别为员工3，支行人2，总行人1） -->
+	<select id="assetinfoListPage"  parameterType="com.mbfw.entity.assets.PageOption"  resultType="pd" useCache="false">
+ 		select *
+ 		from asset_info
+ 		where
+ 			<if test="pd.userPermission == 3"> <!-- 表示是员工级别，那么只能看到自己名字的资产 -->
+ 				asset_user = #{pd.asset_user}	
+ 			</if>
+ 			<if test="pd.userPermission == 2"><!-- 表示是支行的管理员，那么可以看到整个支行的资产 -->
+ 				<if test="pd.asset_use_dept == null || pd.asset_use_dept == ''">
+ 					asset_use_company = #{pd.asset_use_company}
+ 				</if>
+ 			</if>
+ 			<if test="pd.userPermission == 1"><!-- 表示的是总行的管理员，那么就可以看到所有 -->
+ 					1=1
+ 			</if>
+ 			<if test="pd.userPermission == null">
+ 					1=0
+ 			</if>
+ 		limit #{currentResult},#{showCount}
+ 	</select>
+ 	<!-- 查询对应的数据 -->
+		<select id="listAssetInfo" resultMap="AssetInfoMap">
+		select *
+		 from asset_info 
+		 where id= #{id}
+	</select>
+	<!-- 条件查询对应的数量 -->
+	<select id="findConditionNumber" parameterType="pd" resultType="Integer">
+		select count(*)
+		from
+		asset_info
+		where ${id} = #{useid }
+	</select>
+	
+	<!-- 条件查询对应的条目（需要判断权限的问题分别为员工3，支行人2，总行人1） -->
+	<select id="findConditionItem" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd">
+		select *
+		from
+		asset_info
+		where
+			 ${pd.id} = #{pd.useid }
+		and
+			<if test="pd.userPermission == 3"> <!-- 表示是员工级别，那么只能看到自己名字的资产 -->
+ 				asset_user = #{pd.currentUser}	
+ 			</if>
+ 			<if test="pd.userPermission == 2"><!-- 表示是支行的管理员，那么可以看到整个支行的资产 -->
+ 				asset_use_dept =#{pd.asset_use_dept}
+ 			</if>
+ 			<if test="pd.userPermission == 1"><!-- 表示的是总行的管理员，那么就可以看到所有 -->
+ 					1=1
+ 			</if>
+ 			<if test="pd.userPermission == null">
+ 					1=0
+ 			</if>
+		limit #{currentResult},#{showCount}
+	</select>
+	
+	<!-- 移动端资产信息缺省查找 -->
+	<select id="findByDefault"  parameterType="com.mbfw.entity.assets.PageOption" resultType="pd" >
+		select * 
+		from asset_info
+	
+	</select>
+		<!-- 移动端资产信息缺省查找 -->
+	<select id="findGaoJi"  parameterType="com.mbfw.entity.assets.PageOption" resultType="pd"  >
+		select *
+		from asset_info
+		<where>
+			<if test="pd.asset_code != null or pd.asset_code != ''">
+			and  asset_code LIKE CONCAT(CONCAT('%', #{pd.asset_code}),'%') 
+			</if>
+			<if test="pd.asset_user != null or pd.asset_user != ''">
+			and  asset_user LIKE CONCAT(CONCAT('%', #{pd.asset_user}),'%') 
+			</if>
+			<!-- <if test="pd.asset_code != '' and pd.asset_code != null">
+				and asset_code = #{pd.asset_code}
+			</if> -->
+			<if test="pd.asset_name != '' and pd.asset_name != null">
+				and asset_name = #{pd.asset_name}
+			</if>
+			<if test="pd.asset_class != '' and pd.asset_class != null">
+				and asset_class = #{pd.asset_class}
+			</if>
+			<if test="pd.bank_name != '' and pd.bank_name != null">
+				and asset_use_company = #{pd.bank_name}
+			</if>
+			<if test="pd.department != '' and pd.department != null">
+				and asset_use_dept = #{pd.department}
+			</if> 
+		<!-- 	 <if test="pd.asset_user != '' and pd.asset_user != null">
+				and asset_user = #{pd.asset_user}
+			</if> -->
+			 <if test="pd.asset_purchase_time != '' and pd.asset_purchase_time != null">
+				and asset_purchase_time = #{pd.asset_purchase_time}
+			</if>
+			<if test="pd.asset_into_bill != '' and pd.asset_into_bill != null">
+				and asset_into_bill = #{pd.asset_into_bill}
+			</if>
+			<if test="pd.asset_status != '' and pd.asset_status != null">
+				and asset_status = #{pd.asset_status}
+			</if>  
+			 <if test="pd.creatuser_Time != '' and pd.creatuser_Time != null and pd.creatuser_endTime !='' and pd.creatuser_endTime !=null">
+			 	and asset_purchase_time between #{pd.creatuser_Time} and #{pd.creatuser_endTime}
+			 </if>
+			</where>
+		limit
+			#{currentResult},#{showCount} 
+	</select>
+	
+	<select id="findGaoJiNumber"  parameterType="pd" resultType="Integer"  >
+		select count(*)
+		from asset_info
+		<where>
+			<if test="asset_code != null or asset_code != ''">
+			and  asset_code LIKE CONCAT(CONCAT('%', #{asset_code}),'%') 
+			</if>
+			<if test="asset_user != null or asset_user != ''">
+			and  asset_user LIKE CONCAT(CONCAT('%', #{asset_user}),'%') 
+			</if>
+<!-- 			<if test="asset_code != '' and asset_code != null"> -->
+<!-- 				and asset_code = #{asset_code} -->
+<!-- 			</if> -->
+			<if test="asset_name != '' and asset_name != null">
+				and asset_name = #{asset_name}
+			</if>
+			<if test="asset_class != '' and asset_class != null">
+				and asset_class = #{asset_class}
+			</if>
+			<if test="bank_name != '' and bank_name != null">
+				and asset_use_company = #{bank_name}
+			</if>
+			<if test="department != '' and department != null">
+				and asset_use_dept = #{department}
+			</if> 
+<!-- 			 <if test="asset_user != '' and asset_user != null"> -->
+<!-- 				and asset_user = #{asset_user} -->
+<!-- 			</if> -->
+			 <if test="asset_purchase_time != '' and asset_purchase_time != null">
+				and asset_purchase_time = #{asset_purchase_time}
+			</if>
+			<if test="asset_into_bill != '' and asset_into_bill != null">
+				and asset_into_bill = #{asset_into_bill}
+			</if>
+			<if test="asset_status != '' and asset_status != null">
+				and asset_status = #{asset_status}
+			</if>  
+			<if test="creatuser_Time != '' and creatuser_Time != null and creatuser_endTime !='' and creatuser_endTime !=null">
+			 	and asset_purchase_time between #{creatuser_Time} and #{creatuser_endTime}
+			 </if>
+			</where>
+			
+	</select>
+	
+	<select id="findTime" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd">
+		select *
+		form asset_info
+		where asset_purchase_time between #{pd.asset_purchase_time} and #{pd.asset_purchase_time}
+	</select>
+	</mapper>

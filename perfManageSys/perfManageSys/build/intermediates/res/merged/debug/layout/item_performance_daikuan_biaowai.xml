@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_root" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_white"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp" >
+
+        <!-- 第一行 -->
+
+        <TextView
+            android:id="@+id/item_performance_dk_bw_dkzh_title"
+            style="@style/ItemTvTitle"
+            android:layout_alignParentLeft="true"
+            android:text="贷款账号：" />
+
+        <TextView
+            android:id="@+id/item_performance_dk_bw_dkzh"
+            style="@style/ItemTvContent"
+            android:layout_toRightOf="@+id/item_performance_dk_bw_dkzh_title"
+            android:text="430123199009099809" />
+
+        <View
+            android:id="@+id/item_performance_dk_bw_line"
+            style="@style/CommonHorLine"
+            android:layout_below="@id/item_performance_dk_bw_dkzh_title" />
+
+        <!-- 第二行 -->
+
+        <TextView
+            android:id="@+id/item_performance_dk_bw_khmc_title"
+            style="@style/ItemTvTitle"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/item_performance_dk_bw_line"
+            android:text="客户名称：" />
+
+        <TextView
+            android:id="@+id/item_performance_dk_bw_khmc"
+            style="@style/ItemTvContent"
+            android:layout_below="@id/item_performance_dk_bw_line"
+            android:layout_toRightOf="@+id/item_performance_dk_bw_khmc_title"
+            android:text="张三" />
+
+        <TextView
+            android:id="@+id/item_performance_dk_bw_qsjg_title"
+            style="@style/ItemTvTitle"
+            android:layout_alignBottom="@+id/item_performance_dk_bw_qsjg"
+            android:layout_alignLeft="@+id/item_performance_dk_bw_shrq_title"
+            android:layout_below="@id/item_performance_dk_bw_line"
+            android:layout_toRightOf="@+id/item_performance_dk_bw_khmc"
+            android:text="清收机构：" />
+
+        <TextView
+            android:id="@+id/item_performance_dk_bw_qsjg"
+            style="@style/ItemTvContent"
+            android:layout_below="@id/item_performance_dk_bw_line"
+            android:layout_toRightOf="@+id/item_performance_dk_bw_qsjg_title"
+            android:text="营业部" />
+
+        <!-- 第三行 -->
+
+        <TextView
+            android:id="@+id/item_performance_dk_bw_shlx_title"
+            style="@style/ItemTvTitle"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/item_performance_dk_bw_qsjg_title"
+            android:text="收回类型：" />
+
+        <TextView
+            android:id="@+id/item_performance_dk_bw_shlx"
+            style="@style/ItemTvContent"
+            android:layout_below="@id/item_performance_dk_bw_qsjg_title"
+            android:layout_toRightOf="@+id/item_performance_dk_bw_shlx_title"
+            android:text="自然增长" />
+
+        <TextView
+            android:id="@+id/item_performance_dk_bw_shrq_title"
+            style="@style/ItemTvTitle"
+            android:layout_alignBottom="@+id/item_performance_dk_bw_shrq"
+            android:layout_below="@id/item_performance_dk_bw_qsjg_title"
+            android:layout_toLeftOf="@+id/item_performance_dk_bw_shrq"
+            android:text="收回日期：" />
+
+        <TextView
+            android:id="@+id/item_performance_dk_bw_shrq"
+            style="@style/ItemTvContent"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/item_performance_dk_bw_qsjg"
+            android:text="2017-05-11" />
+
+        <!-- 第四行 -->
+
+        <TextView
+            android:id="@+id/item_performance_dk_bw_shje_title"
+            style="@style/ItemTvTitle"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/item_performance_dk_bw_shlx_title"
+            android:text="收回金额：" />
+
+        <TextView
+            android:id="@+id/item_performance_dk_bw_shje"
+            style="@style/ItemTvContent"
+            android:layout_below="@id/item_performance_dk_bw_shlx_title"
+            android:layout_toRightOf="@+id/item_performance_dk_bw_shje_title"
+            android:text="10000" />
+
+        <TextView
+            android:id="@+id/item_performance_dk_bw_dj_title"
+            style="@style/ItemTvTitle"
+            android:layout_alignBottom="@+id/item_performance_dk_bw_dj"
+            android:layout_alignLeft="@id/item_performance_dk_bw_shrq_title"
+            android:layout_below="@id/item_performance_dk_bw_shlx_title"
+            android:layout_toRightOf="@+id/item_performance_dk_bw_shlx"
+            android:text="单价：" />
+
+        <TextView
+            android:id="@+id/item_performance_dk_bw_dj"
+            style="@style/ItemTvContent"
+            android:layout_below="@id/item_performance_dk_bw_shlx_title"
+            android:layout_toRightOf="@+id/item_performance_dk_bw_dj_title"
+            android:text="201" />
+
+        <!-- 第五行 -->
+
+        <TextView
+            android:id="@+id/item_performance_dk_bw_gz_title"
+            style="@style/ItemTvTitle"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/item_performance_dk_bw_shje_title"
+            android:text="工资：" />
+
+        <TextView
+            android:id="@+id/item_performance_dk_bw_gz"
+            style="@style/ItemTvContent"
+            android:layout_below="@id/item_performance_dk_bw_shje_title"
+            android:layout_toRightOf="@+id/item_performance_dk_bw_gz_title"
+            android:text="10000" />
+    </RelativeLayout>
+
+    <include 
+       layout="@layout/common_item_lable"/>
+
+</FrameLayout>

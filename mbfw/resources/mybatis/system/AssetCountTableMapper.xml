@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AssetCountTableMapper">
+	
+	<resultMap type="AssetCountTable" id="AssetCountTableMap">
+		
+		<result  column="asset_status" property="asset_status"/>
+		<result  column="asset_name" property="asset_name"/>
+    	<result  column="asset_class" property="asset_class"/>
+    	<result  column="asset_price" property="asset_price"/>
+    	<association property="assetGet" javaType="AssetGetManage">
+    		<id column="id" property="id"/>
+    		<result column="asset_code" property="asset_code"/>
+	    	<result  column="asset_use_company" property="asset_use_company"/>
+	    	<result  column="asset_use_dept" property="asset_use_dept"/>
+	    	<result  column="asset_user" property="asset_user"/>
+	    	<result  column="orig_status" property="orig_status"/>
+	    	<result  column="get_time" property="get_time"/>
+	    	<result  column="asset_use" property="asset_use"/>
+	    	<result  column="get_manager" property="get_manager"/>
+	    	<result  column="get_remark" property="get_remark"/>
+	    	<result  column="is_valid" property="is_valid"/>
+    	</association>	
+    </resultMap>
+    
+	<select id="findAssetCountTableByDept" parameterType="pd" resultMap="AssetCountTableMap">
+		select asset_get.*,asset_info.asset_class,asset_info.asset_name,
+		asset_info.asset_price,asset_info.asset_status
+		from asset_get,asset_info
+		where
+		asset_get.asset_use_dept = #{asset_use_dept}
+		and asset_info.asset_code = asset_get.asset_code
+		and asset_get.is_valid = 'true'
+		limit #{page.currentResult},#{page.showCount}
+	</select>
+	
+	<select id="findAssetCountTableByDeptAndCond" parameterType="pd" resultMap="AssetCountTableMap">
+		select asset_get.*,asset_info.asset_class,asset_info.asset_name,
+		asset_info.asset_price,asset_info.asset_status
+		from asset_get,asset_info
+		where
+		asset_get.asset_use_dept = #{asset_use_dept}
+		and asset_info.asset_code = asset_get.asset_code
+		and asset_get.is_valid = 'true'
+		<if test="condition != '' and condition != null">
+			and (asset_info.asset_class like concat(concat('%',#{condition}),'%')
+				or asset_get.asset_user like concat(concat('%',#{condition}),'%')
+				or asset_get.asset_code like concat(concat('%',#{condition}),'%'))
+		</if>
+		limit #{page.currentResult},#{page.showCount}
+	</select>
+	
+	<select id="findTotalDataNumber" parameterType="pd" resultType="Integer">
+		select count(*)
+		from asset_get,asset_info
+		where
+		asset_get.asset_use_dept = #{asset_use_dept}
+		and asset_info.asset_code = asset_get.asset_code
+		and asset_get.is_valid = 'true'
+		<if test="condition != '' and condition != null">
+			and (asset_info.asset_class like concat(concat('%',#{condition}),'%')
+				or asset_get.asset_user like concat(concat('%',#{condition}),'%')
+				or asset_get.asset_code like concat(concat('%',#{condition}),'%'))
+		</if>
+	</select>
+	
+	
+	<select id="findToTalAssetPriByDept" parameterType="pd" resultType="java.math.BigDecimal">
+		select sum(asset_info.asset_price)
+		from asset_info,asset_get
+		where
+		asset_get.asset_use_dept = #{asset_use_dept}
+		<if test="get_year != null and get_year != ''">
+			and year(asset_get.get_time) = #{get_year}
+		</if>
+		and asset_info.asset_code = asset_get.asset_code
+		and asset_get.is_valid = 'true'
+	</select>
+</mapper>

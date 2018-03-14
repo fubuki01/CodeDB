@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProjectProcess">
+	<!--显示所有的项目审核流程  -->
+ 	<select id="approverListPage"  parameterType="com.mbfw.entity.assets.PageOption"  resultType="pd" useCache="false">
+ 		select *
+ 		from aproject_process
+ 		limit #{currentResult},#{showCount}
+ 	</select>
+ 	
+ 	<!-- 获取项目流程数据库中的条数 -->
+	<select id="findTotalNumber" resultType="Integer">
+		select count(*)
+		from
+		aproject_process
+	</select>
+	
+	<!-- 根据检索内容，获取对应的数据条数 -->
+	<select id="findSearchNameNumber" parameterType="com.mbfw.entity.assets.PageOption" resultType="Integer">
+		select count(*)
+		from 
+		aproject_process
+		where
+			<if test="pd.retrieve_content != null and pd.retrieve_contentE != ''">
+			project_Name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 项目名 -->
+			or
+			process_FinishStatus LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%') <!-- 项目完成状态 -->
+			or
+			process_ApprovalName LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  	<!-- 流程名 -->	
+			or
+			current_NodeName LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  	<!-- 当前节点名 -->				
+			or
+			process_Type LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')
+			</if>
+	</select>
+	
+	<!-- 根据检索姓名，获取对应的数据 -->
+	<select id="findTotalSearchInfo" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd">
+		select *
+		from
+		aproject_process
+		where 
+		<if test="pd.retrieve_content != null and pd.retrieve_contentE != ''">
+			project_Name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  
+			or
+			process_FinishStatus LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%') 
+			or
+			process_ApprovalName LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  		
+			or
+			current_NodeName LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  	
+			or
+			process_Type LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')				
+		</if>
+		limit #{currentResult},#{showCount}
+	</select>	
+	
+	<!-- 根据项目ID，查询对应的审批项目流程内容 -->
+	<select id="findCurrentProjectDetail" parameterType="pd" resultType="pd">
+		select *
+		from 
+		     aproject_process
+		where
+			projectprocess_Id = ${projectprocess_Id}
+	</select>
+	
+	
+	<!-- 根据项目ID和审批类型，查询对应的项目内容(这个是处理项目立项) -->
+	<select id="findProjectManager" parameterType="pd" resultType="pd">
+		select *
+		from 
+		aproject_manager,aproject_process
+		where
+			aproject_process.projectprocess_Id = ${projectprocess_Id}
+		and
+			aproject_manager.apply_id = aproject_process.project_Id
+	</select>
+	
+	<!-- 根据项目ID和审批类型，查询对应的项目内容(这个是处理耗材申请) -->
+	<select id="findProjectSuppliesApplication" parameterType="pd" resultType="pd">
+		select *
+		from 
+			supplies_application,aproject_process
+		where
+			aproject_process.projectprocess_Id = ${projectprocess_Id}
+		and
+			supplies_application.id = aproject_process.project_Id
+	</select>
+	
+	<!-- 根据项目ID和审批类型，查询对应的项目内容(这个是处理报废申请) -->
+	<select id="findProjectAssetAbandon" parameterType="pd" resultType="pd">
+		select *
+		from 
+			asset_abandon,aproject_process
+		where
+			aproject_process.projectprocess_Id = ${projectprocess_Id}
+		and
+			asset_abandon.id = aproject_process.project_Id
+	</select>
+	
+	<!-- 根据项目ID和审批类型，查询对应的项目内容(这个是处理资产调入与申请) -->
+	<select id="findProjectAssetAsset" parameterType="pd" resultType="pd">
+		select *
+		from 
+			asset_allot,aproject_process
+		where
+			aproject_process.projectprocess_Id = ${projectprocess_Id}
+		and
+			asset_allot.id = aproject_process.project_Id
+	</select>
+	
+	
+	<!-- 插入数据到项目流程细节表中aproject_processdetail -->
+	<insert id="saveDetailProjectProcess" parameterType="pd">
+		insert into
+		aproject_processdetail(
+			detail_ProcessId,
+			detail_ApproverContent,
+			detail_ApproverUserID,
+			detail_ApprovalTime,
+			detail_OptionResult,
+			detail_CurrentNodeId
+		)values(
+			#{detail_ProcessId},
+			#{detail_ApproverContent},
+			#{detail_ApproverUserID},
+			#{detail_ApprovalTime},
+			#{detail_OptionResult},
+			#{detail_CurrentNodeId}
+		)
+	</insert>
+	
+	 <!-- 根据项目ID，获取当前项目是否已经在项目描述表中 -->
+	<!-- <select id="findCurrentProjectNumber" parameterType="pd" resultType="Integer">
+		select count(*)
+		from
+		
+		where 
+		  
+	</select> -->
+	
+	<!-- 根据项目流程表中的ID，获取对该流程中当前节点通过的人数 -->
+	<select id="findDescriptionPassNumber" parameterType="pd"  resultType="Integer">
+		select 
+			description_Passnumber
+		from
+			aproject_process
+		where 
+			projectprocess_Id = #{projectprocess_Id}
+		and
+			process_Type = #{process_Type}
+	</select>
+	
+	<!-- 根据项目流程表中的ID，获取对该流程中当前节点不通过的人数 -->
+	<select id="findDescriptionRefuseNumber" parameterType="pd" resultType="Integer">
+		select 
+			description_Refusenumber
+		from
+			aproject_process
+		where 
+			projectprocess_Id = #{projectprocess_Id}
+		and 
+			process_Type = #{process_Type}
+	</select>
+	
+	<!-- 根据内容，查询多个表的内容 -->
+	<select id="findRelativeInfoProject" parameterType="pd" resultType="pd">
+		select *
+		from 
+			aproject_process , sys_approvnode , sys_process_approval,sys_process_detail
+		where
+			aproject_process.projectprocess_Id = #{projectprocess_Id}
+		and
+			aproject_process.process_Type = #{process_Type}
+        and
+			aproject_process.process_ApprovalId = sys_process_approval.process_Id
+		and
+			sys_process_detail.processdetail_Id = aproject_process.process_ApprovalId
+		and
+			aproject_process.current_NodeOrder = sys_process_detail.processdetail_Nodeorder
+		and
+			sys_process_detail.processdetail_NodeId = sys_approvnode.node_Id	
+	</select>
+	
+	<!-- 插入数据到项目过程描述表中  -->
+	<insert id="saveProjectDescriptionInfo" parameterType="pd">
+		insert into
+		aproject_prcessdescription(
+			description_ProcessId,
+			description_Time,
+			description_Content		
+		)values(
+			#{description_ProcessId},
+			#{description_Time},
+			#{description_Content}
+		)
+	</insert>
+	
+	<!-- 更新对应的项目过程表中的通过人数字段 -->
+	<update id="editDescriptionPassnumber" parameterType="pd">
+		update
+		aproject_process
+		set
+			description_Passnumber = #{description_Passnumber}	
+		where
+			projectprocess_Id = #{projectprocess_Id}
+		and 
+			process_Type = #{process_Type}
+	</update>
+	
+	<!-- 更新对应的项目过程表中的不通过人数字段 -->
+	<update id="editDescriptionRefusenumber" parameterType="pd">
+		update
+		aproject_process
+		set
+			description_Refusenumber = #{description_Refusenumber}	
+		where
+			projectprocess_Id = #{projectprocess_Id}
+		and
+			process_Type = #{process_Type}
+	</update>
+	
+	<!-- 根据当前审批流程的节点顺序，判断是否还有后续节点 -->
+	<select id="findNextApprovalInfo" parameterType="pd" resultType="pd">
+		select *
+		from 
+			aproject_process , sys_approvnode , sys_process_approval,sys_process_detail
+		where
+			aproject_process.projectprocess_Id = #{projectprocess_Id}
+		and
+			aproject_process.process_Type = #{process_Type}
+        and
+			aproject_process.process_ApprovalId = sys_process_approval.process_Id
+		and
+			sys_process_detail.processdetail_Id = aproject_process.process_ApprovalId
+		and
+			(aproject_process.current_NodeOrder+1) = sys_process_detail.processdetail_Nodeorder
+		and
+			sys_process_detail.processdetail_NodeId = sys_approvnode.node_Id	
+	</select>
+	
+	<!-- 更新对应的项目过程表中的通过人数字段和修改是否完成字段 -->
+	<update id="editProjectFishAndPass" parameterType="pd">
+		update
+		aproject_process
+		set
+			description_Passnumber = #{description_Passnumber},
+			process_FinishStatus ="流程结束，审批工作通过"	
+		where
+			projectprocess_Id = #{projectprocess_Id}
+		and
+			process_Type = #{process_Type}
+	</update>
+	
+	<update id="editProjectFishAndRefuse" parameterType="pd">
+		update
+		aproject_process
+		set
+			description_Passnumber = #{description_Passnumber},
+			process_FinishStatus ="流程结束，审批工作不通过(不通过人数大于通过人数)"	
+		where
+			projectprocess_Id = #{projectprocess_Id}
+		and
+			process_Type = #{process_Type}
+	</update>
+	
+	<!-- 更新对应的项目过程表中的通过人数字段和当前的审批节点名称和审批的当前次序 -->
+	<update id="editProjectNodeInfo" parameterType="pd">
+		update
+		aproject_process
+		set
+			description_Passnumber = 0,
+			description_Refusenumber = 0,
+			current_NodeName = #{current_NodeName},
+			current_NodeOrder =#{current_NodeOrder}+1
+		where
+			projectprocess_Id = #{projectprocess_Id}
+		and
+			process_Type = #{process_Type}
+	</update>
+	
+	<!-- 判断点击同意或者不同意按钮时候，当前的过程是否处于已经完成的状态 -->
+	<select id="findCurrentIfFinishStatus" parameterType="pd" resultType="String">
+		select process_FinishStatus
+		from
+			aproject_process
+		where
+			projectprocess_Id = #{projectprocess_Id}	
+	</select>
+	
+	<!-- 根据项目ID和用户ID，查询项目明细表中是否存在当前用户的操作信息 -->
+	<select id="findCurrentUserIfOption" parameterType="pd" resultType="Integer">
+		select count(*)
+		from
+			aproject_processdetail
+		where
+			detail_ProcessId = #{detail_ProcessId}
+		and
+			detail_ApproverUserID = #{detail_ApproverUserID}
+		and
+			detail_CurrentNodeId = #{detail_CurrentNodeId}
+	</select>
+	
+	<!-- 根据项目ID，更新项目立项表的审核状态 ，为审核完成-->
+	<update id="editProjectManageStatus" parameterType="pd">
+		update
+			aproject_manager
+		set 
+			apply_status = #{apply_status}
+		where
+			apply_id = #{apply_id}
+	</update>
+	
+	<!-- 根据项目ID，更新耗材申请表的审核状态 ，为审核完成-->
+	<update id="editProjectManageSuppliesStatus" parameterType="pd">
+		update
+			supplies_application
+		set 
+			state = #{state}
+		where
+			id = #{id}
+	</update>
+	
+	
+	<!-- 根据项目ID，更新报废申请表的审核状态 ，为审核完成-->
+	<update id="editProjectManageAbandonStatus" parameterType="pd">
+		update
+			asset_abandon
+		set 
+			approve_status = #{approve_status}
+		where
+			id = #{id}
+	</update>
+	
+	<!-- 根据项目ID，更新资产调入与申请表的审核状态 ，为审核完成-->
+	<update id="editProjectManageAssetStatus" parameterType="pd" >
+		update
+			asset_allot
+		set 
+			status = #{status}
+		where
+			id = #{id}
+	</update>
+	
+	
+	<!-- 根据项目ID，更新项目立项表对应id的审核状态，为审核中 -->
+	<update id="editProjectManageStatusOther" parameterType="Integer">
+		update
+			aproject_manager
+		set 
+			apply_status = "审批中"
+		where
+			apply_id = #{apply_id}
+	</update>
+	
+	<!-- 根据项目ID，更新耗材申请表对应id的审核状态，为审核中 -->
+	<update id="editProjectManageStatusSupplies" parameterType="Integer">
+		update
+			supplies_application
+		set 
+			state = "审批中"
+		where
+			id = #{id}
+	</update>
+	
+	<!-- 根据项目ID，更新报废申请表对应id的审核状态，为审核中 -->
+	<update id="editProjectManageStatusAbandon" parameterType="Integer">
+		update
+			asset_abandon
+		set 
+			approve_status = "审批中"
+		where
+			id = #{id}
+	</update>
+	
+	<!-- 根据项目ID，更新资产调入与借出表对应id的审核状态，为审核中 -->
+	<update id="editProjectManageStatusAsset" parameterType="Integer">
+		update
+			asset_allot
+		set 
+			status = "审批中"
+		where
+			id = #{id}
+	</update>
+	
+	
+	
+	  <!--  根据项目流程ID，更新对应的通过和不通过和流程状态数据-->
+ 	<update id="editProjectContent" parameterType="pd">
+		update
+			aproject_process
+		set
+			description_Passnumber=0,
+			description_Refusenumber=0,
+			process_FinishStatus = "未完成"
+		where
+			projectprocess_Id = #{projectprocess_Id}
+		and
+			process_Type = #{process_Type}
+	</update>
+	
+	<!--  根据项目过程ID，删除项目明细表中的数据(当前审批节点为第一级的时候)-->
+	<delete id="deleteProjectProcessDetail" parameterType="Integer">
+		delete
+		from
+			aproject_processdetail
+		where 
+			detail_ProcessId = #{detail_ProcessId}
+	</delete>
+	
+	<!--根据审批人员ID，删除过程明细表中之前的数据信息-->
+	<delete id="deleteDetailByUserId" parameterType="pd">
+		delete
+		from 
+			aproject_processdetail
+		where
+			detail_ProcessId = #{detail_ProcessId}
+		and
+			detail_ApproverUserID = #{detail_ApproverUserID}
+	</delete>
+	
+	<!--根据项目ID，更新当前的处理审批的节点顺序和节点名字 -->
+	<update id="editProjectProcessOrder" parameterType="Integer">
+		update
+		aproject_process
+		set
+			description_Refusenumber = 0,
+			description_Passnumber = 0,
+			current_NodeOrder = current_NodeOrder -1,
+			process_FinishStatus = "未完成"
+		where
+			projectprocess_Id = #{projectprocess_Id}
+	</update>
+	
+	<!--  根据项目ID，更新当前的处理审批的节点名字 -->
+	<update id="editProjectProcessNodeName" parameterType="pd">
+		update
+			aproject_process
+		set
+			current_NodeName = #{current_NodeName}
+		where
+			projectprocess_Id = #{projectprocess_Id}
+	</update>
+	
+	<!-- 根据项目ID，更新流程号ID和流程名字（主要是用于项目立项中当审批未开始之前进行项目修改） -->
+	<update id="updateOthersProjectOption" parameterType="pd">
+		update
+			aproject_process
+		set
+			project_Name = #{project_Name},
+			current_NodeName = #{current_NodeName},
+			process_ApprovalName = #{process_ApprovalName},
+			process_ApprovalId = #{process_ApprovalId}
+		where
+			project_Id = #{project_Id}
+			and process_Type = #{process_Type }
+	</update>
+	
+	<!-- 根据审批流程的ID和当前的审批节点次序，找到对应的审批人员的userid，用户判断是否有处理当前审批节点的权限 -->
+	<select id="findAllNodePeopleInfo" parameterType="pd" resultType="String">
+		select sys_approvnodepeople.approvnode_UserId
+		from 
+			sys_process_detail , sys_approvnodepeople
+		where
+			sys_process_detail.processdetail_Id = #{processdetail_Id}
+		and
+			sys_process_detail.processdetail_Nodeorder = #{processdetail_Nodeorder}
+		and
+			sys_process_detail.processdetail_NodeId = sys_approvnodepeople.approvnode_nodeId
+	</select>
+		
+	<!-- 根据审批项目的ID和类型，获取到当前处理的审批节点的ID -->
+	<select id="findCurrentNodeId" resultType="Integer">
+		select 
+			sys_process_detail.processdetail_NodeId
+		from
+			aproject_process ,sys_process_detail
+		where
+			aproject_process.project_Id =#{project_Id}
+		and
+			aproject_process.process_Type =#{process_Type}
+		and
+			aproject_process.process_ApprovalId = sys_process_detail.processdetail_Id
+		and
+			aproject_process.current_NodeOrder = sys_process_detail.processdetail_Nodeorder
+	</select>
+	
+	<!-- 修改不同需要进行审批的项目的审批状态为已提交，因为这个是处于当多个用户不同意后，返回到第一级审批节点的时候，当然又没有人进行修改，所以就是为审批初始状态，并且也能够让各个项目对审批内容进行修改后再审批 -->
+	<!-- 这个是修改项目立项 -->
+	<update id="updateProjectManageStatusAgain" parameterType="Integer">
+		update
+			aproject_manager
+		set
+			apply_status = "已提交"
+		where
+			apply_id = #{apply_id}
+	</update>
+	<!-- 这个是修改耗材申请 -->
+	<update id="updateProjectSuppliesStatusAgain" parameterType="Integer">
+		update
+			supplies_application
+		set
+			state = "已提交"
+		where
+			id = #{id}
+	</update>
+	<!-- 这个是修改报废申请 -->
+	<update id="updateProjectAbandonStatusAgain" parameterType="Integer">
+		update
+			asset_abandon
+		set
+			approve_status = "已提交"
+		where
+			id = #{id}
+	</update>
+	<!-- 这个是修改资产调入与申请 -->
+	<update id="updateProjectAssetStatusAgain" parameterType="Integer">
+		update
+			asset_allot
+		set
+			status = "已提交"
+		where
+			id = #{id}
+	</update>
+	
+	
+	<!--  根据流程ID，获取到对应流程ID中所有的审批人员的Userid -->
+	<select id="findCurrentProcessAllApprovUserids" parameterType="Integer" resultType="String">
+		select 
+			approvnode_UserId
+		from
+			sys_approvnodepeople , sys_process_detail , aproject_process
+		where
+			aproject_process.process_ApprovalId = #{process_ApprovalId}
+		and
+			sys_process_detail.processdetail_Id = aproject_process.process_ApprovalId <!-- 流程ID相同 -->
+		and
+			sys_approvnodepeople.approvnode_nodeId = sys_process_detail.processdetail_NodeId <!-- 审批节点相同 -->
+	</select>
+</mapper>

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SuppliesInquiryMapper">
+<resultMap type="SuppliesInquiry" id="SuppliesInquiryMap">
+</resultMap>
+	<!--显示所有的数据 -->
+	<select id="listAllSuppliesInquiry" parameterType="page"
+		resultType="pd" useCache="false">
+		select *
+		from supplies
+	</select>
+	
+<!--    下拉框中的耗材名称 -->
+	<select id="find_suppliesStore"  parameterType="pd" resultType="pd">
+<!-- 		select * from products_info where product_flag="耗材资产" -->
+              select * from supplies 
+	</select>
+
+
+
+<!--显示所有的审核人员  -->
+ 	<select id="InListPage"  parameterType="com.mbfw.entity.assets.PageOption"  resultType="pd" useCache="false">
+ 		select *
+ 		from supplies
+ 			<choose>
+        <when test="pd.permission == 1">
+            
+        </when>
+        <otherwise>
+        where
+            <if test="pd.permission == 2"> <!-- 支行管理员 -->
+ 			 applicant_sector = #{pd.organization_name}
+ 		</if>
+ 		<if test="pd.permission == 3"> <!-- 员工 -->
+ 			 supplies.administrator = #{pd.username}
+ 		</if>
+        </otherwise>
+    </choose>
+ 		limit #{currentResult},#{showCount}
+ 	</select>
+
+
+
+ <!-- 获取页面条数 -->
+	<select id="findTotalInNumber" resultType="Integer">
+		select count(*)
+		from
+		supplies
+	</select>
+
+
+ <!-- 根据检索内容，获取对应的数据条数 -->
+	<select id="findInSearchNameNumber" parameterType="com.mbfw.entity.assets.PageOption" resultType="Integer">
+		select count(*)
+		from 
+		supplies
+		where
+			<if test="pd.retrieve_content != null and pd.retrieve_contentE != ''">
+			supplies_model LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产编码进行检索 -->
+			or
+			supplies_name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			supplies_type LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用人进行检索 -->
+			or
+			supplies_brand LIKE   CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用时间进行检索 -->
+			or
+			supplies_use LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产用途进行检索 -->
+			or
+			inventory_quantity LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产状态进行检索 -->
+			or
+			market_quotes LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对规格进行检索 -->
+			or
+			quote_basis LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			amount_money LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			supplies_years LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			purchase_time LIKE binary CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			administrator LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			storage_location LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			remarks LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			</if>
+	</select>
+
+
+<!-- 根据检索姓名，获取对应的数据 -->
+	<select id="findInTotalSearchInfo" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd">
+		select *
+		from
+		supplies
+		where 
+		<if test="pd.retrieve_content != null and pd.retrieve_contentE != ''">
+			supplies_model LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产编码进行检索 -->
+			or
+			supplies_name LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用部门进行检索 -->
+			or
+			supplies_type LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用人进行检索 -->
+			or
+			supplies_brand LIKE   CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对领用时间进行检索 -->
+			or
+			supplies_use LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产用途进行检索 -->
+			or
+			inventory_quantity LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对资产状态进行检索 -->
+			or
+			market_quotes LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对规格进行检索 -->
+			or
+			quote_basis LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			amount_money LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			supplies_years LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			purchase_time LIKE binary CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			administrator LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			storage_location LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+			or
+			remarks LIKE CONCAT(CONCAT('%', #{pd.retrieve_content}),'%')  <!-- 对办理人进行检索 -->
+		</if>
+		limit #{currentResult},#{showCount}
+	</select>
+   
+<!--    下拉框中的耗材时间-->
+	<select id="find_suppliesinquiry_time"  parameterType="pd" resultType="pd">
+		select * from supplies 
+	</select>
+<!--  查询总记录数量 -->
+<select id="findNumberbyItemNumber" parameterType="pd" resultType="Integer">
+		select count(*)
+		from
+		supplies
+		<where>
+			
+			<if test="supplies_model != '' and supplies_model != null">
+				and supplies_model = #{supplies_model}
+			</if>
+			<if test="supplies_name != '' and supplies_name != null">
+				and supplies_name = #{supplies_name}
+			</if>
+			<if test="company_apply != '' and company_apply != null">
+				and company_apply = #{company_apply}
+			</if>
+			<if test="applicant_sector != '' and applicant_sector != null">
+				and applicant_sector = #{applicant_sector}
+			</if>
+			<if test="purchase_time != '' and purchase_time != null">
+				and purchase_time = #{purchase_time}
+			</if> 
+			 
+			</where>
+		
+		
+		
+		
+<!-- 		where supplies_model = #{pd.supplies_model} -->
+<!-- 		or supplies_name = #{pd.supplies_name} -->
+<!-- 		<if test="pd.company_apply != null and pd.company_apply != '' and (pd.applicant_sector == null or pd.applicant_sector =='')"> -->
+<!-- 			or company_apply = #{pd.company_apply} -->
+<!-- 		</if> -->
+
+<!-- 		<if test="pd.company_apply != null and pd.company_apply != ''"> -->
+<!-- 			<if test="pd.applicant_sector !=null and pd.applicant_sector != ''"> -->
+<!-- 				or( -->
+<!-- 				company_apply = #{pd.company_apply} -->
+<!-- 		    	and applicant_sector = #{pd.applicant_sector} -->
+<!-- 				) -->
+<!-- 			</if> -->
+<!-- 		</if> -->
+		
+</select>
+
+
+<!--    查询数据 -->
+<select id="findNumberbyItem" parameterType="com.mbfw.entity.assets.PageOption" resultType="pd">
+		select *
+		from
+		supplies
+		
+		<where>
+			
+			<if test="pd.supplies_model != '' and pd.supplies_model != null">
+				and supplies_model = #{pd.supplies_model}
+			</if>
+			<if test="pd.supplies_name != '' and pd.supplies_name != null">
+				and supplies_name = #{pd.supplies_name}
+			</if>
+			<if test="pd.company_apply != '' and pd.company_apply != null">
+				and company_apply = #{pd.company_apply}
+			</if>
+			<if test="pd.applicant_sector != '' and pd.applicant_sector != null">
+				and applicant_sector = #{pd.applicant_sector}
+			</if>
+			<if test="pd.purchase_time != '' and pd.purchase_time != null">
+				and purchase_time = #{pd.purchase_time}
+			</if> 
+			 
+			</where>
+			limit
+			#{currentResult},#{showCount} 
+		
+		
+		
+		
+		
+		
+		
+		
+<!-- 		where supplies_model = #{pd.supplies_model} -->
+<!-- 		or supplies_name = #{pd.supplies_name} -->
+<!-- 		<if test="pd.company_apply!=null and pd.company_apply!='' and (pd.applicant_sector==null or pd.applicant_sector=='')"> -->
+<!-- 			or company_apply = #{pd.company_apply} -->
+<!-- 		</if> -->
+
+<!-- 		<if test="pd.company_apply != null and pd.company_apply != ''"> -->
+<!-- 			<if test="pd.applicant_sector !=null and pd.applicant_sector != ''"> -->
+<!-- 				or( -->
+<!-- 				company_apply = #{pd.company_apply} -->
+<!-- 		    	and applicant_sector = #{pd.applicant_sector} -->
+<!-- 				) -->
+<!-- 			</if> -->
+			
+<!-- 		</if> -->
+<!-- 		limit #{currentResult},#{showCount} -->
+</select>
+
+<!-- 移动端资产信息缺省查找 -->
+	<select id="findSuppliesByDefault"  parameterType="pd"  resultType="pd">
+		select *
+		from supplies
+		where
+			(#{supplies_model} = "" or supplies_model=#{supplies_model})
+			and
+			(#{supplies_name} = "" or supplies_name=#{supplies_name})
+			and
+			(#{supplies_type} = "" or supplies_type=#{supplies_type})
+			and
+			(#{supplies_use} = "" or supplies_use=#{supplies_use})
+			and
+			(#{administrator} = "" or administrator=#{administrator})
+			and
+			(#{storage_location} = "" or storage_location=#{storage_location})
+			and
+			(#{purchase_time} = "" or purchase_time=#{purchase_time})
+		limit
+			#{offset},#{num};
+	</select>
+
+</mapper>

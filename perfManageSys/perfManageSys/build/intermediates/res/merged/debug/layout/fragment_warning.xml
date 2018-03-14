@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/RootFragment"
+    android:orientation="vertical" >
+
+    <include layout="@layout/layout_common_top_title" />
+
+    <ListView
+        android:id="@+id/warning_lv_customer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_listview_item_hor"
+        android:background="@color/bg_white"
+        android:divider="@color/bg_line"
+        android:dividerHeight="@dimen/item_line_height"
+        android:scrollbarSize="4dp"
+        android:scrollbarThumbVertical="@drawable/listview_scrollbar_style"
+        android:scrollbars="vertical" >
+    </ListView>
+
+    <View style="@style/CommonHorLine"/>
+
+</LinearLayout>

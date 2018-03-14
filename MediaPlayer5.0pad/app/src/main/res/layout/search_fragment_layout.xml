@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+	android:background="@drawable/background"
+	>
+
+    <!-- top_bar -->
+
+    <RelativeLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_topbar_height"
+        android:layout_alignParentTop="true"
+		>
+
+        <View
+            android:id="@+id/topbar_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/topbar_underline_height"
+            android:layout_alignParentBottom="true"
+            android:background="@color/item_underline_color" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/topbar_line" >
+
+            <RelativeLayout
+				android:layout_width="88dp"
+				android:layout_height="88dp">
+				<ImageView
+					android:id="@+id/return_btn"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerInParent="true"
+					android:src="@drawable/return_normal_new"
+					android:clickable="true"/>
+			</RelativeLayout>
+            
+            <TextView 
+                android:id="@+id/cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/searchlayout"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="9dp"
+                android:text="@string/searchbar_cancel_text"
+                android:textSize="26dp"
+                android:textColor="@drawable/searchbar_cancel_text_color_selector"/>
+            
+            <RelativeLayout
+				android:id="@+id/searchlayout"
+                android:layout_width="790dp"
+                android:layout_height="50dp"
+				android:layout_centerInParent="true"
+                android:background="@drawable/search_textview_bg_shape" >
+                
+                <!-- <ImageButton
+                    android:id="@+id/btn_clear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:visibility="gone"
+                    android:background="@null"
+                    android:src="@drawable/btn_search_text_clear_selector" /> -->
+                    
+                <ImageView
+                    android:id="@+id/btn_clear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+					android:layout_alignParentRight="true"
+                    android:layout_marginRight="12dp"
+                    android:visibility="gone"
+                    android:src="@drawable/btn_search_clear_selector" />
+                
+                <com.dream.mediaplayer.views.ClearEditText
+	                android:id="@+id/filter_edit"
+	                android:layout_width="match_parent"
+	                android:layout_height="match_parent"
+	                android:paddingTop="0dp"
+	                android:paddingBottom="0dp"
+	                android:paddingLeft="16dp"
+	                android:layout_toLeftOf="@id/btn_clear"
+	                android:gravity="center_vertical"
+	                android:background="@null"
+	                android:drawableLeft="@drawable/search_bar_icon_normal"
+	                android:hint="@string/search_hint_text"
+					android:textColorHint="@color/search_hint_text_color"
+	                android:imeOptions="actionSearch"
+	                android:singleLine="true"
+	                android:textColor="@color/searchTextView_text_color"
+	                android:textSize="26sp"
+					android:textCursorDrawable="@drawable/search_text_cursor_flash"
+					/>
+            </RelativeLayout>
+
+            <!-- <com.dream.mediaplayer.views.ClearEditText
+                android:id="@+id/filter_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@id/return_btn"
+                android:background="@drawable/search_textview_bg_shape"
+                android:drawableLeft="@drawable/search_bar_icon_normal"
+                android:hint="@string/search_hint_text"
+                android:singleLine="true"
+                android:textColor="@color/searchTextView_text_color"
+                android:textSize="16sp" /> -->
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_bar"
+        android:cacheColorHint="@color/transparent"
+        android:divider="#00ffffff"
+		android:dividerHeight="0.1dp"
+        android:drawSelectorOnTop="false"
+        android:fastScrollEnabled="false"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+		android:layout_marginRight="32dp"/>
+
+</RelativeLayout>

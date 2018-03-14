@@ -1,0 +1,438 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/RootFragment"
+    android:orientation="vertical" >
+
+    <include layout="@layout/layout_common_top_title" />
+
+    <RelativeLayout
+        android:id="@+id/perf_rl_date"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_choose_height"
+        android:background="@drawable/selector_common_layout_white" >
+
+        <TextView
+            android:id="@+id/perf_tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:paddingRight="12dp"
+            android:textColor="@color/font_black_2"
+            android:textSize="@dimen/font_content_fir" />
+
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="8dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/perf_tv_date"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_bottom" />
+    </RelativeLayout>
+
+    <View style="@style/CommonHorLine" />
+
+    <ProgressBar
+        android:id="@+id/perf_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp" />
+
+    <TextView
+        android:id="@+id/perf_tv_text"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="未查询到选择日期的工资信息"
+        android:textColor="@color/font_black_2"
+        android:textSize="@dimen/font_content_sec"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/perf_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/bg_white"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="bottom|center_horizontal"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/perf_tv_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2343.5"
+                    android:textColor="@color/font_them"
+                    android:textSize="@dimen/font_content_big" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="2dp"
+                    android:text="元"
+                    android:textColor="@color/font_them"
+                    android:textSize="@dimen/font_content_th" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="top|center_horizontal"
+                android:text="当月绩效工资合计"
+                android:textColor="@color/font_black_1"
+                android:textSize="@dimen/font_content_fir" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_them_10"
+            android:orientation="vertical"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="当月累计绩效"
+                android:textColor="@color/font_black_2"
+                android:textSize="@dimen/font_content_fir" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="6dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="全行排名："
+                    android:textColor="@color/font_black_1"
+                    android:textSize="@dimen/font_th_menu" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/perf_rank_quanhang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="23"
+                        android:textColor="@color/font_black_1"
+                        android:textSize="@dimen/font_th_menu" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="2dp"
+                        android:text="名"
+                        android:textColor="@color/font_black_1"
+                        android:textSize="@dimen/font_content_four" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="；分行排名："
+                    android:textColor="@color/font_black_1"
+                    android:textSize="@dimen/font_th_menu" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/perf_rank_fenhang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="13"
+                        android:textColor="@color/font_black_1"
+                        android:textSize="@dimen/font_th_menu" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="2dp"
+                        android:text="名"
+                        android:textColor="@color/font_black_1"
+                        android:textSize="@dimen/font_content_four" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/shadow_layout_bottom" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_choose_height"
+            android:background="@color/bg_white_sec"
+            android:gravity="left|center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="日绩效工资明细"
+                android:textColor="@color/font_black_3"
+                android:textSize="@dimen/font_content_th" />
+
+            <View
+                android:layout_width="90dp"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="10dp"
+                android:background="@color/bg_line" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbarSize="5dp"
+            android:scrollbarThumbVertical="@drawable/listview_scrollbar_style" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_white_sec"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:id="@+id/perf_ll_cunkuan"
+                    style="@style/PerfLayoutChoose"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/PerfTvChooseTitle"
+                        android:text="存款业绩：" />
+
+                    <LinearLayout style="@style/PerfTvChooseLayout" >
+
+                        <TextView
+                            android:id="@+id/perf_tv_cunkuan"
+                            style="@style/PerfTvChooseContent"
+                            android:text="56" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="2dp"
+                            android:text="元"
+                            android:textColor="@color/font_them"
+                            android:textSize="@dimen/font_content_four" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/image_right_size"
+                        android:layout_height="@dimen/image_right_size"
+                        android:layout_marginRight="10dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_right" />
+                </LinearLayout>
+
+                <View style="@style/CommonHorLine" />
+
+                <LinearLayout
+                    android:id="@+id/perf_ll_daikuan"
+                    style="@style/PerfLayoutChoose"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/PerfTvChooseTitle"
+                        android:text="贷款业绩：" />
+
+                    <LinearLayout style="@style/PerfTvChooseLayout" >
+
+                        <TextView
+                            android:id="@+id/perf_tv_daikuan"
+                            style="@style/PerfTvChooseContent"
+                            android:text="38" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="2dp"
+                            android:text="元"
+                            android:textColor="@color/font_them"
+                            android:textSize="@dimen/font_content_four" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/image_right_size"
+                        android:layout_height="@dimen/image_right_size"
+                        android:layout_marginRight="10dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_right" />
+                </LinearLayout>
+
+                <View style="@style/CommonHorLine" />
+
+                <LinearLayout
+                    android:id="@+id/perf_ll_dianzi"
+                    style="@style/PerfLayoutChoose"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/PerfTvChooseTitle"
+                        android:text="电子银行业绩：" />
+
+                    <LinearLayout style="@style/PerfTvChooseLayout" >
+
+                        <TextView
+                            android:id="@+id/perf_tv_dianzi"
+                            style="@style/PerfTvChooseContent"
+                            android:text="38" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="2dp"
+                            android:text="元"
+                            android:textColor="@color/font_them"
+                            android:textSize="@dimen/font_content_four" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/image_right_size"
+                        android:layout_height="@dimen/image_right_size"
+                        android:layout_marginRight="10dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_right" />
+                </LinearLayout>
+
+                <View style="@style/CommonHorLine" />
+
+                <LinearLayout
+                    android:id="@+id/perf_ll_yewu"
+                    style="@style/PerfLayoutChoose"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/PerfTvChooseTitle"
+                        android:text="业务量：" />
+
+                    <LinearLayout style="@style/PerfTvChooseLayout" >
+
+                        <TextView
+                            android:id="@+id/perf_tv_yewu"
+                            style="@style/PerfTvChooseContent"
+                            android:text="38" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="2dp"
+                            android:text="元"
+                            android:textColor="@color/font_them"
+                            android:textSize="@dimen/font_content_four" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/image_right_size"
+                        android:layout_height="@dimen/image_right_size"
+                        android:layout_marginRight="10dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_right" />
+                </LinearLayout>
+
+                <View style="@style/CommonHorLine" />
+
+                <LinearLayout
+                    android:id="@+id/perf_ll_guanli"
+                    style="@style/PerfLayoutChoose"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/PerfTvChooseTitle"
+                        android:text="管理绩效：" />
+
+                    <LinearLayout style="@style/PerfTvChooseLayout" >
+
+                        <TextView
+                            android:id="@+id/perf_tv_guanli"
+                            style="@style/PerfTvChooseContent"
+                            android:text="38" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="2dp"
+                            android:text="元"
+                            android:textColor="@color/font_them"
+                            android:textSize="@dimen/font_content_four" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/image_right_size"
+                        android:layout_height="@dimen/image_right_size"
+                        android:layout_marginRight="10dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_right" />
+                </LinearLayout>
+
+                <View style="@style/CommonHorLine" />
+
+                <LinearLayout
+                    android:id="@+id/perf_ll_diqu"
+                    style="@style/PerfLayoutChoose"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/PerfTvChooseTitle"
+                        android:text="地区补差：" />
+
+                    <LinearLayout style="@style/PerfTvChooseLayout" >
+
+                        <TextView
+                            android:id="@+id/perf_tv_diqu"
+                            style="@style/PerfTvChooseContent"
+                            android:text="38" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="2dp"
+                            android:text="元"
+                            android:textColor="@color/font_them"
+                            android:textSize="@dimen/font_content_four" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/image_right_size"
+                        android:layout_height="@dimen/image_right_size"
+                        android:layout_marginRight="10dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_right" />
+                </LinearLayout>
+
+                <View style="@style/CommonHorLine" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,140 @@
+<!-- 存款产品信息 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_white"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginTop="10dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/CustTvItemTitle"
+                android:text="开户机构：" />
+
+            <TextView
+                android:id="@+id/customer_product_shouji_jigou"
+                style="@style/CustTvItemContent"
+                android:text="营业部" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5.5"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/CustTvItemTitle"
+                android:text="开户日期：" />
+
+            <TextView
+                android:id="@+id/customer_product_shouji_kaihu_riqi"
+                style="@style/CustTvItemContent"
+                android:text="2017-05-20" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/CustTvItemTitle"
+                android:text="营销类型：" />
+
+            <TextView
+                android:id="@+id/customer_product_shouji_leixing"
+                style="@style/CustTvItemContent"
+                android:text="主动营销" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5.5"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/CustTvItemTitle"
+                android:text="注销日期：" />
+
+            <TextView
+                android:id="@+id/customer_product_shouji_zhuxiao_riqi"
+                style="@style/CustTvItemContent"
+                android:text="2018-05-20" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/CustTvItemTitle"
+                android:text="拓展人：" />
+
+            <TextView
+                android:id="@+id/customer_product_shouji_tuozhanren"
+                style="@style/CustTvItemContent"
+                android:text="张三" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5.5"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/CustTvItemTitle"
+                android:text="贴片日期：" />
+
+            <TextView
+                android:id="@+id/customer_product_shouji_tiepian_riqi"
+                style="@style/CustTvItemContent"
+                android:text="2018-05-20" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            style="@style/CustTvItemTitle"
+            android:text="拓展比例（%）：" />
+
+        <TextView
+            android:id="@+id/customer_product_shouji_bili"
+            style="@style/CustTvItemContent"
+            android:text="100" />
+    </LinearLayout>
+
+</LinearLayout>

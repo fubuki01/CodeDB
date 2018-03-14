@@ -1,0 +1,36 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/CommonLayout"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        style="@style/CommonLayout"
+        android:orientation="horizontal"
+        android:background="@color/bg_white_sec" >
+
+        <View style="@style/CommonVerLine" />
+
+        <TextView
+            android:id="@+id/item_customer_relation_tv_lxrlx"
+            style="@style/CustRelationContent"
+            android:text="儿子" />
+
+        <View style="@style/CommonVerLine" />
+
+        <TextView
+            android:id="@+id/item_customer_relation_tv_xm"
+            style="@style/CustRelationContent"
+            android:text="王小五" />
+
+        <View style="@style/CommonVerLine" />
+
+        <TextView
+            android:id="@+id/item_customer_relation_tv_dh"
+            style="@style/CustRelationContent"
+            android:text="12345678998" />
+
+        <View style="@style/CommonVerLine" />
+    </LinearLayout>
+
+    <View style="@style/CommonHorLine" />
+
+</LinearLayout>

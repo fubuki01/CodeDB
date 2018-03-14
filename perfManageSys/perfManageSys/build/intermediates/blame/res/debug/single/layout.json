@@ -1,0 +1,578 @@
+[
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_dianzi_jigoupingjun.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_dianzi_jigoupingjun.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\popwindow_market_more.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\popwindow_market_more.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_daikuan_dydkshlx.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_daikuan_dydkshlx.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_dianzi_biamingka.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_dianzi_biamingka.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_cunkuan_cl_yrp_yue.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_cunkuan_cl_yrp_yue.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_search2.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_search2.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_cunkuan_zl_moni.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_cunkuan_zl_moni.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_warning_linian_shouhuilv.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_warning_linian_shouhuilv.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_preview_photo.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_preview_photo.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_visit_family_member.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_visit_family_member.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_visit_contanct_informaition.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_visit_contanct_informaition.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_customer_product_daikuan_home.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_customer_product_daikuan_home.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_warning_dingqi_2.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_warning_dingqi_2.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_customer_daikuan_user.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_customer_daikuan_user.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_warning_main.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_warning_main.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_daikuan_dndqdkshl.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_daikuan_dndqdkshl.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\layout_customer_product.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\layout_customer_product.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_market_choose_jg.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_market_choose_jg.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_visit_other_information.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\fragment_visit_other_information.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_customer_product_cunkuan.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_customer_product_cunkuan.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\picker_footer.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\picker_footer.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_market_modify.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_market_modify.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_home.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_home.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_visit_basic_information.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\fragment_visit_basic_information.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_login.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_login.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_performance_day_2.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\fragment_performance_day_2.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\layout_common_datetime.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\layout_common_datetime.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_cunkuan_hushu_2.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_cunkuan_hushu_2.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_month_aljc_2.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_month_aljc_2.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_daikuan_khhs.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_daikuan_khhs.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_customer_product_shouji_home.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_customer_product_shouji_home.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_warning_yuqi_daikuan.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_warning_yuqi_daikuan.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_daikuan_biaowai_2.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_daikuan_biaowai_2.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_customer.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_customer.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_customer_product_daikuan_hth.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_customer_product_daikuan_hth.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\shape_lable.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\shape_lable.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_launch.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_launch.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_month_gxl_2.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_month_gxl_2.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_warning_daikuan_qianxi.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_warning_daikuan_qianxi.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_guanli.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_guanli.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_performance_day.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\fragment_performance_day.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_month_phjfk_2.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_month_phjfk_2.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\layout_customer_product_shouji.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\layout_customer_product_shouji.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_daikuan_aljcgz.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_daikuan_aljcgz.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_cunkuan_hushu.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_cunkuan_hushu.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\layout_radio_button.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\layout_radio_button.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\layout_customer_product_cunkuan.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\layout_customer_product_cunkuan.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\layout_customer_product_etc.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\layout_customer_product_etc.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\popwindow_delete.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\popwindow_delete.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_daikuan_xzbnbldkzb.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_daikuan_xzbnbldkzb.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\popwindow_customer_more.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\popwindow_customer_more.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_performance_month.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\fragment_performance_month.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_perf_common_1.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\fragment_perf_common_1.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_customer.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_customer.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_perf_common_fragment.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_perf_common_fragment.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_attach_pictures.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_attach_pictures.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\common_item_lable.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\common_item_lable.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_warning_baoshou_xinzeng_daikuan.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_warning_baoshou_xinzeng_daikuan.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_customer_product_daikuan.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_customer_product_daikuan.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_warning_common.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_warning_common.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_visit_contact_call_log.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_visit_contact_call_log.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_cunkuan_yzkhgz.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_cunkuan_yzkhgz.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_customer_product_etc_user.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_customer_product_etc_user.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_single_perf.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_single_perf.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_market_add.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_market_add.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_perf_common.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_perf_common.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_visit_main_old.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_visit_main_old.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\layout_common_top_title.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\layout_common_top_title.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_yewu.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_yewu.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_visit_contact_information.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\fragment_visit_contact_information.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\layout_common_visit_title.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\layout_common_visit_title.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_market.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\fragment_market.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_month_head.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_month_head.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_customer_product_daikuan_user.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_customer_product_daikuan_user.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_warning_baoshou_daikuan.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_warning_baoshou_daikuan.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_customer_product_daikuan_recycleview.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_customer_product_daikuan_recycleview.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_yewu_xianjin.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_yewu_xianjin.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_market.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_market.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_customer_public.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\fragment_customer_public.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_cunkuan_cl_moni.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_cunkuan_cl_moni.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_customer_common.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\fragment_customer_common.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\dialog_pop.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\dialog_pop.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_month_phjfk.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_month_phjfk.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_list_single_text.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_list_single_text.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_customer_info.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\fragment_customer_info.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_visit_main.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_visit_main.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\layout_customer_relation_user.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\layout_customer_relation_user.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_dianzi_etc.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_dianzi_etc.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_customer_info.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_customer_info.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\layout_customer_product_daikuan.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\layout_customer_product_daikuan.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_visit_basic_information_log.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_visit_basic_information_log.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_customer_product_shouji.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_customer_product_shouji.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_customer_product_cunkuan_home.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_customer_product_cunkuan_home.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_visit_location.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_visit_location.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_customer_product_shouji.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_customer_product_shouji.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_customer_relation_user.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_customer_relation_user.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_customer_product_shouji_user.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_customer_product_shouji_user.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_performance.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_performance.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_perf_common_activity.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_perf_common_activity.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_visit_contacts.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_visit_contacts.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_customer_relation.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\fragment_customer_relation.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_dianzi_geren.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_dianzi_geren.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\picker_header.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\picker_header.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\pull_to_refresh_header_horizontal.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\exploded-aar\\perfManageSys\\pullToRefresh\\unspecified\\res\\layout\\pull_to_refresh_header_horizontal.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_dianzi_jiaoyi_bishu.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_dianzi_jiaoyi_bishu.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_daikuan_cl_moni.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_daikuan_cl_moni.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_market_cunkuan.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\fragment_market_cunkuan.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\pull_to_refresh_header_vertical.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\exploded-aar\\perfManageSys\\pullToRefresh\\unspecified\\res\\layout\\pull_to_refresh_header_vertical.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_customer_product.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\fragment_customer_product.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\layotu_pop_dialog.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\layotu_pop_dialog.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_performance_month_common.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_performance_month_common.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_customer_product_cunkuan.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_customer_product_cunkuan.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_dianzi_jigoukoujian.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_dianzi_jigoukoujian.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_customer_product_etc.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_customer_product_etc.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_daikuan_zl_moni.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_daikuan_zl_moni.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\layout_common_back_title.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\layout_common_back_title.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_performance_common_single.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_performance_common_single.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\layout_customer_base_info.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\layout_customer_base_info.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_customer_product_etc_home.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_customer_product_etc_home.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_performance_common.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_performance_common.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_customer_product_cunkuan_user.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_customer_product_cunkuan_user.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_market_choose_jg.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_market_choose_jg.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_customer_personal.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\fragment_customer_personal.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\table_top_perf_common_activity.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\table_top_perf_common_activity.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_visit_family_member.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\fragment_visit_family_member.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_month_content.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_month_content.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_search.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_search.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_daikuan_biaowai.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_daikuan_biaowai.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_market_check.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_market_check.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_dianzi_hushu.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_dianzi_hushu.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_cunkuan_zl_yrp_yue.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_cunkuan_zl_yrp_yue.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_phone_no.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_phone_no.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_month_aljc.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_month_aljc.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_warning_dingqi.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_warning_dingqi.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_warning_dingqi.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_warning_dingqi.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_daikuan_yingxiao.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_daikuan_yingxiao.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_diqu.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_diqu.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\common_main_lable.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\common_main_lable.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_warning.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\fragment_warning.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_customer.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\fragment_customer.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_warning_linian_shouhuilv_2.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_warning_linian_shouhuilv_2.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_perf_common.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\fragment_perf_common.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\item_performance_month_gxl.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\item_performance_month_gxl.xml"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\layout\\activity_main.xml"
+    }
+]

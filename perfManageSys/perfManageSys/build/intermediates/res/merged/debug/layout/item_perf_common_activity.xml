@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/layout_choose_height"
+    android:background="@color/bg_white"
+    android:gravity="center"
+    android:orientation="horizontal" >
+
+    <View style="@style/CommonVerLine" />
+
+    <TextView
+        android:id="@+id/perf_common_tv_zhanghu"
+        style="@style/PerfTableTv2"
+        android:background="@color/bg_white"
+        android:text="存款账户" />
+
+    <View style="@style/CommonVerLine" />
+
+    <TextView
+        android:id="@+id/perf_common_tv_yue"
+        style="@style/PerfTableTv1"
+        android:background="@color/bg_white"
+        android:text="余额" />
+
+    <View style="@style/CommonVerLine" />
+
+    <TextView
+        android:id="@+id/perf_common_tv_ftp"
+        style="@style/PerfTableTv1"
+        android:background="@color/bg_white"
+        android:text="FTP利差(%)" />
+
+    <View style="@style/CommonVerLine" />
+
+    <TextView
+        android:id="@+id/perf_common_tv_fencheng"
+        style="@style/PerfTableTv1"
+        android:background="@color/bg_white"
+        android:text="分成比例(%)" />
+
+    <View style="@style/CommonVerLine" />
+    <TextView
+        android:id="@+id/perf_common_tv_monilirun"
+        style="@style/PerfTableTv1"
+        android:background="@color/bg_white"
+        android:text="模拟利润" />
+
+    <View style="@style/CommonVerLine" />
+
+</LinearLayout>

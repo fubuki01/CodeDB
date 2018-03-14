@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:background="@drawable/background">
+
+    <se.emilsjolander.stickylistheaders.SideBarView
+        android:id="@+id/sidebar"
+        style="@style/sidebar_view_style"
+        android:layout_width="46dp"/>
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@id/sidebar"
+        android:cacheColorHint="@color/transparent"
+        android:drawSelectorOnTop="false"
+        android:scrollbars="none"
+        android:fastScrollEnabled="false"
+        android:overScrollMode="never"
+        android:divider="#00ffffff"
+        android:dividerHeight="0.1dp"
+ 	/>
+
+</RelativeLayout>

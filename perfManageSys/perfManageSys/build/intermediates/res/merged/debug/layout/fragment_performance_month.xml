@@ -1,0 +1,61 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/RootFragment"
+    android:orientation="vertical" >
+
+    <include layout="@layout/layout_common_top_title" />
+
+    <RelativeLayout
+        android:id="@+id/perf_rl_date"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_choose_height"
+        android:background="@drawable/selector_common_layout_white" >
+
+        <TextView
+            android:id="@+id/perf_tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:paddingRight="12dp"
+            android:textColor="@color/font_black_2"
+            android:textSize="@dimen/font_content_fir" />
+
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="8dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/perf_tv_date"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_bottom" />
+    </RelativeLayout>
+
+    <View style="@style/CommonHorLine" />
+    
+    <FrameLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+        <android.support.v7.widget.RecyclerView
+        android:id="@+id/perf_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible" />
+        
+        <ProgressBar
+        android:id="@+id/perf_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/perf_tv_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="未查询到选择日期的工资信息"
+        android:textColor="@color/font_black_2"
+        android:textSize="@dimen/font_content_sec"
+        android:visibility="gone" />
+    </FrameLayout>
+</LinearLayout>

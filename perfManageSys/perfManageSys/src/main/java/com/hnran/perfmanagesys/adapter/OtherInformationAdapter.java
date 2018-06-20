@@ -23,6 +23,7 @@ import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 import com.baidu.platform.comapi.map.H;
 import com.hnran.perfmanagesys.R;
+import com.hnran.perfmanagesys.fragment.visit.OtherInformationFragment;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -48,7 +49,7 @@ import static android.graphics.Bitmap.Config.ARGB_8888;
 public class OtherInformationAdapter extends BaseAdapter {
 
     private static final String TAG = "OtherInformationAdapter";
-    String path = Environment.getExternalStorageDirectory()+"/perfManageSys/";
+    String path = OtherInformationFragment.path;
     private List<VisitOtherInfo> visitOtherInfos;
     private Context mCtx;
     private ViewHolder viewHolder;
@@ -89,7 +90,7 @@ public class OtherInformationAdapter extends BaseAdapter {
         }
 
         String fileName = visitOtherInfos.get(position).getFileName();
-        filePath = path+fileName;
+        filePath = path+ File.separator +fileName;
         File file = new File(filePath);
         if(file.exists()){
             /**
@@ -102,12 +103,9 @@ public class OtherInformationAdapter extends BaseAdapter {
         }else {
            viewHolder.ivFolder.setImageResource(R.drawable.ic_photo_loading);
         }
-
-
-
         viewHolder.tvName.setText(visitOtherInfos.get(position).getAttachName());
         viewHolder.tvType.setText(visitOtherInfos.get(position).getAttachType());
-        //隱藏顯示ID
+        //隐藏显示ID
         viewHolder.tvType.setTag(visitOtherInfos.get(position).getId());
         viewHolder.tvName.setTag(filePath);
         return convertView;
@@ -131,42 +129,6 @@ public class OtherInformationAdapter extends BaseAdapter {
     }
 
 
-    /**
-     * 将图片保存到本地的SD卡中
-     *
-     * @param fileName
-     * @param bitmap
-     */
-    private void putSDBitmap(final String fileName, final Bitmap bitmap) {
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                File cacheDir = new File(path);
-                if (!cacheDir.exists())
-                    cacheDir.mkdirs();
-                File cacheFile = new File(path + "/"
-                        + fileName);
-                if (!cacheFile.exists()) {
-                    try {
-                        cacheFile.createNewFile();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-                FileOutputStream fos;
-                try {
-                    fos = new FileOutputStream(cacheFile);
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
-                    fos.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-    }
 
 }
 

@@ -2,10 +2,10 @@ package com.hnran.perfmanagesys.fragment.visit;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
@@ -38,7 +38,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.hnran.perfmanagesys.R;
 import com.hnran.perfmanagesys.activity.BaseFragment;
 import com.hnran.perfmanagesys.activity.CommonContent;
-import com.hnran.perfmanagesys.activity.PMSApplication;
 import com.hnran.perfmanagesys.adapter.CallRecordAdapter;
 import com.hnran.perfmanagesys.adapter.ContactsPhoneNumberAdapter;
 import com.hnran.perfmanagesys.adapter.VisitFamilyNumbersMenuAadapter;
@@ -53,7 +52,6 @@ import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.readboy.ssm.po.ContactsPhone;
 import com.readboy.ssm.po.VisitContactLog;
 import com.readboy.ssm.po.VisitFamilyInfo;
 
@@ -69,68 +67,116 @@ import static com.alibaba.fastjson.JSON.parseArray;
 
 
 /**
+ * 联系人信息
  * Created by Wyd on 2018/1/2.
  */
 
-public class ContactInformationFragment extends BaseFragment implements ContactsPhoneNumberAdapter.CallBack, CallRecordAdapter.CallBackRecord ,VisitJudgeAndSaveCallBack{
+public class ContactInformationFragment extends BaseFragment implements ContactsPhoneNumberAdapter.CallBack, CallRecordAdapter.CallBackRecord, VisitJudgeAndSaveCallBack {
 
+    //    private static String path = Environment.getExternalStorageDirectory() + "/perfManageSys/CallRecording/";
+    //录音存放路径
+    private static String path = "";
 
-
-    private static String path = Environment.getExternalStorageDirectory() + "/perfManageSys/CallRecording/";
+    //打印标记
     private static final String TAG = "ContactInfoFragment";
-    private static final int READ_LOCALCONTACTS_CODE = 1;
+
+    //联系人电话输入框
     private EditText mTvContactNumber;
+    //从手机选择联系人图片按钮
     private ImageView mLvPhoneContactPeople;
-    private boolean playOver = true;
 
-    private ListPopupWindow listPopupWindow = null;
-    private VisitFamilyNumbersMenuAadapter adapter = null;
+    //家庭成员选择下拉布局
     private LinearLayout mLlFamilyNumbers;
+    //家庭成员文本框--从联系人基本信息选择
     private TextView mTvFamilyNumbers;
+    //家庭成员选择下拉图片按钮
     private ImageView mIvFamilyNumbers;
+    //联系方式List列表
     private ListView mLvFamilyNumbersPhone;
-    private ContactsPhoneNumberAdapter mContactsPhoneNumberAdapter;
+    //通话记录列表
     private ListView mLvCallRecord;
-    private static CallRecordAdapter mCallRecordAdapter;
-    private static String mPhone;
-    private MediaPlayer mMediaPlayer;
-    private static AlertDialog mAlertDialogRecord = null;
-    private static AlertDialog mAlertDialogSave = null;
-    private static FragmentActivity activity;
-
-    private static Intent mCallRecordIntent;
-    private static List<VisitContactLog> mVisitContactLogs =  new ArrayList<VisitContactLog>();;
-    private static String mName;
-    private static File mFile;
-    private HttpUtils mHttpUtils ;
-    private String mWebFilesPath;
+    //录音播放下喇叭图标
     private ImageView mCallRecord;
 
+
+    //家庭联系人选择控价PopupWindow
+    private ListPopupWindow listPopupWindow = null;
+    //家庭联系人选择适配器--从联系人信息读取的
+    private VisitFamilyNumbersMenuAadapter adapter = null;
+    //联系方式列表适配器
+    private ContactsPhoneNumberAdapter mContactsPhoneNumberAdapter;
+    //录音记录适配器
+    private static CallRecordAdapter mCallRecordAdapter;
+
+    //点击按钮拨打的电话号码
+    private static String mPhone;
+    //拨打电话联系人的名字
+    private static String mName;
+    //录音文件
+    private static File mFile;
+    //后台录音文件存放路径 --- 录音文件下载路径
+    private String mWebFilesPath;
+    //客户编号
+    private static String khbh;
+    //用户编码
+    private static String ghrgh;
+
+
+    //Http请求工具
+    private HttpUtils mHttpUtils;
+
+    //录音播放
+    private MediaPlayer mMediaPlayer;
+
+    //是否对通话进行录音提示框
+    private static AlertDialog mAlertDialogRecord = null;
+    //是否对录音进行保存提示框
+    private static AlertDialog mAlertDialogSave = null;
+
+    //获取上下文对象
+    private static FragmentActivity localActivity;
+
+    //开启录音服务意图对象
+    private static Intent mCallRecordIntent;
+
+    //录音条目存放对象
+    private static List<VisitContactLog> mVisitContactLogs = new ArrayList<VisitContactLog>();
     //存放家庭成员
     private ArrayList<String> mListFamilyNumbers = new ArrayList<>();
-    //msg码
-    private final static int GETPHONERECORD = 1;
-    private final static int OPERATIONFINISHED = 2;
-    private static final int SAVEPHONEFROMLISTCONTACTS = 3;
-    private static final int GETCONTACTSCODE = 4;
-    private final static int ERROR = 5;
-
     //存放联系人列表
     private List<VisitFamilyInfo> visitFamilyInfos;
 
-    // 为了便于其他类使用handler所以定义成静态的
+    //录音是否播放完成标记
+    private boolean playOver = true;
+
+    //msg码
+    /*从后台获取通话记录msg码*/
+    private final static int GETPHONERECORD = 1;
+    /*把增加的联系人信息保存完成msg码*/
+    private final static int OPERATIONFINISHED = 2;
+    /*保存从通讯录获取的联系人信息msg码*/
+    private static final int SAVEPHONEFROMLISTCONTACTS = 3;
+    /*从后台获取联系人列表msg码*/
+    private static final int GETCONTACTSCODE = 4;
+    /*错误msg码*/
+    private final static int ERROR = 5;
+
+    //读取手机联系人请求码
+    private static final int READ_LOCALCONTACTS_CODE = 1;
+
+
+    /**
+     * 为了便于其他类使用handler所以定义成静态的
+     */
     public static Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
+                /*外播电话完成结束---从录音服务传来的*/
                 case 1:
-                    /**
-                     * 关闭服务方法
-                     */
+                    //关闭服务的方法
                     stopCallRecordService();
-                    /**
-                     * 增加条目方法
-                     */
+                    //是否增加录音条目
                     addCallRecord();
                     break;
             }
@@ -138,53 +184,83 @@ public class ContactInformationFragment extends BaseFragment implements Contacts
     };
 
 
-
     /**
      * 处理本界面的消息
      */
-   private Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case GETPHONERECORD:
-                    /**
-                     * 显示通话记录列表
-                     */
+                    //显示通话录音列表
                     showListContactLog();
-
-                    /**
-                     * 从网络加载通话录音文件
-                     */
+                    //从服务器加载通话录音文件
                     getPhoneRecoreFiles();
                     break;
                 case OPERATIONFINISHED:
-                    String issuccess = (String)msg.obj;
-                    if(issuccess.equals("success")){
+                    String issuccess = (String) msg.obj;
+                    if (issuccess.equals("success")) {
                         ToastUtil.showToast(getActivity(), CommonContent.OPERATION_SUCCESS);
                         loadData();
-                    }
-                    else
+                    } else
                         ToastUtil.showToast(getActivity(), CommonContent.OPERATION_FAILED);
                     break;
                 case SAVEPHONEFROMLISTCONTACTS:
-                    /**
-                     * 保存从通讯录获取的联系人信息
-                     */
+                    //保存从通讯录获取的联系人信息
                     Intent data = (Intent) msg.obj;
                     String contactName = data.getStringExtra("contactName");
                     String contactNumber = data.getStringExtra("contactNumber");
-                    saveContcatPhone(contactName,contactNumber);
+                    saveContcatPhone(contactName, contactNumber);
                     break;
                 case GETCONTACTSCODE:
-                    /**
-                     * 显示联系人列表
-                     */
+                    //显示联系人列表
                     showListContacts();
                 case ERROR:
                     break;
             }
         }
     };
+
+
+
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        localActivity = getActivity();
+        khbh = localActivity.getIntent().getStringExtra("Extra_khbh");
+        ghrgh = localActivity.getIntent().getStringExtra("ghrgh");
+        View view = inflater.inflate(R.layout.fragment_visit_contact_information, null);
+        loadData();
+        initVariables();
+        initViews(view);
+        return view;
+    }
+
+    //初始化变量
+    public void initVariables() {
+        path = localActivity.getExternalCacheDir().toString();
+    }
+
+    //初始化布局
+    public void initViews(View view) {
+        mLlFamilyNumbers = (LinearLayout) view.findViewById(R.id.ll_family_numbers);
+        mTvFamilyNumbers = (TextView) view.findViewById(R.id.tv_family_numbers);
+        mIvFamilyNumbers = (ImageView) view.findViewById(R.id.iv_arrow);
+        mTvContactNumber = (EditText) view.findViewById(R.id.tv_contact_number);
+        mLvPhoneContactPeople = (ImageView) view.findViewById(R.id.iv_phone_contact_people);
+        mLvFamilyNumbersPhone = (ListView) view.findViewById(R.id.lv_family_numbers_phone);
+        mLvCallRecord = (ListView) view.findViewById(R.id.lv_call_log);
+
+
+        //设置家庭成员选择监听
+        mLlFamilyNumbers.setOnClickListener(new ShowFamilyNumbers());
+        //设置联系人选择监听---从本地手机选择
+        mLvPhoneContactPeople.setOnClickListener(new ShowLocalContacts());
+
+
+    }
+
 
     /**
      * 显示联系人列表
@@ -208,69 +284,81 @@ public class ContactInformationFragment extends BaseFragment implements Contacts
      * 关闭通话监听服务
      */
     private static void stopCallRecordService() {
-        activity.stopService(mCallRecordIntent);
+        localActivity.stopService(mCallRecordIntent);
         Log.e(TAG, "stopCallRecordService: " + "监听服务已关闭！");
     }
 
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        activity = getActivity();
-        View view = inflater.inflate(R.layout.fragment_visit_contact_information, null);
-        loadData();
-        initVariables();
-        initViews(view);
-        return view;
-    }
-
-    public void initVariables() {
-
-    }
-
-    public void initViews(View view) {
-        mLlFamilyNumbers = (LinearLayout) view.findViewById(R.id.ll_family_numbers);
-        mTvFamilyNumbers = (TextView) view.findViewById(R.id.tv_family_numbers);
-        mIvFamilyNumbers = (ImageView) view.findViewById(R.id.iv_arrow);
-        mTvContactNumber = (EditText) view.findViewById(R.id.tv_contact_number);
-        mLvPhoneContactPeople = (ImageView) view.findViewById(R.id.iv_phone_contact_people);
-        mLvFamilyNumbersPhone = (ListView) view.findViewById(R.id.lv_family_numbers_phone);
-        mLvCallRecord = (ListView) view.findViewById(R.id.lv_call_log);
-
-
-        mLlFamilyNumbers.setOnClickListener(new ShowFamilyNumbers());
-        mLvPhoneContactPeople.setOnClickListener(new ShowLocalContacts());
-
-
-
-    }
-
-
     public void loadData() {
-
-        /**
-         * 获取家庭成员信息
-         */
+        //获取家庭成员信息
         getFamilyNumbers();
 
-        /**
-        * 获取文件存放根路径
-         */
+        //获取文件存放根路径
         getWebFilePath();
 
-
-        /**
-         * 获取联系人列表
-         */
+        //获取联系人列表
         getContacts();
 
-
-        /**
-         * 获取通话记录列表
-         */
+        //获取通话记录列表
         requestContactLog();
 
+    }
 
 
+
+
+
+
+    /*------------------------------网络交互----------------------------*/
+
+    /**
+     * 获取家庭成员信息
+     */
+    public void getFamilyNumbers() {
+        String url = MakeUrl.makeURL(new String[]{"visitor/BaseInfo/getFamilyNumberNames"});
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Message message = null;
+                        try {
+                            mListFamilyNumbers = (ArrayList<String>) JSON.parseArray(response, String.class);
+                            if (mListFamilyNumbers != null) {
+                                mTvFamilyNumbers.setText(mListFamilyNumbers.get(0));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        if (message != null)
+                            mHandler.sendMessage(message);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("TAG", error.getMessage(), error);
+                mHandler.sendEmptyMessage(ERROR);
+                ToastUtil.showToast(getActivity(), CommonContent.ERROR_NETWORK);
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                //在这里设置需要post的参数
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("visitorId", ghrgh);
+                map.put("clientNum", khbh);
+                return map;
+            }
+        };
+
+        VolleyUtil.getInstanceRequestQueue().add(stringRequest);
+    }
+
+    /**
+     * 获取服务器文件存放的跟路径
+     */
+    private void getWebFilePath() {
+        mWebFilesPath = "http://" + MakeUrl.IPNUMBER + "/" + "res/" + ghrgh + "/" + khbh + "/" + "video/";
     }
 
 
@@ -282,10 +370,12 @@ public class ContactInformationFragment extends BaseFragment implements Contacts
         StringRequest getContacts = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
-                visitFamilyInfos = JSON.parseArray(s, VisitFamilyInfo.class);
-                Message msg = new Message();
-                msg.what = GETCONTACTSCODE;
-                mHandler.sendMessage(msg);
+                if (s != null && !s.equals("")) {
+                    visitFamilyInfos = JSON.parseArray(s, VisitFamilyInfo.class);
+                    Message msg = new Message();
+                    msg.what = GETCONTACTSCODE;
+                    mHandler.sendMessage(msg);
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -298,107 +388,13 @@ public class ContactInformationFragment extends BaseFragment implements Contacts
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("visitorId", PMSApplication.gUser.getTellId());
-                map.put("clientNum", activity.getIntent().getStringExtra("Extra_khbh"));
+                map.put("visitorId", ghrgh);
+                map.put("clientNum", khbh);
                 map.put("memberType", "0");
                 return map;
             }
         };
         VolleyUtil.getInstanceRequestQueue().add(getContacts);
-    }
-
-
-    /**
-     * 获取家庭成员信息
-     */
-    public void getFamilyNumbers() {
-        String url = MakeUrl.makeURL(new String[]{"visitor/BaseInfo/getFamilyNumberNames"});
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Message message = null;
-                        try{
-                            mListFamilyNumbers = (ArrayList<String>) JSON.parseArray(response,String.class);
-                            if (mListFamilyNumbers!=null){
-                                mTvFamilyNumbers.setText(mListFamilyNumbers.get(0));
-                            }
-                        }catch(JSONException e){
-                            e.printStackTrace();
-                        }catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        if(message!=null)
-                            mHandler.sendMessage(message);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("TAG", error.getMessage(), error);
-                mHandler.sendEmptyMessage(ERROR);
-                ToastUtil.showToast(getActivity(), CommonContent.ERROR_NETWORK);
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() {
-                //在这里设置需要post的参数
-                Map<String, String> map = new HashMap<String, String>();
-                map.put("visitorId", PMSApplication.gUser.getTellId());
-                map.put("clientNum",activity.getIntent().getStringExtra("Extra_khbh"));
-                return map;
-            }
-        };
-
-        VolleyUtil.getInstanceRequestQueue().add(stringRequest);
-    }
-
-    /**
-     * 获取服务器文件存放的跟路径
-     */
-    private void getWebFilePath() {
-        String ghrgh = PMSApplication.gUser.getTellId();
-        String khbh = activity.getIntent().getStringExtra("Extra_khbh");
-        mWebFilesPath = "http://" + MakeUrl.IPNUMBER + "/"+"res/"+ ghrgh + "/" + khbh + "/" + "video/";
-    }
-
-
-    /**
-     * 从服务器获取通话录音文件
-     */
-    private void getPhoneRecoreFiles() {
-        mHttpUtils = new HttpUtils();
-        for (VisitContactLog visitContactLog : mVisitContactLogs) {
-            String fileName = visitContactLog.getFileName();
-            File file = new File(path + fileName);
-            /**
-             * 判断本地是否存在录音文件
-             * 不存在就下载
-             */
-            if (!file.exists()){
-                /**
-                 * 下载文件"http://123.207.87.47:8080/1515997799607714486.3gp"
-                 * mWebFilesPath + fileName
-                 */
-                mHttpUtils.download(mWebFilesPath + fileName, path + fileName, true, false, new RequestCallBack<File>() {
-                    @Override
-                    public void onSuccess(ResponseInfo<File> responseInfo) {
-                        Log.e(TAG, "onSuccess: "+"下载录音文件成功");
-                    }
-
-                    @Override
-                    public void onFailure(HttpException e, String s) {
-                        Log.e(TAG, "onFailure: "+"下载录音文件失败"+e.getMessage());
-                    }
-
-                    @Override
-                    public void onLoading(long total, long current, boolean isUploading) {
-                        super.onLoading(total, current, isUploading);
-                        Log.e(TAG, "onLoading: "+total +"    "+current + "  "+ isUploading);
-                    }
-                });
-            }
-
-        }
     }
 
 
@@ -411,14 +407,16 @@ public class ContactInformationFragment extends BaseFragment implements Contacts
                     @Override
                     public void onResponse(String s) {
                         Log.e(TAG, "onResponse: " + s);
-                        /*获取通话记录*/
-                        mVisitContactLogs = parseArray(s, VisitContactLog.class);
-                        if (mVisitContactLogs != null) {
-                            Message msg = new Message();
-                            msg.what = GETPHONERECORD;
-                            mHandler.sendMessage(msg);
-                        } else {
-                            ToastUtil.showToast(getActivity(), CommonContent.ERROR_CONTACTLOG_RESULT);
+                        if (s!=null&&!s.equals("")){
+                             /*获取通话记录*/
+                            mVisitContactLogs = parseArray(s, VisitContactLog.class);
+                            if (mVisitContactLogs != null) {
+                                Message msg = new Message();
+                                msg.what = GETPHONERECORD;
+                                mHandler.sendMessage(msg);
+                            } else {
+                                ToastUtil.showToast(getActivity(), CommonContent.ERROR_CONTACTLOG_RESULT);
+                            }
                         }
                     }
                 },
@@ -432,12 +430,55 @@ public class ContactInformationFragment extends BaseFragment implements Contacts
             protected Map<String, String> getParams() {
                 //在这里设置需要post的参数
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("clientNum", activity.getIntent().getStringExtra("Extra_khbh"));
+                map.put("clientNum", khbh);
                 return map;
             }
         };
         VolleyUtil.getInstanceRequestQueue().add(stringRequest);
     }
+
+
+
+
+    /**
+     * 从服务器获取通话录音文件
+     */
+    private void getPhoneRecoreFiles() {
+        mHttpUtils = new HttpUtils();
+        for (VisitContactLog visitContactLog : mVisitContactLogs) {
+            String fileName = visitContactLog.getFileName();
+            File file = new File(path + File.separator + fileName);
+            /**
+             * 判断本地是否存在录音文件
+             * 不存在就下载
+             */
+            if (!file.exists()) {
+                /**
+                 * 下载文件"http://123.207.87.47:8080/1515997799607714486.3gp"
+                 * mWebFilesPath + fileName
+                 */
+                mHttpUtils.download(mWebFilesPath + fileName, path + File.separator + fileName, true, false, new RequestCallBack<File>() {
+                    @Override
+                    public void onSuccess(ResponseInfo<File> responseInfo) {
+                        Log.e(TAG, "onSuccess: " + "下载录音文件成功");
+                    }
+
+                    @Override
+                    public void onFailure(HttpException e, String s) {
+                        Log.e(TAG, "onFailure: " + "下载录音文件失败" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onLoading(long total, long current, boolean isUploading) {
+                        super.onLoading(total, current, isUploading);
+                        Log.e(TAG, "onLoading: " + total + "    " + current + "  " + isUploading);
+                    }
+                });
+            }
+
+        }
+    }
+
 
 
 
@@ -490,16 +531,7 @@ public class ContactInformationFragment extends BaseFragment implements Contacts
         }
     }
 
-    /**
-     * 读取本地联系人点击监听
-     */
-    private class ShowLocalContacts implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(getActivity(), VisitContactsActivity.class);
-            startActivityForResult(intent, READ_LOCALCONTACTS_CODE);
-        }
-    }
+
 
     /**
      * Activity 回调结果
@@ -511,7 +543,6 @@ public class ContactInformationFragment extends BaseFragment implements Contacts
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e(TAG, "onActivityResult: " + requestCode);
         if (data != null) {
             if (requestCode == READ_LOCALCONTACTS_CODE) {
                 String contactName = data.getStringExtra("contactName");
@@ -536,13 +567,14 @@ public class ContactInformationFragment extends BaseFragment implements Contacts
     private static void addCallRecordItem() {
         VisitContactLog visitContactLog = new VisitContactLog();
         visitContactLog.setDate(CallPhoneService.mDBFileName);
+        visitContactLog.setFileName(CallPhoneService.mFileName + ".amr");
         visitContactLog.setPhone(mPhone);
         mVisitContactLogs.add(visitContactLog);
         mCallRecordAdapter.notifyDataSetChanged();
 
-//        mFile = new File(path + CallPhoneService.mFileName+".3gp");
-        mFile = new File(path + CallPhoneService.mFileName+".amr");
-        Log.e(TAG, "addCallRecordItem:文件保存路径 "+ mFile.getAbsolutePath());
+        //mFile = new File(path + CallPhoneService.mFileName+".3gp");
+        mFile = new File(path + File.separator + CallPhoneService.mFileName + ".amr");
+        Log.e(TAG, "addCallRecordItem:文件保存路径 " + mFile.getAbsolutePath());
         if (mFile.exists()) {
             /**
              * 数据库中插入一条数据并把录音文件
@@ -566,8 +598,8 @@ public class ContactInformationFragment extends BaseFragment implements Contacts
         String url = MakeUrl.makeURL(new String[]{"contactinfo/uploadPhoneRecordFile.action"});
 
         List<Part> partList = new ArrayList<Part>();
-        partList.add(new StringPart("khbh", activity.getIntent().getStringExtra("Extra_khbh"), "UTF-8"));
-        partList.add(new StringPart("ghrgh", PMSApplication.gUser.getTellId(), "UTF-8"));
+        partList.add(new StringPart("khbh", khbh, "UTF-8"));
+        partList.add(new StringPart("ghrgh", ghrgh, "UTF-8"));
         partList.add(new StringPart("type", "video", "UTF-8"));
         try {
             partList.add(new FilePart("fileupload", mFile));
@@ -578,12 +610,12 @@ public class ContactInformationFragment extends BaseFragment implements Contacts
         MultipartRequest multipartRequest = new MultipartRequest(url, partList.toArray(new Part[partList.size()]), new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
-                Log.e(TAG, "onResponse: "+"上传成功");
+                Log.e(TAG, "onResponse: " + "上传成功");
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Log.e(TAG, "onErrorResponse: "+"上传失败");
+                Log.e(TAG, "onErrorResponse: " + "上传失败");
             }
         });
         //将请求加入队列
@@ -611,19 +643,20 @@ public class ContactInformationFragment extends BaseFragment implements Contacts
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
-                map.put("name",mName);
-                map.put("phone",mPhone);
-//                map.put("fileName",CallPhoneService.mFileName+".3gp");
-                map.put("fileName",CallPhoneService.mFileName+".amr");
-                map.put("date",CallPhoneService.mDBFileName);
-                map.put("visitorId", PMSApplication.gUser.getTellId());
-                map.put("clientNum",activity.getIntent().getStringExtra("Extra_khbh"));
+                map.put("name", mName);
+                map.put("phone", mPhone);
+                map.put("fileName", CallPhoneService.mFileName + ".amr");
+                map.put("date", CallPhoneService.mDBFileName);
+                map.put("visitorId", ghrgh);
+                map.put("clientNum", khbh);
                 return map;
             }
         };
         VolleyUtil.getInstanceRequestQueue().add(stringRequest);
     }
 
+
+    /*---------------------------------------按钮监听----------------------------------*/
     /**
      * 打电话按钮点击监听
      *
@@ -692,24 +725,22 @@ public class ContactInformationFragment extends BaseFragment implements Contacts
      */
     @Override
     public void recordClick(View view) {
-        String fileName = (String) view.getTag();
-        mCallRecord = (ImageView) view.findViewById(R.id.iv_call_record);
 
+        mCallRecord = (ImageView) view.findViewById(R.id.iv_call_record);
+        String fileName = (String) mCallRecord.getTag();
         /**
          * playOver防止多次点击
          */
         if (playOver) {
             playOver = false;
-            File file = new File(path + "/" + fileName);
-            Log.e(TAG, "recordClick文件路径: "+file.getPath());
+            File file = new File(path + File.separator + fileName);
             if (file.exists()) {
                 try {
-                    Log.e(TAG, "recordClick: " + " " + file.getPath());
                     mMediaPlayer = new MediaPlayer();
                     mMediaPlayer.setDataSource(file.getPath());
                     mMediaPlayer.prepare();
                 } catch (IOException e) {
-                    ToastUtil.showToast(getActivity(), "未找到文件路径");
+                    ToastUtil.showToast(getActivity(), CommonContent.NOFINDFILEPATH);
                 }
                 mMediaPlayer.start();
                 mCallRecord.setImageResource(R.drawable.ic_call_record_voice_selected);
@@ -721,7 +752,7 @@ public class ContactInformationFragment extends BaseFragment implements Contacts
                     }
                 });
             } else {
-                ToastUtil.showToast(getActivity(), "抱歉，未找到录音文件");
+                ToastUtil.showToast(getActivity(), CommonContent.NOFINDRECORDFILE);
             }
         }
 
@@ -729,11 +760,24 @@ public class ContactInformationFragment extends BaseFragment implements Contacts
 
 
     /**
+     * 读取本地联系人点击监听
+     */
+    private class ShowLocalContacts implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getActivity(), VisitContactsActivity.class);
+            startActivityForResult(intent, READ_LOCALCONTACTS_CODE);
+        }
+    }
+
+
+
+    /**
      * 增加条目的方法
      * 在广播中调用
      */
     private static void addCallRecord() {
-        mAlertDialogSave = new AlertDialog.Builder(activity).create();
+        mAlertDialogSave = new AlertDialog.Builder(localActivity).create();
         mAlertDialogSave.setCanceledOnTouchOutside(false);
         mAlertDialogSave.show();
         mAlertDialogSave.getWindow().setContentView(R.layout.dialog_pop);
@@ -750,7 +794,7 @@ public class ContactInformationFragment extends BaseFragment implements Contacts
                     mAlertDialogSave = null;
                 }
 //                File file = new File(path + "/" + CallPhoneService.mFileName + ".3gp");
-                File file = new File(path + "/" + CallPhoneService.mFileName + ".amr");
+                File file = new File(path + File.separator + CallPhoneService.mFileName + ".amr");
                 if (file.exists()) {
                     file.delete();
                 }
@@ -774,9 +818,25 @@ public class ContactInformationFragment extends BaseFragment implements Contacts
 
     }
 
+    /**
+     * 点击保存按钮 判断某些条件是否符合相应条件
+     *
+     * @return 符合   true 弹出保存对话框
+     * 不符合 false 弹出吐司对话框
+     */
     @Override
     public boolean judgeCallBack() {
-        return false;
+        String familyNumberName = mTvFamilyNumbers.getText().toString();
+        String familyNumberPhone = mTvContactNumber.getText().toString();
+        if (familyNumberName.equals("") || familyNumberName == null) {
+            ToastUtil.showToast(localActivity, CommonContent.PLEASEINPUTFAMILYNUMBER);
+            return false;
+        }
+        if (familyNumberPhone.equals("") || familyNumberPhone == null) {
+            ToastUtil.showToast(localActivity, CommonContent.PLEASEFAMILYNUMBERPHONE);
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -787,30 +847,35 @@ public class ContactInformationFragment extends BaseFragment implements Contacts
     public void saveCallBack() {
         String memberName = mTvFamilyNumbers.getText().toString();
         String phone = mTvContactNumber.getText().toString();
-        saveContcatPhone(memberName,phone);
+        //保存联系人信息方法
+        saveContcatPhone(memberName, phone);
+        //保存完成之后把电话号码置空
+        mTvContactNumber.setText("");
+        mTvContactNumber.setHint("请输入联系方式");
+        mTvContactNumber.setHintTextColor(Color.argb(255, 128, 128, 128));
     }
 
 
     /**
      * 保存联系人信息
      */
-    private void saveContcatPhone(final String memberName, final String phone){
+    private void saveContcatPhone(final String memberName, final String phone) {
         String url = MakeUrl.makeURL(new String[]{"visitor/BaseInfo/saveFamilyInfo"});
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Message message = null;
-                        try{
+                        try {
                             JSONObject jsonObj = JSON.parseObject(response);
-                            message = mHandler.obtainMessage(OPERATIONFINISHED,jsonObj.getString("result"));
-                        }catch(JSONException e){
+                            message = mHandler.obtainMessage(OPERATIONFINISHED, jsonObj.getString("result"));
+                        } catch (JSONException e) {
                             e.printStackTrace();
-                        }catch (Exception e) {
+                        } catch (Exception e) {
                             // TODO: handle exception
                             e.printStackTrace();
                         }
-                        if(message!=null)
+                        if (message != null)
                             mHandler.sendMessage(message);
                     }
                 }, new Response.ErrorListener() {
@@ -820,16 +885,16 @@ public class ContactInformationFragment extends BaseFragment implements Contacts
                 mHandler.sendEmptyMessage(ERROR);
                 ToastUtil.showToast(getActivity(), CommonContent.ERROR_NETWORK);
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 //在这里设置需要post的参数
-                Map<String,String> map = new HashMap<String,String>();
-                map.put("memberName",memberName);
-                map.put("phone",phone);
-                map.put("clientNum",activity.getIntent().getStringExtra("Extra_khbh"));
-                map.put("visitorId",PMSApplication.gUser.getTellId());
-                map.put("memberType","0");
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("memberName", memberName);
+                map.put("phone", phone);
+                map.put("clientNum", khbh);
+                map.put("visitorId", ghrgh);
+                map.put("memberType", "0");
                 return map;
             }
         };
@@ -851,6 +916,7 @@ public class ContactInformationFragment extends BaseFragment implements Contacts
     public void onPause() {
         super.onPause();
         if (mMediaPlayer != null) {
+            playOver = true;
             mCallRecord.setImageResource(R.drawable.ic_call_record_voice);
             mMediaPlayer.stop();
             mMediaPlayer.release();
@@ -858,4 +924,9 @@ public class ContactInformationFragment extends BaseFragment implements Contacts
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        playOver = true;
+    }
 }

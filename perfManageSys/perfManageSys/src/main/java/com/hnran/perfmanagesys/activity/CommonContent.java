@@ -19,6 +19,15 @@ public class CommonContent {
 	public final static int NETWORK_TIME_OUT_3 = 30000;		//网络请求超时时间
 
 	public static final String ERROR_CONTACTLOG_RESULT = "获取通话记录信息失败";
-	public static final String SAVEINFO = "当前页面无可保存信息";
+
+	/*拜访其他信息*/
+	public static final String NOPHOTOSAVE = "没有附件信息可以保存";
 	public static final String NOATTACHNAME = "附件名称未填写";
+	public static final String PLEASESELECTATTACHTYPE = "请选择附件种类";
+
+	/*拜访联系人信息*/
+	public static final String PLEASEINPUTFAMILYNUMBER = "请选择家庭成员";
+	public static final String PLEASEFAMILYNUMBERPHONE = "请输入家庭成员的联系方式";
+	public static final String NOFINDFILEPATH = "未找到文件路径";
+	public static final String NOFINDRECORDFILE = "抱歉，未找到录音文件";
 }

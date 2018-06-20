@@ -14,11 +14,14 @@ import android.util.Log;
 
 import com.hnran.perfmanagesys.fragment.visit.ContactInformationFragment;
 import com.hnran.perfmanagesys.utils.FileNameUtil;
+import com.hnran.perfmanagesys.utils.FileUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static com.baidu.location.d.j.F;
 
 /**
  * Created by pc 1 on 2/27/2017.
@@ -59,7 +62,8 @@ public class CallPhoneService extends Service {
 
     private void startRecording() {
 
-        File sampleDir = new File(Environment.getExternalStorageDirectory(), "/perfManageSys/CallRecording");
+//        File sampleDir = new File(Environment.getExternalStorageDirectory(), "/perfManageSys/CallRecordig");
+        File sampleDir = new File(getApplicationContext().getExternalCacheDir().toString());
         if (!sampleDir.exists()) {
             sampleDir.mkdirs();
         }

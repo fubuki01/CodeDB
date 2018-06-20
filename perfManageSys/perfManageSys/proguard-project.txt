@@ -74,7 +74,24 @@
 -dontwarn demo.**
 -keep class demo.** { *;}
 #----------------
+## butterknife start
+-keep class butterknife.** { *; }
+-dontwarn butterknife.internal.**
+-keep class **$$ViewBinder { *; }
 
+-keepclasseswithmembernames class * {
+    @butterknife.* <fields>;
+}
+
+-keepclasseswithmembernames class * {
+    @butterknife.* <methods>;
+}
+## butterknife end
+#okhttp3
+-keep class com.squareup.okhttp.** { *;}
+-dontwarn com.squareup.okhttp.**
+-dontwarn okio.**
+#
 #-------------------------------------------------------------------------
 
 #---------------------------------3.与js互相调用的类------------------------

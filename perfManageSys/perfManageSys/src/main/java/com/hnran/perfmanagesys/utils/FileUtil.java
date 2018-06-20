@@ -93,9 +93,7 @@ public class FileUtil {
 		name = name.replace(" ", "").replace(":", "");
 		if(checkSDCard()){
 			file = new File(getExternalFileDir(context),name+".mp4");
-
 		}else{
-
 			file = new File(getAppFilesDir(context),name+".mp4");
 		}
 
@@ -134,6 +132,25 @@ public class FileUtil {
 		}
 		return null;
 	}
+
+
+	/**
+	 * 存储照片到app应用中
+	 * @param context
+	 * @param name
+	 * @return
+	 */
+	public static File savePictureInApp(Context context,String name){
+		File file = null;
+		String path = "";
+		if(name != null) {
+			path = getAppFilesDir(context);
+			file = new File(path, name + ".png");
+			return file;
+		}
+		return null;
+	}
+
 
 
 }

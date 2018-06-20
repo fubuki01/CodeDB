@@ -27,7 +27,6 @@ public class PMSApplication extends Application{
 	}
 
 	public static Context getGlobalContext() {
-
 		return mPMSApplication;
 	}
 	

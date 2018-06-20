@@ -3,7 +3,7 @@
     style="@style/RootFragment"
     android:orientation="vertical" >
 
-    <include layout="@layout/layout_common_top_title" />
+    <!--<include layout="@layout/layout_common_top_title" />-->
 
     <RelativeLayout
         android:id="@+id/perf_rl_date"

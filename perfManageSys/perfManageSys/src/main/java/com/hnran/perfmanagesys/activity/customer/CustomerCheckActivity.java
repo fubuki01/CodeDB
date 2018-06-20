@@ -15,6 +15,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.hnran.perfmanagesys.R;
 import com.hnran.perfmanagesys.activity.BaseActivity;
 import com.hnran.perfmanagesys.activity.CommonContent;
+import com.hnran.perfmanagesys.activity.PMSApplication;
 import com.hnran.perfmanagesys.adapter.CustomerProductDaikuanPersonAdapter;
 import com.hnran.perfmanagesys.utils.BigDecimalUtil;
 import com.hnran.perfmanagesys.utils.MakeUrl;
@@ -226,6 +227,7 @@ public class CustomerCheckActivity extends BaseActivity{
 				Intent intent = new Intent(CustomerCheckActivity.this, VisitMainActivity.class);
 				intent.putExtra("Extra_khbh", mCustomer.getKhbh());
 				intent.putExtra("Extra_khmc", mCustomer.getKhmc());
+				intent.putExtra("ghrgh", PMSApplication.gUser.getTellId());
 				startActivity(intent);
 			}
 		});

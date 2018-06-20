@@ -20,11 +20,11 @@
         "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-xhdpi\\ic_launcher.png"
     },
     {
-        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_photo_loading.png",
-        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-xhdpi\\ic_photo_loading.png"
-    },
-    {
         "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\radiobutton_unchecked.png",
         "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-xhdpi\\radiobutton_unchecked.png"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_photo_loading.png",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-xhdpi\\ic_photo_loading.png"
     }
 ]

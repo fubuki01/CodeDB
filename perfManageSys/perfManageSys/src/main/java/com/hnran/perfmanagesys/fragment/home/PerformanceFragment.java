@@ -96,8 +96,8 @@ public class PerformanceFragment extends BaseFragment{
 
 	protected void initViews(View view, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		TextView tv_title = (TextView) view.findViewById(R.id.tv_common_top_title);
-		tv_title.setText(title);
+//		TextView tv_title = (TextView) view.findViewById(R.id.tv_common_top_title);
+//		tv_title.setText(title);
 
 		llRoot = (LinearLayout) view.findViewById(R.id.perf_root);
 		llRoot.setVisibility(View.VISIBLE);

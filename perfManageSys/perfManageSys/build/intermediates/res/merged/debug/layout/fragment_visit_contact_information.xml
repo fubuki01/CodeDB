@@ -65,6 +65,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:background="@null"
+                android:hint="请输入联系方式"
+                android:textColorHint="@color/font_black_3"
                 android:textColor="@color/font_black_1"
                 android:textSize="15dp" />
 

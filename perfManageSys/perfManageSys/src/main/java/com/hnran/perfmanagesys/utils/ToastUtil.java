@@ -18,8 +18,7 @@ public class ToastUtil {
 		}
 		mToast.show();
 	}
-	
-	
+
 	public static void cancelToast(Context cnt){
 		if(mToast != null){
 			mToast.cancel();

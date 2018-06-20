@@ -167,8 +167,8 @@ public class PerformanceMonthFragment extends BaseFragment{
 
 	protected void initViews(View view, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		TextView tv_title = (TextView) view.findViewById(R.id.tv_common_top_title);
-		tv_title.setText(title);
+//		TextView tv_title = (TextView) view.findViewById(R.id.tv_common_top_title);
+//		tv_title.setText(title);
 
 		tvText = (TextView) view.findViewById(R.id.perf_tv_text);
 

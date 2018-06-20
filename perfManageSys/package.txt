@@ -1,0 +1,5 @@
+Location : tan.keystore
+Password : hnulab
+
+Alias : tt
+Password : hnulab 

@@ -57,6 +57,8 @@ public class PreviewPhotoActivity extends Activity {
             }
         }
     };
+    private String type;
+    private String path;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,8 +86,12 @@ public class PreviewPhotoActivity extends Activity {
 //        byte[] fileImgs = intent.getByteArrayExtra("fileImg");
 //        Bitmap bitmap = BitmapFactory.decodeByteArray(fileImgs, 0, fileImgs.length);
 //        imageView.setImageBitmap(bitmap);
-        String path = intent.getStringExtra("path");
-        itemId = intent.getIntExtra("itemId",-2);
+        path = intent.getStringExtra("path");
+        type = intent.getStringExtra("type");
+        if (type.equals("old")){
+            itemId = intent.getIntExtra("itemId",-2);
+        }
+
         try {
             fis = new FileInputStream(path);
         } catch (FileNotFoundException e) {
@@ -115,7 +121,13 @@ public class PreviewPhotoActivity extends Activity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent();
-            intent.putExtra("itemId",itemId);
+            if (type.equals("old")){
+                //列表中的
+                intent.putExtra("itemId",itemId);
+            }else {
+                //新拍摄的
+                intent.putExtra("path",path);
+            }
             setResult(DELETE_PHOPTO_CODE,intent);
             finish();
         }

@@ -78,10 +78,12 @@ public class FamilyInformationFragment extends BaseFragment implements VisitJudg
     private String khbh;
     //删除弹窗
     private AlertDialog mAlertDialogRecord = null;
+    private String tellId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         khbh = getActivity().getIntent().getStringExtra("Extra_khbh");
+        tellId = getActivity().getIntent().getStringExtra("ghrgh");
         View view = inflater.inflate(R.layout.fragment_visit_family_member, null);
         initViews(view);
         loadData();
@@ -164,7 +166,7 @@ public class FamilyInformationFragment extends BaseFragment implements VisitJudg
             protected Map<String, String> getParams() {
                 //在这里设置需要post的参数
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("visitorId", PMSApplication.gUser.getTellId());
+                map.put("visitorId", tellId);
                 map.put("clientNum",khbh);
                 return map;
             }
@@ -328,7 +330,7 @@ public class FamilyInformationFragment extends BaseFragment implements VisitJudg
                 map.put("credentialType",tv_credentials_type.getText().toString());
                 map.put("relationship",tv_relationship_type.getText().toString());
                 map.put("clientNum",khbh);
-                map.put("visitorId",PMSApplication.gUser.getTellId());
+                map.put("visitorId",tellId);
                 map.put("memberType","1");
                 return map;
             }
@@ -340,16 +342,14 @@ public class FamilyInformationFragment extends BaseFragment implements VisitJudg
      * 删除家庭成员回调
      */
     @Override
-    public void deleteCallBack(int id) {
+    public void deleteCallBack(final int id) {
         /**
          * 删除家庭成员提示对话框
          */
-        final int fid = id;
-
-        if(mAlertDialogRecord!=null){
-            mAlertDialogRecord.show();
-            return;
-        }
+//        if(mAlertDialogRecord!=null){
+//            mAlertDialogRecord.show();
+//            return;
+//        }
         mAlertDialogRecord = new AlertDialog.Builder(getActivity()).create();
         mAlertDialogRecord.setCanceledOnTouchOutside(false);
         mAlertDialogRecord.show();
@@ -367,7 +367,7 @@ public class FamilyInformationFragment extends BaseFragment implements VisitJudg
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteMember(fid);
+                deleteMember(id);
                 mAlertDialogRecord.dismiss();
             }
         });
@@ -375,8 +375,7 @@ public class FamilyInformationFragment extends BaseFragment implements VisitJudg
     /**
      * 删除家庭成员函数
      */
-    private void deleteMember(int id){
-        final int fid = id;
+    private void deleteMember(final int id){
         String url = MakeUrl.makeURL(new String[]{"visitor/BaseInfo/deleteFamilyInfo"});
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -407,7 +406,7 @@ public class FamilyInformationFragment extends BaseFragment implements VisitJudg
             protected Map<String, String> getParams() {
                 //在这里设置需要post的参数
                 Map<String,String> map = new HashMap<String,String>();
-                map.put("id",""+fid);
+                map.put("id",""+id);
                 return map;
             }
         };

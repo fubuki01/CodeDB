@@ -82,7 +82,7 @@
             <TextView
                 android:id="@+id/home_tv_jixiao_2"
                 style="@style/HomeTvCommon"
-                android:text="@string/jixiaogongzi" />
+                android:text="@string/tongjifenxi" />
         </LinearLayout>
         
         

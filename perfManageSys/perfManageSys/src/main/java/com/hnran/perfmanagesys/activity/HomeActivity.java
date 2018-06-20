@@ -13,7 +13,9 @@ import com.hnran.perfmanagesys.adapter.ViewPagerAdapter;
 import com.hnran.perfmanagesys.fragment.home.CustomerFragment;
 import com.hnran.perfmanagesys.fragment.home.MarketFragment;
 import com.hnran.perfmanagesys.fragment.home.PerformanceFragment;
+import com.hnran.perfmanagesys.fragment.home.PerformanceListFragment;
 import com.hnran.perfmanagesys.fragment.home.PerformanceMonthFragment;
+import com.hnran.perfmanagesys.fragment.home.StatisticsFragment;
 import com.hnran.perfmanagesys.fragment.home.WarningFragment;
 import com.hnran.perfmanagesys.service.WebSocketService;
 import com.hnran.perfmanagesys.utils.MakeUrl;
@@ -332,7 +334,7 @@ public class HomeActivity extends FragmentActivity {
 		
 		progressBar.setVisibility(View.GONE);
 		
-		BaseFragment[] fragments = {new CustomerFragment(), new MarketFragment(), new PerformanceFragment(), new PerformanceMonthFragment(), new WarningFragment() };
+		BaseFragment[] fragments = {new CustomerFragment(), new MarketFragment(), new PerformanceListFragment(), new StatisticsFragment(), new WarningFragment() };
 
 		fragmentLists.clear();
 		

@@ -1,4 +1,4 @@
-#Mon Jan 22 15:24:02 CST 2018
+#Tue Jun 12 15:28:05 CST 2018
 base.0=D\:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_4380625870a40734b4af406930c548c177265a16
 renamed.1=classes2.dex
 renamed.0=classes.dex

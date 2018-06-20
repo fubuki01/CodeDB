@@ -29,7 +29,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.hnran.perfmanagesys.R;
 import com.hnran.perfmanagesys.activity.BaseFragment;
 import com.hnran.perfmanagesys.activity.CommonContent;
-import com.hnran.perfmanagesys.activity.PMSApplication;
 import com.hnran.perfmanagesys.adapter.VisitBasicInfoRecodeAdapter;
 import com.hnran.perfmanagesys.adapter.VisitMenuAadapter;
 import com.hnran.perfmanagesys.utils.DensityUtil;
@@ -71,9 +70,12 @@ public class BasicInformationFragment extends BaseFragment implements VisitJudge
     private final static int ERROR = 100002;
     //客户编号
     private String khbh;
+    private String visitorId;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         khbh = getActivity().getIntent().getStringExtra("Extra_khbh");
+        visitorId = getActivity().getIntent().getStringExtra("ghrgh");
         View view = inflater.inflate(R.layout.fragment_visit_basic_information, null);
         initViews(view);
         loadData();
@@ -153,7 +155,7 @@ public class BasicInformationFragment extends BaseFragment implements VisitJudge
             protected Map<String, String> getParams() {
                 //在这里设置需要post的参数
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("visitorId",PMSApplication.gUser.getTellId());
+                map.put("visitorId",visitorId);
                 map.put("clientNum",khbh);
                 return map;
             }
@@ -287,7 +289,7 @@ public class BasicInformationFragment extends BaseFragment implements VisitJudge
                 map.put("gift",et_gift_info.getText().toString());
                 map.put("summery",et_person_summary.getText().toString());
                 map.put("location",mAddress.getText().toString());
-                map.put("visitorId",PMSApplication.gUser.getTellId());
+                map.put("visitorId",visitorId);
                 map.put("clientNum",khbh);
                 map.put("date",(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(new Date()));
                 return map;

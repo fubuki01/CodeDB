@@ -350,7 +350,7 @@ public class MarketAddActivity extends BaseActivity{
 
 	/**
 	 * 点击保存，执行相应的操作，保存对应表单
-	 * @param id
+	 * @param
 	 */
 	public void saveDataState(){
 
@@ -469,25 +469,35 @@ public class MarketAddActivity extends BaseActivity{
 				new Response.Listener<String>() {  
 			@Override  
 			public void onResponse(String response) {  
-				Log.d("TAG", response);  
+				Log.d("TAG", response);
+				if(response.equals("201")){
+					/**
+					 * 发送更新广播
+					 */
+					Intent intent = new Intent();
 
-				/**
-				 * 发送更新广播
-				 */
-				Intent intent = new Intent();
+					if(mUpdateType == MarketCommonFragment.OTHER)
+						intent.putExtra("Extra_update_index", mInsertType);
+					else
+						intent.putExtra("Extra_update_index", mUpdateType);
 
-				if(mUpdateType == MarketCommonFragment.OTHER)
-					intent.putExtra("Extra_update_index", mInsertType);
-				else 
-					intent.putExtra("Extra_update_index", mUpdateType);
+					intent.setAction(UpdateViewReceiver.UPDATE_VIEW);
+					MarketAddActivity.this.sendBroadcast(intent);
 
-				intent.setAction(UpdateViewReceiver.UPDATE_VIEW);
-				MarketAddActivity.this.sendBroadcast(intent);
-
-				ToastUtil.showToast(MarketAddActivity.this, "成功");
-				MarketAddActivity.this.setResult(OPTION_MARKET);
-				MarketAddActivity.this.finish();
-
+					ToastUtil.showToast(MarketAddActivity.this, "保存成功");
+					MarketAddActivity.this.setResult(OPTION_MARKET);
+					MarketAddActivity.this.finish();
+				}
+				else{
+					String res = "";
+					switch (response){
+						case "401" : res = "预约日期必须大于当前日期";break;
+						case "402" : res = "同一机构的同一客户一天只预约一次";break;
+						case "403" : res = "保存失败";break;
+					}
+					MarketAddActivity.this.btnSave.setClickable(true);
+					ToastUtil.showToast(MarketAddActivity.this, res);
+				}
 
 			}  
 		}, new Response.ErrorListener() {  

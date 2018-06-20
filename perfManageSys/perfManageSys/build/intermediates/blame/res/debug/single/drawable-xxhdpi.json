@@ -32,12 +32,12 @@
         "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-xxhdpi\\familyinformation_selected.png"
     },
     {
-        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\ic_edit.png",
-        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-xxhdpi\\ic_edit.png"
-    },
-    {
         "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\ic_account.png",
         "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-xxhdpi\\ic_account.png"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\ic_edit.png",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-xxhdpi\\ic_edit.png"
     },
     {
         "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\basicinformation_selected.png",
@@ -48,12 +48,12 @@
         "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-xxhdpi\\ic_warm.png"
     },
     {
-        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\ic_img_delete.png",
-        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-xxhdpi\\ic_img_delete.png"
-    },
-    {
         "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\market.png",
         "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-xxhdpi\\market.png"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\ic_img_delete.png",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-xxhdpi\\ic_img_delete.png"
     },
     {
         "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\customer_selected.png",
@@ -64,12 +64,12 @@
         "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-xxhdpi\\contactinformation_selected.png"
     },
     {
-        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\ic_load.png",
-        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-xxhdpi\\ic_load.png"
-    },
-    {
         "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\ic_left.png",
         "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-xxhdpi\\ic_left.png"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\ic_load.png",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-xxhdpi\\ic_load.png"
     },
     {
         "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\warning.png",
@@ -84,12 +84,12 @@
         "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-xxhdpi\\otherinformation_selected.png"
     },
     {
-        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\contactinformation.png",
-        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-xxhdpi\\contactinformation.png"
-    },
-    {
         "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\ic_launcher.png",
         "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-xxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\contactinformation.png",
+        "source": "D:\\workspace\\perfManageSys\\perfManageSys\\src\\main\\res\\drawable-xxhdpi\\contactinformation.png"
     },
     {
         "merged": "D:\\workspace\\perfManageSys\\perfManageSys\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi\\ic_password.png",

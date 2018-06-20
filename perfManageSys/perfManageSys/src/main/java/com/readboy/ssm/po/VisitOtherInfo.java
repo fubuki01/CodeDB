@@ -1,5 +1,7 @@
 package com.readboy.ssm.po;
 
+import static android.R.attr.data;
+
 public class VisitOtherInfo {
     private Integer id;
 
@@ -14,6 +16,9 @@ public class VisitOtherInfo {
     private Integer visitorId;
 
     private Integer clientNum;
+
+
+    private boolean downOver = false;//附件文件是否下载完成  默认是false
 
     public Integer getId() {
         return id;
@@ -47,12 +52,12 @@ public class VisitOtherInfo {
         this.fileName = fileName == null ? null : fileName.trim();
     }
 
-    public String getData() {
+    public String getDate() {
         return date;
     }
 
-    public void setData(String data) {
-        this.date = data == null ? null : data.trim();
+    public void setDate(String date) {
+        this.date = date == null ? null : date.trim();
     }
 
     public Integer getVisitorId() {
@@ -69,5 +74,13 @@ public class VisitOtherInfo {
 
     public void setClientNum(Integer clientNum) {
         this.clientNum = clientNum;
+    }
+
+    public boolean isDownOver() {
+        return downOver;
+    }
+
+    public void setDownOver(boolean downOver) {
+        this.downOver = downOver;
     }
 }

@@ -2,32 +2,32 @@
 <instant-run
     abi="arm64-v8a,armeabi-v7a,armeabi"
     api-level="24"
-    density="xhdpi"
+    density="xxhdpi"
     format="8"
     plugin-version="2.2.2"
-    timestamp="19410105352199"
+    timestamp="20158921112439"
     token="-428841051918025214"
     verifier="FULL_BUILD_REQUESTED" >
 
     <task
         name="javac"
-        duration="4170" />
+        duration="14626" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="128" />
+        duration="7812" />
     <task
         name="verifier"
-        duration="4" />
+        duration="2060" />
 
     <artifact
         location="D:\workspace\perfManageSys\perfManageSys\build\outputs\apk\perfManageSys-debug.apk"
         type="MAIN" />
 
     <build
-        timestamp="19410105352199"
+        timestamp="20158921112439"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="D:\workspace\perfManageSys\perfManageSys\build\outputs\apk\perfManageSys-debug.apk"

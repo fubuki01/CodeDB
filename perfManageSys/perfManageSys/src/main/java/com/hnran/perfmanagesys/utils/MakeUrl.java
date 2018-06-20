@@ -13,8 +13,18 @@ public class MakeUrl {
 //	public final static String IP = "39.106.49.154:8080/bank_pm"; //桂东农商行 2017-10-18 版本号1.0.2
 //	public final static String IP = "120.79.26.50:8080/bank_pm"; //2017-11-24
 //	public final static String IP = "222.244.144.166:38080/bank_pm";//测试环境
-		public final static String IP = "192.168.1.110:8080/bank_pm";//本地电脑
-		public final static String IPNUMBER = "192.168.1.110:8080";//本地电脑
+
+//	public final static String IP = "39.108.81.73:8080/bank_pm";//本地电脑
+//	public final static String IPNUMBER = "39.108.81.73:8080";//本地电脑
+
+	public final static String IP = "218.77.105.245:38080/bank_pm";//本地电脑
+	public final static String IPNUMBER = "218.77.105.245:38080";//本地电脑
+
+//	public final static String IP = "175.6.62.8:8081/bank_pm";//本地电脑
+//	public final static String IPNUMBER = "175.6.62.8:8081";//本地电脑
+
+//	public final static String IP = "123.207.87.47:8080/bank_pm";//本地电脑
+//	public final static String IPNUMBER = "123.207.87.47:8080";//本地电脑
 	public final static String URL = "http://" + IP ;
 	public final static String HEAD = URL + "/mobile";
 	
